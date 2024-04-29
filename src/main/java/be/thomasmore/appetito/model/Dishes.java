@@ -19,7 +19,7 @@ public class Dishes {
 
 
     private Integer preparationTime;
-    private String occasion;
+    private String occasion ;
     private String imgFileName;
     @Length(max=10000)
     private String preparation;
