@@ -20,6 +20,26 @@
         <input type="search" name="searchField" class="form-control w-25" id="searchField" >
     <button class="btn btn-primary mt-1">Zoeken</button>
     </form>
+
+    <div class="col-md-9">
+        <div class="products">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${alldishes}">
+                    <div class="card mb-3">
+                        <img th:src="@{/img/{filename}(filename=${dish.getImgFileName()})}" class="card-img-top" alt="dish Image" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 th:text="${dish.name}" class="card-title"></h5>
+                        </div>
+                        <!--                        <div class="col-sm-4 d-grid p-2 m-2">-->
+                        <!--                            <a class="btn btn-primary" href="" role="button">Ontdek</a>-->
+                        <!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 </body>
 </html>
