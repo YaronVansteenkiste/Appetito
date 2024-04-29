@@ -16,13 +16,30 @@ public class Dishes {
 
     private String name;
 
-    private String image;
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Collection<Nutritions> getNutritionsValue() {
+        return nutritionsValue;
+    }
+
+    public void setNutritionsValue(Collection<Nutritions> nutritionsValue) {
+        this.nutritionsValue = nutritionsValue;
+    }
+
+    private String ingredients;
+
+
 
     private String dietPreferences;
 
-    private Date preparationTime;
+    private int preparationTime;
 
-    private Integer calories;
 
     private String occasion;
 
@@ -54,14 +71,6 @@ public class Dishes {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getDietPreferences() {
         return dietPreferences;
     }
@@ -70,21 +79,14 @@ public class Dishes {
         this.dietPreferences = dietPreferences;
     }
 
-    public Date getPreparationTime() {
+    public int getPreparationTime() {
         return preparationTime;
     }
 
-    public void setPreparationTime(Date preparationTime) {
+    public void setPreparationTime(int preparationTime) {
         this.preparationTime = preparationTime;
     }
 
-    public Integer getCalories() {
-        return calories;
-    }
-
-    public void setCalories(Integer calories) {
-        this.calories = calories;
-    }
 
     public String getOccasion() {
         return occasion;
