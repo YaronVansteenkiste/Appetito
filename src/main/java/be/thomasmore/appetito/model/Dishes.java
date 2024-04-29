@@ -15,8 +15,6 @@ public class Dishes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @Length(max=10000)
-    private String ingredients;
     private String dietPreferences;
 
     @Temporal(TemporalType.TIME)
@@ -25,6 +23,9 @@ public class Dishes {
     private String imgFileName;
     @Length(max=10000)
     private String preparation;
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Ingredients> ingredients;
+
     @ManyToMany
     private Collection<Nutritions> nutritionsValue;
 
@@ -64,7 +65,6 @@ public class Dishes {
         this.preparationTime = preparationTime;
     }
 
-
     public String getOccasion() {
         return occasion;
     }
@@ -88,11 +88,12 @@ public class Dishes {
     public void setPreparation(String preparation) {
         this.preparation = preparation;
     }
-    public String getIngredients() {
+
+    public Collection<Ingredients> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(Collection<Ingredients> ingredients) {
         this.ingredients = ingredients;
     }
 
