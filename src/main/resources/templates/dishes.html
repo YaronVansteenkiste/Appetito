@@ -13,8 +13,26 @@
 <body>
 <h6 class="mt-3 ms-2">Home > Recepten > Categorie</h6>
 
+<div class="row">
+    <div class="col-md-2 mt-1 text-center">
+        <h5><strong>VERFIJN OP</strong></h5>
+    </div>
+    <div class="col-md-2 mt-1 ms-3">
+        <h5><strong>Categorie</strong></h5>
+    </div>
+        <div class="col-md-4">
+            <input type="search" class="form-control rounded-pill border-primary" >
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary">Zoeken</button>
+        </div>
+    <div class="col-md-1 mt-1 text-center">
+        <h5><strong>Relevantie</strong></h5>
+    </div>
 
-<div class=" col-md-2 mt-1 text-center">
+</div>
+
+<div class="col-md-2 mt-1 text-center border-top border-primary">
     <h6><strong>Dieet voorkeuren</strong></h6>
     <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="checkboxVegan">
@@ -72,8 +90,11 @@
 </div>
 <div class="text-center border-top border-primary col-md-2 mt-5">
     <h6><strong>Bereidingstijd</strong></h6>
-    <label for="minTime"></label><input type="time" name="minTime" class="form-control border-primary mt-2" id="minTime" value="" th:class="w-100">
-    <label for="maxTime"></label><input type="time" name="maxTime" class="form-control border-primary mt-2" id="maxTime" th:class="w-100">
+    <label for="minTime"></label>
+    <input type="time" name="minTime" class="form-control rounded-pill border-primary mt-2 w-100" id="minTime"
+                                        value="">
+    <label for="maxTime"></label>
+    <input type="time" name="maxTime" class="form-control rounded-pill border-primary mt-2 w-100" id="maxTime">
 </div>
 <div class="text-center border-top border-primary col-md-2 mt-5">
     <h6><strong>Gelegenheid</strong></h6>
@@ -105,11 +126,14 @@
 </div>
 <div class="text-center border-top border-primary col-md-2 mt-5">
     <h6><strong>Calorieën</strong></h6>
-    <input type="number" name="minCarbs" class="form-control border-primary mt-2" id="minCarbs" value="" th:class="w-100">
-    <input type="number" name="maxCarbs" class="form-control border-primary mt-2" id="maxCarbs" th:class="w-100">
+    <input type="number" name="minCarbs" class="form-control rounded-pill border-primary mt-2" id="minCarbs" value=""
+           th:class="w-100">
+    <input type="number" name="maxCarbs" class="form-control rounded-pill border-primary mt-2 mb-2" id="maxCarbs" th:class="w-100">
 </div>
 
-<button type="submit" class="btn btn-primary my-5 text-center ">Filter</button>
 
+<div class="col-md-4 text-center">
+<button type="submit" class="btn btn-primary my-5 ">Filter</button>
+</div>
 </body>
 </html>
