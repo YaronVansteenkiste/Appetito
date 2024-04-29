@@ -1,4 +1,4 @@
-insert into Games( ID, NAME,INGREDIENTS, DIET_PREFERENCES,OCCASION, PREPERATION_TIME,IMG_FILE_NAME,PREPARTION)
+insert into DISHES( ID, NAME,INGREDIENTS, DIET_PREFERENCES,OCCASION, PREPERATION_TIME,IMG_FILE_NAME,PREPARTION)
 values ('vegan lentil stew','40g dried porcini mushrooms, roughly chopped
 200g dried brown lentils
 1 ½ tbsp chopped rosemary

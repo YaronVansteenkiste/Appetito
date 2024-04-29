@@ -13,41 +13,15 @@ public class Dishes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public Collection<Nutritions> getNutritionsValue() {
-        return nutritionsValue;
-    }
-
-    public void setNutritionsValue(Collection<Nutritions> nutritionsValue) {
-        this.nutritionsValue = nutritionsValue;
-    }
-
+    @Length(max=10000)
     private String ingredients;
-
-
-
     private String dietPreferences;
-
     private int preparationTime;
-
-
     private String occasion;
-
     private String imgFileName;
-
     @Length(max=10000)
     private String preparation;
-
     @ManyToMany
     private Collection<Nutritions> nutritionsValue;
 
@@ -110,5 +84,20 @@ public class Dishes {
 
     public void setPreparation(String preparation) {
         this.preparation = preparation;
+    }
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Collection<Nutritions> getNutritionsValue() {
+        return nutritionsValue;
+    }
+
+    public void setNutritionsValue(Collection<Nutritions> nutritionsValue) {
+        this.nutritionsValue = nutritionsValue;
     }
 }
