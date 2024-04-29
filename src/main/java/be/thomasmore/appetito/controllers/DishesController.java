@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DishesController {
     @GetMapping("/dishes")
     public String Home(Model model) {
-
-
         return "dishes";
     }
 
