@@ -1,11 +1,11 @@
 package be.thomasmore.appetito.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Dishes {
@@ -28,21 +28,15 @@ public class Dishes {
 
     private String imgFileName;
 
-    public Dishes(Integer id, String name, String image,
-                  String dietPreferences, Date preparationTime,
-                  Integer calories, String occasion, String imgFileName) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.dietPreferences = dietPreferences;
-        this.preparationTime = preparationTime;
-        this.calories = calories;
-        this.occasion = occasion;
-        this.imgFileName = imgFileName;
-    }
+    @Length(max=10000)
+    private String preparation;
+
+    @ManyToMany
+    private Collection<Nutritions> nutritionsValue;
 
     public Dishes() {
     }
+
 
     public Integer getId() {
         return id;
@@ -106,5 +100,13 @@ public class Dishes {
 
     public void setImgFileName(String imgFileName) {
         this.imgFileName = imgFileName;
+    }
+
+    public String getPreparation() {
+        return preparation;
+    }
+
+    public void setPreparation(String preparation) {
+        this.preparation = preparation;
     }
 }
