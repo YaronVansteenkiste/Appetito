@@ -6,15 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
-    @GetMapping("/")
+public class DishesController {
+    @GetMapping("/dishes")
     public String Home(Model model) {
-        return "home";
-    }
 
-    @GetMapping("/about")
-    public String about(){
-        return "about";
+
+        return "dishes";
     }
 
 
