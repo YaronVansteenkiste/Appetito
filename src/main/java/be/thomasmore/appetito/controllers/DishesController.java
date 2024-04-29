@@ -18,8 +18,8 @@ public class DishesController {
     public String Home(Model model) {
 
         Iterable<Dishes>allDishes= dishesRepository.findAll();
+        model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
-
 
         return "dishes";
     }

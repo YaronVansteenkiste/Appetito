@@ -17,8 +17,8 @@ public class Dishes {
     private String name;
     private String dietPreferences;
 
-    @Temporal(TemporalType.TIME)
-    private Time preparationTime;
+
+    private Integer preparationTime;
     private String occasion;
     private String imgFileName;
     @Length(max=10000)
@@ -57,11 +57,11 @@ public class Dishes {
         this.dietPreferences = dietPreferences;
     }
 
-    public Time getPreparationTime() {
+    public Integer getPreparationTime() {
         return preparationTime;
     }
 
-    public void setPreparationTime(Time preparationTime) {
+    public void setPreparationTime(Integer preparationTime) {
         this.preparationTime = preparationTime;
     }
 
