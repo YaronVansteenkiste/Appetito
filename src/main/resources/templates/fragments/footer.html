@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Title</title>
+</head>
+<body>
+<footer th:fragment="footer" class="bg-light text-center text-lg-start mt-5">
+    <div class="container p-4">
+        <div class="row">
+            <div class="fw-bold">
+                <img th:src="@{/img/Appetito_logo_black.png}" height="100px" alt="Appetito logo">
+                APPETITO
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-12 mb-4 mb-md-0">
+                <p class="">Blijf op de hoogte van onze nieuwste functies en releases door u aan te melden voor onze
+                    nieuwsbrief.</p>
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <div class="form-group d-flex">
+                            <input type="email" class="form-control me-1" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp" placeholder="Jouw e-mail">
+                            <button type="submit" class="btn btn-dark">Abonneren</button>
+                        </div>
+                    </li>
+                    <li>Door u te abonneren, gaat u akkoord met ons privacybeleid en stemt u ermee in om updates van ons
+                        bedrijf te ontvangen.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="#" class="text-dark">Recepten</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-dark">Boodschappen</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-dark">Over Ons</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-dark">Registreren</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-dark">Inloggen</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+                <p class="text-dark mb-1">Straat...</p>
+                <p class="text-dark mb-1">Stad...</p>
+                <p class="text-dark mb-1">Belgie</p>
+                <p class="text-dark mb-1">Telefoonnummer</p>
+                <p class="text-dark mb-1">Contact@email.com</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2024 Copyright:
+        <a class="text-dark" href="https://thomasmore.be/" target="_blank">thomasmore.be</a>
+    </div>
+</footer>
+</body>
+</html>
