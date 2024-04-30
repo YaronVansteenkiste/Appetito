@@ -14,17 +14,15 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(:minPreparationTime is null or d.preparationTime >= :minPreparationTime) and " +
             "(:maxPreparationTime is null or d.preparationTime <= :maxPreparationTime) and " +
             "(:preparation is null or d.preparation = :preparation) and " +
-            "(:occasion is null or d.occasion = :occasion) and " +
-            "(:minCarbs is null or d.nutritionValue >= : minCarbs) and " +
-            "(:maxCarbs is null or d.nutritionValue <= :maxCarbs)")
+            "(:occasion is null or d.occasion = :occasion)")
 
     Iterable<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
                                       @Param("minPreparationTime") Time minPreparationTime,
                                       @Param("maxPreparationTime") Time maxPreparationTime,
                                       @Param("preparation") String preparation,
-                                      @Param("occasion") String occasion,
-                                      @Param("minCarbs") Integer minCarbs,
-                                      @Param("maxCarbs") Integer maxCarbs);
+                                      @Param("occasion") String occasion);
+//                                      @Param("minCarbs") Integer minCarbs,
+//                                      @Param("maxCarbs") Integer maxCarbs);
 
 
     @Query("select d from Dish d where d.name like %?1%")
