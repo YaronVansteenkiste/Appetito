@@ -40,7 +40,9 @@ public class DishesController {
                                @RequestParam(required = false) String minPreparationTimeStr,
                                  @RequestParam(required = false) String maxPreparationTimeStr,
                                @RequestParam(required = false) String preparation,
-                               @RequestParam(required = false) String occasion) {
+                               @RequestParam(required = false) String occasion,
+                               @RequestParam(required = false) Integer minCarbs,
+                               @RequestParam(required = false) Integer maxCarbs) {
         Iterable<Dish>allDishes= dishRepository.findAll();
         String dietPreferenceStr = "";
         String occasionStr = "";
@@ -67,12 +69,14 @@ public class DishesController {
         }
 
         boolean filterEnabled=  true;
-        allDishes = dishRepository.findFilteredDishes(dietPreferences,minPreparationTime, maxPreparationTime,preparation,occasion);
+        allDishes = dishRepository.findFilteredDishes(dietPreferences,minPreparationTime, maxPreparationTime,preparation,occasion,minCarbs,maxCarbs);
         model.addAttribute("dietPreferences",dietPreferenceStr);
         model.addAttribute("minPreparationTime",minPreparationTimeStr);
         model.addAttribute("maxPreparationTime",maxPreparationTimeStr);
         model.addAttribute("preparation",preparation);
         model.addAttribute("occasion",occasionStr);
+        model.addAttribute("minCarbs",minCarbs);
+        model.addAttribute("maxCarbs",maxCarbs);
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
         model.addAttribute("allIngredients",ingredientRepository.findAll());

@@ -25,6 +25,10 @@ VALUES
     ('knoflook (fijngehakt)', 0.25, 'gr', 1),
     ('peterselie (gehakt voor garnering)', 0, NULL, 1),
     ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, 1);
+
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("400 kcal","30 g","4 g","20 g","500 mg","15 g","1 g");
+
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Pasta met zalm en spinazie',
@@ -49,6 +53,10 @@ VALUES
     ('pijnboompitten (geroosterd)', 50, 'gr', 2),
     ('teentjes knoflook', 2, NULL, 2),
     ('olijfolie', 1, 'eetlepel', 2);
+
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("400 kcal","20 g","6 g","30 g","500 mg","8 g","1 g");
+
 INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
 
@@ -73,6 +81,10 @@ VALUES
     ('water', 1000, 'ml', 3),
     ('groente bouillonblokjes', 2, NULL, 3),
     ('kookroom', 200, 'ml', 3);
+
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("100 kcal","5 g","4 g","10 g","600 mg","3 g","1 g");
+
 
 INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -101,6 +113,9 @@ VALUES
     ('peper', 0, 'snuf', 4),
     ('ei', 1, NULL, 4),
     ('pijnboompitten', 2, 'eetlepels', 4);
+
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("150 kcal","6 g","2 g","15 g","200 mg","5 g","1 g");
 
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -133,6 +148,9 @@ VALUES
     ('geraspte kaas (vegan)', 20, 'gram', 5),
     ('peper en zout', 0, 'snuf', 5);
 
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("250 kcal","10 g","3 g","30 g","200 mg","5 g","3 g");
+
 INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Snelle cranberry compote',
@@ -161,6 +179,9 @@ VALUES
     ('kaneel', 1, 'snuf', 6),
     ('witte basterdsuiker', 75, 'gr', 6);
 
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("40 kcal","0.5 g","2 g","10 g","50 mg","0.1 g","8 g");
+
 INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Snicker bliss balls',
@@ -184,6 +205,9 @@ VALUES
     ('cacao poeder', 3, 'theelepels', 7),
     ('maple syrup', 2, 'eetlepels', 7),
     ('zout', 1, 'snuf', 7);
+
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("150 kcal","6 g","3 g","15 g","50 mg","4 g","10 g");
 
 INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -213,6 +237,8 @@ VALUES
     ('gebakken uitjes', 0, NULL, 8),
     ('bosui', 0, NULL, 8);
 
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("300 kcal","20 g","3 g","20 g","800 mg","10 g","15 g");
 
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -236,6 +262,21 @@ VALUES
     ('banaan', 1, NULL, 9),
     ('blauwe bessen', 200, 'gr', 9),
     ('hennepzaad', 2, 'eetlepels', 9);
+
+INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
+VALUES("200 kcal","5 g","2 g","30 g","80 mg","4 g","20 g");
+
+
+INSERT INTO DISH_NUTRITION_VALUE(DISHES_ID,NUTRITION_VALUE_ID)
+VALUES (1,1);
+VALUES (2,2);
+VALUES (3,3);
+VALUES (4,4);
+VALUES (5,5);
+VALUES (6,6);
+VALUES (7,7);
+VALUES (8,8);
+VALUES (9,9);
 
 
 
