@@ -1,6 +1,6 @@
 package be.thomasmore.appetito.controllers;
 
-import be.thomasmore.appetito.model.Dishes;
+import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.repositories.DishesRepository;
 import be.thomasmore.appetito.repositories.IngredientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class DishesController {
     @GetMapping("/dishes")
     public String Home(Model model) {
 
-        Iterable<Dishes>allDishes= dishesRepository.findAll();
+        Iterable<Dish>allDishes= dishesRepository.findAll();
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
 
@@ -27,7 +27,7 @@ public class DishesController {
 
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model) {
-        Iterable<Dishes>allDishes= dishesRepository.findAll();
+        Iterable<Dish>allDishes= dishesRepository.findAll();
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
         model.addAttribute("allIngredients",ingredientsRepository.findAll());

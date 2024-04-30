@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Nutritions {
+public class Nutrition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +18,7 @@ public class Nutritions {
     private String carbs;
     private String proteins;
 
-    public Nutritions() {
+    public Nutrition() {
     }
 
 
@@ -30,14 +30,14 @@ public class Nutritions {
         return id;
     }
 
-    @ManyToMany(mappedBy = "nutritionsValue")
-    private Collection<Dishes> dishes;
+    @ManyToMany(mappedBy = "nutritionValue")
+    private Collection<Dish> dishes;
 
-    public Collection<Dishes> getDishes() {
+    public Collection<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(Collection<Dishes> dishes) {
+    public void setDishes(Collection<Dish> dishes) {
         this.dishes = dishes;
     }
 

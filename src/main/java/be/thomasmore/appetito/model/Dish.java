@@ -3,13 +3,10 @@ package be.thomasmore.appetito.model;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
-import java.sql.Time;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 @Entity
-public class Dishes {
+public class Dish {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +21,12 @@ public class Dishes {
     @Length(max=10000)
     private String preparation;
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<Ingredients> ingredients;
+    private Collection<Ingredient> ingredients;
 
     @ManyToMany
-    private Collection<Nutritions> nutritionsValue;
+    private Collection<Nutrition> nutritionValue;
 
-    public Dishes() {
+    public Dish() {
     }
 
 
@@ -89,19 +86,19 @@ public class Dishes {
         this.preparation = preparation;
     }
 
-    public Collection<Ingredients> getIngredients() {
+    public Collection<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Collection<Ingredients> ingredients) {
+    public void setIngredients(Collection<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public Collection<Nutritions> getNutritionsValue() {
-        return nutritionsValue;
+    public Collection<Nutrition> getNutritionValue() {
+        return nutritionValue;
     }
 
-    public void setNutritionsValue(Collection<Nutritions> nutritionsValue) {
-        this.nutritionsValue = nutritionsValue;
+    public void setNutritionValue(Collection<Nutrition> nutritionValue) {
+        this.nutritionValue = nutritionValue;
     }
 }

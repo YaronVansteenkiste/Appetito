@@ -2,10 +2,8 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
-
 @Entity
-public class Ingredients {
+public class Ingredient {
 
 
 
@@ -20,10 +18,10 @@ public class Ingredients {
 
     @ManyToOne
     @JoinColumn(name = "dish_id")
-    private Dishes dish;
+    private Dish dish;
 
 
-    public Ingredients() {
+    public Ingredient() {
     }
 
     public Integer getId() {
@@ -58,11 +56,11 @@ public class Ingredients {
         this.unit = unit;
     }
 
-    public Dishes getDish() {
+    public Dish getDish() {
         return dish;
     }
 
-    public void setDish(Dishes dish) {
+    public void setDish(Dish dish) {
         this.dish = dish;
     }
 }
