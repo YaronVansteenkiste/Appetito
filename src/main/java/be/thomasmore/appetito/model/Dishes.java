@@ -3,6 +3,7 @@ package be.thomasmore.appetito.model;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
+import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -13,40 +14,17 @@ public class Dishes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
-
-    public String getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public Collection<Nutritions> getNutritionsValue() {
-        return nutritionsValue;
-    }
-
-    public void setNutritionsValue(Collection<Nutritions> nutritionsValue) {
-        this.nutritionsValue = nutritionsValue;
-    }
-
-    private String ingredients;
-
-
-
     private String dietPreferences;
 
-    private int preparationTime;
 
-
-    private String occasion;
-
+    private Integer preparationTime;
+    private String occasion ;
     private String imgFileName;
-
     @Length(max=10000)
     private String preparation;
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Ingredients> ingredients;
 
     @ManyToMany
     private Collection<Nutritions> nutritionsValue;
@@ -79,14 +57,13 @@ public class Dishes {
         this.dietPreferences = dietPreferences;
     }
 
-    public int getPreparationTime() {
+    public Integer getPreparationTime() {
         return preparationTime;
     }
 
-    public void setPreparationTime(int preparationTime) {
+    public void setPreparationTime(Integer preparationTime) {
         this.preparationTime = preparationTime;
     }
-
 
     public String getOccasion() {
         return occasion;
@@ -110,5 +87,21 @@ public class Dishes {
 
     public void setPreparation(String preparation) {
         this.preparation = preparation;
+    }
+
+    public Collection<Ingredients> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Collection<Ingredients> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Collection<Nutritions> getNutritionsValue() {
+        return nutritionsValue;
+    }
+
+    public void setNutritionsValue(Collection<Nutritions> nutritionsValue) {
+        this.nutritionsValue = nutritionsValue;
     }
 }
