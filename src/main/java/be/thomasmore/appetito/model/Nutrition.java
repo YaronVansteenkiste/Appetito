@@ -30,8 +30,7 @@ public class Nutrition {
         return id;
     }
 
-    @ManyToMany(mappedBy = "nutritionValue")
-    private Collection<Dish> dishes;
+
 
     public Collection<Dish> getDishes() {
         return dishes;
@@ -96,4 +95,7 @@ public class Nutrition {
     public void setProteins(String proteins) {
         this.proteins = proteins;
     }
+
+    @ManyToMany(mappedBy = "nutritions")
+    private Collection<Dish> dishes;
 }

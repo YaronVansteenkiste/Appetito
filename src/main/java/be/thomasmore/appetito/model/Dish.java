@@ -25,7 +25,7 @@ public class Dish {
     private Collection<Ingredient> ingredients;
 
     @ManyToMany
-    private Collection<Nutrition> nutritionValue;
+    private Collection<Nutrition> nutritions;
 
     public Dish() {
     }
@@ -88,13 +88,6 @@ public class Dish {
         this.ingredients = ingredients;
     }
 
-    public Collection<Nutrition> getNutritionValue() {
-        return nutritionValue;
-    }
-
-    public void setNutritionValue(Collection<Nutrition> nutritionValue) {
-        this.nutritionValue = nutritionValue;
-    }
 
     public Time getPreparationTime() {
         return preparationTime;
@@ -102,5 +95,13 @@ public class Dish {
 
     public void setPreparationTime(Time preparationTime) {
         this.preparationTime = preparationTime;
+    }
+
+    public Collection<Nutrition> getNutritions() {
+        return nutritions;
+    }
+
+    public void setNutritions(Collection<Nutrition> nutritions) {
+        this.nutritions = nutritions;
     }
 }
