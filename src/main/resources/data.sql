@@ -1,4 +1,4 @@
-INSERT INTO DISHES (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'pasta alfredo met kip',
            'paleo',
@@ -15,7 +15,7 @@ VALUES (
                '8. Sandra’s tip: Voor een extra portie groen kun je deze heerlijke pasta alfredo serveren met gestoomde broccoli of erwtjes. Zo krijg je meteen je dagelijkse portie groenten binnen!'
        );
 
-INSERT INTO Ingredients (name, quantity, unit, dish_id)
+INSERT INTO Ingredient (name, quantity, unit, dish_id)
 VALUES
     ('fettuccine', 75, 'gr', 1),
     ('roomboter', 22.5, 'gr', 1),
@@ -25,7 +25,7 @@ VALUES
     ('knoflook (fijngehakt)', 0.25, 'gr', 1),
     ('peterselie (gehakt voor garnering)', 0, NULL, 1),
     ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, 1);
-INSERT INTO DISHES (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Pasta met zalm en spinazie',
            'paleo',
@@ -37,7 +37,7 @@ VALUES (
                '3. Halveer de tomaatjes en meng deze met de zalm en spinazie. Verwarm een paar minuten door en voeg dan de tagliatelle toe. Mix alles door elkaar en schep op borden. Bestrooi met geroosterde pijnboompitten.'
        );
 
-INSERT INTO INGREDIENTS (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('tagliatelle', 350, 'gr', 2),
     ('kookroom (light)', 350, 'ml', 2),
@@ -49,7 +49,7 @@ VALUES
     ('pijnboompitten (geroosterd)', 50, 'gr', 2),
     ('teentjes knoflook', 2, NULL, 2),
     ('olijfolie', 1, 'eetlepel', 2);
-INSERT INTO DISHES ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
 
            'Spinaziesoep',
@@ -64,7 +64,7 @@ VALUES (
                '6. Serveer de soep in borden of kommen en garneer eventueel met wat extra room, pijnboompitten en waterkers.'
        );
 
-INSERT INTO INGREDIENTS (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('gehakte spinazie (ontdooid)', 450, 'gr', 3),
     ('boter of margarine', 2, 'eetlepels', 3),
@@ -74,7 +74,7 @@ VALUES
     ('groente bouillonblokjes', 2, NULL, 3),
     ('kookroom', 200, 'ml', 3);
 
-INSERT INTO DISHES ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Spinazie feta bladerdeegrolletjes',
            'vegetarisch',
@@ -93,7 +93,7 @@ VALUES (
                '11. Bak de rolletjes 15 tot 20 minuten in de oven totdat ze goudbruin zijn.'
        );
 
-INSERT INTO INGREDIENTS (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('vers bladerdeeg', 0, NULL, 4),
     ('feta', 200, 'gr', 4),
@@ -102,7 +102,7 @@ VALUES
     ('ei', 1, NULL, 4),
     ('pijnboompitten', 2, 'eetlepels', 4);
 
-INSERT INTO DISHES (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Glutenvrije pizza',
            'glutenvrij',
@@ -119,7 +119,7 @@ VALUES (
        );
 
 
-INSERT INTO INGREDIENTS (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5),
     ('olijfolie', 0, 'scheutje', 5),
@@ -133,7 +133,7 @@ VALUES
     ('geraspte kaas (vegan)', 20, 'gram', 5),
     ('peper en zout', 0, 'snuf', 5);
 
-INSERT INTO DISHES(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Snelle cranberry compote',
            'vegan',
@@ -148,7 +148,7 @@ VALUES (
        );
 
 
-INSERT INTO INGREDIENTS (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('verse cranberries', 250, 'gr', 6),
     ('balsamico azijn', 2, 'eetlepels', 6),
@@ -161,7 +161,7 @@ VALUES
     ('kaneel', 1, 'snuf', 6),
     ('witte basterdsuiker', 75, 'gr', 6);
 
-INSERT INTO DISHES(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Snicker bliss balls',
            'dessert',
@@ -176,7 +176,7 @@ VALUES (
                '6. Maak met je handen balletjes van het mengsel.\n'
                '7. Bewaar de balletjes het beste in de koelkast.'
        );
-INSERT INTO INGREDIENTS(NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('pindakaas', 2, 'eetlepels', 7),
     ('dadels', 13, NULL, 7),
@@ -185,7 +185,7 @@ VALUES
     ('maple syrup', 2, 'eetlepels', 7),
     ('zout', 1, 'snuf', 7);
 
-INSERT INTO DISHES(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Babi ketjap spiezen',
            'keto',
@@ -200,7 +200,7 @@ VALUES (
        );
 
 
-INSERT INTO INGREDIENTS(NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('varkenslappen', 400, 'gr', 8),
     ('sjalotje', 1, NULL, 8),
@@ -214,7 +214,7 @@ VALUES
     ('bosui', 0, NULL, 8);
 
 
-INSERT INTO DISHES (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
            'Yoghurt met fruit ontbijt',
            'vegetarisch',
@@ -228,7 +228,7 @@ VALUES (
            '5. Garneer met hennepzaad.\n'
        );
 
-INSERT INTO INGREDIENTS (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES
     ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9),
     ('granola', 40, 'gr', 9),
