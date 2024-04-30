@@ -9,7 +9,42 @@
     <title>About</title>
 </head>
 <body>
-<h1>About Appetito</h1>
 
+    <h1 th:replace="~{fragments/header :: header}"></h1>
+    <h6 class="mt-3 ms-2">Home > Over Ons</h6>
+        <h2>About Appetito</h2>
+
+    <div class="row">
+        <article class="text-center">
+            <img th:src="@{/img/Appetito_logo.png}">
+            <p class="text-primary">Appetito</p>
+        </article>
+    </div>
+
+    <main class="container">
+        <div class="row">
+            <p>
+                Welkom bij Appetito! Bij ons draait alles om het delen van liefde voor eten
+                en het creëren van een levendige gemeenschap van thuiskoks en culinaire
+                enthousiastelingen. <br>
+                Onze passie voor lekker eten begon jaren geleden,
+                geïnspireerd door de geuren en smaken van thuisgekookte maaltijden.
+                Diezelfde liefde voor authentieke smaken en het delen van recepten vormt vandaag
+                de basis van Appetito. <br> Bij Appetito draait het niet om professionele chefs,
+                maar om jou, onze gewaardeerde community.
+                Of je nu een ervaren thuiskok bent die zijn favoriete recepten wil
+                delen of iemand die graag nieuwe ingrediënten en gerechten ontdekt,
+                bij Appetito ben je aan het juiste adres. <br>
+                Op onze website moedigen we iedereen aan om hun culinaire creaties te delen,
+                recepten uit te wisselen en elkaar te inspireren. Of je nu een simpele salade
+                of een uitgebreid driegangendiner hebt bereid, we geloven dat elk gerecht het
+                waard is om gedeeld te worden. <br> Bedankt dat je deel uitmaakt van
+                de Appetito-gemeenschap. Laten we samen genieten van de veelzijdigheid en
+                de verrukkingen van de culinaire wereld! <br> Eet smakelijk,
+                Het team van Appetito
+            </p>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
