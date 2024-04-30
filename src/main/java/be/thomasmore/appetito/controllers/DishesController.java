@@ -31,6 +31,6 @@ public class DishesController {
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
         model.addAttribute("allIngredients",ingredientsRepository.findAll());
-        return "dishesFilter";
+        return "dishes";
     }
 }
