@@ -14,7 +14,7 @@ public class DishesController {
     @Autowired
     DishRepository dishRepository;
     @Autowired
-    IngredientsRepository ingredientsRepository;
+    IngredientRepository ingredientRepository;
     @GetMapping("/dishes")
     public String Home(Model model) {
 
