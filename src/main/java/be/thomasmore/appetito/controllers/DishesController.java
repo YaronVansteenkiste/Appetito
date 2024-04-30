@@ -46,7 +46,7 @@ public class DishesController {
         model.addAttribute("occasion",occasion);
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
-        model.addAttribute("allIngredients",ingredientsRepository.findAll());
+        model.addAttribute("allIngredients",ingredientRepository.findAll());
         return "dishes";
     }
 
