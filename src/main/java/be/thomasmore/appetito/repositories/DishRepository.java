@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Time;
+
 public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     @Query("select d from Dish d where (:dietPreferences is null or d.dietPreferences = :dietPreferences) and " +
@@ -13,8 +15,8 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(:preparation is null or d.preparation = :preparation) and " +
             "(:occasion is null or d.occasion = :occasion)")
     Iterable<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
-                                      @Param("minPreparationTime") String minPreparationTime,
-                                        @Param("maxPreparationTime") String maxPreparationTime,
+                                      @Param("minPreparationTime") Time minPreparationTime,
+                                        @Param("maxPreparationTime") Time maxPreparationTime,
                                       @Param("preparation") String preparation,
                                       @Param("occasion") String occasion);
 

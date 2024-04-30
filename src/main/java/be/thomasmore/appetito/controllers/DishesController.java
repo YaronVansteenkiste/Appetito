@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Time;
+
 @Controller
 public class DishesController {
     @Autowired
@@ -35,18 +37,42 @@ public class DishesController {
 
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model, @RequestParam(required = false) String dietPreferences,
-                               @RequestParam(required = false) String minPreparationTime,
-                                 @RequestParam(required = false) String maxPreparationTime,
+                               @RequestParam(required = false) String minPreparationTimeStr,
+                                 @RequestParam(required = false) String maxPreparationTimeStr,
                                @RequestParam(required = false) String preparation,
                                @RequestParam(required = false) String occasion) {
         Iterable<Dish>allDishes= dishRepository.findAll();
+        String dietPreferenceStr = "";
+        String occasionStr = "";
+        if(dietPreferences != null){
+            dietPreferenceStr = dietPreferences;
+        }
+        if(occasion != null){
+            occasionStr = occasion;
+        }
+
+        Time minPreparationTime = null;
+        Time maxPreparationTime = null;
+
+        if (minPreparationTimeStr != null) {
+            if (!minPreparationTimeStr.isEmpty()) {
+                minPreparationTime = Time.valueOf(minPreparationTimeStr);
+            }
+        }
+
+        if (maxPreparationTimeStr != null) {
+            if (!maxPreparationTimeStr.isEmpty()) {
+                maxPreparationTime = Time.valueOf(maxPreparationTimeStr);
+            }
+        }
+
         boolean filterEnabled=  true;
         allDishes = dishRepository.findFilteredDishes(dietPreferences,minPreparationTime, maxPreparationTime,preparation,occasion);
-        model.addAttribute("dietPreferences",dietPreferences);
-        model.addAttribute("minPreparationTime",minPreparationTime);
-        model.addAttribute("maxPreparationTime",maxPreparationTime);
+        model.addAttribute("dietPreferences",dietPreferenceStr);
+        model.addAttribute("minPreparationTime",minPreparationTimeStr);
+        model.addAttribute("maxPreparationTime",maxPreparationTimeStr);
         model.addAttribute("preparation",preparation);
-        model.addAttribute("occasion",occasion);
+        model.addAttribute("occasion",occasionStr);
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
         model.addAttribute("allIngredients",ingredientRepository.findAll());
