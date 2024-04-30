@@ -43,31 +43,31 @@
 
                 <h6><strong>Dieet voorkeuren</strong></h6>
                 <div class="form-check">
-                    <input class="form-check-input" name="dietPreferences" type="checkbox" value="vegan"
+                    <input th:checked="${dietPreferences.contains('vegan')}" class="form-check-input" name="dietPreferences" type="checkbox" value="vegan"
                            id="dietPreferencesVegan">
                     <label class="form-check-label" for="dietPreferencesVegan"> Vegan
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" name="dietPreferences" type="checkbox" value="vegetarisch"
+                    <input th:checked="${dietPreferences.contains('vegetarisch')}" class="form-check-input" name="dietPreferences" type="checkbox" value="vegetarisch"
                            id="dietPreferencesVegetarisch">
                     <label class="form-check-label" for="dietPreferencesVegetarisch"> Vegetarisch
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" name="dietPreferences" type="checkbox" value="glutenvrij"
+                    <input th:checked="${dietPreferences.contains('glutenvrij')}" class="form-check-input" name="dietPreferences" type="checkbox" value="glutenvrij"
                            id="dietPreferencesGlutenvrij">
                     <label class="form-check-label" for="dietPreferencesGlutenvrij"> Glutenvrij
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" name="dietPreferences" type="checkbox" value="paleo"
+                    <input th:checked="${dietPreferences.contains('paleo')}" class="form-check-input" name="dietPreferences" type="checkbox" value="paleo"
                            id="dietPreferencesPaleo">
                     <label class="form-check-label" for="dietPreferencesPaleo"> Paleo
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" name="dietPreferences" type="checkbox" value="keto"
+                    <input th:checked="${dietPreferences.contains('keto')}" class="form-check-input" name="dietPreferences" type="checkbox" value="keto"
                            id="dietPreferencesKeto">
                     <label class="form-check-label" for="dietPreferencesKeto"> Keto
                     </label>
@@ -101,35 +101,35 @@
                 <!--                </div>-->
                 <h6><strong>Bereidingstijd</strong></h6>
                 <label for="minPreperationTime"></label>
-                <input type="time" name="minPreperationTime" class="form-control" id="minPreperationTime" value=""
+                <input type="time" name="minPreparationTimeStr" class="form-control" id="minPreparationTimeStr"
                        th:value="${minPreparationTime}" step="1">
-                <label for="maxPreperationTime"></label>
-                <input type="time" name="maxPreperationTime"
-                       class="form-control" id="maxPreperationTime" th:value="${maxPreparationTime}" step="1">
+                <label for="maxPreparationTimeStr"></label>
+                <input type="time" name="maxPreparationTimeStr"
+                       class="form-control" id="maxPreparationTimeStr" th:value="${maxPreparationTime}" step="1">
                 <h6><strong>Gelegenheid</strong></h6>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="occasion" value="ontbijt" id="occasionBreakfast">
+                    <input th:checked="${occasion.contains('ontbijt')}" class="form-check-input" type="checkbox" name="occasion" value="ontbijt" id="occasionBreakfast">
                     <label class="form-check-label" for="occasionBreakfast"> Ontbijt
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkboxLunch">
-                    <label class="form-check-label" for="checkboxLunch"> Middagmaal
+                    <input th:checked="${occasion.contains('middagmaal')}" class="form-check-input" type="checkbox"  name="occasion" value="middagmaal" id="occasionLunch">
+                    <label class="form-check-label" for="occasionLunch"> Middagmaal
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkboxSnacks">
-                    <label class="form-check-label" for="checkboxSnacks"> Snacks
+                    <input th:checked="${occasion.contains('snacks')}" class="form-check-input" type="checkbox" name="occasion" value="snacks" id="occasionSnacks">
+                    <label class="form-check-label" for="occasionSnacks"> Snacks
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkboxDinner">
-                    <label class="form-check-label" for="checkboxDinner"> Avondmaal
+                    <input th:checked="${occasion.contains('avondmaal')}" class="form-check-input" type="checkbox"  name="occasion" value="avondmaal" id="occasionDinner">
+                    <label class="form-check-label" for="occasionDinner"> Avondmaal
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkboxDessert">
-                    <label class="form-check-label" for="checkboxDessert"> Dessert
+                    <input th:checked="${occasion.contains('dessert')}" class="form-check-input" type="checkbox" name="occasion" value="dessert" id="occasionDessert">
+                    <label class="form-check-label" for="occasionDessert"> Dessert
                     </label>
                 </div>
 <!--                <h6><strong>Calorieën</strong></h6>-->
