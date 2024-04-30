@@ -12,11 +12,42 @@
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
 
-    <main class="row">
-        <div th:if="${dish}">
-            <h2 th:text="${dish.name}">Dish Name</h2>
+<h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > ' + ${dish.name}"></h6>
+
+    <main class="container">
+        <div class="row">
+            <div th:if="${dish}">
+                <h2 th:text="${dish.name}">Dish Name</h2>
+
+                <h4>Gelegenheid</h4>
+                <p th:text="${dish.occasion}"></p>
+
+                <h4>Dieet</h4>
+                <p th:text="${dish.dietPreferences}"></p>
+
+                <h4>Bereidingstijd</h4>
+                <p th:text="${dish.preparationTime}"></p>
+            </div>
         </div>
     </main>
+
+    <div class="container">
+        <div class="row">
+            <div>
+                <h4>Ingrediënten</h4>
+                <p>Moet efkes denken</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div>
+                <h4>Bereiding</h4>
+                <p th:text="${dish.preparation}"></p>
+            </div>
+        </div>
+    </div>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
