@@ -35,14 +35,16 @@ public class DishesController {
 
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model, @RequestParam(required = false) String dietPreferences,
-                               @RequestParam(required = false) Integer preparationTime,
+                               @RequestParam(required = false) String minPreparationTime,
+                                 @RequestParam(required = false) String maxPreparationTime,
                                @RequestParam(required = false) String preparation,
                                @RequestParam(required = false) String occasion) {
         Iterable<Dish>allDishes= dishRepository.findAll();
         boolean filterEnabled=  true;
-        allDishes = dishRepository.findFilteredDishes(dietPreferences,preparationTime,preparation,occasion);
+        allDishes = dishRepository.findFilteredDishes(dietPreferences,minPreparationTime, maxPreparationTime,preparation,occasion);
         model.addAttribute("dietPreferences",dietPreferences);
-        model.addAttribute("preparationTime",preparationTime);
+        model.addAttribute("minPreparationTime",minPreparationTime);
+        model.addAttribute("maxPreparationTime",maxPreparationTime);
         model.addAttribute("preparation",preparation);
         model.addAttribute("occasion",occasion);
         model.addAttribute("count",allDishes.spliterator().estimateSize());

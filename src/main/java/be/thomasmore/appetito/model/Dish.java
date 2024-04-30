@@ -3,6 +3,7 @@ package be.thomasmore.appetito.model;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
+import java.sql.Time;
 import java.util.Collection;
 
 @Entity
@@ -14,8 +15,8 @@ public class Dish {
     private String name;
     private String dietPreferences;
 
-
-    private Integer preparationTime;
+    @Temporal(TemporalType.TIME)
+    private Time preparationTime;
     private String occasion ;
     private String imgFileName;
     @Length(max=10000)
@@ -54,13 +55,6 @@ public class Dish {
         this.dietPreferences = dietPreferences;
     }
 
-    public Integer getPreparationTime() {
-        return preparationTime;
-    }
-
-    public void setPreparationTime(Integer preparationTime) {
-        this.preparationTime = preparationTime;
-    }
 
     public String getOccasion() {
         return occasion;
@@ -100,5 +94,13 @@ public class Dish {
 
     public void setNutritionValue(Collection<Nutrition> nutritionValue) {
         this.nutritionValue = nutritionValue;
+    }
+
+    public Time getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(Time preparationTime) {
+        this.preparationTime = preparationTime;
     }
 }

@@ -2,7 +2,7 @@ INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_N
 VALUES (
            'pasta alfredo met kip',
            'paleo',
-           20,
+           '00:20:00',
            'avondmaal',
            'pasta_alfredo.jpg',
            '1. Begin met het koken van de fettuccine volgens de aanwijzingen op de verpakking. Vergeet niet een kopje van het kookvocht te bewaren voordat je de pasta afgiet.'
@@ -29,7 +29,7 @@ INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_N
 VALUES (
            'Pasta met zalm en spinazie',
            'paleo',
-           30,
+           '00:30:00',
            'avondeten',
            'pasta_zalm.jpg',
            '1. Kook de pasta volgens verpakking beetgaar. Snipper ondertussen de ui en de teentjes knoflook fijn. Bak deze glazig in een grote hapjes of wokpan in een eetlepel olie.'
@@ -54,7 +54,7 @@ VALUES (
 
            'Spinaziesoep',
            'vegetarisch',
-           20,
+           '00:20:00',
            'avondmaal','spinaziesoep.jpg',
            '1. Snijd de ui fijn en bak in een pan met boter glazig.'
                '2. Snijd de aardappel in blokjes. Voeg de aardappel en ontdooide spinazie toe aan de ui.'
@@ -78,7 +78,7 @@ INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_
 VALUES (
            'Spinazie feta bladerdeegrolletjes',
            'vegetarisch',
-           25,
+           '00:25:00',
            'snacks','spinaziebladerdeeg.jpg',
            '1. Verwarm de oven voor op 200° graden.\n'
                '2. Bak de spinazie in een grote pan tot deze geslonken is. Je kunt ook eventueel spinazie uit de diepvries ontdooien.'
@@ -106,7 +106,7 @@ INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_N
 VALUES (
            'Glutenvrije pizza',
            'glutenvrij',
-           10,
+           '00:10:00',
            'middagmaal',
            'glutenvrije_pizza.jpg',
            '1. Verwarm de oven voor op 225° graden.'
@@ -137,7 +137,7 @@ INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NA
 VALUES (
            'Snelle cranberry compote',
            'vegan',
-           20,
+           '00:20:00',
            'dessert',
            'cranberry_compote.jpg',
            '1. Verwarm het sinaasappelsap met de basterdsuiker in een pannetje.'
@@ -165,7 +165,7 @@ INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NA
 VALUES (
            'Snicker bliss balls',
            'dessert',
-           10,
+           '00:10:00',
            'snack',
            'snicker_balls.jpg',
            '1. Als de dadels hard zijn, laat je ze even weken in een schaal met water. Als ze goed zacht zijn, is dit niet nodig.'
@@ -189,7 +189,7 @@ INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NA
 VALUES (
            'Babi ketjap spiezen',
            'keto',
-           50,
+           '00:50:00',
            'avondmaal',
            'babi_ketjap_spiezen.jpg',
            '1. Snijd de varkenslappen in stukken en bestrooi met gemalen korianderzaad en gemalen gember. Voeg een scheutje ketjap toe en schep door elkaar. Laat minimaal een half uur marineren.'
@@ -218,7 +218,7 @@ INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_N
 VALUES (
            'Yoghurt met fruit ontbijt',
            'vegetarisch',
-           5,
+           '00:05:00',
            'ontbijt',
            'yoghurt_granola_ontbijt.jpg',
            '1. Schep de Griekse yoghurt (of plantaardige yoghurt) in een kom.\n'

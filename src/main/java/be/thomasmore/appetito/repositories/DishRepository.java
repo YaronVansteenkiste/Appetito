@@ -6,10 +6,17 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
-    @Query("select d from Dish d where (:dietPreferences is null or d.dietPreferences like %:dietPreferences%) " +
-            "and (:preparationTime is null or d.preparationTime <= :preparationTime) and (:preparation is null or d.preparation " +
-            "like %:preparation%) and (:occasion is null or d.occasion like %:occasion%)")
-    Iterable<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences, @Param("preparationTime") Integer preparationTime, @Param("preparation") String preparation, @Param("occasion") String occasion);
+
+    @Query("select d from Dish d where (:dietPreferences is null or d.dietPreferences = :dietPreferences) and " +
+            "(:minPreparationTime is null or d.preparationTime >= :minPreparationTime) and " +
+            "(:maxPreparationTime is null or d.preparationTime <= :maxPreparationTime) and " +
+            "(:preparation is null or d.preparation = :preparation) and " +
+            "(:occasion is null or d.occasion = :occasion)")
+    Iterable<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
+                                      @Param("minPreparationTime") String minPreparationTime,
+                                        @Param("maxPreparationTime") String maxPreparationTime,
+                                      @Param("preparation") String preparation,
+                                      @Param("occasion") String occasion);
 
 
     @Query("select d from Dish d where d.name like %?1%")
