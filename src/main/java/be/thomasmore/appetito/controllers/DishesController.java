@@ -17,11 +17,11 @@ public class DishesController {
     IngredientRepository ingredientRepository;
     @GetMapping("/dishes")
     public String Home(Model model) {
-
+        boolean filterEnabled = false;
         Iterable<Dish>allDishes= dishRepository.findAll();
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
-
+        model.addAttribute("filterEnabled",filterEnabled);
         return "dishes";
     }
 
@@ -39,6 +39,7 @@ public class DishesController {
                                @RequestParam(required = false) String preparation,
                                @RequestParam(required = false) String occasion) {
         Iterable<Dish>allDishes= dishRepository.findAll();
+        boolean filterEnabled=  true;
         allDishes = dishRepository.findFilteredDishes(dietPreferences,preparationTime,preparation,occasion);
         model.addAttribute("dietPreferences",dietPreferences);
         model.addAttribute("preparationTime",preparationTime);
@@ -47,6 +48,7 @@ public class DishesController {
         model.addAttribute("count",allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes",allDishes);
         model.addAttribute("allIngredients",ingredientRepository.findAll());
+        model.addAttribute("filterEnabled",filterEnabled);
         return "dishes";
     }
 
