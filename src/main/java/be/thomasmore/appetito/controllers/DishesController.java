@@ -69,7 +69,7 @@ public class DishesController {
         }
 
         boolean filterEnabled=  true;
-        allDishes = dishRepository.findFilteredDishes(dietPreferences,minPreparationTime, maxPreparationTime,preparation,occasion);
+        allDishes = dishRepository.findFilteredDishes(dietPreferences,minPreparationTime, maxPreparationTime,preparation,occasion, minCarbs, maxCarbs);
         model.addAttribute("dietPreferences",dietPreferenceStr);
         model.addAttribute("minPreparationTime",minPreparationTimeStr);
         model.addAttribute("maxPreparationTime",maxPreparationTimeStr);
