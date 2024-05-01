@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Time;
+import java.util.logging.Logger;
 
 @Controller
 public class DishesController {
@@ -17,6 +18,7 @@ public class DishesController {
     DishRepository dishRepository;
     @Autowired
     IngredientRepository ingredientRepository;
+    private Logger logger = Logger.getLogger(DishesController.class.getName());
     @GetMapping("/dishes")
     public String Home(Model model) {
         boolean filterEnabled = false;
@@ -29,9 +31,11 @@ public class DishesController {
 
 
     @GetMapping("/dishes/search")
-    public String search(Model model, String search) {
-        Iterable<Dish> dishes = dishRepository.findByName(search);
-        model.addAttribute("dishes", dishes);
+    public String search(Model model, @RequestParam String keyword) {
+        logger.info("searching for: " + keyword);
+        Iterable<Dish> allDishes = dishRepository.findByName("%" + keyword + "%");
+        model.addAttribute("count",allDishes.spliterator().estimateSize());
+        model.addAttribute("alldishes", allDishes);
         return "dishes";
     }
 

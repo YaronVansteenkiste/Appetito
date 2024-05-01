@@ -26,7 +26,7 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
                                       @Param("minCarbs") Integer minCarbs,
                                       @Param("maxCarbs") Integer maxCarbs);
 
-    @Query("select d from Dish d where d.name like %?1%")
-    Iterable<Dish> findByName(String name);
+    @Query("select d from Dish d where lower(d.name) like lower(concat('%', :keyword, '%'))")
+    Iterable<Dish> findByName(@Param("keyword") String keyword);
 
 }
