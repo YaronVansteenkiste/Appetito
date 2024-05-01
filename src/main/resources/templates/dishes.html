@@ -39,9 +39,9 @@
                             <div class="card-body">
                                 <h5 th:text="${dish.name}" class="card-title"></h5>
                             </div>
-                            <!--                        <div class="col-sm-4 d-grid p-2 m-2">-->
-                            <!--                            <a class="btn btn-primary" href="" role="button">Ontdek</a>-->
-                            <!--                        </div>-->
+                                                    <div class="col-sm-4 d-grid p-2 m-2">
+                                                        <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}" role="button">Ontdek</a>
+                                                    </div>
                         </div>
                     </div>
                 </div>
