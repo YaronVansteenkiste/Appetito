@@ -64,6 +64,10 @@ public class DishAdminController {
     public String createDish(@Valid @ModelAttribute DishDto dishDto, BindingResult result) {
 
         Dish dish = new Dish();
+        if (dishDto.getMultipartFile().isEmpty()) {
+            result.addError(new FieldError("dishDto", "multipartFile", "Image file is required"));
+        }
+
         dish.setName(dishDto.getName());
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());

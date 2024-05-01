@@ -22,7 +22,7 @@ public class DishDto {
     private Time preparationTime;
     @NotEmpty(message = "Gelegenheid is vereist")
     private String occasion ;
-    @NotNull(message = "The image file is required")
+   
     private MultipartFile multipartFile;
     @Size(min = 10,message = "Bereiding moet minstens 10 karakters bevatten")
     @Size(max = 10000,message = "Bereiding moet maximum 10000 karakters bevatten")
