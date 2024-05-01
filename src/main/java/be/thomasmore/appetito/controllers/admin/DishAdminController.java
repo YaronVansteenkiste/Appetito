@@ -65,7 +65,7 @@ public class DishAdminController {
 
         Dish dish = new Dish();
         if (dishDto.getMultipartFile().isEmpty()) {
-            result.addError(new FieldError("dishDto", "multipartFile", "Image file is required"));
+            result.addError(new FieldError("dishDto", "multipartFile", "Fotobestand mag niet leeg zijn"));
         }
 
         dish.setName(dishDto.getName());
