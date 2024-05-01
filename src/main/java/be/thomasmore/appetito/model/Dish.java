@@ -24,7 +24,7 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Ingredient> ingredients;
 
-    @ManyToMany
+    @OneToMany
     private Collection<Nutrition> nutritions;
 
     public Dish() {

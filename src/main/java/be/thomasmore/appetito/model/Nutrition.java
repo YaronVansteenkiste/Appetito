@@ -32,13 +32,13 @@ public class Nutrition {
 
 
 
-    public Collection<Dish> getDishes() {
-        return dishes;
-    }
+//    public Collection<Dish> getDishes() {
+//        return dishes;
+//    }
 
-    public void setDishes(Collection<Dish> dishes) {
-        this.dishes = dishes;
-    }
+//    public void setDishes(Collection<Dish> dishes) {
+//        this.dishes = dishes;
+//    }
 
     public String getFiber() {
         return fiber;
@@ -96,6 +96,6 @@ public class Nutrition {
         this.proteins = proteins;
     }
 
-    @ManyToMany(mappedBy = "nutritions")
-    private Collection<Dish> dishes;
+//    @ManyToMany(mappedBy = "nutritions")
+//    private Collection<Dish> dishes;
 }
