@@ -61,7 +61,7 @@ public class DishAdminController {
     }
 
     @PostMapping("/addmeal")
-    public String createDish(@Valid @ModelAttribute DishDto dishDto, BindingResult result) {
+    public String createDish(@Valid @ModelAttribute DishDto dishDto, BindingResult result ) {
 
         Dish dish = new Dish();
         if (dishDto.getMultipartFile().isEmpty()) {
