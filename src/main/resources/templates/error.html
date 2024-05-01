@@ -9,8 +9,20 @@
     <meta charset="UTF-8">
     <title>Too Far?</title>
 </head>
-<body class="bg-warning-subtle">
+<body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
-    <h2 class="text-center text-danger-emphasis">This is an Error Page</h2>
+    <main class="row">
+        <article class="text-center mt-5">
+            <h2 class="text-center text-danger-emphasis">ERROR 404</h2>
+            <img class="img-fluid" th:src="@{|/img/Empty_plate.png|}">
+        </article>
+
+        <div class="row">
+            <div class="text-center">
+                <a class="btn btn-primary" th:href="@{/}">Home</a>
+            </div>
+        </div>
+    </main>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
