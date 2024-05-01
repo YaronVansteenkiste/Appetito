@@ -6,113 +6,54 @@
       crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
 <head>
-  <meta charset="UTF-8">
-  <title>Dish Edit</title>
+    <meta charset="UTF-8">
+    <title>Dish Edit</title>
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
 
 <h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > ' + ${dish.name}"></h6>
 
-<main class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="recipeImage">
-        <img th:src="@{/img/{filename}(filename=${dish.getImgFileName()})}" th:alt="${dish.name}" style="max-width: 100%;">
-      </div>
-    </div>
-    <div class="col-md-6 ">
-      <div th:if="${dish}">
-        <a th:href="@{|/dishdetails/${dish.id}|}" class="btn btn-primary">Cancel</a>
-        <h2 >
-          <strong th:text="${dish.name}">Dish Name</strong>
-
-        </h2>
-
-
-        <h4>Gelegenheid</h4>
-        <p th:text="${dish.occasion}"></p>
-
-        <h4>Dieet</h4>
-        <p th:text="${dish.dietPreferences}"></p>
-
-        <h4>Bereidingstijd</h4>
-        <p th:text="${dish.preparationTime}"></p>
-      </div>
-    </div>
-  </div>
-</main>
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-2 col-lg-6 mb-1">
-      <h4>Ingrediënten</h4>
-      <div th:each="ingredient: ${dish.getIngredients()}" th:if="${ingredient.quantity != null}">
-        <p th:text="${ingredient.name + ' ' + (ingredient.quantity  != null && ingredient.quantity  != 0 ? ingredient.quantity + ' ' : '') + (ingredient.getUnit() != null ? ingredient.getUnit() : '')}"></p>
-      </div>
-    </div>
-
-    <div class="col-sm-2 col-lg-6 mb-1">
-      <h4>Voedingswaarde</h4>
-      <div th:each="nutrition: ${dish.getNutritions()}">
+<form th:action="@{/dishdetails}" th:object="${dish}" method="post">
+    <main class="container">
         <div class="row">
-          <div class="col-lg-4">
-            <label>Vezel</label>
-            <p th:text="${nutrition.fiber}"></p>
-          </div>
+            <div class="col-md-12">
+                <div th:if="${dish}">
+                    <div class="action-buttons">
+                        <a th:href="@{|/dishdetails/${dish.id}|}" class="btn btn-primary">Cancel</a>
+                        <button type="submit" class="btn btn-outline-primary d-inline">Save</button>
+                    </div>
+                    <div class="form-control mt-2">
+                        <label for="name">Naam:</label>
+                        <input id="name" type="text" th:field="*{name}" class="form-control" placeholder="Dish Name">
+                        <label for="imgFileName">Afbeelding:</label>
+                        <input id="imgFileName" type="file" th:field="*{imgFileName}" class="form-control"
+                               placeholder="Image File Name">
+                        <label for="occasion">Gelegenheid: </label>
+                        <input id="occasion" type="text" th:field="*{occasion}" class="form-control"
+                               placeholder="Occasion">
+                        <label for="dietPreferences">Dieet: </label>
+                        <input id="dietPreferences" type="text" th:field="*{dietPreferences}" class="form-control"
+                               placeholder="Diet Preferences">
 
-          <div class="col-lg-4">
-            <label>Zout</label>
-            <p th:text="${nutrition.salt}"></p>
-          </div>
+                        <label for="preparationTime">Bereidingstijd: </label>
+                        <input id="preparationTime" type="text" th:field="*{preparationTime}" class="form-control"
+                               placeholder="Preparation Time">
+                    </div>
+                    <div class="form-control">
+<!--                        bereiding-->
+                        <label for="preparation">Bereiding: </label>
+                        <textarea rows="25" id="preparation" th:field="*{preparation}" class="form-control"
+                                  placeholder="Preparation"></textarea>
 
-          <div class="col-lg-4">
-            <label>Suiker</label>
-            <p th:text="${nutrition.sugar}"></p>
-          </div>
+                    </div>
 
-          <div class="col-lg-4">
-            <label>Verz. Vet</label>
-            <p th:text="${nutrition.saturatedFat}"></p>
-          </div>
 
-          <div class="col-lg-4">
-            <label>Vet</label>
-            <p th:text="${nutrition.fat}"></p>
-          </div>
-
-          <div class="col-lg-4">
-            <label>Koolhydraten</label>
-            <p th:text="${nutrition.carbs}"></p>
-          </div>
-
-          <div class="col-lg-4">
-            <label>Eiwit</label>
-            <p th:text="${nutrition.proteins}"></p>
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container">
-  <div class="row">
-    <div>
-      <h4>Bereiding</h4>
-      <p>
-                <span th:each="step,iterStat : ${#strings.arraySplit(dish.preparation, '//')}">
-                    <span th:text="${iterStat.index + 1} + '. ' + ${step.substring(3)}"></span><br>
-                </span>
-      </p>
-    </div>
-  </div>
-</div>
-
-
-
-
+    </main>
+</form>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
