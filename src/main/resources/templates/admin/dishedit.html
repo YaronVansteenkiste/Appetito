@@ -14,13 +14,13 @@
 
 <h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > ' + ${dish.name}"></h6>
 
-<form th:action="@{/dishdetails}" th:object="${dish}" method="post">
+<form th:action="@{|/admin/dishedit/*{id}|}" th:object="${dish}" method="post">
     <main class="container">
         <div class="row">
             <div class="col-md-12">
                 <div th:if="${dish}">
                     <div class="action-buttons">
-                        <a th:href="@{|/dishdetails/${dish.id}|}" class="btn btn-primary">Cancel</a>
+                        <a th:href="@{|/dishdetails/*{id}|}" class="btn btn-primary">Cancel</a>
                         <button type="submit" class="btn btn-outline-primary d-inline">Save</button>
                     </div>
                     <div class="form-control mt-2">
