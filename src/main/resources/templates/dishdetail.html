@@ -44,10 +44,52 @@
 
 <div class="container">
     <div class="row">
-        <div>
+        <div class="col-sm-2 col-lg-6 mb-1">
             <h4>Ingrediënten</h4>
-            <div th:each="ingredient: ${dish.getIngredients()}" class="col-sm-2 mb-1" th:if="${ingredient.quantity != null}">
+            <div th:each="ingredient: ${dish.getIngredients()}" th:if="${ingredient.quantity != null}">
                 <p th:text="${ingredient.name + ' ' + (ingredient.quantity  != null && ingredient.quantity  != 0 ? ingredient.quantity + ' ' : '') + (ingredient.getUnit() != null ? ingredient.getUnit() : '')}"></p>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-lg-6 mb-1">
+            <h4>Voedingswaarde</h4>
+            <div th:each="nutrition: ${dish.getNutritions()}">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label>Vezel</label>
+                        <p th:text="${nutrition.fiber}"></p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Zout</label>
+                        <p th:text="${nutrition.salt}"></p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Suiker</label>
+                        <p th:text="${nutrition.sugar}"></p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Verz. Vet</label>
+                        <p th:text="${nutrition.saturatedFat}"></p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Vet</label>
+                        <p th:text="${nutrition.fat}"></p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Koolhydraten</label>
+                        <p th:text="${nutrition.carbs}"></p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Eiwit</label>
+                        <p th:text="${nutrition.proteins}"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
