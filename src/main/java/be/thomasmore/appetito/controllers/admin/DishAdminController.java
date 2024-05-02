@@ -129,17 +129,7 @@ public class DishAdminController {
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparation(dishDto.getPreparation());
-
-        try {
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-            java.util.Date parsedTime = timeFormat.parse(String.valueOf(dishDto.getPreparationTime()));
-            Time preparationTime = new Time(parsedTime.getTime());
-            dish.setPreparationTime(preparationTime);
-        } catch (ParseException e) {
-            result.addError(new FieldError("dishDto", "preparationTime", "Invalid time format"));
-            return "admin/addmeal";
-        }
-
+        dish.setPreparationTime(dishDto.getPreparationTime());
 
         try {
             dish.setImgFileName(uploadImage(dishDto.getMultipartFile()));
