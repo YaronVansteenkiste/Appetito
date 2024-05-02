@@ -13,6 +13,11 @@ public class Errandslist {
 
     private String boodschapNaam;
 
+    private String imgFileName;
+
+    private double prijs;
+
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "shoppingCar")
     private Collection<Ingredient> errands;
 
@@ -41,5 +46,21 @@ public class Errandslist {
 
     public void setErrands(Collection<Ingredient> errands) {
         this.errands = errands;
+    }
+
+    public String getImgFileName() {
+        return imgFileName;
+    }
+
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
+    }
+
+    public double getPrijs() {
+        return prijs;
+    }
+
+    public void setPrijs(double prijs) {
+        this.prijs = prijs;
     }
 }
