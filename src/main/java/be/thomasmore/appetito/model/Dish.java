@@ -17,7 +17,7 @@ public class Dish {
 
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
-    private String occasion ;
+    private String occasion;
     private String imgFileName;
     @Length(max=10000)
     private String preparation;

@@ -2,6 +2,8 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Ingredient {
 
@@ -15,6 +17,10 @@ public class Ingredient {
     private String name;
     private double quantity;
     private String unit;
+
+    @ManyToMany()
+    @JoinTable(name = "errands_ingredients")
+    private List<Errandslist> shoppingCar;
 
     @ManyToOne
     @JoinColumn(name = "dish_id")
@@ -62,5 +68,13 @@ public class Ingredient {
 
     public void setDish(Dish dish) {
         this.dish = dish;
+    }
+
+    public List<Errandslist> getShoppingCar() {
+        return shoppingCar;
+    }
+
+    public void setShoppingCar(List<Errandslist> shoppingCar) {
+        this.shoppingCar = shoppingCar;
     }
 }
