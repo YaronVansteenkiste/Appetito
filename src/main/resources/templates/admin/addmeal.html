@@ -87,12 +87,13 @@
                 </div>
 
 
-                <div class="row justify-content-center">
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Submit</button>
-                    </div>
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{/dishes}" role="button">Cancel</a>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Bereiding</label>
+                    <div class="col-sm-8">
+                        <p>Gebruik dit formaat vb ("1. voeg uien toe in de soep //")</p>
+                        <textarea class="form-control" th:field="${dishDto.preparation}" style="width: 500px; height: 300px;"></textarea>
+                        <p th:if="${#fields.hasErrors('preparation')}" th:errorclass="text-danger"
+                           th:errors="${dishDto.preparation}"></p>
                     </div>
                 </div>
 
