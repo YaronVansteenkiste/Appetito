@@ -75,7 +75,7 @@
                         <input class="form-control" type="file" th:field="${dishDto.multipartFile}">
                         <img th:if="${dish !=null}"
                              th:src="@{/img/{filename}(filename=${dish.getImgFileName()})}"
-                             th:alt="${dish.name}" width="200" height="160" style="margin: 10px;">
+                             th:alt="${dish.name}" width="200" height="130" style="margin: 10px;">
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
                     <label class="col-sm-4 col-form-label">Bereiding</label>
                     <div class="col-sm-8">
                         <p>Gebruik dit formaat vb ("1. voeg uien toe in de soep //")</p>
-                        <textarea class="form-control" th:field="${dishDto.preparation}" style="width: 500px; height: 300px;"></textarea>
+                        <textarea class="form-control" th:field="${dishDto.preparation}" style="max-width: 500px; max-height: 300px;"></textarea>
                         <p th:if="${#fields.hasErrors('preparation')}" th:errorclass="text-danger"
                            th:errors="${dishDto.preparation}"></p>
                     </div>
