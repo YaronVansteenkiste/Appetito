@@ -5,6 +5,8 @@ import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.model.DishDto;
 import be.thomasmore.appetito.repositories.DishRepository;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,7 @@ import java.util.Optional;
 @Controller
 public class DishAdminController {
 
+    private static final Logger logger= LoggerFactory.getLogger(DishAdminController.class);
     @Autowired
     DishRepository dishRepository;
 
@@ -44,14 +47,68 @@ public class DishAdminController {
 
     @GetMapping("/dishedit/{id}")
     public String dishEdit(Model model, @PathVariable(required = false) Integer id){
-        return "admin/dishedit";
+
+        Optional<Dish>dishOptional=dishRepository.findById(id);
+        if(dishOptional.isPresent()){
+
+            Dish dish =dishOptional.get();
+            DishDto dishDto=new DishDto();
+            dishDto.setName(dish.getName());
+            dishDto.setDietPreferences(dish.getDietPreferences());
+            dishDto.setPreparationTime(dish.getPreparationTime());
+            dishDto.setOccasion(dish.getOccasion());
+            dishDto.setPreparation(dish.getPreparation());
+
+            model.addAttribute("dishDto",dishDto);
+            model.addAttribute("dish",dish);
+
+           return "admin/dishedit";
+        }
+        else{
+            return"redirect:/dishdetail";
+        }
+
     }
 
     @PostMapping("/dishedit/{id}")
-    public String dishEditPost(@ModelAttribute("dish") Dish dish){
-        dishRepository.save(dish);
-        return "redirect:/dishdetails/" + dish.getId();
+    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto, BindingResult result, @PathVariable int id, Model model) {
+
+        logger.debug("posting data for id {}", id);
+
+        if (result.hasErrors()) {
+            logger.error("validation errors: {}", result.getAllErrors());
+
+            model.addAttribute("dishDto", dishDto);
+            model.addAttribute("bindingResult", result);
+            return "admin/dishedit";
+        }
+
+        try {
+            Optional<Dish> optionalDish = dishRepository.findById(id);
+
+            if (optionalDish.isPresent()) {
+                Dish dish = optionalDish.get();
+                dish.setName(dishDto.getName());
+                dish.setDietPreferences(dishDto.getDietPreferences());
+                dish.setPreparationTime(dishDto.getPreparationTime());
+                dish.setOccasion(dishDto.getOccasion());
+                dish.setPreparation(dishDto.getPreparation());
+
+                if (!dishDto.getMultipartFile().isEmpty()) {
+                    String filename = uploadImage(dishDto.getMultipartFile());
+                    dish.setImgFileName(filename);
+                }
+                dishRepository.save(dish);
+
+                return "redirect:/dishdetails/" + id;
+            }
+        } catch (Exception ex) {
+            logger.error("Error: {}", ex.getMessage());
+        }
+        return "redirect:/dishdetails/" + id;
     }
+
+
     @GetMapping("/addmeal")
     public String showCreateDish(Model model) {
         DishDto dishDto = new DishDto();
