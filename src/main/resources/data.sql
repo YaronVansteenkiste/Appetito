@@ -278,3 +278,12 @@ VALUES
     (7,7),
     (8,8),
     (9,9);
+
+INSERT INTO ERRANDSLIST(NAME,IMG_FILE_NAME,PRICE)
+VALUES ('Ei','/img/ei.jpg',1.50);
+
+INSERT INTO ERRANDSLIST(NAME,IMG_FILE_NAME,PRICE)
+VALUES ('Melk','/img/melk.jpg',5.0);
+
+
+

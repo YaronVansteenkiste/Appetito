@@ -33,6 +33,7 @@
 
         </div>
     </div>
+
     <div class="col-md-3 ms-5 bg-light">
         <div class="row mt-2">
             <div class="col mx-2 border-primary border-bottom ">
@@ -41,43 +42,49 @@
         </div>
     </div>
 
-    <div class="col-md-3 ms-5 mt-3 bg-light">
-        <div class="col mx-2 border-dark border-bottom ">
-            <h6 class="my-3">Overzicht</h6>
-        </div>
-        <div class="col mx-2 border-dark my-3 border-bottom ">
-            <h6>Subtotaal</h6>
-            <h6>Levering</h6>
-        </div>
-        <div class="col mx-2 ">
-            <h6 class="my-3">Totaal</h6>
-            <button class="btn btn-primary dropdown-toggle my-3" type="button" id="doorgaanExtern"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                Doorgaan extern
-            </button>
+    <div class="row mt-2">
+        <div class="col-md-3 offset-md-9 bg-light">
+            <div class="row">
+                <div class="col mx-2 border-dark border-bottom bg-light">
+                    <h6 class="my-3"><strong>Overzicht</strong></h6>
+                </div>
+                <div class="col mx-2 border-dark my-3 border-bottom bg-light">
+                    <h6>Subtotaal</h6>
+                    <h6>Levering</h6>
+                </div>
+                <div class="col mx-2 bg-light">
+                    <h6 class="my-3">Totaal</h6>
+                    <button class="btn btn-primary dropdown-toggle my-3" type="button" id="doorgaanExtern"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Doorgaan extern
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+
+
 <div class="row">
     <div class="col-md-1 d-flex justify-content-between align-items-center">
-        <button class="btn btn-outline-primary rounded" type="button" onclick="increaseCounter()">+</button>
-        <p id="counter" class="counter">1</p>
-        <button class="btn btn-outline-primary rounded" type="button" onclick="decreaseCounter()">-</button>
+        <button class="btn btn-outline-primary rounded-circle ms-2" type="button" onclick="increaseCounter()">+</button>
+        <p id="counter" class="counter mx-2">1</p>
+        <button class="btn btn-outline-primary rounded-circle ms-2" type="button" onclick="decreaseCounter()">-</button>
     </div>
 </div>
 
 <script>
-    const counterElement = document.getElementById("counter");
+    const counter = document.getElementById("counter");
 
     function increaseCounter() {
-        counterElement.textContent = parseInt(counterElement.textContent) + 1;
+        counter.textContent = parseInt(counter.textContent) + 1;
     }
 
     function decreaseCounter() {
-        const currentCount = parseInt(counterElement.textContent);
+        const currentCount = parseInt(counter.textContent);
         if (currentCount > 0) {
-            counterElement.textContent = currentCount - 1;
+            counter.textContent = currentCount - 1;
         }
     }
 </script>

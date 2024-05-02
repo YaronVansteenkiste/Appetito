@@ -11,11 +11,11 @@ public class Errandslist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String boodschapNaam;
+    private String name;
 
     private String imgFileName;
 
-    private double prijs;
+    private double price;
 
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "shoppingCar")
@@ -32,12 +32,12 @@ public class Errandslist {
         this.id = id;
     }
 
-    public String getBoodschapNaam() {
-        return boodschapNaam;
+    public String getName() {
+        return name;
     }
 
-    public void setBoodschapNaam(String boodschapNaam) {
-        this.boodschapNaam = boodschapNaam;
+    public void setName(String Name) {
+        this.name = name;
     }
 
     public Collection<Ingredient> getErrands() {
@@ -56,11 +56,11 @@ public class Errandslist {
         this.imgFileName = imgFileName;
     }
 
-    public double getPrijs() {
-        return prijs;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPrijs(double prijs) {
-        this.prijs = prijs;
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
