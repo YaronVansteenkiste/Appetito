@@ -76,7 +76,9 @@ public class DishAdminController {
     }
 
     @PostMapping("/dishedit/{id}")
-    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto, BindingResult result, @PathVariable int id, Model model) {
+    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
+                               @RequestParam(required = false) MultipartFile image,
+                               BindingResult result, @PathVariable int id, Model model) {
 
         logger.debug("posting data for id {}", id);
 
@@ -98,11 +100,7 @@ public class DishAdminController {
                 dish.setPreparationTime(dishDto.getPreparationTime());
                 dish.setOccasion(dishDto.getOccasion());
                 dish.setPreparation(dishDto.getPreparation());
-//
-//                if (!dishDto.getMultipartFile().isEmpty()) {
-//                    String filename = uploadImage(dishDto.getMultipartFile());
-//                    dish.setImgFileName(filename);
-//                }
+                dish.setImgFileName(uploadImage(image));
                 dishRepository.save(dish);
 
                 return "redirect:/dishdetails/" + id;
@@ -137,11 +135,6 @@ public class DishAdminController {
         dish.setPreparation(dishDto.getPreparation());
         dish.setPreparationTime(dishDto.getPreparationTime());
         dish.setImgFileName(uploadImage(image));
-//        try {
-//            dish.setImgFileName(uploadImage(dishDto.getMultipartFile()));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
 
 
         dishRepository.save(dish);

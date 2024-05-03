@@ -72,9 +72,9 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Foto</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="file" th:field="${dishDto.multipartFile}">
+                        <input class="form-control" type="file" id="image" accept="image/*" name="image">
                         <img th:if="${dish !=null}"
-                             th:src="@{/img/{filename}(filename=${dish.getImgFileName()})}"
+                             th:src="@{${dish.getImgFileName()}}"
                              th:alt="${dish.name}" width="200" height="130" style="margin: 10px;">
                     </div>
                 </div>
