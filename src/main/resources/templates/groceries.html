@@ -4,9 +4,10 @@
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
 <head>
     <title>Boodschappen</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
@@ -89,29 +90,6 @@
         </div>
     </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
-<script>
-    function increaseCounter(id) {
-        const counter = document.getElementById("counter" + id);
-        counter.textContent = parseInt(counter.textContent) + 1;
-    }
-
-    function decreaseCounter(id) {
-        const counter = document.getElementById("counter" + id);
-        const currentCount = parseInt(counter.textContent);
-        if (currentCount > 0) {
-            counter.textContent = currentCount - 1;
-        }
-    }
-</script>
-
+<script th:src="@{/scripts/errand.js}"></script>
 </body>
 </html>
