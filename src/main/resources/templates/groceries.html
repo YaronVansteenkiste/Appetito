@@ -23,7 +23,9 @@
         </a>
 
         <ul class="dropdown-menu"  aria-labelledby="dropdownMenuLink">
-            <li th:each="ingredient : ${allIngredients}"><a class="dropdown-item" href="/aboutus" th:text="${ingredient.getName()}">Over Ons</a></li>
+            <li th:each="ingredient : ${allIngredients}">
+                <a class="dropdown-item ingredient" href="#" th:text="${ingredient.getName()}">ingredient</a>
+            </li>
         </ul>
     </div>
     <div class="col-md-8 border-primary border-bottom bg-light">
@@ -32,7 +34,7 @@
                 <h6><strong>Artikel</strong></h6>
             </div>
             <div class="col">
-                <h6><strong>Artikelprijs</strong></h6>
+                <h6><strong>Geschatte Artikelprijs</strong></h6>
             </div>
             <div class="col">
                 <h6><strong>Hoeveelheid</strong></h6>
@@ -53,13 +55,13 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div th:each="errand, stat : ${allErrands}">
+            <div id="ingredientList" th:each="errand, stat : ${allErrands}">
                 <div class="row mt-2">
                     <div class="col mx-2">
-                        <h6 th:text="${errands.getName()}"><strong></strong></h6>
+                        <h6 th:text="${errand.getName()}"><strong></strong></h6>
                     </div>
                     <div class="col">
-                        <h6 th:text="${#numbers.formatCurrency(errands.price)}"></h6>
+                        <h6 th:text="${#numbers.formatCurrency(errand.price)}"></h6>
                     </div>
                     <div class="col">
                         <div class="row">
@@ -89,10 +91,10 @@
                     </div>
                     <div class="col-md-11 mx-2 bg-light">
                         <h6 class="my-3">Totaal</h6>
-                        <button class="btn btn-primary dropdown-toggle my-3" type="button" id="doorgaanExtern"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Doorgaan extern
-                        </button>
+<!--                        <button class="btn btn-primary dropdown-toggle my-3" type="button" id="doorgaanExtern"-->
+<!--                                data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                            Doorgaan extern-->
+<!--                        </button>-->
                     </div>
                 </div>
             </div>
