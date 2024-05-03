@@ -15,16 +15,16 @@
 
     <h2>Stel jouw menu samen!</h2>
 
-    <form class="row">
+    <form class="row" id="menuForm">
         <div class="text-center">
-            <input class="col-1 mx-1" type="text" value="1" th:text="Dagen">
+            <input id="nrdays" class="col-1 mx-1" type="text" value="1" th:text="Dagen">
             <input class="btn btn-primary d-inline mx-2" type="submit">
         </div>
     </form>
 
 
-    <div class="container">
-        <div class="row justify-content-center mt-3">
+    <div class="container" id="cardContainer">
+        <div class="row justify-content-center mt-3 mx-3">
                 <article class="col-4 col-sm-4 col-md-3 col-lg-3 card text-center">
                     <img class="card-img-top img-fluid" th:src="@{/img/plate.png}" th:width="200px">
                     <p class="card-body">Selecteer een maaltijd</p>
@@ -32,6 +32,40 @@
                 </article>
         </div>
     </div>
+
+    <script>
+        document.getElementById('menuForm').addEventListener('submit', function(event){
+            event.preventDefault();
+
+            const nrdays = document.getElementById('nrdays').value;
+            generateCards(nrdays);
+        });
+
+        function generateCards(days){
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = '';
+
+            let row = null;
+            for (let i = 0; i < days; i++) {
+
+                if(i % 3 === 0){
+                    row = document.createElement('div');
+                    row.className = 'row justify-content-center mt-3';
+                    cardContainer.appendChild(row);
+                }
+
+                const card = document.createElement('article');
+                card.className = 'col-4 col-sm-4 col-md-3 col-lg-3 mx-2 card text-center';
+                card.innerHTML = `
+                <img class="card-img-top img-fluid" src="/img/plate.png" width="200px">
+                <p class="card-body">Selecteer een maaltijd</p>
+                <a class="btn btn-primary col-8 mb-2 align-self-center" href="/dishes">Select</a>`;
+                row.appendChild(card);
+
+            }
+        }
+    </script>
+
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
