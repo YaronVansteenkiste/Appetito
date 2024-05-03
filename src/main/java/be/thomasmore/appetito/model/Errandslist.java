@@ -19,6 +19,8 @@ public class Errandslist {
 
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "shoppingCar")
+
+
     private Collection<Ingredient> errands;
 
     public Errandslist() {

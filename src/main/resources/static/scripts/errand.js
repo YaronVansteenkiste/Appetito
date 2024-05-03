@@ -1,6 +1,7 @@
 function increaseCounter(id) {
     const counter = document.getElementById("counter" + id);
     counter.textContent = parseInt(counter.textContent) + 1;
+    calculateTotal(id);
 }
 
 function decreaseCounter(id) {
@@ -9,6 +10,20 @@ function decreaseCounter(id) {
     if (currentCount > 0) {
         counter.textContent = currentCount - 1;
     }
+    calculateTotal(id);
+}
+
+function calculateTotal(id) {
+    const counter = document.getElementById("counter" + id);
+    const priceElement = document.getElementById("price" + id);
+    const totalElement = document.getElementById("total" + id)
+
+    const quantity = parseInt(counter.innerText);
+    const price = parseInt(priceElement.innerText);
+
+    const total = quantity * price;
+
+    totalElement.textContent = "€ " + total.toFixed(2);
 }
 
 
@@ -24,7 +39,7 @@ const ingredients = document.getElementsByClassName("ingredient");
 
 arrIngredients = Array.from(ingredients);
 
-arrIngredients.forEach(ingredient => {
+arrIngredients.forEach((ingredient, index) => {
     ingredient.onclick = function () {
         const ingredientList = document.getElementById("ingredientList");
         const newIngredient = document.createElement("div");
@@ -40,7 +55,8 @@ arrIngredients.forEach(ingredient => {
         const priceCol = document.createElement("div");
         priceCol.className = "col";
         const price = document.createElement("h6");
-        price.textContent = "€ 1,50";
+        price.id = "price" + (index + 1).toFixed(2);
+        price.textContent = "€ " + (index + 1).toFixed(2);
         priceCol.appendChild(price);
         newIngredient.appendChild(priceCol);
 
@@ -54,13 +70,20 @@ arrIngredients.forEach(ingredient => {
         increaseButton.className = "btn btn-outline-primary rounded-circle ms-2";
         increaseButton.type = "button";
         increaseButton.textContent = "+";
+        increaseButton.onclick = function () {
+            increaseCounter(index + 1);
+        }
         const counter = document.createElement("p");
+        counter.id = "counter" + (index + 1).toFixed(2);
         counter.className = "counter mx-2";
         counter.textContent = "1";
         const decreaseButton = document.createElement("button");
         decreaseButton.className = "btn btn-outline-primary rounded-circle ms-2";
         decreaseButton.type = "button";
         decreaseButton.textContent = "-";
+        decreaseButton.onclick = function () {
+            decreaseCounter(index + 1);
+        }
         counterDiv.appendChild(increaseButton);
         counterDiv.appendChild(counter);
         counterDiv.appendChild(decreaseButton);
@@ -71,6 +94,8 @@ arrIngredients.forEach(ingredient => {
         const totalCol = document.createElement("div");
         totalCol.className = "col";
         const total = document.createElement("h6");
+        total.id = "total" + (index + 1).toFixed(2);
+        total.textContent = "€ " + (index + 1).toFixed(2);
         total.innerHTML = "<b>Totaal</b>";
         totalCol.appendChild(total);
         newIngredient.appendChild(totalCol);
