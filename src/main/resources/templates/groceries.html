@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <h6><strong>Totaal: </strong><b th:id="'total' + ${stat.index}">0.00</b></h6>
+                        <h6><b th:id="'total' + ${stat.index}" th:text="|&euro; ${errand.getPrice()}|">0.00</b></h6>
                     </div>
                 </div>
             </div>

@@ -19,11 +19,11 @@ function calculateTotal(id) {
     const totalElement = document.getElementById("total" + id)
 
     const quantity = parseInt(counter.innerText);
-    const price = parseInt(priceElement.innerText);
+    const price = parseFloat(priceElement.innerText.replace('€ ', ''));
 
     const total = quantity * price;
 
-    totalElement.textContent = "€ " + total.toFixed(2);
+    totalElement.innerHTML = "<strong>" + "€ " + total.toFixed(2) + "</strong>";
 }
 
 
@@ -55,7 +55,7 @@ arrIngredients.forEach((ingredient, index) => {
         const priceCol = document.createElement("div");
         priceCol.className = "col";
         const price = document.createElement("h6");
-        price.id = "price" + (index + 1).toFixed(2);
+        price.id = "price" + (index + 1);
         price.textContent = "€ " + (index + 1).toFixed(2);
         priceCol.appendChild(price);
         newIngredient.appendChild(priceCol);
@@ -74,7 +74,7 @@ arrIngredients.forEach((ingredient, index) => {
             increaseCounter(index + 1);
         }
         const counter = document.createElement("p");
-        counter.id = "counter" + (index + 1).toFixed(2);
+        counter.id = "counter" + (index + 1);
         counter.className = "counter mx-2";
         counter.textContent = "1";
         const decreaseButton = document.createElement("button");
@@ -94,9 +94,8 @@ arrIngredients.forEach((ingredient, index) => {
         const totalCol = document.createElement("div");
         totalCol.className = "col";
         const total = document.createElement("h6");
-        total.id = "total" + (index + 1).toFixed(2);
-        total.textContent = "€ " + (index + 1).toFixed(2);
-        total.innerHTML = "<b>Totaal</b>";
+        total.id = "total" + (index + 1);
+        total.innerHTML = '<strong>&euro;' + ((index + 1)).toFixed(2) + '</strong>';
         totalCol.appendChild(total);
         newIngredient.appendChild(totalCol);
 
