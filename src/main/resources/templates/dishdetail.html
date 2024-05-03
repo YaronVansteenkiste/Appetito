@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="recipeImage">
-                <img th:src="@{/img/{filename}(filename=${dish.getImgFileName()})}" th:alt="${dish.name}" style="max-width: 100%;">
+                <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" style="max-width: 100%;">
             </div>
         </div>
         <div class="col-md-6 ">

@@ -23,9 +23,6 @@ public class DishDto {
     @NotEmpty(message = "Gelegenheid is vereist")
     private String occasion ;
    
-    private MultipartFile multipartFile;
-    @Size(min = 10,message = "Bereiding moet minstens 10 karakters bevatten")
-    @Size(max = 10000,message = "Bereiding moet maximum 10000 karakters bevatten")
     private String preparation;
 
 
@@ -64,14 +61,6 @@ public class DishDto {
 
     public void setOccasion(String occasion) {
         this.occasion = occasion;
-    }
-
-    public MultipartFile getMultipartFile() {
-        return multipartFile;
-    }
-
-    public void setMultipartFile(MultipartFile multipartFile) {
-        this.multipartFile = multipartFile;
     }
 
     public String getPreparation() {

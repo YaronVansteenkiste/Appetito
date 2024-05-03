@@ -73,9 +73,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Foto</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="file" th:field="${dishDto.multipartFile}">
-                        <p th:if="${#fields.hasErrors('multipartFile')}" th:errorclass="text-danger"
-                           th:errors="${dishDto.multipartFile}"></p>
+                        <input class="form-control" type="file" id="image" accept="image/*" name="image">
                     </div>
                 </div>
                 <div class="row mb-3">

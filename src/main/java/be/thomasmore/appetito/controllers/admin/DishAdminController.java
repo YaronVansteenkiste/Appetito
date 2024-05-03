@@ -4,6 +4,7 @@ package be.thomasmore.appetito.controllers.admin;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.model.DishDto;
 import be.thomasmore.appetito.repositories.DishRepository;
+import be.thomasmore.appetito.services.GoogleService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,6 +35,9 @@ public class DishAdminController {
     private static final Logger logger= LoggerFactory.getLogger(DishAdminController.class);
     @Autowired
     DishRepository dishRepository;
+
+    @Autowired
+    GoogleService googleService;
 
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id){
@@ -93,11 +98,11 @@ public class DishAdminController {
                 dish.setPreparationTime(dishDto.getPreparationTime());
                 dish.setOccasion(dishDto.getOccasion());
                 dish.setPreparation(dishDto.getPreparation());
-
-                if (!dishDto.getMultipartFile().isEmpty()) {
-                    String filename = uploadImage(dishDto.getMultipartFile());
-                    dish.setImgFileName(filename);
-                }
+//
+//                if (!dishDto.getMultipartFile().isEmpty()) {
+//                    String filename = uploadImage(dishDto.getMultipartFile());
+//                    dish.setImgFileName(filename);
+//                }
                 dishRepository.save(dish);
 
                 return "redirect:/dishdetails/" + id;
@@ -118,24 +123,25 @@ public class DishAdminController {
     }
 
     @PostMapping("/addmeal")
-    public String createDish(@Valid @ModelAttribute DishDto dishDto, BindingResult result ) {
+    public String createDish(Model model,
+                             @Valid DishDto dishDto,
+                             @RequestParam(required = false) MultipartFile image,
+                             BindingResult bindingResult ) throws IOException{
 
         Dish dish = new Dish();
-        if (dishDto.getMultipartFile().isEmpty()) {
-            result.addError(new FieldError("dishDto", "multipartFile", "Fotobestand mag niet leeg zijn"));
-        }
+
 
         dish.setName(dishDto.getName());
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparation(dishDto.getPreparation());
         dish.setPreparationTime(dishDto.getPreparationTime());
-
-        try {
-            dish.setImgFileName(uploadImage(dishDto.getMultipartFile()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        dish.setImgFileName(uploadImage(image));
+//        try {
+//            dish.setImgFileName(uploadImage(dishDto.getMultipartFile()));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
         dishRepository.save(dish);
@@ -144,21 +150,13 @@ public class DishAdminController {
 
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) {
-            return null;
-        }
-
-        final String directoryPath = "src/main/resources/static/img/";
-        File directory = new File(directoryPath.trim());
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
-
-
-        String filename = multipartFile.getOriginalFilename();
-        Path path = Paths.get(directoryPath + filename);
-        Files.copy(multipartFile.getInputStream(), path);
-
-        return filename;
+        final String filename = multipartFile.getOriginalFilename();
+        final File fileToUpload = new File(filename);
+        FileOutputStream fos = new FileOutputStream(fileToUpload);
+        fos.write(multipartFile.getBytes());
+        final String urlInFirebase = googleService.toFirebase(fileToUpload, filename);
+        fileToUpload.delete();
+        return urlInFirebase;
     }
+
 }
