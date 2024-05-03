@@ -10,3 +10,13 @@ function decreaseCounter(id) {
         counter.textContent = currentCount - 1;
     }
 }
+
+function addToErrand(ingredientName) {
+    const errandList = document.getElementById('errandlist')
+
+    const listItem = document.createElement('li')
+
+    listItem.textContent = ingredientName;
+
+    errandList.appendChild(listItem);
+}
