@@ -49,8 +49,23 @@ const ingredients = document.getElementsByClassName("ingredient");
 
 arrIngredients = Array.from(ingredients);
 
+const addedIngredients = new Set();
+
+
 arrIngredients.forEach((ingredient, index) => {
     ingredient.onclick = function () {
+
+        if (addedIngredients.has(index)) {
+            const alert = document.getElementById("alert");
+            alert.classList.remove("d-none");
+            setTimeout(function () {
+                alert.classList.add("d-none");
+            }, 2000);
+            return;
+        }
+
+        addedIngredients.add(index);
+
         const ingredientList = document.getElementById("ingredientList");
         const newIngredient = document.createElement("div");
         newIngredient.className = "row mt-2";
@@ -111,6 +126,18 @@ arrIngredients.forEach((ingredient, index) => {
         newIngredient.appendChild(totalCol);
 
         ingredientList.appendChild(newIngredient);
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "btn rounded-circle w-25";
+        removeButton.type = "button";
+        removeButton.textContent = "X";
+        removeButton.onclick = function () {
+            newIngredient.remove();
+            calculateTotalPrice();
+            calculateTotalGroceries();
+        }
+
+        newIngredient.appendChild(removeButton);
 
         calculateTotalPrice();
         calculateTotalGroceries();
