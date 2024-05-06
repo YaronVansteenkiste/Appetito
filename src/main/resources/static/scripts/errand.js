@@ -102,3 +102,18 @@ arrIngredients.forEach((ingredient, index) => {
         ingredientList.appendChild(newIngredient);
     }
 })
+
+const articlePrice = document.getElementById("articlePrice");
+const articleTip = document.getElementById("articleTip");
+
+articlePrice.onmouseover = function () {
+    articleTip.classList.remove("d-none");
+    articleTip.classList.add("d-block");
+    articlePrice.classList.add("text-primary");
+}
+
+articleTip.onmouseleave = function () {
+    articleTip.classList.remove("d-block");
+    articleTip.classList.add("d-none");
+    articlePrice.classList.remove("text-primary");
+}
