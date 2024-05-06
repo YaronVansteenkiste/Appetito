@@ -100,11 +100,16 @@ arrIngredients.forEach((ingredient, index) => {
         const total = document.createElement("h6");
         total.id = "total" + (index + 1);
         total.innerHTML = '<strong>&euro;' + ((index + 1)).toFixed(2) + '</strong>';
+        total.classList.add("total");
         totalCol.appendChild(total);
         newIngredient.appendChild(totalCol);
 
         ingredientList.appendChild(newIngredient);
+
+        calculateTotalPrice();
+
     }
+
 })
 
 const articlePrice = document.getElementById("articlePrice");
@@ -126,7 +131,7 @@ articleTip.onmouseleave = function () {
 function calculateTotalPrice() {
     let totalPrice = 0;
     document.querySelectorAll('.total').forEach((ingredient) => {
-        totalPrice += parseFloat(ingredient.innerText.replace('€ ', ''));
+        totalPrice += parseFloat(ingredient.innerText.replace('€', ''));
     });
 
     document.getElementById('totalPrice').textContent = totalPrice;

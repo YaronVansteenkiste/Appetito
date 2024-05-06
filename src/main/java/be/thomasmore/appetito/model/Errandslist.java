@@ -15,8 +15,6 @@ public class Errandslist {
 
     private String imgFileName;
 
-    private double price;
-
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "shoppingCar")
 
@@ -58,11 +56,4 @@ public class Errandslist {
         this.imgFileName = imgFileName;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

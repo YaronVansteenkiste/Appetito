@@ -11,100 +11,110 @@
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
-
 <h6 class="ms-2 mt-3">Home > Boodschappenlijst</h6>
-
 <h6 class="ms-2 mt-3"><strong>Jouw Boodschappenlijst</strong></h6>
 
-<div class="row">
-    <div class="dropdown pe-1">
-        <a class="btn dropdown-toggle text-body-secondary" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            Voeg ingredient toe
-        </a>
-
-        <ul class="dropdown-menu"  aria-labelledby="dropdownMenuLink">
-            <li th:each="ingredient : ${allIngredients}">
-                <a class="dropdown-item ingredient" href="#" th:text="${ingredient.getName()}">ingredient</a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-8 border-primary border-bottom bg-light">
-        <div class="row mt-2">
-            <div class="col mx-2 ">
-                <h6><strong>Artikel</strong></h6>
-            </div>
-            <div class="col">
-                <h6><strong id="articlePrice">Geschatte Artikelprijs*</strong></h6>
-            </div>
-            <div class="col">
-                <h6><strong>Hoeveelheid</strong></h6>
-            </div>
-            <div class="col">
-                <h6><strong>Geschatte Totaal</strong></h6>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-md-3 ms-5 bg-light">
-        <div class="row mt-2">
-            <div class="col mx-2 border-primary border-bottom ">
-                <h6><strong>Boodschappenlijst</strong></h6>
-            </div>
-        </div>
-    </div>
+<div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <div id="ingredientList" class="ingredient-list" th:each="errand, stat : ${allErrands}">
+        <div class="row">
+            <div id="ingredientList" class="col-md-6">
+                <div class="dropdown pe-1">
+                    <a class="btn dropdown-toggle text-body-secondary" href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Voeg ingredient toe
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li th:each="ingredient : ${allIngredients}">
+                            <a class="dropdown-item ingredient" href="#"
+                               th:text="${ingredient.getName()}">ingredient</a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="row mt-2">
                     <div class="col mx-2">
-                        <h6 th:text="${errand.getName()}"></h6>
+                        <h6><strong>Artikel</strong></h6>
                     </div>
                     <div class="col">
-                        <h6 th:id="'price' + ${stat.index}" th:text="|&euro; ${errand.price}|"></h6>
+                        <h6><strong id="articlePrice">Geschatte Artikelprijs*</strong></h6>
                     </div>
                     <div class="col">
+                        <h6><strong>Hoeveelheid</strong></h6>
+                    </div>
+                    <div class="col">
+                        <h6><strong>Geschatte Totaal</strong></h6>
+                    </div>
+                </div>
+                <div  class="ingredient-list" th:each="errand, stat : ${allErrands}">
+                    <div class="row mt-2">
+                        <div class="col mx-2">
+                            <h6 th:text="${errand.getName()}"></h6>
+                        </div>
+                        <div class="col">
+                            <h6 th:id="'price' + ${stat.index}" th:text="|&euro; ${errand.price}|"></h6>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-1 d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-outline-primary rounded-circle ms-2" type="button"
+                                            th:onclick="'increaseCounter(\'' + ${stat.index} + '\')'">+
+                                    </button>
+                                    <p th:id="'counter' + ${stat.index}" class="counter mx-2">1</p>
+                                    <button class="btn btn-outline-primary rounded-circle ms-2" type="button"
+                                            th:onclick="'decreaseCounter(\'' + ${stat.index} + '\')'">-
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h6><b class="total" th:id="'total' + ${stat.index}"
+                                   th:text="|&euro; ${errand.getPrice()}|">0.00</b></h6>
+                        </div>
+                    </div>
+                </div>
+                <div id="articleTip" class="d-none text-secondary">
+                    <span>Let op: Dit is een geschatte artikelprijs.</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row mt-2" >
+                    <div class="col mx-2 border-primary border-bottom ">
+                        <h6><strong>Boodschappenlijst</strong></h6>
+                    </div>
+                </div>
+                <div id="groceryList">
+                    <div class="row mt-2">
+                        <div class="col mx-2">
+                            <h6 id="groceryListName">asda</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 bg-light">
                         <div class="row">
-                            <div class="col-md-1 d-flex justify-content-between align-items-center">
-                                <button class="btn btn-outline-primary rounded-circle ms-2" type="button" th:onclick="'increaseCounter(\'' + ${stat.index} + '\')'">+</button>
-                                <p th:id="'counter' + ${stat.index}" class="counter mx-2">1</p>
-                                <button class="btn btn-outline-primary rounded-circle ms-2" type="button" th:onclick="'decreaseCounter(\'' + ${stat.index} + '\')'">-</button>
+                            <div class="col-md-11 mx-2 border-dark border-bottom bg-light">
+                                <h6 class="my-3">Totaal Geschatte Waarde</h6>
+                            </div>
+                            <div class="col-md-11 mx-2 bg-light">
+                                <h6 class="my-3">€<span id="totalPrice">0.00</span></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <h6><b class="total" th:id="'total' + ${stat.index}" th:text="|&euro; ${errand.getPrice()}|">0.00</b></h6>
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div id="articleTip" class="d-none text-secondary">
-            <span>Let op: Dit is een geschatte artikelprijs.</span>
-        </div>
-    </div>
-
-    <div class="row mt-2">
-        <div class="col-md-3 offset-md-9 bg-light">
-            <div class="row">
-                <div class="col-md-11 mx-2 border-dark border-bottom bg-light">
-                    <h6 class="my-3">Total</h6>
-                </div>
-                <div class="col-md-11 mx-2 bg-light">
-                    <h6 class="my-3">€<span id="totalPrice">0.00</span></h6>
-                </div>
+                <button type="button" onclick="downloadGroceryList()" class="btn-primary btn w-100 mt-3">Download
+                    boodschappenlijst
+                </button>
             </div>
         </div>
     </div>
-
-    <button type="button" onclick="downloadGroceryList()" class="btn-primary btn w-25">Download boodschappenlijstje</button>
-
-
 </div>
 <script th:src="@{/scripts/errand.js}"></script>
 <script th:src="@{/scripts/download.js}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
 
 
 </body>
