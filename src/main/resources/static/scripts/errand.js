@@ -3,6 +3,8 @@ function increaseCounter(id) {
     counter.textContent = parseInt(counter.textContent) + 1;
     calculateTotal(id);
     calculateTotalPrice();
+    calculateTotalGroceries();
+
 }
 
 function decreaseCounter(id) {
@@ -13,6 +15,8 @@ function decreaseCounter(id) {
     }
     calculateTotal(id);
     calculateTotalPrice();
+    calculateTotalGroceries();
+
 }
 
 function calculateTotal(id) {
@@ -36,6 +40,8 @@ function addErrand() {
     newErrand.textContent = errand;
     errandList.appendChild(newErrand);
     calculateTotalPrice();
+    calculateTotalGroceries();
+
 
 }
 
@@ -107,6 +113,8 @@ arrIngredients.forEach((ingredient, index) => {
         ingredientList.appendChild(newIngredient);
 
         calculateTotalPrice();
+        calculateTotalGroceries();
+
 
     }
 
@@ -138,3 +146,14 @@ function calculateTotalPrice() {
 }
 
 calculateTotalPrice();
+
+function calculateTotalGroceries() {
+    let totalGroceries = 0;
+    document.querySelectorAll('.counter').forEach((ingredient) => {
+        totalGroceries += parseFloat(ingredient.innerText.replace('€', ''));
+    });
+
+    document.getElementById('totalGroceries').textContent = totalGroceries;
+}
+
+calculateTotalGroceries();
