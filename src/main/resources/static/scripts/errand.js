@@ -112,6 +112,18 @@ arrIngredients.forEach((ingredient, index) => {
 
         ingredientList.appendChild(newIngredient);
 
+        const removeButton = document.createElement("button");
+        removeButton.className = "btn rounded-circle w-25";
+        removeButton.type = "button";
+        removeButton.textContent = "X";
+        removeButton.onclick = function () {
+            newIngredient.remove();
+            calculateTotalPrice();
+            calculateTotalGroceries();
+        }
+
+        newIngredient.appendChild(removeButton);
+
         calculateTotalPrice();
         calculateTotalGroceries();
 
