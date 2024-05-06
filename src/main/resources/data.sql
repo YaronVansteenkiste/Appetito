@@ -172,11 +172,6 @@ VALUES ('verse cranberries', 250, 'gr', 6, 12.50),
        ('sinaasappelsap', 100, 'ml',6, 2.50),
        ('kaneel', 1, 'snuf',6, 4.0),
        ('witte basterdsuiker', 75, 'gr',6, 5.99);
---     ('verse cranberries', 250, 'gr', 6,12.50),
---     ('balsamico azijn', 2, 'eetlepels', 6,),
---     ('sinaasappelsap', 100, 'ml', 6),
---     ('kaneel', 1, 'snuf', 6),
---     ('witte basterdsuiker', 75, 'gr', 6);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('40 kcal','0.5 g','2 g','10 g','50 mg','0.1 g','8 g');
