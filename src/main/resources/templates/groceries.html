@@ -40,19 +40,19 @@
                 <h6><strong>Hoeveelheid</strong></h6>
             </div>
             <div class="col">
-                <h6><strong>Totaal</strong></h6>
+                <h6><strong>Geschatte Totaal</strong></h6>
             </div>
 
         </div>
     </div>
 
-<!--    <div class="col-md-3 ms-5 bg-light">-->
-<!--        <div class="row mt-2">-->
-<!--            <div class="col mx-2 border-primary border-bottom ">-->
-<!--                <h6><strong>Boodschappenlijst</strong></h6>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="col-md-3 ms-5 bg-light">
+        <div class="row mt-2">
+            <div class="col mx-2 border-primary border-bottom ">
+                <h6><strong>Boodschappenlijst</strong></h6>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8">
             <div id="ingredientList" class="ingredient-list" th:each="errand, stat : ${allErrands}">
@@ -73,7 +73,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <h6><b th:id="'total' + ${stat.index}" th:text="|&euro; ${errand.getPrice()}|">0.00</b></h6>
+                        <h6><b class="total" th:id="'total' + ${stat.index}" th:text="|&euro; ${errand.getPrice()}|">0.00</b></h6>
                     </div>
                 </div>
             </div>
@@ -81,30 +81,23 @@
         <div id="articleTip" class="d-none text-secondary">
             <span>Let op: Dit is een geschatte artikelprijs.</span>
         </div>
-
-
-<!--        <div class="row mt-2">-->
-<!--            <div class="col-md-3 offset-md-9 bg-light">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-11 mx-2 border-dark border-bottom bg-light">-->
-<!--                        <h6 class="my-3" th:text="'Overzicht '+${count} + ' artikels '"></h6>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-11 mx-2 border-dark my-3 border-bottom bg-light">-->
-<!--                        <h6>Subtotaal</h6>-->
-<!--                        <h6>Levering</h6>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-11 mx-2 bg-light">-->
-<!--                        <h6 class="my-3">Totaal</h6>-->
-<!--&lt;!&ndash;                        <button class="btn btn-primary dropdown-toggle my-3" type="button" id="doorgaanExtern"&ndash;&gt;-->
-<!--&lt;!&ndash;                                data-bs-toggle="dropdown" aria-expanded="false">&ndash;&gt;-->
-<!--&lt;!&ndash;                            Doorgaan extern&ndash;&gt;-->
-<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
+
+    <div class="row mt-2">
+        <div class="col-md-3 offset-md-9 bg-light">
+            <div class="row">
+                <div class="col-md-11 mx-2 border-dark border-bottom bg-light">
+                    <h6 class="my-3">Total</h6>
+                </div>
+                <div class="col-md-11 mx-2 bg-light">
+                    <h6 class="my-3">€<span id="totalPrice">0.00</span></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <button type="button" onclick="downloadGroceryList()" class="btn-primary btn w-25">Download boodschappenlijstje</button>
+
 
 </div>
 <script th:src="@{/scripts/errand.js}"></script>

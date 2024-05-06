@@ -2,6 +2,7 @@ function increaseCounter(id) {
     const counter = document.getElementById("counter" + id);
     counter.textContent = parseInt(counter.textContent) + 1;
     calculateTotal(id);
+    calculateTotalPrice();
 }
 
 function decreaseCounter(id) {
@@ -11,6 +12,7 @@ function decreaseCounter(id) {
         counter.textContent = currentCount - 1;
     }
     calculateTotal(id);
+    calculateTotalPrice();
 }
 
 function calculateTotal(id) {
@@ -33,6 +35,8 @@ function addErrand() {
     const newErrand = document.createElement("li");
     newErrand.textContent = errand;
     errandList.appendChild(newErrand);
+    calculateTotalPrice();
+
 }
 
 const ingredients = document.getElementsByClassName("ingredient");
@@ -117,3 +121,15 @@ articleTip.onmouseleave = function () {
     articleTip.classList.add("d-none");
     articlePrice.classList.remove("text-primary");
 }
+
+
+function calculateTotalPrice() {
+    let totalPrice = 0;
+    document.querySelectorAll('.total').forEach((ingredient) => {
+        totalPrice += parseFloat(ingredient.innerText.replace('€ ', ''));
+    });
+
+    document.getElementById('totalPrice').textContent = totalPrice;
+}
+
+calculateTotalPrice();
