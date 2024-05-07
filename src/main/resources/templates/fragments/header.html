@@ -36,13 +36,13 @@
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="/aboutus">Over Ons</a></li>
+                        <li><a class="dropdown-item" href="/about">Over Ons</a></li>
                         <li><a class="dropdown-item" href="#">Contacteren</a></li>
                         <li><a class="dropdown-item" href="/x-dagenmenu">Menu</a></li>
                     </ul>
                 </div>
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
-                    <a class="btn btn-primary me-1" href="#">Registreren</a>
+                    <a class="btn btn-primary me-1" href="/user/register">Registreren</a>
                 </li>
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="btn btn-outline-primary me-1" href="/user/login">Aanmelden</a>
@@ -51,7 +51,7 @@
                     <a sec:authentication="name" class="btn btn-primary me-1" href="#">Profiel</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a class="btn btn-outline-primary me-1" href="/logout">Uitloggen</a>
+                    <a class="btn btn-outline-primary me-1" href="/user/logout">Uitloggen</a>
                 </li>
             </ul>
         </div>

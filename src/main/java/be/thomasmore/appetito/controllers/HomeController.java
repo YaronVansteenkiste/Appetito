@@ -21,22 +21,4 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/about")
-    public String about(){
-        return "about";
-    }
-
-
-    @GetMapping("/testupload")
-    public String testupload(Model model){
-        File pom = new File("pom.xml");
-        try {
-            final String uploadResult = googleService.toFirebase(pom, "firebasepom.xml");
-            model.addAttribute("uploadResult", uploadResult);
-            model.addAttribute("uploadStatus", "success");
-        } catch (Exception e) {
-            model.addAttribute("uploadStatus", "failed");
-        }
-        return "testupload";
-    }
 }
