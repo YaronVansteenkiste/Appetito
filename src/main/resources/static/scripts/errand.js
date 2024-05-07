@@ -81,7 +81,9 @@ arrIngredients.forEach((ingredient, index) => {
         priceCol.className = "col";
         const price = document.createElement("h6");
         price.id = "price" + (index + 1);
-        price.textContent = "€ " + (index + 1).toFixed(2);
+        const priceFromDB = ingredient.getAttribute("data-price");
+        // price.textContent = "€ " + priceFromDB.toFixed(2);
+        price.textContent = "€ " + priceFromDB;
         priceCol.appendChild(price);
         newIngredient.appendChild(priceCol);
 

@@ -32,8 +32,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li th:each="ingredient : ${allIngredients}">
-                            <a class="dropdown-item ingredient" href="#"
-                               th:text="${ingredient.getName()}">ingredient</a>
+                            <a class="dropdown-item ingredient" href="#" th:data-price="${ingredient.getEstimatedPrice()}"
+                               th:text="${ingredient.getName()}">ingredient
+                                <p id="price" th:data-price="${ingredient.getEstimatedPrice()}" class="d-none" th:text="${ingredient.getEstimatedPrice()}"></p></a>
                         </li>
                     </ul>
                 </div>
@@ -60,7 +61,7 @@
                             <h6 th:text="${errand.getName()}"></h6>
                         </div>
                         <div class="col">
-                            <h6 th:id="'price' + ${stat.index}" th:text="|&euro; ${errand.price}|"></h6>
+                            <h6 th:id="'price' + ${stat.index}" th:data-price="${errand.price}" th:text="|&euro; ${errand.price}|"></h6>
                         </div>
                         <div class="col">
                             <div class="row">
