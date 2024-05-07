@@ -1,4 +1,4 @@
-package be.thomasmore.appetito.controllers.admin;
+package be.thomasmore.appetito.controllers.modify;
 
 
 import be.thomasmore.appetito.model.Dish;
@@ -12,27 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 
-@RequestMapping("/admin")
+@RequestMapping("/modify")
 @Controller
-public class DishAdminController {
+public class DishModifyController {
 
-    private static final Logger logger= LoggerFactory.getLogger(DishAdminController.class);
+    private static final Logger logger= LoggerFactory.getLogger(DishModifyController.class);
     @Autowired
     DishRepository dishRepository;
 
@@ -67,7 +60,7 @@ public class DishAdminController {
             model.addAttribute("dishDto",dishDto);
             model.addAttribute("dish",dish);
 
-           return "admin/dishedit";
+           return "modify/dishedit";
         }
         else{
             return"redirect:/dishdetail";
@@ -87,7 +80,7 @@ public class DishAdminController {
 
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("bindingResult", result);
-            return "admin/dishedit";
+            return "modify/dishedit";
         }
 
         try {
@@ -117,7 +110,7 @@ public class DishAdminController {
         DishDto dishDto = new DishDto();
         model.addAttribute("dishDto", dishDto);
 
-        return "admin/addmeal";
+        return "modify/addmeal";
     }
 
     @PostMapping("/addmeal")
