@@ -1,71 +1,79 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
+
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
+
+
     <meta charset="UTF-8">
     <title>Menu Build</title>
 </head>
 <body>
-    <h1 th:replace="~{fragments/header :: header}"></h1>
-    <h6 class="ms-2 mt-3">Home > Profiel > Menu</h6>
+<h1 th:replace="~{fragments/header :: header}"></h1>
+<h6 class="ms-2 mt-3">Home > Profiel > Menu</h6>
 
-    <h2>Stel jouw menu samen!</h2>
-
-    <form class="row" id="menuForm">
-        <div class="text-center">
-            <input id="nrdays" class="col-1 mx-1" type="text" value="1" th:text="Dagen">
-            <input class="btn btn-primary d-inline mx-2" type="submit">
-        </div>
-    </form>
+<h2>Stel jouw menu samen!</h2>
 
 
-    <div class="container" id="cardContainer">
-        <div class="row justify-content-center mt-3 mx-3">
-                <article class="col-4 col-sm-4 col-md-3 col-lg-3 card text-center">
-                    <img class="card-img-top img-fluid" th:src="@{/img/plate.png}" th:width="200px">
-                    <p class="card-body">Selecteer een maaltijd</p>
-                    <a class="btn btn-primary col-8 mb-2 align-self-center" th:href="@{/dishes}">Select</a>
-                </article>
+
+<div class="container" id="cardContainer">
+    <div class="row justify-content-center mt-3 mx-3">
+        <article class="col-4 col-sm-4 col-md-3 col-lg-3 card text-center">
+            <img class="card-img-top img-fluid" th:src="@{/img/plate.png}" th:width="200px">
+            <p class="card-body">Selecteer een maaltijd</p>
+            <button class="btn btn-primary col-8 mb-2 align-self-center" data-bs-toggle="modal"
+                    data-bs-target="#dishModal">Selecteer
+            </button>
+        </article>
+    </div>
+</div>
+<div class="modal fade" id="dishModal" tabindex="-1" aria-labelledby="dishModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dishModalLabel">Selecteer een maaltijd</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="selectDishesForm" th:action="@{/dishes/select}" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div th:each="dish : ${allDishes}" class="col-4 mb-3">
+                            <div class="dish-item">
+                                <input type="checkbox" th:name="selectedDishes" th:value="${dish.id}">
+                                <label th:text="${dish.name}"></label>
+                                <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" class="img-fluid img-thumbnail" style="width: 150px; height: 100px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmSelection()">Confirm</button>
+
+                </div>
+            </form>
+
         </div>
     </div>
+</div>
 
-    <script>
-        document.getElementById('menuForm').addEventListener('submit', function(event){
-            event.preventDefault();
 
-            const nrdays = document.getElementById('nrdays').value;
-            generateCards(nrdays);
-        });
+<script>
+    function confirmSelection() {
 
-        function generateCards(days){
-            const cardContainer = document.getElementById('cardContainer');
-            cardContainer.innerHTML = '';
+        document.getElementById("selectDishesForm").submit();
+    }
+</script>
 
-            let row = null;
-            for (let i = 0; i < days; i++) {
 
-                if(i % 3 === 0){
-                    row = document.createElement('div');
-                    row.className = 'row justify-content-center mt-3';
-                    cardContainer.appendChild(row);
-                }
+<script th:src="@{/scripts/menu.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-                const card = document.createElement('article');
-                card.className = 'col-4 col-sm-4 col-md-3 col-lg-3 mx-2 card text-center';
-                card.innerHTML = `
-                <img class="card-img-top img-fluid" src="/img/plate.png" width="200px">
-                <p class="card-body">Selecteer een maaltijd</p>
-                <a class="btn btn-primary col-8 mb-2 align-self-center" href="/dishes">Select</a>`;
-                row.appendChild(card);
-
-            }
-        }
-    </script>
-
-    <footer th:replace="~{fragments/footer :: footer}"></footer>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
-</html>
+</html> the confirm button doesnt work anymore
