@@ -24,9 +24,6 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
 
 
-
-
-
     @Query("select d from Dish d join d.nutritions n where " +
             "(:dietPreferences is null or d.dietPreferences = :dietPreferences) and " +
             "(:minPreparationTime is null or d.preparationTime >= :minPreparationTime) and " +

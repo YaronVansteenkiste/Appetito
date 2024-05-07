@@ -30,7 +30,10 @@ public class DishDetailController {
         }
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
-        dishFromDB.ifPresent(dish -> model.addAttribute("dish", dish));
+        dishFromDB.ifPresent(dish -> {
+            model.addAttribute("dish", dish);
+            model.addAttribute("currentDish", dish.getId());
+        });
         if(dishFromDB.isPresent())
         {
             model.addAttribute("dish", dishFromDB.get());
