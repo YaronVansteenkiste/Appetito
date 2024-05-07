@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -35,16 +37,21 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="/aboutus">Over Ons</a></li>
-<!--                        <li><a class="dropdown-item" href="#">Contacteren</a></li>-->
+                        <li><a class="dropdown-item" href="#">Contacteren</a></li>
                         <li><a class="dropdown-item" href="/x-dagenmenu">Menu</a></li>
                     </ul>
                 </div>
-                <li class="nav-item">
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="btn btn-primary me-1" href="#">Registreren</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="btn btn-outline-primary me-1" href="#">Aanmelden</a>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="btn btn-outline-primary me-1" href="/user/login">Aanmelden</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a sec:authentication="name" class="btn btn-primary me-1" href="#">Profiel</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="btn btn-outline-primary me-1" href="/logout">Uitloggen</a>
                 </li>
             </ul>
         </div>
