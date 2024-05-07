@@ -284,3 +284,5 @@ INSERT INTO USERS (USERNAME, PASSWORD, ENABLED)
 VALUES ('stefferke', '$2a$10$a3/jTRNSkn0Rt/vENxt8.u2pxbJtWV8f1li3QmrIGt/C5RQ2R1wpG', true);
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
+INSERT INTO "PUBLIC"."CHEF" (ID, USERNAME, NAME, SURNAME, EMAIL ) VALUES
+(0, 'stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');

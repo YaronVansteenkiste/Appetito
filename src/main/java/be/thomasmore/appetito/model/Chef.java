@@ -16,7 +16,6 @@ public class Chef {
 
     private String email;
 
-    private String address;
 
     public Chef() {
     }
@@ -27,14 +26,6 @@ public class Chef {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getName() {

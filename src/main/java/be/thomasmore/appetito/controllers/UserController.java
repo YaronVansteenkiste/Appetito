@@ -34,27 +34,27 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model, Principal principal) {
-        if (principal != null) return "redirect:/partylist";
+        if (principal != null) return "redirect:/";
         return "user/login";
     }
 
     @GetMapping("/register")
     public String register(Principal principal) {
-        if (principal != null) return "redirect:/partylist";
+        if (principal != null) return "redirect:/";
         return "user/register";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/profile/")
     public String profile(Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/user/login";
-        }
+        if (principal == null) return "redirect:/";
+        Chef chef = chefRepository.findByUsername(principal.getName());
+        model.addAttribute("chef", chef);
         return "user/profile";
     }
 
     @GetMapping("/logout")
     public String logout(Model model, Principal principal) {
-        if (principal == null) return "redirect:/partylist";
+        if (principal == null) return "redirect:/";
         return "user/logout";
     }
 
@@ -67,9 +67,9 @@ public class UserController {
                                @RequestParam String name,
                                @RequestParam String email,
                                @RequestParam String surname) throws ServletException {
-        if (principal != null) return "redirect:/partylist";
-        if (username == null || username.isBlank()) return "redirect:/partylist";
-        if (jdbcUserDetailsManager.userExists(username)) return "redirect:/partylist";
+        if (principal != null) return "redirect:/";
+        if (username == null || username.isBlank()) return "redirect:/";
+        if (jdbcUserDetailsManager.userExists(username)) return "redirect:/";
 
         UserDetails user = org.springframework.security.core.userdetails.User
                 .withUsername(username)

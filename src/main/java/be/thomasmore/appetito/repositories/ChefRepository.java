@@ -4,4 +4,5 @@ import be.thomasmore.appetito.model.Chef;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ChefRepository extends CrudRepository<Chef, Integer>{
+    Chef findByUsername(String name);
 }

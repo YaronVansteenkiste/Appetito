@@ -50,6 +50,7 @@ public class SecurityConfiguration {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(mvcMatcherBuilder.pattern("/admin/**")).hasAuthority("ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern("/modify/**")).authenticated()
                 .anyRequest().permitAll());
         http.formLogin(form -> form
                 .loginPage("/user/login")
