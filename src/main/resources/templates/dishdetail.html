@@ -117,15 +117,16 @@
 
 <div class=" text-center">
     <a class="btn btn-primary mt-3 ms-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
-    <a class="btn btn-primary mt-3 ms-3" th:href="@{|/dishdetails/${firstDish}|}">First</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}">First</a>
     <th:block th:each="dish : ${allDishes}">
         <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}" th:classappend="${dish.id == currentDish} ? 'btn btn-warning active' : 'btn btn-primary'"
            th:text="${dish.id}"></a>
     </th:block>
-    <a class="btn btn-primary mt-3 ms-3" th:href="@{|/dishdetails/${lastDish}|}">Last</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}">Last</a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
 </div>
 
+<p th:text="'Page ' +${currentDish} + ' of '+ ${lastDish}" class="text-center mt-3"></p>
 
 
 
