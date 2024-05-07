@@ -18,6 +18,8 @@ public class Ingredient {
     private double quantity;
     private String unit;
 
+    private double estimatedPrice;
+
     @ManyToMany()
     @JoinTable(name = "errands_ingredients")
     private List<Errandslist> shoppingCar;
@@ -68,6 +70,14 @@ public class Ingredient {
 
     public void setDish(Dish dish) {
         this.dish = dish;
+    }
+
+    public double getEstimatedPrice() {
+        return estimatedPrice;
+    }
+
+    public void setEstimatedPrice(double estimatedPrice) {
+        this.estimatedPrice = estimatedPrice;
     }
 
     public List<Errandslist> getShoppingCar() {

@@ -1,0 +1,3 @@
+function downloadGroceryList() {
+    window.print();
+}

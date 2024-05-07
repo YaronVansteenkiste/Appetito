@@ -2,6 +2,9 @@ function increaseCounter(id) {
     const counter = document.getElementById("counter" + id);
     counter.textContent = parseInt(counter.textContent) + 1;
     calculateTotal(id);
+    calculateTotalPrice();
+    calculateTotalGroceries();
+
 }
 
 function decreaseCounter(id) {
@@ -11,6 +14,9 @@ function decreaseCounter(id) {
         counter.textContent = currentCount - 1;
     }
     calculateTotal(id);
+    calculateTotalPrice();
+    calculateTotalGroceries();
+
 }
 
 function calculateTotal(id) {
@@ -33,14 +39,33 @@ function addErrand() {
     const newErrand = document.createElement("li");
     newErrand.textContent = errand;
     errandList.appendChild(newErrand);
+    calculateTotalPrice();
+    calculateTotalGroceries();
+
+
 }
 
 const ingredients = document.getElementsByClassName("ingredient");
 
 arrIngredients = Array.from(ingredients);
 
+const addedIngredients = new Set();
+
+
 arrIngredients.forEach((ingredient, index) => {
     ingredient.onclick = function () {
+
+        if (addedIngredients.has(index)) {
+            const alert = document.getElementById("alert");
+            alert.classList.remove("d-none");
+            setTimeout(function () {
+                alert.classList.add("d-none");
+            }, 2000);
+            return;
+        }
+
+        addedIngredients.add(index);
+
         const ingredientList = document.getElementById("ingredientList");
         const newIngredient = document.createElement("div");
         newIngredient.className = "row mt-2";
@@ -56,7 +81,9 @@ arrIngredients.forEach((ingredient, index) => {
         priceCol.className = "col";
         const price = document.createElement("h6");
         price.id = "price" + (index + 1);
-        price.textContent = "€ " + (index + 1).toFixed(2);
+        const priceFromDB = ingredient.getAttribute("data-price");
+        // price.textContent = "€ " + priceFromDB.toFixed(2);
+        price.textContent = "€ " + priceFromDB;
         priceCol.appendChild(price);
         newIngredient.appendChild(priceCol);
 
@@ -96,9 +123,66 @@ arrIngredients.forEach((ingredient, index) => {
         const total = document.createElement("h6");
         total.id = "total" + (index + 1);
         total.innerHTML = '<strong>&euro;' + ((index + 1)).toFixed(2) + '</strong>';
+        total.classList.add("total");
         totalCol.appendChild(total);
         newIngredient.appendChild(totalCol);
 
         ingredientList.appendChild(newIngredient);
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "btn rounded-circle w-25";
+        removeButton.type = "button";
+        removeButton.textContent = "X";
+        removeButton.onclick = function () {
+            newIngredient.remove();
+            calculateTotalPrice();
+            calculateTotalGroceries();
+        }
+
+        newIngredient.appendChild(removeButton);
+
+        calculateTotalPrice();
+        calculateTotalGroceries();
+
+
     }
+
 })
+
+const articlePrice = document.getElementById("articlePrice");
+const articleTip = document.getElementById("articleTip");
+
+articlePrice.onmouseover = function () {
+    articleTip.classList.remove("d-none");
+    articleTip.classList.add("d-block");
+    articlePrice.classList.add("text-primary");
+}
+
+articleTip.onmouseleave = function () {
+    articleTip.classList.remove("d-block");
+    articleTip.classList.add("d-none");
+    articlePrice.classList.remove("text-primary");
+}
+
+
+function calculateTotalPrice() {
+    let totalPrice = 0;
+    document.querySelectorAll('.total').forEach((ingredient) => {
+        totalPrice += parseFloat(ingredient.innerText.replace('€', ''));
+    });
+
+    document.getElementById('totalPrice').textContent = totalPrice;
+}
+
+calculateTotalPrice();
+
+function calculateTotalGroceries() {
+    let totalGroceries = 0;
+    document.querySelectorAll('.counter').forEach((ingredient) => {
+        totalGroceries += parseFloat(ingredient.innerText.replace('€', ''));
+    });
+
+    document.getElementById('totalGroceries').textContent = totalGroceries;
+}
+
+calculateTotalGroceries();

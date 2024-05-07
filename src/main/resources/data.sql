@@ -15,16 +15,16 @@ VALUES (
                '8. Sandra’s tip: Voor een extra portie groen kun je deze heerlijke pasta alfredo serveren met gestoomde broccoli of erwtjes. Zo krijg je meteen je dagelijkse portie groenten binnen!//'
        );
 
-INSERT INTO Ingredient (name, quantity, unit, dish_id)
+INSERT INTO Ingredient (name, quantity, unit, dish_id,estimated_price)
 VALUES
-    ('fettuccine', 75, 'gr', 1),
-    ('roomboter', 22.5, 'gr', 1),
-    ('Parmezaanse kaas (geraspt)', 31.25, 'gr', 1),
-    ('zwarte peper', 0, NULL, 1),
-    ('kipstukjes (vega) (Garden Gourmet)', 62.5, 'gr', 1),
-    ('knoflook (fijngehakt)', 0.25, 'gr', 1),
-    ('peterselie (gehakt voor garnering)', 0, NULL, 1),
-    ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, 1);
+    ('fettuccine', 75, 'gr', 1,2.0),
+    ('roomboter', 22.5, 'gr', 1,3.0),
+    ('Parmezaanse kaas (geraspt)', 31.25, 'gr', 1,4.50),
+    ('zwarte peper', 0, NULL, 1,3.99),
+    ('kipstukjes (vega) (Garden Gourmet)', 62.5, 'gr', 1,8.0),
+    ('knoflook (fijngehakt)', 0.25, 'gr', 1,7.0),
+    ('peterselie (gehakt voor garnering)', 0, NULL, 1,5.0),
+    ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, 1,6.50);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('400 kcal','30 g','4 g','20 g','500 mg','15 g','1 g');
@@ -41,18 +41,18 @@ VALUES (
                '3. Halveer de tomaatjes en meng deze met de zalm en spinazie. Verwarm een paar minuten door en voeg dan de tagliatelle toe. Mix alles door elkaar en schep op borden. Bestrooi met geroosterde pijnboompitten.//'
        );
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('tagliatelle', 350, 'gr', 2),
-    ('kookroom (light)', 350, 'ml', 2),
-    ('verse spinazie', 400, 'gr', 2),
-    ('zalmfilet', 400, 'gr', 2),
-    ('ui', 1, NULL, 2),
-    ('peper en zout', 0, NULL, 2),
-    ('cherrytomaatjes', 250, 'gr', 2),
-    ('pijnboompitten (geroosterd)', 50, 'gr', 2),
-    ('teentjes knoflook', 2, NULL, 2),
-    ('olijfolie', 1, 'eetlepel', 2);
+    ('tagliatelle', 350, 'gr', 2,6.99),
+    ('kookroom (light)', 350, 'ml', 2,5.99),
+    ('verse spinazie', 400, 'gr', 2,4.99),
+    ('zalmfilet', 400, 'gr', 2,6.50),
+    ('ui', 1, NULL, 2,5.0),
+    ('peper en zout', 0, NULL, 2,3.99),
+    ('cherrytomaatjes', 250, 'gr', 2,6.99),
+    ('pijnboompitten (geroosterd)', 50, 'gr', 2,8.0),
+    ('teentjes knoflook', 2, NULL, 2,3.50),
+    ('olijfolie', 1, 'eetlepel', 2,7.50);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('400 kcal','20 g','6 g','30 g','500 mg','8 g','1 g');
@@ -72,15 +72,15 @@ VALUES (
                '6. Serveer de soep in borden of kommen en garneer eventueel met wat extra room, pijnboompitten en waterkers.//'
        );
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('gehakte spinazie (ontdooid)', 450, 'gr', 3),
-    ('boter of margarine', 2, 'eetlepels', 3),
-    ('ui', 1, NULL, 3),
-    ('middelgrote aardappel', 200, 'gr', 3),
-    ('water', 1000, 'ml', 3),
-    ('groente bouillonblokjes', 2, NULL, 3),
-    ('kookroom', 200, 'ml', 3);
+    ('gehakte spinazie (ontdooid)', 450, 'gr', 3,4.50),
+    ('boter of margarine', 2, 'eetlepels', 3,4.0),
+    ('ui', 1, NULL, 3,4.50),
+    ('middelgrote aardappel', 200, 'gr', 3,2.0),
+    ('water', 1000, 'ml', 3, 1.50),
+    ('groente bouillonblokjes', 2, NULL, 3,6.25),
+    ('kookroom', 200, 'ml', 3,5.99);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('100 kcal','5 g','4 g','10 g','600 mg','3 g','1 g');
@@ -105,14 +105,14 @@ VALUES (
                '11. Bak de rolletjes 15 tot 20 minuten in de oven totdat ze goudbruin zijn.//'
        );
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('vers bladerdeeg', 0, NULL, 4),
-    ('feta', 200, 'gr', 4),
-    ('verse spinazie', 400, 'gr', 4),
-    ('peper', 0, 'snuf', 4),
-    ('ei', 1, NULL, 4),
-    ('pijnboompitten', 2, 'eetlepels', 4);
+    ('vers bladerdeeg', 0, NULL, 4,8.50),
+    ('feta', 200, 'gr', 4,5.50),
+    ('verse spinazie', 400, 'gr', 4,2.0),
+    ('peper', 0, 'snuf', 4,2.50),
+    ('ei', 1, NULL, 4,2.50),
+    ('pijnboompitten', 2, 'eetlepels', 4,2.0);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('150 kcal','6 g','2 g','15 g','200 mg','5 g','1 g');
@@ -134,19 +134,19 @@ VALUES (
        );
 
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5),
-    ('olijfolie', 0, 'scheutje', 5),
-    ('water', 1, 'eetlepel', 5),
-    ('zout', 0, 'snuf', 5),
-    ('bakpoeder', 0.5, 'theelepel', 5),
-    ('tomatensaus', 3, 'eetlepels', 5),
-    ('zongedroogde tomaten', 3, NULL, 5),
-    ('rode paprika', 0.25, NULL, 5),
-    ('Italiaanse kruiden', 1, 'eetlepel', 5),
-    ('geraspte kaas (vegan)', 20, 'gram', 5),
-    ('peper en zout', 0, 'snuf', 5);
+    ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5,5.0),
+    ('olijfolie', 0, 'scheutje', 5,4.99),
+    ('water', 1, 'eetlepel', 5,1.50),
+    ('zout', 0, 'snuf', 5,1.99),
+    ('bakpoeder', 0.5, 'theelepel', 5,6.50),
+    ('tomatensaus', 3, 'eetlepels', 5,8.50),
+    ('zongedroogde tomaten', 3, NULL, 5,8.0),
+    ('rode paprika', 0.25, NULL, 5,4.99),
+    ('Italiaanse kruiden', 1, 'eetlepel', 5,4.99),
+    ('geraspte kaas (vegan)', 20, 'gram', 5,5.99),
+    ('peper en zout', 0, 'snuf', 5,3.99);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('250 kcal','10 g','3 g','30 g','200 mg','5 g','3 g');
@@ -166,18 +166,12 @@ VALUES (
        );
 
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES
-    ('verse cranberries', 250, 'gr', 6),
-    ('balsamico azijn', 2, 'eetlepels', 6),
-    ('sinaasappelsap', 100, 'ml', 6),
-    ('kaneel', 1, 'snuf', 6),
-    ('witte basterdsuiker', 75, 'gr', 6),
-    ('verse cranberries', 250, 'gr', 6),
-    ('balsamico azijn', 2, 'eetlepels', 6),
-    ('sinaasappelsap', 100, 'ml', 6),
-    ('kaneel', 1, 'snuf', 6),
-    ('witte basterdsuiker', 75, 'gr', 6);
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES ('verse cranberries', 250, 'gr', 6, 12.50),
+       ('balsamico azijn', 2, 'eetlepels',6, 10.0),
+       ('sinaasappelsap', 100, 'ml',6, 2.50),
+       ('kaneel', 1, 'snuf',6, 4.0),
+       ('witte basterdsuiker', 75, 'gr',6, 5.99);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('40 kcal','0.5 g','2 g','10 g','50 mg','0.1 g','8 g');
@@ -197,14 +191,14 @@ VALUES (
                '6. Maak met je handen balletjes van het mengsel.//'
                '7. Bewaar de balletjes het beste in de koelkast.//'
        );
-INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('pindakaas', 2, 'eetlepels', 7),
-    ('dadels', 13, NULL, 7),
-    ('pinda’s', 100, 'gr', 7),
-    ('cacao poeder', 3, 'theelepels', 7),
-    ('maple syrup', 2, 'eetlepels', 7),
-    ('zout', 1, 'snuf', 7);
+    ('pindakaas', 2, 'eetlepels', 7,6.99),
+    ('dadels', 13, NULL, 7,5.0),
+    ('pinda’s', 100, 'gr', 7,6.0),
+    ('cacao poeder', 3, 'theelepels', 7,7.0),
+    ('maple syrup', 2, 'eetlepels', 7,5.99),
+    ('zout', 1, 'snuf', 7,1.99);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('150 kcal','6 g','3 g','15 g','50 mg','4 g','10 g');
@@ -224,18 +218,18 @@ VALUES (
        );
 
 
-INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('varkenslappen', 400, 'gr', 8),
-    ('sjalotje', 1, NULL, 8),
-    ('teentje knoflook', 1, NULL, 8),
-    ('sambal', 0.5, 'theelepel', 8),
-    ('ketchup', 3, 'eetlepels', 8),
-    ('ketjap', 100, 'ml', 8),
-    ('gemalen korianderzaad', 0, NULL, 8),
-    ('gemalen gember', 0, NULL, 8),
-    ('gebakken uitjes', 0, NULL, 8),
-    ('bosui', 0, NULL, 8);
+    ('varkenslappen', 400, 'gr', 8,10.0),
+    ('sjalotje', 1, NULL, 8,7.99),
+    ('teentje knoflook', 1, NULL, 8,1.75),
+    ('sambal', 0.5, 'theelepel', 8,6.0),
+    ('ketchup', 3, 'eetlepels', 8,4.99),
+    ('ketjap', 100, 'ml', 8,4.99),
+    ('gemalen korianderzaad', 0, NULL, 8,9.0),
+    ('gemalen gember', 0, NULL, 8, 9.99),
+    ('gebakken uitjes', 0, NULL, 8, 5.99),
+    ('bosui', 0, NULL, 8 , 6.0);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('300 kcal','20 g','3 g','20 g','800 mg','10 g','15 g');
@@ -254,14 +248,14 @@ VALUES (
                '5. Garneer met hennepzaad.//'
        );
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
-    ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9),
-    ('granola', 40, 'gr', 9),
-    ('mango', 1, NULL, 9),
-    ('banaan', 1, NULL, 9),
-    ('blauwe bessen', 200, 'gr', 9),
-    ('hennepzaad', 2, 'eetlepels', 9);
+    ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9,3.99),
+    ('granola', 40, 'gr', 9,5.0),
+    ('mango', 1, NULL, 9,9.99),
+    ('banaan', 1, NULL, 9,4.99),
+    ('blauwe bessen', 200, 'gr', 9,8.0),
+    ('hennepzaad', 2, 'eetlepels', 9,6.90);
 
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('200 kcal','5 g','2 g','30 g','80 mg','4 g','20 g');
@@ -278,14 +272,6 @@ VALUES
     (7,7),
     (8,8),
     (9,9);
-
-INSERT INTO ERRANDSLIST(NAME,IMG_FILE_NAME,PRICE)
-VALUES ('Ei','/img/ei.jpg',1.50);
-
-INSERT INTO ERRANDSLIST(NAME,IMG_FILE_NAME,PRICE)
-VALUES ('Melk','/img/melk.jpg',5.0);
-
-
 
 
 
