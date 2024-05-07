@@ -117,8 +117,7 @@
 
 <div class=" text-center">
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}" th:classappend="${previousDish == null} ? 'disabled' : ''"
-    th:if="${previousDish != null}"><- Prev</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
         <th:block th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
             <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}" th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
