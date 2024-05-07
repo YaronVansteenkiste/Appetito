@@ -7,8 +7,22 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Time;
+import java.util.Optional;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
+
+    Optional<Dish> findFirstByOrderByIdAsc();
+
+    Optional<Dish> findFirstByOrderByIdDesc();
+
+    Optional<Dish> findFirstByIdGreaterThanOrderByIdAsc(Integer id);
+
+    Optional<Dish> findFirstByIdLessThanOrderByIdDesc(Integer id);
+
+
+
+
+
 
     @Query("select d from Dish d join d.nutritions n where " +
             "(:dietPreferences is null or d.dietPreferences = :dietPreferences) and " +
