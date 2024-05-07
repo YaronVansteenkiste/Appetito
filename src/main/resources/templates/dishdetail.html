@@ -117,6 +117,9 @@
 
 <div class=" text-center">
     <a class="btn btn-primary mt-3 ms-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
+    <th:block th:each="dish : ${allDishes}">
+        <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}" th:text="${dish.id}"></a>
+    </th:block>
     <a class="btn btn-primary mt-3 ms-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
 </div>
 

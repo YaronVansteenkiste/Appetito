@@ -7,9 +7,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Time;
+import java.util.List;
 import java.util.Optional;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
+
+    List<Dish> findAllByOrderByIdAsc();
 
     Optional<Dish> findFirstByOrderByIdAsc();
 

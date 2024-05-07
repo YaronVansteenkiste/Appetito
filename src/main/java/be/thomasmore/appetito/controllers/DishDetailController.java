@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,7 +21,9 @@ public class DishDetailController {
     @GetMapping({"/dishdetails/{id}" , "/dishdetails"})
     public String dishDetail(Model model, @PathVariable(required = false) Integer id){
         final Iterable<Dish> allDishes = dishRepository.findAll();
+        List<Dish> allTheDishes = dishRepository.findAllByOrderByIdAsc();
         model.addAttribute("dishes", allDishes);
+        model.addAttribute("allDishes",allTheDishes);
 
         if(id == null){
             return "error";
