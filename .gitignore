@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+!**/src/main/**/application-local.properties/
+
 ### STS ###
 .apt_generated
 .classpath
@@ -31,5 +33,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-src/main/resources/application-local.properties
