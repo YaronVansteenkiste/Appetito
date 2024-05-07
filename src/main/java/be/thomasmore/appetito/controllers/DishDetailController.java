@@ -34,17 +34,22 @@ public class DishDetailController {
             model.addAttribute("dish", dish);
             model.addAttribute("currentDish", dish.getId());
         });
+
         if(dishFromDB.isPresent())
         {
             model.addAttribute("dish", dishFromDB.get());
             Optional<Dish> previousDish = dishRepository.findFirstByIdLessThanOrderByIdDesc(id);
+            Optional<Dish> firstDish = dishRepository.findFirstByOrderByIdAsc();
             if (previousDish.isEmpty())
                 previousDish = dishRepository.findFirstByOrderByIdDesc();
             Optional<Dish> nextDish = dishRepository.findFirstByIdGreaterThanOrderByIdAsc(id);
+            Optional<Dish> lastDish = dishRepository.findFirstByOrderByIdDesc();
             if (nextDish.isEmpty())
                 nextDish = dishRepository.findFirstByOrderByIdAsc();
             model.addAttribute("previousDish", previousDish.get().getId());
             model.addAttribute("nextDish", nextDish.get().getId());
+            model.addAttribute("firstDish",firstDish.get().getId());
+            model.addAttribute("lastDish",lastDish.get().getId());
         }
         return "dishdetail";
     }
