@@ -25,14 +25,17 @@ public class DishDetailController {
         model.addAttribute("dishes", allDishes);
         model.addAttribute("allDishes",allTheDishes);
 
+
         if(id == null){
             return "error";
         }
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
+
         dishFromDB.ifPresent(dish -> {
             model.addAttribute("dish", dish);
             model.addAttribute("currentDish", dish.getId());
+
         });
 
         if(dishFromDB.isPresent())
