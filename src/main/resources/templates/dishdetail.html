@@ -25,7 +25,8 @@
         </div>
         <div class="col-md-6 ">
             <div th:if="${dish}">
-                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
+                   class="btn btn-primary">Edit</a>
 
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
@@ -113,25 +114,44 @@
     </div>
 </div>
 
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h4>Suggested Drinks</h4>
+        <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}">
+            <article class="card">
+                <img src="" class="card-img-top" alt="Image Drink">
+
+                <div class="card-body">
+                    <p class="card-text" th:text="${beverage.name}">Beverage name</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
 <div class="text-center">
     <button type="button" onclick="printDishDetails()" class="btn btn-primary mt-3"> Download Details</button>
 </div>
 
 <div class=" text-center">
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}"
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
-        <th:block th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
-            <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}" th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
+        <th:block
+                th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
+            <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}"
+               th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
                th:text="${dish.id}"></a>
         </th:block>
     </th:block>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}" th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
+       th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
 </div>
 
 <p th:text="'Page ' +${currentDish} + ' of '+ ${lastDish}" class="text-center mt-3"></p>
-
 
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
