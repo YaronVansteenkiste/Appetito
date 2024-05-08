@@ -27,7 +27,7 @@ public class Dish {
     @OneToMany
     private Collection<Nutrition> nutritions;
 
-    private Boolean active;
+    private boolean active;
 
     public Dish() {
     }
@@ -107,11 +107,11 @@ public class Dish {
         this.nutritions = nutritions;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }

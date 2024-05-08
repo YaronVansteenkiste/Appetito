@@ -1,15 +1,23 @@
-document.addEventListener("DOMContentLoaded", function (){
-    const status = document.getElementById("status");
-    const toggleButton = document.getElementById("toggle-button");
+function toggleButton() {
+    const button = document.getElementById('toggleButton');
+    const isActive = button.classList.contains('btn-success');
+    const dishId = button.getAttribute('data-dish-id');
 
-    toggleButton.addEventListener("click",function (){
-        if (status.textContent === "Niet Actief"){
-            status.textContent = "Actief";
-            status.style.color = "green"
-        }
-        else {
-            status.textContent = "Niet Actief";
-            status.style.color = "red";
-        }
+    if (isActive) {
+        button.classList.remove('btn-success');
+        button.classList.add('btn-danger');
+        button.textContent = 'Inactive';
+    } else {
+        button.classList.remove('btn-danger');
+        button.classList.add('btn-success');
+        button.textContent = 'Active';
+    }
+
+    fetch(`/toggle/dish/${dishId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isActive: !isActive })
     });
-});
+}

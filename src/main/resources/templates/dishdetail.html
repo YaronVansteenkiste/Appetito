@@ -11,6 +11,8 @@
     <title>Dish Detail</title>
 </head>
 <body>
+
+
 <h1 th:replace="~{fragments/header :: header}"></h1>
 
 <h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > ' + ${dish.name}"></h6>
@@ -26,8 +28,12 @@
         <div class="col-md-6 ">
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
-                <span id="status">Non-Active</span></p>
-                <button id="toggle-button">Toggle Status</button>
+                <form th:action="@{/toggle/dish/{id}(id=${dish.id})}" method="post">
+                    <input type="hidden" name="active" th:value="${!dish.active}">
+                    <button type="submit" th:class="${dish.active ? 'btn btn-success' : 'btn btn-danger'}"
+                            th:text="${dish.active ? 'Active' : 'Inactive'}">
+                    </button>
+                </form>
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
 

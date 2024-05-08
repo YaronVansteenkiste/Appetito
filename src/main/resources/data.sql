@@ -12,7 +12,7 @@ VALUES (
                '5. Strooi de geraspte Parmezaanse kaas over de pasta en roer alles goed door elkaar totdat de kaas volledig is gesmolten en een romige saus vormt.//'
                '6. Voeg nu de gebakken kipstukjes toe aan de pan en meng alles goed door elkaar. Breng op smaak met zwarte peper.//'
                '7. Serveer de pasta alfredo op borden en garneer met de gehakte peterselie voor een frisse touch.//'
-               '8. Sandra’s tip: Voor een extra portie groen kun je deze heerlijke pasta alfredo serveren met gestoomde broccoli of erwtjes. Zo krijg je meteen je dagelijkse portie groenten binnen!//',true
+               '8. Sandra’s tip: Voor een extra portie groen kun je deze heerlijke pasta alfredo serveren met gestoomde broccoli of erwtjes. Zo krijg je meteen je dagelijkse portie groenten binnen!//',false
        );
 
 INSERT INTO Ingredient (name, quantity, unit, dish_id,estimated_price)
