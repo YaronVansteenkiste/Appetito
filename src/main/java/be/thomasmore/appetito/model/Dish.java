@@ -27,6 +27,9 @@ public class Dish {
     @OneToMany
     private Collection<Nutrition> nutritions;
 
+    @ManyToMany
+    private Collection<Beverage> beverages;
+
     public Dish() {
     }
 
@@ -103,5 +106,13 @@ public class Dish {
 
     public void setNutritions(Collection<Nutrition> nutritions) {
         this.nutritions = nutritions;
+    }
+
+    public Collection<Beverage> getBeverages() {
+        return beverages;
+    }
+
+    public void setBeverages(Collection<Beverage> beverages) {
+        this.beverages = beverages;
     }
 }

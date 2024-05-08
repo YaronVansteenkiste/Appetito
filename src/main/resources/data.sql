@@ -319,3 +319,39 @@ INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
 VALUES ('Twinings English Breakfast', 'Tea, Hot');
 INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
 VALUES ('PG tips', 'Tea, Hot');
+
+INSERT INTO DISH_BEVERAGES (DISHES_ID, BEVERAGES_ID)
+VALUES
+    (1,1),
+    (1,2),
+    (1,3),
+    (1,8),
+    (1,11),
+    (2,1),
+    (2,2),
+    (2,3),
+    (2,11),
+    (3,1),
+    (3,2),
+    (3,3),
+    (3,15),
+    (3,16),
+    (4,4),
+    (4,5),
+    (4,6),
+    (4,15),
+    (4,16),
+    (5,1),
+    (5,2),
+    (5,3),
+    (5,8),
+    (6,15),
+    (6,16),
+    (7,4),
+    (7,5),
+    (7,11),
+    (8,3),
+    (8,7),
+    (8,15),
+    (9,15),
+    (9,16);

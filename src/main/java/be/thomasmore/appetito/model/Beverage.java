@@ -1,9 +1,8 @@
 package be.thomasmore.appetito.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Collection;
 
 @Entity
 public class Beverage {
@@ -12,6 +11,9 @@ public class Beverage {
     private Integer id;
     private String name;
     private String type_of_beverage;
+
+    @ManyToMany(mappedBy = "beverages")
+    private Collection<Dish> dishes;
 
     public Beverage(){}
 
@@ -43,5 +45,13 @@ public class Beverage {
 
     public void setType_of_beverage(String type_of_beverage) {
         this.type_of_beverage = type_of_beverage;
+    }
+
+    public Collection<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Collection<Dish> dishes) {
+        this.dishes = dishes;
     }
 }
