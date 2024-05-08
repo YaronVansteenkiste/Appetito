@@ -89,8 +89,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="row justify-content-center">
                     <div class="col-sm-4 d-grid p-2 m-2">
                         <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Submit</button>
@@ -98,11 +96,18 @@
                     <div class="col-sm-4 d-grid p-2 m-2">
                         <a class="btn btn-outline-primary btn-block" th:href="@{/dishdetail}" role="button">Cancel</a>
                     </div>
+                    <div class="col-sm-4 d-grid p-2 m-2">
+                        <a class="btn btn-outline-primary btn-block" th:href="@{|/modify/editingredients/${dish.id}|}" role="button">ingrediënten aanpassen</a>
+                    </div>
+
+
                 </div>
 
             </form>
         </div>
     </div>
+
+
 
 </div>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

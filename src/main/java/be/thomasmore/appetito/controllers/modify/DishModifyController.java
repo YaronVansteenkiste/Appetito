@@ -3,8 +3,11 @@ package be.thomasmore.appetito.controllers.modify;
 
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.model.DishDto;
+import be.thomasmore.appetito.model.Ingredient;
+import be.thomasmore.appetito.model.IngredientListWrapper;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.services.GoogleService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.*;
 
 
 @RequestMapping("/modify")
 @Controller
 public class DishModifyController {
 
-    private static final Logger logger= LoggerFactory.getLogger(DishModifyController.class);
+    private static final Logger logger = LoggerFactory.getLogger(DishModifyController.class);
     @Autowired
     DishRepository dishRepository;
 
@@ -33,7 +36,7 @@ public class DishModifyController {
     GoogleService googleService;
 
     @ModelAttribute("dish")
-    public Dish findDish(@PathVariable(required = false) Integer id){
+    public Dish findDish(@PathVariable(required = false) Integer id) {
         if (id != null) {
             Optional<Dish> dishFromDB = dishRepository.findById(id);
             return dishFromDB.orElseGet(Dish::new);
@@ -44,67 +47,71 @@ public class DishModifyController {
 
 
     @GetMapping("/dishedit/{id}")
-    public String dishEdit(Model model, @PathVariable(required = false) Integer id){
+    public String dishEdit(Model model, @PathVariable(required = false) Integer id) {
 
-        Optional<Dish>dishOptional=dishRepository.findById(id);
-        if(dishOptional.isPresent()){
+        Optional<Dish> dishOptional = dishRepository.findById(id);
 
-            Dish dish =dishOptional.get();
-            DishDto dishDto=new DishDto();
+
+        if (dishOptional.isPresent()) {
+
+            Dish dish = dishOptional.get();
+
+            DishDto dishDto = new DishDto();
             dishDto.setName(dish.getName());
             dishDto.setDietPreferences(dish.getDietPreferences());
             dishDto.setPreparationTime(dish.getPreparationTime());
             dishDto.setOccasion(dish.getOccasion());
             dishDto.setPreparation(dish.getPreparation());
 
-            model.addAttribute("dishDto",dishDto);
-            model.addAttribute("dish",dish);
+            model.addAttribute("dishDto", dishDto);
+            model.addAttribute("dish", dish);
 
-           return "modify/dishedit";
-        }
-        else{
-            return"redirect:/dishdetail";
+            return "modify/dishedit";
+        } else {
+            return "redirect:/dishdetail";
         }
 
     }
 
     @PostMapping("/dishedit/{id}")
-public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
-                           @RequestParam(required = false) MultipartFile image,
-                           BindingResult result, @PathVariable int id, Model model) {
+    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
+                               @RequestParam(required = false) MultipartFile image,
+                               BindingResult result, @PathVariable int id, Model model) {
 
-    logger.debug("posting data for id {}", id);
+        logger.debug("posting data for id {}", id);
 
-    if (result.hasErrors()) {
-        logger.error("validation errors: {}", result.getAllErrors());
+        if (result.hasErrors()) {
+            logger.error("validation errors: {}", result.getAllErrors());
 
-        model.addAttribute("dishDto", dishDto);
-        model.addAttribute("bindingResult", result);
-        return "modify/dishedit";
-    }
-
-    try {
-        Optional<Dish> optionalDish = dishRepository.findById(id);
-
-        if (optionalDish.isPresent()) {
-            Dish dish = optionalDish.get();
-            dish.setName(dishDto.getName());
-            dish.setDietPreferences(dishDto.getDietPreferences());
-            dish.setPreparationTime(dishDto.getPreparationTime());
-            dish.setOccasion(dishDto.getOccasion());
-            dish.setPreparation(dishDto.getPreparation());
-            if (image != null && !image.isEmpty()) {
-                dish.setImgFileName(uploadImage(image));
-            }
-            dishRepository.save(dish);
-
-            return "redirect:/dishdetails/" + id;
+            model.addAttribute("dishDto", dishDto);
+            model.addAttribute("bindingResult", result);
+            return "modify/dishedit";
         }
-    } catch (Exception ex) {
-        logger.error("Error: {}", ex.getMessage());
+
+        try {
+            Optional<Dish> optionalDish = dishRepository.findById(id);
+
+            if (optionalDish.isPresent()) {
+                Dish dish = optionalDish.get();
+
+
+                dish.setName(dishDto.getName());
+                dish.setDietPreferences(dishDto.getDietPreferences());
+                dish.setPreparationTime(dishDto.getPreparationTime());
+                dish.setOccasion(dishDto.getOccasion());
+                dish.setPreparation(dishDto.getPreparation());
+                if (image != null && !image.isEmpty()) {
+                    dish.setImgFileName(uploadImage(image));
+                }
+                dishRepository.save(dish);
+
+                return "redirect:/dishdetails/" + id;
+            }
+        } catch (Exception ex) {
+            logger.error("Error: {}", ex.getMessage());
+        }
+        return "redirect:/dishdetails/" + id;
     }
-    return "redirect:/dishdetails/" + id;
-}
 
 
     @GetMapping("/addmeal")
@@ -119,7 +126,7 @@ public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
     public String createDish(Model model,
                              @Valid DishDto dishDto,
                              @RequestParam(required = false) MultipartFile image,
-                             BindingResult bindingResult ) throws IOException{
+                             BindingResult bindingResult) throws IOException {
 
         Dish dish = new Dish();
 
@@ -137,6 +144,54 @@ public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
         dishRepository.save(dish);
         return "redirect:/dishes";
     }
+
+    @GetMapping("/editingredients/{id}")
+    public String showIngredients(Model model, @PathVariable(required = false) Integer id) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            List<Ingredient> ingredients = new ArrayList<>(dish.getIngredients());
+
+            IngredientListWrapper wrapper = new IngredientListWrapper();
+            wrapper.setIngredients(ingredients);
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("ingredientListWrapper", wrapper);
+
+            return "modify/editingredients";
+        } else {
+            return "redirect:/modify/dishedit";
+        }
+    }
+
+    @ModelAttribute("ingredientListWrapper")
+    public IngredientListWrapper ingredientListWrapper() {
+
+        IngredientListWrapper wrapper = new IngredientListWrapper();
+        wrapper.setIngredients(new ArrayList<>());
+        return wrapper;
+    }
+    @PostMapping("/modify/editingredients/{id}")
+    public String editIngredients(@PathVariable("id") Integer id,
+                                  @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                                  Model model) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            List<Ingredient> ingredients = wrapper.getIngredients();
+
+            dish.getIngredients().clear();
+            dish.getIngredients().addAll(ingredients);
+            dishRepository.save(dish);
+            return "redirect:/modify/dishedit/" + id;
+        } else {
+            model.addAttribute("error", "Dish not found with id: " + id);
+            return "errorPage";
+        }
+    }
+
+
 
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
