@@ -127,7 +127,7 @@ public class DishModifyController {
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparation(dishDto.getPreparation());
         dish.setPreparationTime(dishDto.getPreparationTime());
-        dish.setImgFileName(uploadImage(image));
+//        dish.setImgFileName(uploadImage(image));
 
 
         dishRepository.save(dish);
