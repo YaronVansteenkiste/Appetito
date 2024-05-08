@@ -26,7 +26,8 @@
         <div class="col-md-6 ">
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
-                <button id="toggle-button" class="btn btn-success">Toggle Status</button>
+                <span id="status">Non-Active</span></p>
+                <button id="toggle-button">Toggle Status</button>
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
 
@@ -136,6 +137,7 @@
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 <script th:src="@{/scripts/print.js}"></script>
+<script th:src="@{/scripts/status.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
