@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class DishDetailController {
 
 
         if(id == null){
-            return "error";
+            return "error2";
         }
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
