@@ -286,3 +286,36 @@ INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
 INSERT INTO "PUBLIC"."CHEF" (ID, USERNAME, NAME, SURNAME, EMAIL ) VALUES
 (0, 'stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
+
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Coca Cola', 'Carbonated, Caffeinated, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Sprite', 'Carbonated, Caffeinated, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Ice-Tea', 'Carbonated, Caffeinated, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Cappuccino', 'Caffeinated, Coffee, Hot');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Latte', 'Caffeinated, Coffee, Hot');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Macchiato', 'Caffeinated, Coffee, Hot');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Duvel', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Jupiler', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('La Chouffe', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Leffe', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Chardonnay', 'Alcohol, White Wine, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Pinot Gris', 'Alcohol, White Wine, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Müller-Thurgau', 'Alcohol, White Wine, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Bordeaux', 'Alcohol, Red Wine, Cold');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('Twinings English Breakfast', 'Tea, Hot');
+INSERT INTO BEVERAGE (NAME, TYPE_OF_BEVERAGE)
+VALUES ('PG tips', 'Tea, Hot');
