@@ -26,7 +26,7 @@
         <div class="col-md-6 ">
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
-
+                <button id="toggle-button" class="btn btn-success">Toggle Status</button>
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
 
