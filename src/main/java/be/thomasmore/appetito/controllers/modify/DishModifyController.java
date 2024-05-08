@@ -129,7 +129,9 @@ public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparation(dishDto.getPreparation());
         dish.setPreparationTime(dishDto.getPreparationTime());
-        dish.setImgFileName(uploadImage(image));
+        if (image != null && !image.isEmpty()) {
+            dish.setImgFileName(uploadImage(image));
+        }
 
 
         dishRepository.save(dish);
