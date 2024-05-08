@@ -58,9 +58,6 @@ public class SecurityConfiguration {
         );
         http.logout(form -> form.logoutUrl("/user/logout"));
 
-//        disable csfr for add dish
-
-
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/addmeal"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/dishedit"));
 
