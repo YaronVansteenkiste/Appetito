@@ -1,4 +1,4 @@
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'pasta alfredo met kip',
            'paleo',
@@ -12,7 +12,7 @@ VALUES (
                '5. Strooi de geraspte Parmezaanse kaas over de pasta en roer alles goed door elkaar totdat de kaas volledig is gesmolten en een romige saus vormt.//'
                '6. Voeg nu de gebakken kipstukjes toe aan de pan en meng alles goed door elkaar. Breng op smaak met zwarte peper.//'
                '7. Serveer de pasta alfredo op borden en garneer met de gehakte peterselie voor een frisse touch.//'
-               '8. Sandra’s tip: Voor een extra portie groen kun je deze heerlijke pasta alfredo serveren met gestoomde broccoli of erwtjes. Zo krijg je meteen je dagelijkse portie groenten binnen!//'
+               '8. Sandra’s tip: Voor een extra portie groen kun je deze heerlijke pasta alfredo serveren met gestoomde broccoli of erwtjes. Zo krijg je meteen je dagelijkse portie groenten binnen!//',true
        );
 
 INSERT INTO Ingredient (name, quantity, unit, dish_id,estimated_price)
@@ -29,7 +29,7 @@ VALUES
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('400 kcal','30 g','4 g','20 g','500 mg','15 g','1 g');
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'Pasta met zalm en spinazie',
            'paleo',
@@ -38,7 +38,7 @@ VALUES (
            '/img/pasta_zalm.jpg',
            '1. Kook de pasta volgens verpakking beetgaar. Snipper ondertussen de ui en de teentjes knoflook fijn. Bak deze glazig in een grote hapjes of wokpan in een eetlepel olie.//'
                '2. Voeg de zalm toe en bak rondom aan, steek met een spatel in stukken. Voeg dan in etappes de spinazie toe totdat deze wat geslonken is. Schenk de kookroom erbij en breng op maak met flink wat peper en zout.//'
-               '3. Halveer de tomaatjes en meng deze met de zalm en spinazie. Verwarm een paar minuten door en voeg dan de tagliatelle toe. Mix alles door elkaar en schep op borden. Bestrooi met geroosterde pijnboompitten.//'
+               '3. Halveer de tomaatjes en meng deze met de zalm en spinazie. Verwarm een paar minuten door en voeg dan de tagliatelle toe. Mix alles door elkaar en schep op borden. Bestrooi met geroosterde pijnboompitten.//', true
        );
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
@@ -57,7 +57,7 @@ VALUES
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('400 kcal','20 g','6 g','30 g','500 mg','8 g','1 g');
 
-INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
 
            'Spinaziesoep',
@@ -69,7 +69,7 @@ VALUES (
                '3. Giet het water erbij, breng aan de kook en verkruimel de bouillonblokjes boven de pan. Laat alles 10 min zachtjes doorkoken.//'
                '4. Pureer de soep met een staafmixer tot een gladde groene massa.//'
                '5. Roer de room erdoor.//'
-               '6. Serveer de soep in borden of kommen en garneer eventueel met wat extra room, pijnboompitten en waterkers.//'
+               '6. Serveer de soep in borden of kommen en garneer eventueel met wat extra room, pijnboompitten en waterkers.//',true
        );
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
@@ -86,7 +86,7 @@ INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('100 kcal','5 g','4 g','10 g','600 mg','3 g','1 g');
 
 
-INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'Spinazie feta bladerdeegrolletjes',
            'vegetarisch',
@@ -102,7 +102,7 @@ VALUES (
                '8. Rol het bladerdeeg voorzichtig op.//'
                '9. Snijd met een scherp mes de rol in plakjes. Is dit lastig? Dan kun je de rol een half uurtje in de koelkast leggen zodat hij wat opstijft.//'
                '10. Leg de plakjes op een bakplaat met bakpapier en bestrijk met een los geklopt ei.//'
-               '11. Bak de rolletjes 15 tot 20 minuten in de oven totdat ze goudbruin zijn.//'
+               '11. Bak de rolletjes 15 tot 20 minuten in de oven totdat ze goudbruin zijn.//',true
        );
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
@@ -117,7 +117,7 @@ VALUES
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('150 kcal','6 g','2 g','15 g','200 mg','5 g','1 g');
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION, ACTIVE)
 VALUES (
            'Glutenvrije pizza',
            'glutenvrij',
@@ -130,7 +130,7 @@ VALUES (
                '4. Verdeel de tomatensaus met een lepel over de pizza.//'
                '5. Snijd de paprika en zongedroogde tomaten en leg deze vervolgens op de tomatensaus.//'
                '6. Strooi de Italiaanse kruiden, geraspte kaas en een snuf peper en zout hier overheen.//'
-               '7. Bak de pizza voor 15 minuten op 225° graden.//'
+               '7. Bak de pizza voor 15 minuten op 225° graden.//',true
        );
 
 
@@ -151,7 +151,7 @@ VALUES
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('250 kcal','10 g','3 g','30 g','200 mg','5 g','3 g');
 
-INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'Snelle cranberry compote',
            'vegan',
@@ -162,7 +162,7 @@ VALUES (
                '2. Voeg de balsamico azijn en een snuf kaneel toe.//'
                '3. Voeg dan de cranberries toe en breng zachtjes aan de kook.//'
                '4. Roer af en toe door en wacht tot de cranberries zacht worden en uit elkaar vallen, waardoor er een saus ontstaat. Dit duurt ongeveer 15 minuten.//'
-               'De cranberry compote is lekker bij een stukje wild of bij het dessert en is een onmisbaar gerecht bij het kerstdiner. Bewaar de saus afgedekt in de koelkast. De cranberry compote is enkele weken tot maanden houdbaar.//'
+               'De cranberry compote is lekker bij een stukje wild of bij het dessert en is een onmisbaar gerecht bij het kerstdiner. Bewaar de saus afgedekt in de koelkast. De cranberry compote is enkele weken tot maanden houdbaar.//',true
        );
 
 
@@ -176,7 +176,7 @@ VALUES ('verse cranberries', 250, 'gr', 6, 12.50),
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('40 kcal','0.5 g','2 g','10 g','50 mg','0.1 g','8 g');
 
-INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'Snicker bliss balls',
            'dessert',
@@ -189,7 +189,7 @@ VALUES (
                '4. Voeg de gemalen pinda’s, pindakaas, maple syrup, cacao poeder en snuf zout toe aan de dadels in de keukenmachine.//'
                '5. Meng alles goed totdat het een samenhangend mengsel vormt.//'
                '6. Maak met je handen balletjes van het mengsel.//'
-               '7. Bewaar de balletjes het beste in de koelkast.//'
+               '7. Bewaar de balletjes het beste in de koelkast.//',true
        );
 INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
 VALUES
@@ -203,7 +203,7 @@ VALUES
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('150 kcal','6 g','3 g','15 g','50 mg','4 g','10 g');
 
-INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'Babi ketjap spiezen',
            'keto',
@@ -214,7 +214,7 @@ VALUES (
                '2. Snipper ondertussen het sjalotje en de knoflook zo fijn mogelijk.//'
                '3. Verhit in een pannetje een beetje olie en bak de ui en knoflook aan. Voeg de ketchup en de sambal toe en bak 1 minuutje mee. Voeg een scheut ketjap toe (ongeveer 100 ml) en breng aan de kook. Voeg ongeveer eenzelfde hoeveelheid water toe en laat het pruttelen tot het begint in te dikken.//'
                '4. Rijg het gemarineerde vlees aan de spiezen en bak in een pan (of op de BBQ) in ongeveer 7 minuten gaar.//'
-               '5. Serveer de spiezen met de ketjap saus erover en garneer met gebakken uitjes en bosui. Lekker met rijst en/of roerbakgroente.//'
+               '5. Serveer de spiezen met de ketjap saus erover en garneer met gebakken uitjes en bosui. Lekker met rijst en/of roerbakgroente.//',true
        );
 
 
@@ -234,7 +234,7 @@ VALUES
 INSERT INTO NUTRITION (CARBS,FAT,FIBER,PROTEINS,SALT,SATURATED_FAT,SUGAR)
 VALUES('300 kcal','20 g','3 g','20 g','800 mg','10 g','15 g');
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION,ACTIVE)
 VALUES (
            'Yoghurt met fruit ontbijt',
            'vegetarisch',
@@ -245,7 +245,7 @@ VALUES (
                '2. Snijd de mango en banaan in plakjes en voeg deze toe aan de kom.//'
                '3. Voeg de blauwe bessen toe aan de kom.//'
                '4. Strooi de granola over de yoghurt en het fruit.//'
-               '5. Garneer met hennepzaad.//'
+               '5. Garneer met hennepzaad.//',true
        );
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID,ESTIMATED_PRICE)
