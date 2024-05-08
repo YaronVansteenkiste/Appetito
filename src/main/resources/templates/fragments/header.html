@@ -43,6 +43,7 @@
                         <li><a class="dropdown-item" href="/about">Over Ons</a></li>
                         <li><a class="dropdown-item" href="#">Contacteren</a></li>
                         <li><a class="dropdown-item" href="/x-dagenmenu">Menu</a></li>
+                        <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" href="/admin/">Admin Panel</a></li>
                     </ul>
                 </div>
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
