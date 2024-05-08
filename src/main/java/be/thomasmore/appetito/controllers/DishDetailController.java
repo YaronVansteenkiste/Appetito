@@ -26,7 +26,7 @@ public class DishDetailController {
 
 
         if(id == null){
-            return "error2";
+            return "error";
         }
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
