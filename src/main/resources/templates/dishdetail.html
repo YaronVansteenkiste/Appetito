@@ -52,7 +52,7 @@
             <h4>Ingrediënten</h4>
             <div class="row">
                 <div class="col-6">
-                    <p>Aantal personen:</p>
+                    <h5 class="text-secondary">Aantal personen:</h5>
                 </div>
                 <div class="col-6 d-inline-flex">
                     <button onclick="subtractPersons()" class="btn btn-outline-primary rounded-circle">-</button>
@@ -71,7 +71,7 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
-            <h4>Voedingswaarde</h4>
+            <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
             <div th:each="nutrition: ${dish.getNutritions()}">
                 <div class="row">
                     <div class="col-lg-4 border text-center mt-2">
