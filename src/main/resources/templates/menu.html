@@ -42,7 +42,7 @@
                     <div class="row">
                         <div th:each="dish : ${allDishes}" class="col-4 mb-3">
                             <div class="dish-item">
-                                <input type="checkbox" th:name="selectedDishes" th:value="${dish.id}">
+                                <input class="form-check-input" type="checkbox" th:name="selectedDishes" th:value="${dish.id}">
                                 <label th:text="${dish.name}"></label>
                                 <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" class="img-fluid img-thumbnail" style="width: 150px; height: 100px;">
                             </div>
