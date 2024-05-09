@@ -25,6 +25,8 @@ public class DishDetailController {
         model.addAttribute("allDishes",allTheDishes);
 
 
+
+
         if(id == null){
             return "error";
         }

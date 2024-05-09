@@ -25,7 +25,8 @@
         </div>
         <div class="col-md-6 ">
             <div th:if="${dish}">
-                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
+                   class="btn btn-primary">Edit</a>
 
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
@@ -49,6 +50,16 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
             <h4>Ingrediënten</h4>
+            <div class="row">
+                <div class="col-6">
+                <p>Aantal personen:</p>
+                </div>
+                <div class="col-6 d-inline-flex">
+                    <button class="btn-outline-primary rounded mx-3">-</button>
+                    <p id="persons" class="mx-3">1</p>
+                    <button onclick="addPersons()" class="btn-outline-primary rounded mx-3">+</button>
+                </div>
+            </div>
             <div class="border-bottom mt-2" th:each="ingredient: ${dish.getIngredients()}"
                  th:if="${ingredient.quantity != null}">
                 <p th:text="${ingredient.name + ' ' + (ingredient.quantity  != null && ingredient.quantity  != 0 ? ingredient.quantity + ' ' : '') + (ingredient.getUnit() != null ? ingredient.getUnit() : '')}"></p>
@@ -118,24 +129,28 @@
 </div>
 
 <div class=" text-center">
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}"
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
-        <th:block th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
-            <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}" th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
+        <th:block
+                th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
+            <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}"
+               th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
                th:text="${dish.id}"></a>
         </th:block>
     </th:block>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}" th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
+       th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
 </div>
 
 <p th:text="'Page ' +${currentDish} + ' of '+ ${lastDish}" class="text-center mt-3"></p>
 
 
-
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 <script th:src="@{/scripts/print.js}"></script>
+<script th:src="@{/scripts/ingredient.js}"</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
