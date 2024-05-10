@@ -292,9 +292,9 @@ VALUES ('Coca Cola', '/img/Cola.jpg', 'Carbonated, Caffeinated, Cold');
 INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
 VALUES ('Sprite', '/img/Sprite.jpg', 'Carbonated, Caffeinated, Cold');
 INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Ice-Tea', 'Lipton_Ice_Tea.jpg', 'Carbonated, Caffeinated, Cold');
+VALUES ('Ice-Tea', '/img/Lipton_Ice_Tea.jpg', 'Carbonated, Caffeinated, Cold');
 INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Cappuccino', '/img/Cappuccino.jpg', 'Caffeinated, Coffee, Hot');
+VALUES ('Cappuccino', '/img/Cappucciono.jpg', 'Caffeinated, Coffee, Hot');
 INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
 VALUES ('Latte', '/img/Latte.webp', 'Caffeinated, Coffee, Hot');
 INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)

@@ -120,7 +120,9 @@
         <h4>Suggested Drinks</h4>
         <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}">
             <article class="card">
-                <img th:src="@{${beverage.getImgFile()}}" class="card-img-top" alt="Image Drink">
+                <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
+                    <img th:src="@{${beverage.getImgFile()}}" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" alt="Image Drink">
+                </div>
 
                 <div class="card-body">
                     <p class="card-text" th:text="${beverage.name}">Beverage name</p>
