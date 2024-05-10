@@ -120,7 +120,7 @@
         <h4>Suggested Drinks</h4>
         <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}">
             <article class="card">
-                <img src="" class="card-img-top" alt="Image Drink">
+                <img th:src="@{'/img/' + ${beverage.id} + '.jpg'}" class="card-img-top" alt="Image Drink">
 
                 <div class="card-body">
                     <p class="card-text" th:text="${beverage.name}">Beverage name</p>

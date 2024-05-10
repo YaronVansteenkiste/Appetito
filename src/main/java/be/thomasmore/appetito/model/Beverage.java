@@ -10,6 +10,8 @@ public class Beverage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
+    private String imgFile;
     private String type_of_beverage;
 
     @ManyToMany(mappedBy = "beverages")
@@ -17,9 +19,10 @@ public class Beverage {
 
     public Beverage(){}
 
-    public Beverage(Integer id, String name, String type_of_beverage) {
+    public Beverage(Integer id, String name, String imgFile, String type_of_beverage) {
         this.id = id;
         this.name = name;
+        this.imgFile = imgFile;
         this.type_of_beverage = type_of_beverage;
     }
 
@@ -37,6 +40,14 @@ public class Beverage {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImgFile() {
+        return imgFile;
+    }
+
+    public void setImgFile(String imgFile) {
+        this.imgFile = imgFile;
     }
 
     public String getType_of_beverage() {
