@@ -7,7 +7,9 @@ import be.thomasmore.appetito.model.Ingredient;
 import be.thomasmore.appetito.model.IngredientListWrapper;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.services.GoogleService;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
+
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import java.util.*;
+
 
 
 @RequestMapping("/modify")
@@ -146,51 +150,53 @@ public class DishModifyController {
     }
 
     @GetMapping("/editingredients/{id}")
-    public String showIngredients(Model model, @PathVariable(required = false) Integer id) {
+    public String showIngredients(Model model, @PathVariable("id") Integer id) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
-
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
-            List<Ingredient> ingredients = new ArrayList<>(dish.getIngredients());
-
             IngredientListWrapper wrapper = new IngredientListWrapper();
-            wrapper.setIngredients(ingredients);
+            wrapper.setIngredients(new ArrayList<>(dish.getIngredients()));
 
             model.addAttribute("dish", dish);
             model.addAttribute("ingredientListWrapper", wrapper);
-
             return "modify/editingredients";
         } else {
-            return "redirect:/modify/dishedit";
+            return "redirect:/modify/dishedit/" + id;
         }
     }
 
-    @ModelAttribute("ingredientListWrapper")
-    public IngredientListWrapper ingredientListWrapper() {
 
-        IngredientListWrapper wrapper = new IngredientListWrapper();
-        wrapper.setIngredients(new ArrayList<>());
-        return wrapper;
-    }
-    @PostMapping("/modify/editingredients/{id}")
+
+
+
+    @PostMapping("/editingredients/{id}")
+    @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
                                   @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
                                   Model model) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
-        if (optionalDish.isPresent()) {
-            Dish dish = optionalDish.get();
-            List<Ingredient> ingredients = wrapper.getIngredients();
-
-            dish.getIngredients().clear();
-            dish.getIngredients().addAll(ingredients);
-            dishRepository.save(dish);
-            return "redirect:/modify/dishedit/" + id;
-        } else {
+        if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "errorPage";
+            return "/error";
         }
-    }
 
+        Dish dish = optionalDish.get();
+        List<Ingredient> currentIngredients = new ArrayList<>(wrapper.getIngredients());
+
+
+        dish.getIngredients().clear();
+
+        currentIngredients.forEach(ingredient -> {
+            ingredient.setDish(dish);
+            dish.getIngredients().add(ingredient);
+
+        });
+
+
+        dishRepository.save(dish);
+
+        return "redirect:/modify/dishedit/" + id;
+    }
 
 
 

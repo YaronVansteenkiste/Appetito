@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.sql.Time;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Dish {
@@ -21,8 +22,10 @@ public class Dish {
     private String imgFileName;
     @Length(max=10000)
     private String preparation;
-    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Collection<Ingredient> ingredients;
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Ingredient> ingredients;
+
+
 
     @OneToMany
     private Collection<Nutrition> nutritions;
@@ -80,11 +83,11 @@ public class Dish {
         this.preparation = preparation;
     }
 
-    public Collection<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Collection<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

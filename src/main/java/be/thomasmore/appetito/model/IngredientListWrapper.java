@@ -1,13 +1,14 @@
 package be.thomasmore.appetito.model;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class IngredientListWrapper {
     private List<Ingredient> ingredients;
 
     public IngredientListWrapper() {
-        this.ingredients = new ArrayList<>();
+        ingredients = new ArrayList<>();
     }
 
     public List<Ingredient> getIngredients() {
@@ -17,4 +18,6 @@ public class IngredientListWrapper {
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+
 }

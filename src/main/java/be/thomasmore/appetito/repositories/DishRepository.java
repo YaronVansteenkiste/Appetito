@@ -1,7 +1,7 @@
 package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Dish;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
