@@ -59,6 +59,7 @@ public class SecurityConfiguration {
         http.logout(form -> form.logoutUrl("/user/logout"));
 
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/addmeal"));
+        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editingredients/**"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/dishedit/**"));
 
 
