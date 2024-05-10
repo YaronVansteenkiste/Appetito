@@ -2,13 +2,14 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
+
+
 
 @Entity
 public class Nutrition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String fiber;
     private String salt;
@@ -17,28 +18,22 @@ public class Nutrition {
     private String fat;
     private String carbs;
     private String proteins;
+    @ManyToOne
+    @JoinColumn(name = "dish_id")
+    private Dish dish;
 
     public Nutrition() {
     }
 
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-
-
-//    public Collection<Dish> getDishes() {
-//        return dishes;
-//    }
-
-//    public void setDishes(Collection<Dish> dishes) {
-//        this.dishes = dishes;
-//    }
 
     public String getFiber() {
         return fiber;
@@ -96,6 +91,13 @@ public class Nutrition {
         this.proteins = proteins;
     }
 
-//    @ManyToMany(mappedBy = "nutritions")
-//    private Collection<Dish> dishes;
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+
+
 }

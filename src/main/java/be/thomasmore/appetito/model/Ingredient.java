@@ -88,15 +88,5 @@ public class Ingredient {
         this.shoppingCar = shoppingCar;
     }
 
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", quantity=" + quantity +
-                ", unit='" + unit + '\'' +
-                ", estimatedPrice=" + estimatedPrice +
-                ", dish=" + dish +
-                '}';
-    }
+
 }

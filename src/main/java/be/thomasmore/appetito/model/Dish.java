@@ -27,8 +27,8 @@ public class Dish {
 
 
 
-    @OneToMany
-    private Collection<Nutrition> nutritions;
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Nutrition> nutritions;
 
     public Dish() {
     }
@@ -100,11 +100,11 @@ public class Dish {
         this.preparationTime = preparationTime;
     }
 
-    public Collection<Nutrition> getNutritions() {
+    public List<Nutrition> getNutritions() {
         return nutritions;
     }
 
-    public void setNutritions(Collection<Nutrition> nutritions) {
+    public void setNutritions(List<Nutrition> nutritions) {
         this.nutritions = nutritions;
     }
 }

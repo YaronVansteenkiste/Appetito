@@ -60,6 +60,7 @@ public class SecurityConfiguration {
 
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/addmeal"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editingredients/**"));
+        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editnutritions/**"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/dishedit/**"));
 
 

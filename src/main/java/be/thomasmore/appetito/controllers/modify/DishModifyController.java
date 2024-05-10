@@ -1,10 +1,7 @@
 package be.thomasmore.appetito.controllers.modify;
 
 
-import be.thomasmore.appetito.model.Dish;
-import be.thomasmore.appetito.model.DishDto;
-import be.thomasmore.appetito.model.Ingredient;
-import be.thomasmore.appetito.model.IngredientListWrapper;
+import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.services.GoogleService;
 
@@ -197,6 +194,56 @@ public class DishModifyController {
 
         return "redirect:/modify/dishedit/" + id;
     }
+
+    @GetMapping("/editnutritions/{id}")
+    public String showNutritions(Model model, @PathVariable("id") Integer id) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            nutritionListWrapper wrapper=new nutritionListWrapper();
+            wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("nutritionsListWrapper", wrapper);
+            return "modify/editnutritions";
+        } else {
+            return "redirect:/modify/dishedit/" + id;
+        }
+    }
+
+
+
+
+
+    @PostMapping("/editnutritions/{id}")
+    @Transactional
+    public String editIngredients(@PathVariable("id") Integer id,
+                                  @ModelAttribute("nutritionsListWrapper") nutritionListWrapper wrapper,
+                                  Model model) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+        if (!optionalDish.isPresent()) {
+            model.addAttribute("error", "Dish not found with id: " + id);
+            return "/error";
+        }
+
+        Dish dish = optionalDish.get();
+        List<Nutrition> currentNutritions = new ArrayList<>(wrapper.getNutritions());
+
+
+        dish.getNutritions().clear();
+
+        currentNutritions.forEach(nutrition -> {
+            nutrition.setDish(dish);
+            dish.getNutritions().add(nutrition);
+
+        });
+
+
+        dishRepository.save(dish);
+
+        return "redirect:/modify/dishedit/" + id;
+    }
+
 
 
 
