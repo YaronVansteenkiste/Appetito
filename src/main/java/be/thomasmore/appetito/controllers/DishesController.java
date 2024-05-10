@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,8 @@ public class DishesController {
     public String Home(Model model) {
         boolean filterEnabled = false;
         Iterable<Dish> allDishes = dishRepository.findAll();
+        List<Dish> activeDishes = dishRepository.findByActiveTrue();
+        model.addAttribute("dishes",activeDishes);
         model.addAttribute("count", allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("filterEnabled", filterEnabled);

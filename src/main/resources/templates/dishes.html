@@ -33,7 +33,7 @@
                 <div class="dishes">
                     <div class="row">
                         <h4 th:text="|All dishes:(${count})|"></h4>
-                        <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${alldishes}">
+                        <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${dishes}">
                             <div class="card mb-3">
                                 <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
                                      alt="dish Image" style="height: 200px; object-fit: cover;">

@@ -22,7 +22,6 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     Optional<Dish> findFirstByIdLessThanOrderByIdDesc(Integer id);
 
-    Optional<Dish> findByActiveIsTrue();
 
 
     @Query("select d from Dish d join d.nutritions n where " +
@@ -45,4 +44,5 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     Iterable<Dish> findByName(@Param("keyword") String keyword);
 
 
+    List<Dish> findByActiveTrue();
 }
