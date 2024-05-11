@@ -26,7 +26,12 @@
         <div class="col-md-6 ">
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
-
+                <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}" method="post">
+                    <input type="hidden" name="active" th:value="${!dish.active}">
+                    <button type="submit" th:class="${dish.active ? 'btn btn-success' : 'btn btn-danger'}"
+                            th:text="${dish.active ? 'Active' : 'Inactive'}">
+                    </button>
+                </form>
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
 
@@ -49,14 +54,28 @@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
             <h4>Ingrediënten</h4>
-            <div class="border-bottom mt-2" th:each="ingredient: ${dish.getIngredients()}"
-                 th:if="${ingredient.quantity != null}">
-                <p th:text="${ingredient.name + ' ' + (ingredient.quantity  != null && ingredient.quantity  != 0 ? ingredient.quantity + ' ' : '') + (ingredient.getUnit() != null ? ingredient.getUnit() : '')}"></p>
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="text-secondary">Aantal personen:</h5>
+                </div>
+                <div class="col-6 d-inline-flex">
+                    <button onclick="subtractPersons()" class="btn btn-outline-primary rounded-circle">-</button>
+                    <p id="persons" class="mx-3">1</p>
+                    <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
+                </div>
             </div>
+            <ul th:each="ingredient, stat : ${dish.getIngredients()}"
+                th:if="${ingredient.quantity != null}">
+                <li>
+                    <span th:text="|${ingredient.name} ${ingredient.quantity > 0 ? ':' : ''}|"></span>
+                    <span th:data-quantity="${ingredient.quantity}" class="quantity" th:id="|quantity${stat.index}|" th:text="${ingredient.quantity > 0 ? ingredient.quantity : ''}"></span>
+                    <span th:text="${ingredient.getUnit()}"></span>
+                </li>
+            </ul>
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
-            <h4>Voedingswaarde</h4>
+            <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
             <div th:each="nutrition: ${dish.getNutritions()}">
                 <div class="row">
                     <div class="col-lg-4 border text-center mt-2">
@@ -118,16 +137,20 @@
 </div>
 
 <div class=" text-center">
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}"
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
-        <th:block th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
-            <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}" th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
+        <th:block
+                th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
+            <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}"
+               th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
                th:text="${dish.id}"></a>
         </th:block>
     </th:block>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}" th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
+       th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
 </div>
 
 <p th:text="'Page ' +${currentDish} + ' of '+ ${lastDish}" class="text-center mt-3"></p>

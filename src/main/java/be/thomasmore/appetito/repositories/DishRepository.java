@@ -31,7 +31,8 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(:preparation is null or d.preparation = :preparation) and " +
             "(:occasion is null or d.occasion = :occasion) and " +
             "(:minCarbs is null or n.carbs >= :minCarbs) and " +
-            "(:maxCarbs is null or n.carbs <= :maxCarbs)")
+            "(:maxCarbs is null or n.carbs <= :maxCarbs) and " +
+            "d.active = true")
     Iterable<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
                                       @Param("minPreparationTime") Time minPreparationTime,
                                       @Param("maxPreparationTime") Time maxPreparationTime,
@@ -44,5 +45,5 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     Iterable<Dish> findByName(@Param("keyword") String keyword);
 
 
-
+    List<Dish> findByActiveTrue();
 }

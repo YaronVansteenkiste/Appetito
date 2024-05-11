@@ -41,7 +41,6 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="/about">Over Ons</a></li>
-                        <li><a class="dropdown-item" href="#">Contacteren</a></li>
                         <li><a class="dropdown-item" href="/x-dagenmenu">Menu</a></li>
                         <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" href="/admin/">Admin Panel</a></li>
                     </ul>
@@ -53,7 +52,7 @@
                     <a class="btn btn-outline-primary me-1" href="/user/login">Aanmelden</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <a sec:authentication="name" class="btn btn-primary me-1" href="#">Profiel</a>
+                    <a sec:authentication="name" class="btn btn-primary me-1" href="/user/profile">Profiel</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="btn btn-outline-primary me-1" href="/user/logout">Uitloggen</a>
