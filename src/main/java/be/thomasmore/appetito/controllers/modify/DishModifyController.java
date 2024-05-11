@@ -69,40 +69,42 @@ public class DishModifyController {
     }
 
     @PostMapping("/dishedit/{id}")
-    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
-                               @RequestParam(required = false) MultipartFile image,
-                               BindingResult result, @PathVariable int id, Model model) {
+public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
+                           @RequestParam(required = false) MultipartFile image,
+                           BindingResult result, @PathVariable int id, Model model) {
 
-        logger.debug("posting data for id {}", id);
+    logger.debug("posting data for id {}", id);
 
-        if (result.hasErrors()) {
-            logger.error("validation errors: {}", result.getAllErrors());
+    if (result.hasErrors()) {
+        logger.error("validation errors: {}", result.getAllErrors());
 
-            model.addAttribute("dishDto", dishDto);
-            model.addAttribute("bindingResult", result);
-            return "modify/dishedit";
-        }
-
-        try {
-            Optional<Dish> optionalDish = dishRepository.findById(id);
-
-            if (optionalDish.isPresent()) {
-                Dish dish = optionalDish.get();
-                dish.setName(dishDto.getName());
-                dish.setDietPreferences(dishDto.getDietPreferences());
-                dish.setPreparationTime(dishDto.getPreparationTime());
-                dish.setOccasion(dishDto.getOccasion());
-                dish.setPreparation(dishDto.getPreparation());
-                dish.setImgFileName(uploadImage(image));
-                dishRepository.save(dish);
-
-                return "redirect:/dishdetails/" + id;
-            }
-        } catch (Exception ex) {
-            logger.error("Error: {}", ex.getMessage());
-        }
-        return "redirect:/dishdetails/" + id;
+        model.addAttribute("dishDto", dishDto);
+        model.addAttribute("bindingResult", result);
+        return "modify/dishedit";
     }
+
+    try {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            dish.setName(dishDto.getName());
+            dish.setDietPreferences(dishDto.getDietPreferences());
+            dish.setPreparationTime(dishDto.getPreparationTime());
+            dish.setOccasion(dishDto.getOccasion());
+            dish.setPreparation(dishDto.getPreparation());
+            if (image != null && !image.isEmpty()) {
+                dish.setImgFileName(uploadImage(image));
+            }
+            dishRepository.save(dish);
+
+            return "redirect:/dishdetails/" + id;
+        }
+    } catch (Exception ex) {
+        logger.error("Error: {}", ex.getMessage());
+    }
+    return "redirect:/dishdetails/" + id;
+}
 
 
     @GetMapping("/addmeal")
@@ -127,7 +129,9 @@ public class DishModifyController {
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparation(dishDto.getPreparation());
         dish.setPreparationTime(dishDto.getPreparationTime());
-        dish.setImgFileName(uploadImage(image));
+        if (image != null && !image.isEmpty()) {
+            dish.setImgFileName(uploadImage(image));
+        }
 
 
         dishRepository.save(dish);

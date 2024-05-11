@@ -44,7 +44,7 @@ public class UserController {
         return "user/register";
     }
 
-    @GetMapping("/profile/")
+    @GetMapping("/profile")
     public String profile(Model model, Principal principal) {
         if (principal == null) return "redirect:/";
         Chef chef = chefRepository.findByUsername(principal.getName());

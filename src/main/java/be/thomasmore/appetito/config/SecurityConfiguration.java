@@ -58,6 +58,10 @@ public class SecurityConfiguration {
         );
         http.logout(form -> form.logoutUrl("/user/logout"));
 
+        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/addmeal"));
+        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/dishedit/**"));
+
+
         //to enable h2-console:
         if (h2ConsoleNeeded) {
             //h2ConsoleNeeded has to be false when deploying on google cloud, otherwise the login does not work
