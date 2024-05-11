@@ -226,7 +226,7 @@ public class DishModifyController {
             return "/error";
         }
 
-        Dish dish = optionalDish.get();
+        Dish  dish = optionalDish.get();
         List<Nutrition> currentNutritions = new ArrayList<>(wrapper.getNutritions());
 
 
