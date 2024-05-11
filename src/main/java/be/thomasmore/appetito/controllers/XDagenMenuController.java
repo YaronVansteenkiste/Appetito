@@ -21,6 +21,8 @@ public class XDagenMenuController {
     @GetMapping("/x-dagenmenu")
     public String xdagenmenu(Model model) {
         Iterable<Dish>allDishes=dishRepository.findAll();
+        List<Dish> activeDishes = dishRepository.findByActiveTrue();
+        model.addAttribute("activeDishes",activeDishes);
         model.addAttribute("allDishes",allDishes);
 
         return "menu";
@@ -29,8 +31,6 @@ public class XDagenMenuController {
     public String showMenuOverview(HttpSession session, Model model) {
 
         List<Dish> selectedDishes = (List<Dish>) session.getAttribute("selectedDishes");
-
-
         model.addAttribute("selectedDishes", selectedDishes);
         model.addAttribute("count",selectedDishes.size());
 
