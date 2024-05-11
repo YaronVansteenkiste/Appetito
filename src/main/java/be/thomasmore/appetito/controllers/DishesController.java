@@ -46,7 +46,7 @@ public class DishesController {
         Iterable<Dish> allDishes = dishRepository.findAll();
         List<Dish> activeDishes = dishRepository.findByActiveTrue();
         model.addAttribute("dishes",activeDishes);
-        model.addAttribute("count", allDishes.spliterator().estimateSize());
+        model.addAttribute("count", activeDishes.spliterator().estimateSize());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("filterEnabled", filterEnabled);
         return "dishes";
