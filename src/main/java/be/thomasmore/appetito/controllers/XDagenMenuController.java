@@ -1,15 +1,19 @@
 package be.thomasmore.appetito.controllers;
 
+import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
+import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,25 +23,23 @@ import java.util.Optional;
 public class XDagenMenuController {
     @Autowired
     DishRepository dishRepository;
+    @Autowired
+    ChefRepository chefRepository;
+
     @GetMapping("/x-dagenmenu")
     public String xdagenmenu(Model model) {
-        Iterable<Dish>allDishes=dishRepository.findAll();
+        Iterable<Dish> allDishes = dishRepository.findAll();
         List<Dish> activeDishes = dishRepository.findByActive(true);
-        model.addAttribute("activeDishes",activeDishes);
-        model.addAttribute("allDishes",allDishes);
+        model.addAttribute("activeDishes", activeDishes);
+        model.addAttribute("allDishes", allDishes);
 
         return "menu";
     }
+
     @GetMapping("/menuoverview")
     public String showMenuOverview(HttpSession session, Model model) {
+
         List<Dish> selectedDishes = (List<Dish>) session.getAttribute("selectedDishes");
-
-        // Check if selectedDishes is null and initialize it if necessary
-        if (selectedDishes == null) {
-            selectedDishes = new ArrayList<>();
-            session.setAttribute("selectedDishes", selectedDishes); // Ensure the attribute is set in the session
-        }
-
         model.addAttribute("selectedDishes", selectedDishes);
         model.addAttribute("count", selectedDishes.size());
 
@@ -60,19 +62,34 @@ public class XDagenMenuController {
         return "redirect:/menuoverview";
     }
 
-    @PostMapping("/addToMenu")
-    public String addToMenu(@RequestParam Integer dishId, HttpSession session) {
-        List<Dish> menuItems = (List<Dish>) session.getAttribute("menuItems");
-        if (menuItems == null) {
-            menuItems = new ArrayList<>();
+    @PostMapping("/dishdetails/{id}")
+    public String selectDish(Model model, @RequestParam("dishId") Integer dishId, HttpSession session, Principal principal) {
+
+        Chef chef = null;
+        if (principal != null) {
+            chef = chefRepository.findByUsername(principal.getName());
         }
 
-        // Retrieve the dish from the database using the ID
-        Optional<Dish> optionalDish = dishRepository.findById(dishId);
-        optionalDish.ifPresent(menuItems::add); // Add the dish if present
+        Dish selectedDish = dishRepository.findById(dishId).orElseThrow(() -> new IllegalStateException("Dish not found"));
 
-        session.setAttribute("menuItems", menuItems);
-        return "redirect:/menuoverview";
+        if (chef != null) {
+
+            chef.addDish(selectedDish);
+            chefRepository.save(chef);
+        } else {
+
+            List<Dish> selectedDishes = (List<Dish>) session.getAttribute("selectedDishes");
+            if (selectedDishes == null) {
+                selectedDishes = new ArrayList<>();
+            }
+            selectedDishes.add(selectedDish);
+            session.setAttribute("selectedDishes", selectedDishes);
+        }
+
+        model.addAttribute("dish", selectedDish);
+        return "redirect:/dishdetails/" + dishId;
     }
+
+
 
 }

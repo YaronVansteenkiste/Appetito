@@ -70,4 +70,5 @@ public class DishDetailController<ToggleRequest> {
         return "redirect:/dishdetails/" + id;
     }
 
+
 }
