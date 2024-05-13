@@ -124,7 +124,6 @@ public class Dish {
     public void setBeverages(Collection<Beverage> beverages) {
         this.beverages = beverages;
     }
-}
 
     public void setActive(boolean active) {
         this.active = active;
