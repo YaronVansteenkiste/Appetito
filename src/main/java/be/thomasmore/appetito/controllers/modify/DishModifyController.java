@@ -163,9 +163,6 @@ public class DishModifyController {
     }
 
 
-
-
-
     @PostMapping("/editingredients/{id}")
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
@@ -200,7 +197,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
-            nutritionListWrapper wrapper=new nutritionListWrapper();
+            nutritionListWrapper wrapper = new nutritionListWrapper();
             wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
 
             model.addAttribute("dish", dish);
@@ -210,9 +207,6 @@ public class DishModifyController {
             return "redirect:/modify/dishedit/" + id;
         }
     }
-
-
-
 
 
     @PostMapping("/editnutritions/{id}")
@@ -226,7 +220,7 @@ public class DishModifyController {
             return "/error";
         }
 
-        Dish  dish = optionalDish.get();
+        Dish dish = optionalDish.get();
         List<Nutrition> currentNutritions = new ArrayList<>(wrapper.getNutritions());
 
 
@@ -245,8 +239,6 @@ public class DishModifyController {
     }
 
 
-
-
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();
         final File fileToUpload = new File(filename);
@@ -257,4 +249,18 @@ public class DishModifyController {
         return urlInFirebase;
     }
 
+    @GetMapping("/editbeverage/{id}")
+    public String editBeverages(Model model, @PathVariable("id") Integer id) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+        Collection<Beverage> beverage = optionalDish.get().getBeverages();
+        model.addAttribute("beverage", beverage);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+
+            model.addAttribute("dish", dish);
+            return "modify/editbeverage";
+        } else {
+            return "redirect:/modify/dishedit/" + id;
+        }
+    }
 }
