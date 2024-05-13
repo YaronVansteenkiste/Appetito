@@ -362,3 +362,10 @@ VALUES
     (8,13),
     (9,13),
     (9,14);
+
+
+INSERT INTO GROCERY (CHEF_ID) VALUES
+(1);
+
+INSERT INTO GROCERY_INGREDIENTS (GROCERIES_ID, INGREDIENTS_ID) VALUES
+                                                                   (1,1)

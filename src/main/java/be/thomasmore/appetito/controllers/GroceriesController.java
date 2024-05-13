@@ -1,6 +1,6 @@
 package be.thomasmore.appetito.controllers;
 
-import be.thomasmore.appetito.model.Errandslist;
+import be.thomasmore.appetito.model.Grocery;
 import be.thomasmore.appetito.model.Ingredient;
 import be.thomasmore.appetito.repositories.ErrandsRepository;
 import be.thomasmore.appetito.repositories.IngredientRepository;
@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class GroceriesController {
@@ -20,14 +21,13 @@ public class GroceriesController {
     @Autowired
     IngredientRepository ingredientRepository;
 
-    @GetMapping("/groceries")
-    public String groceries(Model model, Errandslist errandslist){
-        Iterable<Errandslist> allErrands = errandsRepository.findAll();
-        Iterable<Ingredient> allIngredients = ingredientRepository.findAll();
-        model.addAttribute("count",allErrands.spliterator().estimateSize());
-        model.addAttribute("errands",errandslist);
-        model.addAttribute("allErrands",allErrands);
-        model.addAttribute("allIngredients",allIngredients);
+    @GetMapping("/groceries/{id}")
+    public String groceries(Model model, @PathVariable(required = false) Integer id) {
+        Optional<Grocery> groceryFromDB = errandsRepository.findById(id);
+        groceryFromDB.ifPresent(grocery -> {
+            model.addAttribute("grocery", grocery);
+        });
+
         return "groceries";
     }
 }
