@@ -44,7 +44,7 @@ public class DishesController {
     public String Home(Model model) {
         boolean filterEnabled = false;
         Iterable<Dish> allDishes = dishRepository.findAll();
-        List<Dish> activeDishes = dishRepository.findByActiveTrue();
+        List<Dish> activeDishes = dishRepository.findByActive(true);
         model.addAttribute("dishes",activeDishes);
         model.addAttribute("count", activeDishes.spliterator().estimateSize());
         model.addAttribute("alldishes", allDishes);
@@ -70,7 +70,7 @@ public class DishesController {
                                @RequestParam(required = false) String occasion,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs) {
-        Iterable<Dish> allDishes = dishRepository.findAll();
+        Iterable<Dish> allDishes;
         String dietPreferenceStr = "";
         String occasionStr = "";
         if (dietPreferences != null) {

@@ -21,7 +21,7 @@ public class XDagenMenuController {
     @GetMapping("/x-dagenmenu")
     public String xdagenmenu(Model model) {
         Iterable<Dish>allDishes=dishRepository.findAll();
-        List<Dish> activeDishes = dishRepository.findByActiveTrue();
+        List<Dish> activeDishes = dishRepository.findByActive(true);
         model.addAttribute("activeDishes",activeDishes);
         model.addAttribute("allDishes",allDishes);
 

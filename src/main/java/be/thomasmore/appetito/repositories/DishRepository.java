@@ -45,5 +45,5 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     Iterable<Dish> findByName(@Param("keyword") String keyword);
 
 
-    List<Dish> findByActiveTrue();
+    List<Dish> findByActive(boolean active);
 }

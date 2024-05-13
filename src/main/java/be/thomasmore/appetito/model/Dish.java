@@ -26,13 +26,13 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
 
-    @Value("true")
-    private Boolean active;
+    private Boolean active = true;
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
 
     public Dish() {
+        this.active=true;
     }
 
 
