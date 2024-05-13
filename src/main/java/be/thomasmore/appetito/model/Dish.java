@@ -1,5 +1,6 @@
 package be.thomasmore.appetito.model;
 
+import com.google.api.client.util.Value;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -25,7 +26,8 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
 
-
+    @Value("true")
+    private Boolean active;
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
@@ -106,5 +108,13 @@ public class Dish {
 
     public void setNutritions(List<Nutrition> nutritions) {
         this.nutritions = nutritions;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
