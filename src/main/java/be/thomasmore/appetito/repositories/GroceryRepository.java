@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface GroceryRepository extends CrudRepository<Grocery,Integer> {
+    Optional<Grocery> findByChef(Chef chef);
 }

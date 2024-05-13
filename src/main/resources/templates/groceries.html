@@ -7,6 +7,7 @@
 <head>
     <title>Boodschappen</title>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -37,10 +38,10 @@
                             <h6 th:text="${ingredient.getName()}"></h6>
                         </div>
                         <div class="col">
-                            <h6 th:id="'price' + ${stat.index}" th:text="|${ingredient.getQuantity()} ${ingredient.getUnit()}|"></h6>
+                            <h6 th:id="'price' + ${stat.index}" th:text="|${ingredient.getQuantity()} ${ingredient.getUnit() != null ? ingredient.getUnit() : ''}|"></h6>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-outline-danger rounded-circle ms-2">X</button>
+                            <button type="button" class="btn btn-outline-danger rounded-circle ms-2 delete-ingredient" th:data-ingredient-id="${ingredient.id}">X</button>
                         </div>
                     </div>
                 </div>

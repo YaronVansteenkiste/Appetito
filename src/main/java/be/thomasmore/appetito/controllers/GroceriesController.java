@@ -6,9 +6,13 @@ import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.GroceryRepository;
 import be.thomasmore.appetito.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -42,5 +46,20 @@ public class GroceriesController {
         });
 
         return "groceries";
+    }
+
+    @DeleteMapping("/groceries/ingredients/{id}")
+    public ResponseEntity<?> deleteIngredient(@PathVariable Integer id, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        Chef chef = chefRepository.findByUsername(principal.getName());
+        Optional<Grocery> groceryFromDB = groceryRepository.findByChef(chef);
+        if (groceryFromDB.isPresent()) {
+            Grocery grocery = groceryFromDB.get();
+            grocery.getIngredients().removeIf(ingredient -> ingredient.getId().equals(id));
+            groceryRepository.save(grocery);
+        }
+        return ResponseEntity.ok().build();
     }
 }
