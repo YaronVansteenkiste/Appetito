@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -29,10 +30,16 @@ public class XDagenMenuController {
     }
     @GetMapping("/menuoverview")
     public String showMenuOverview(HttpSession session, Model model) {
-
         List<Dish> selectedDishes = (List<Dish>) session.getAttribute("selectedDishes");
+
+        // Check if selectedDishes is null and initialize it if necessary
+        if (selectedDishes == null) {
+            selectedDishes = new ArrayList<>();
+            session.setAttribute("selectedDishes", selectedDishes); // Ensure the attribute is set in the session
+        }
+
         model.addAttribute("selectedDishes", selectedDishes);
-        model.addAttribute("count",selectedDishes.size());
+        model.addAttribute("count", selectedDishes.size());
 
         return "menuoverview";
     }
@@ -50,6 +57,21 @@ public class XDagenMenuController {
 
         session.setAttribute("selectedDishes", selectedDishes);
 
+        return "redirect:/menuoverview";
+    }
+
+    @PostMapping("/addToMenu")
+    public String addToMenu(@RequestParam Integer dishId, HttpSession session) {
+        List<Dish> menuItems = (List<Dish>) session.getAttribute("menuItems");
+        if (menuItems == null) {
+            menuItems = new ArrayList<>();
+        }
+
+        // Retrieve the dish from the database using the ID
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        optionalDish.ifPresent(menuItems::add); // Add the dish if present
+
+        session.setAttribute("menuItems", menuItems);
         return "redirect:/menuoverview";
     }
 
