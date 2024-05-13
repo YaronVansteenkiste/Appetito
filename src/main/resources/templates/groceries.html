@@ -38,7 +38,7 @@
                             <h6 th:text="${ingredient.getName()}"></h6>
                         </div>
                         <div class="col">
-                            <h6 th:id="'price' + ${stat.index}" th:text="|${ingredient.getQuantity()} ${ingredient.getUnit() != null ? ingredient.getUnit() : ''}|"></h6>
+                            <h6 th:id="'quantity' + ${stat.index}" th:text="|${ingredient.getQuantity()} ${ingredient.getUnit() != null ? ingredient.getUnit() : ''}|"></h6>
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-outline-danger rounded-circle ms-2 delete-ingredient" th:data-ingredient-id="${ingredient.id}">X</button>
