@@ -46,10 +46,19 @@
 
                 <h4>Bereidingstijd</h4>
                 <p th:text="${dish.preparationTime}"></p>
+
+
+                <form th:action="@{/dishdetails/{id}(id=${dish.id})}" method="post">
+                    <input type="hidden" th:name="dishId" th:value="${dish.id}"/>
+                    <div class="mt-3 m-2">
+                        <button type="submit" class="btn btn-primary">+ Add to X-dagenmenu</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </main>
+
 
 <div class="row justify-content-center">
     <div class="col-6">

@@ -31,7 +31,7 @@ public class DishDetailController<ToggleRequest> {
 
 
         if(id == null){
-            return "error2";
+            return "error";
         }
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
@@ -70,5 +70,6 @@ public class DishDetailController<ToggleRequest> {
         dishRepository.save(dish);
         return "redirect:/dishdetails/" + id;
     }
+
 
 }
