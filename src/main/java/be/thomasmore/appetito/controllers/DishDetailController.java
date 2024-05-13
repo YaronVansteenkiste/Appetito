@@ -1,6 +1,8 @@
 package be.thomasmore.appetito.controllers;
 
+import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.model.Dish;
+import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,10 +30,12 @@ public class DishDetailController<ToggleRequest> {
 
 
         if(id == null){
-            return "error";
+            return "error2";
         }
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
+        Collection<Beverage> beverages = dishFromDB.get().getBeverages();
+        model.addAttribute("beverages", beverages);
 
         dishFromDB.ifPresent(dish -> {
             model.addAttribute("dish", dish);

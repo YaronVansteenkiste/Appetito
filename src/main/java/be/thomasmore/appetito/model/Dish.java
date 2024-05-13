@@ -31,6 +31,9 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
 
+    @ManyToMany
+    private Collection<Beverage> beverages;
+
     public Dish() {
         this.active=true;
     }
@@ -113,6 +116,15 @@ public class Dish {
     public boolean isActive() {
         return active;
     }
+
+    public Collection<Beverage> getBeverages() {
+        return beverages;
+    }
+
+    public void setBeverages(Collection<Beverage> beverages) {
+        this.beverages = beverages;
+    }
+}
 
     public void setActive(boolean active) {
         this.active = active;

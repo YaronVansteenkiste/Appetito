@@ -132,6 +132,26 @@
     </div>
 </div>
 
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h4>Suggested Drinks</h4>
+        <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}">
+            <article class="card">
+                <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
+                    <img th:src="@{${beverage.getImgFile()}}" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" alt="Image Drink">
+                </div>
+
+                <div class="card-body">
+                    <p class="card-text" th:text="${beverage.name}">Beverage name</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
 <div class="text-center">
     <button type="button" onclick="printDishDetails()" class="btn btn-primary mt-3"> Download Details</button>
 </div>

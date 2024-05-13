@@ -295,3 +295,70 @@ INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
 ('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
+
+
+
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Coca Cola', '/img/Cola.jpg', 'Carbonated, Caffeinated, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Sprite', '/img/Sprite.jpg', 'Carbonated, Caffeinated, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Ice-Tea', '/img/Lipton_Ice_Tea.jpg', 'Carbonated, Caffeinated, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Cappuccino', '/img/Cappucciono.jpg', 'Caffeinated, Coffee, Hot');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Latte', '/img/Latte.webp', 'Caffeinated, Coffee, Hot');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Macchiato', '/img/Macchiato.jpg', 'Caffeinated, Coffee, Hot');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Duvel', '/img/Duvel_666.jpg', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Jupiler', '/img/Jupiler.jpg', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('La Chouffe', '/img/La_Chouffe.jpg', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Leffe', '/img/Leffe.jpg', 'Alcohol, Beer, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Chardonnay', '/img/Chardonnay.webp', 'Alcohol, White Wine, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Bordeaux', '/img/Bordeaux.jpg', 'Alcohol, Red Wine, Cold');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('Twinings English Breakfast', '/img/Twinings_English_Breakfast.webp', 'Tea, Hot');
+INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
+VALUES ('PG tips', '/img/PG_Tips.webp', 'Tea, Hot');
+
+INSERT INTO DISH_BEVERAGES (DISHES_ID, BEVERAGES_ID)
+VALUES
+    (1,1),
+    (1,2),
+    (1,3),
+    (1,8),
+    (1,11),
+    (2,1),
+    (2,2),
+    (2,3),
+    (2,11),
+    (3,1),
+    (3,2),
+    (3,3),
+    (3,13),
+    (3,14),
+    (4,4),
+    (4,5),
+    (4,6),
+    (4,13),
+    (4,14),
+    (5,1),
+    (5,2),
+    (5,3),
+    (5,8),
+    (6,13),
+    (6,14),
+    (7,4),
+    (7,5),
+    (7,11),
+    (8,3),
+    (8,7),
+    (8,13),
+    (9,13),
+    (9,14);
