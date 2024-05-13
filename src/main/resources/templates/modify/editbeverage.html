@@ -10,6 +10,26 @@
     <title>Edit Beverage</title>
 </head>
 <body>
-    <h1>Drank aanpassen</h1>
+<h1 th:replace="~{fragments/header :: header}">Navigatie header</h1>
+    <h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > Dranken > ' + ${dish.name}"></h6>
+    <h2>Aanpassen Dranken</h2>
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 text-center mt-3" th:each="beverage: ${dish.getBeverages()}">
+                    <article class="card">
+                        <img th:src="@{/img/plate.png}" class="card-img-top">
+
+                        <div class="card-body">
+                            <p th:text="${beverage.name}" class="card-text"></p>
+                        </div>
+
+                        <div>
+                            <button>Proxy Button</button>
+                        </div>
+                    </article>
+            </div>
+        </div>
+    </main>
+<footer th:replace="~{fragments/footer :: footer}">Info-Footer</footer>
 </body>
 </html>
