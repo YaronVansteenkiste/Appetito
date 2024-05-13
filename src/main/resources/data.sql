@@ -40,7 +40,7 @@ VALUES (
            'Pasta met zalm en spinazie',
            'paleo',
            '00:30:00',
-           'avondeten',
+           'avondmaal',
            '/img/pasta_zalm.jpg',
            '1. Kook de pasta volgens verpakking beetgaar. Snipper ondertussen de ui en de teentjes knoflook fijn. Bak deze glazig in een grote hapjes of wokpan in een eetlepel olie.//'
                '2. Voeg de zalm toe en bak rondom aan, steek met een spatel in stukken. Voeg dan in etappes de spinazie toe totdat deze wat geslonken is. Schenk de kookroom erbij en breng op maak met flink wat peper en zout.//'
@@ -188,7 +188,7 @@ VALUES (
            'Snicker bliss balls',
            'dessert',
            '00:10:00',
-           'snack',
+           'snacks',
            '/img/snicker_balls.jpg',
            '1. Als de dadels hard zijn, laat je ze even weken in een schaal met water. Als ze goed zacht zijn, is dit niet nodig.//'
                '2. Doe de pinda’s in een keukenmachine en maal ze tot kleinere stukjes. Haal ze er daarna weer uit.//'
@@ -268,6 +268,289 @@ VALUES
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES('2 g', '80 mg', '20 g', '4 g', '5 g', '200 gr', '30 g', 9);
 
+
+
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Pompoensoep',
+           'veganistisch',
+           '00:30:00',
+           'avondmaal',
+           '/img/pompoensoep.jpg',
+           '1. Snijd een pompoen in blokjes en kook met ui en knoflook in groentebouillon.//'
+               '2. Pureer de soep en voeg kokosmelk toe voor een romige textuur.//'
+               '3. Breng op smaak met zout, peper en een snufje nootmuskaat.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Pompoen', 500, 'gr', 1, 2.50),
+    ('Ui', 100, 'gr', 1, 0.30),
+    ('Knoflook', 2, 'tenen', 1, 0.50),
+    ('Groentebouillon', 500, 'ml', 1, 1.00),
+    ('Kokosmelk', 200, 'ml', 1, 1.50),
+    ('Nootmuskaat', 1, 'snufje', 1, 0.10);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('3 g', '500 mg', '5 g', '2 g', '6 g', '30 g', '4 g', 10);
+
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Kip Caesar Salade',
+           'glutenvrij',
+           '00:20:00',
+           'middagmaal',
+           '/img/kipcaesarsalade.jpg',
+           '1. Grill kipfilet en snijd in plakjes.//'
+               '2. Meng Romeinse sla met Caesar dressing en voeg de kip toe.//'
+               '3. Bestrooi met Parmezaanse kaas en voeg glutenvrije croutons toe.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Kipfilet', 200, 'gr', 2, 3.00),
+    ('Romeinse sla', 150, 'gr', 2, 1.00),
+    ('Caesar dressing', 50, 'ml', 2, 0.75),
+    ('Parmezaanse kaas', 30, 'gr', 2, 1.00),
+    ('Glutenvrije croutons', 30, 'gr', 2, 1.50);
+
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('2 g', '600 mg', '3 g', '5 g', '15 g', '18 g', '25 g', 11);
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Linzensalade met Geitenkaas',
+           'vegetarisch',
+           '00:25:00',
+           'middagmaal',
+           '/img/linzen_salade_met_geitenkaas.jpg',
+           '1. Kook groene linzen gaar.//'
+               '2. Meng met gehakte tomaten, komkommer, rode ui, en verse peterselie.//'
+               '3. Voeg geitenkaas en een dressing van olijfolie en citroensap toe.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Groene linzen', 200, 'gr', 3, 1.00),
+    ('Tomaten', 150, 'gr', 3, 1.00),
+    ('Komkommer', 100, 'gr', 3, 0.50),
+    ('Rode ui', 50, 'gr', 3, 0.30),
+    ('Verse peterselie', 10, 'gr', 3, 0.20),
+    ('Geitenkaas', 50, 'gr', 3, 1.50),
+    ('Olijfolie', 20, 'ml', 3, 0.40),
+    ('Citroensap', 10, 'ml', 3, 0.10);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('7 g', '320 mg', '4 g', '6 g', '10 g', '40 g', '18 g', 12);
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Gegrilde Zalm met Asperges',
+           'pescotarisch',
+           '00:20:00',
+           'avondmaal',
+           '/img/gegrildezalmasperges.jpg',
+           '1. Kruid zalmfilets en gril tot ze gaar zijn.//'
+               '2. Gril asperges in olijfolie tot ze knapperig zijn.//'
+               '3. Serveer de zalm met een schijfje citroen en de asperges.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Zalmfilets', 200, 'gr', 4, 4.00),
+    ('Asperges', 200, 'gr', 4, 2.00),
+    ('Olijfolie', 10, 'ml', 4, 0.15),
+    ('Citroen', 0.5, 'stuks', 4, 0.30);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('3 g', '75 mg', '2 g', '3 g', '10 g', '5 g', '23 g', 13);
+
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Veganistische Burger',
+           'vegan',
+           '00:15:00',
+           'avondmaal',
+           '/img/veganburger.jpg',
+           '1. Maak een burger van zwarte bonen, quinoa en specerijen.//'
+               '2. Bak de burger in een pan tot beide kanten goudbruin zijn.//'
+               '3. Serveer op een volkoren broodje met sla, tomaat, en veganistische mayonaise.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Zwarte bonen', 150, 'gr', 5, 1.00),
+    ('Quinoa', 100, 'gr', 5, 0.90),
+    ('Specerijen', 5, 'gr', 5, 0.30),
+    ('Volkoren broodje', 1, 'stuks', 5, 1.00),
+    ('Sla', 30, 'gr', 5, 0.30),
+    ('Tomaat', 50, 'gr', 5, 0.50),
+    ('Veganistische mayonaise', 20, 'ml', 5, 0.40);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('6 g', '460 mg', '5 g', '1 g', '8 g', '35 g', '10 g', 14);
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Zoete Aardappel Curry',
+           'vegan',
+           '00:35:00',
+           'avondmaal',
+           '/img/zoete_aardappel_curry.jpg',
+           '1. Kook zoete aardappelblokjes in een pan met currypasta en kokosmelk.//'
+               '2. Voeg kikkererwten en spinazie toe en laat sudderen.//'
+               '3. Serveer met basmatirijst en garneer met koriander.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Zoete aardappel', 300, 'gr', 6, 1.50),
+    ('Currypasta', 30, 'gr', 6, 0.75),
+    ('Kokosmelk', 200, 'ml', 6, 1.50),
+    ('Kikkererwten', 150, 'gr', 6, 1.00),
+    ('Spinazie', 100, 'gr', 6, 1.00),
+    ('Basmatirijst', 150, 'gr', 6, 0.90),
+    ('Koriander', 10, 'gr', 6, 0.25);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('5 g', '380 mg', '6 g', '5 g', '10 g', '50 g', '12 g', 15);
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Ontbijt Burrito',
+           'vegetarisch',
+           '00:15:00',
+           'ontbijt',
+           '/img/ontbijt_burrito.jpg',
+           '1. Bak roerei en meng met zwarte bonen, kaas, en gehakte paprika.//'
+               '2. Vul een volkoren tortilla met het ei-mengsel.//'
+               '3. Rol de tortilla op en bak kort in een hete pan.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Eieren', 2, 'stuks', 7, 0.50),
+    ('Zwarte bonen', 50, 'gr', 7, 0.40),
+    ('Kaas', 30, 'gr', 7, 0.60),
+    ('Paprika', 50, 'gr', 7, 0.50),
+    ('Volkoren tortilla', 1, 'stuks', 7, 1.00);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('6 g', '550 mg', '2 g', '6 g', '15 g', '45 g', '22 g', 16);
+
+
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Quinoa Salade met Avocado',
+           'vegan',
+           '00:20:00',
+           'middagmaal',
+           '/img/quinoa_salade_avocado.jpg',
+           '1. Kook quinoa en laat afkoelen.//'
+               '2. Meng met blokjes avocado, komkommer, tomaat, en rode ui.//'
+               '3. Voeg een limoen-olijfolie dressing toe en garneer met verse koriander.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Quinoa', 150, 'gr', 8, 1.50),
+    ('Avocado', 1, 'stuks', 8, 1.20),
+    ('Komkommer', 100, 'gr', 8, 0.50),
+    ('Tomaat', 100, 'gr', 8, 0.80),
+    ('Rode ui', 50, 'gr', 8, 0.30),
+    ('Verse koriander', 10, 'gr', 8, 0.25),
+    ('Limoen', 1, 'stuks', 8, 0.30),
+    ('Olijfolie', 20, 'ml', 8, 0.40);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('7 g', '100 mg', '3 g', '2 g', '12 g', '45 g', '8 g', 17);
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Mediterrane Pasta',
+           'vegetarisch',
+           '00:25:00',
+           'avondmaal',
+           '/img/mediterrane_pasta.jpg',
+           '1. Kook volkorenpasta al dente.//'
+               '2. Meng met olijven, zongedroogde tomaten, artisjokharten, en feta.//'
+               '3. Voeg een dressing van olijfolie, knoflook, en basilicum toe.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Volkorenpasta', 200, 'gr', 9, 1.00),
+    ('Olijven', 50, 'gr', 9, 0.75),
+    ('Zongedroogde tomaten', 50, 'gr', 9, 1.25),
+    ('Artisjokharten', 100, 'gr', 9, 1.50),
+    ('Feta', 50, 'gr', 9, 1.00),
+    ('Olijfolie', 20, 'ml', 9, 0.40),
+    ('Knoflook', 2, 'tenen', 9, 0.50),
+    ('Basilicum', 5, 'gr', 9, 0.20);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('2 g', '80 mg', '20 g', '4 g', '5 g', '200 g', '30 g', 18);
+
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Garnalencocktail',
+           'pescotarisch',
+           '00:10:00',
+           'snacks',
+           '/img/garnalencocktail.jpg',
+           '1. Meng gekookte garnalen met een zelfgemaakte cocktailsaus.//'
+               '2. Serveer in een cocktailglas met gehakte slabladeren en een schijfje citroen.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Gekookte garnalen', 150, 'gr', 10, 3.00),
+    ('Cocktailsaus', 50, 'ml', 10, 0.75),
+    ('Sla', 50, 'gr', 10, 0.30),
+    ('Citroen', 0.5, 'stuks', 10, 0.30);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('1 g', '850 mg', '4 g', '0 g', '2 g', '6 g', '20 g', 19);
+
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
+VALUES (
+           'Fruitsalade met Munt',
+           'vegan',
+           '00:10:00',
+           'dessert',
+           '/img/fruitsalade_munt.jpg',
+           '1. Snijd diverse soorten fruit zoals meloen, bessen, en druiven.//'
+               '2. Meng het fruit met fijngesneden munt en een beetje honing of agavesiroop.//'
+               '3. Koel voor het serveren om de smaken te laten mengen.//'
+       );
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID, ESTIMATED_PRICE)
+VALUES
+    ('Meloen', 200, 'gr', 11, 1.00),
+    ('Bessen', 100, 'gr', 11, 2.00),
+    ('Druiven', 100, 'gr', 11, 1.00),
+    ('Munt', 10, 'gr', 11, 0.40),
+    ('Honing of agavesiroop', 20, 'ml', 11, 0.50);
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES ('4 g', '10 mg', '24 g', '0 g', '1 g', '55 g', '2 g', 20);
 
 
 -- INSERT INTO DISH_NUTRITIONS(DISH_ID,NUTRITIONS_ID)
