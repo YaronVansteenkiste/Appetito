@@ -32,22 +32,26 @@ public class GroceriesController {
     private Logger logger = Logger.getLogger(GroceriesController.class.getName());
 
     @GetMapping("/groceries/")
-    public String groceries(Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/user/login";
-        }
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        logger.info("Chef: " + chef.getName());
-        Integer chefId = chef.getId();
+public String groceries(Model model, Principal principal) {
+    if (principal == null) {
+        return "redirect:/user/login";
+    }
+    Chef chef = chefRepository.findByUsername(principal.getName());
+    logger.info("Chef: " + chef.getName());
+    Integer chefId = chef.getId();
 
-        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefId);
-        groceryFromDB.ifPresent(grocery -> {
-            model.addAttribute("grocery", grocery);
-        });
-
-        return "groceries";
+    Optional<Grocery> groceryFromDB = groceryRepository.findById(chefId);
+    if (groceryFromDB.isPresent()) {
+        model.addAttribute("grocery", groceryFromDB.get());
+    } else {
+        Grocery newGrocery = new Grocery();
+        newGrocery.setChef(chef);
+        Grocery savedGrocery = groceryRepository.save(newGrocery);
+        model.addAttribute("grocery", savedGrocery);
     }
 
+    return "groceries";
+}
     @DeleteMapping("/groceries/ingredients/{id}")
     public ResponseEntity<?> deleteIngredient(@PathVariable Integer id, Principal principal) {
         if (principal == null) {
