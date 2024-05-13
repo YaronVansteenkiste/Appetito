@@ -32,7 +32,7 @@ VALUES
 
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('4 g', '500 mg', '1 g', '15 g', '30 g', '400 kcal', '20 g', 1);
+VALUES('4 g', '500 mg', '1 g', '15 g', '30 g', '400 gr', '20 g', 1);
 
 
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
@@ -61,7 +61,7 @@ VALUES
     ('olijfolie', 1, 'eetlepel', 2,7.50);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('6 g', '500 mg', '1 g', '8 g', '20 g', '400 kcal', '30 g', 2);
+VALUES('6 g', '500 mg', '1 g', '8 g', '20 g', '400 gr', '30 g', 2);
 
 
 INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
@@ -90,7 +90,7 @@ VALUES
     ('kookroom', 200, 'ml', 3,5.99);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('4 g', '600 mg', '1 g', '3 g', '5 g', '100 kcal', '10 g', 3);
+VALUES('4 g', '600 mg', '1 g', '3 g', '5 g', '100 gr', '10 g', 3);
 
 INSERT INTO DISH ( NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -121,7 +121,7 @@ VALUES
     ('pijnboompitten', 2, 'eetlepels', 4,2.0);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('2 g', '200 mg', '1 g', '5 g', '6 g', '150 kcal', '15 g', 4);
+VALUES('2 g', '200 mg', '1 g', '5 g', '6 g', '150 gr', '15 g', 4);
 
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -155,7 +155,7 @@ VALUES
     ('peper en zout', 0, 'snuf', 5,3.99);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('3 g', '200 mg', '3 g', '5 g', '10 g', '250 kcal', '30 g', 5);
+VALUES('3 g', '200 mg', '3 g', '5 g', '10 g', '250 gr', '30 g', 5);
 
 INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -180,7 +180,7 @@ VALUES ('verse cranberries', 250, 'gr', 6, 12.50),
        ('witte basterdsuiker', 75, 'gr',6, 5.99);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('2 g', '50 mg', '8 g', '0.1 g', '0.5 g', '40 kcal', '10 g', 6);
+VALUES('2 g', '50 mg', '8 g', '0.1 g', '0.5 g', '40 gr', '10 g', 6);
 
 
 INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
@@ -208,7 +208,7 @@ VALUES
     ('zout', 1, 'snuf', 7,1.99);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('3 g', '50 mg', '10 g', '4 g', '6 g', '150 kcal', '15 g', 7);
+VALUES('3 g', '50 mg', '10 g', '4 g', '6 g', '150 gr', '15 g', 7);
 
 
 INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
@@ -240,7 +240,7 @@ VALUES
     ('bosui', 0, NULL, 8 , 6.0);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('3 g', '800 mg', '15 g', '10 g', '20 g', '300 kcal', '20 g', 8);
+VALUES('3 g', '800 mg', '15 g', '10 g', '20 g', '300 gr', '20 g', 8);
 
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, PREPARATION)
 VALUES (
@@ -266,7 +266,7 @@ VALUES
     ('hennepzaad', 2, 'eetlepels', 9,6.90);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES('2 g', '80 mg', '20 g', '4 g', '5 g', '200 kcal', '30 g', 9);
+VALUES('2 g', '80 mg', '20 g', '4 g', '5 g', '200 gr', '30 g', 9);
 
 
 

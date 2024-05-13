@@ -22,7 +22,7 @@ public class DishDetailController<ToggleRequest> {
         List<Dish> allTheDishes = dishRepository.findAllByOrderByIdAsc();
         model.addAttribute("dishes", allDishes);
         model.addAttribute("allDishes",allTheDishes);
-        model.addAttribute("isActive",allTheDishes.get(id).isActive());
+        model.addAttribute("isActive",allTheDishes.get(id-1).isActive());
 
 
 
