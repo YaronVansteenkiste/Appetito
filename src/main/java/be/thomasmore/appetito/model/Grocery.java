@@ -11,10 +11,10 @@ public class Grocery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private Chef chef;
 
-    @ManyToMany
+    @OneToMany
     private Collection<Ingredient> ingredients;
 
     public Grocery() {
@@ -45,4 +45,6 @@ public class Grocery {
     public void setIngredients(Collection<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+
 }

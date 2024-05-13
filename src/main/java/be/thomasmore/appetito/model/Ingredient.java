@@ -77,16 +77,7 @@ public class Ingredient {
         this.estimatedPrice = estimatedPrice;
     }
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Collection<Grocery> groceries;
 
-    public Collection<Grocery> getGroceries() {
-        return groceries;
-    }
-
-    public void setGroceries(Collection<Grocery> groceries) {
-        this.groceries = groceries;
-    }
 
 
 }

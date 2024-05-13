@@ -17,11 +17,6 @@
 <h6 class="ms-2 mt-3"><strong>Jouw Boodschappenlijst</strong></h6>
 
 <div class="container">
-    <div class="error">
-        <div id="alert" class="alert alert-danger d-none" role="alert">
-            <span>Boodschap staat al in het lijstje.</span>
-        </div>
-    </div>
     <div class="row">
         <div class="row">
             <div id="ingredientList" class="col-md-6" th:object="${grocery}">
@@ -42,24 +37,10 @@
                             <h6 th:text="${ingredient.getName()}"></h6>
                         </div>
                         <div class="col">
-                            <h6 th:id="'price' + ${stat.index}" th:data-price="${ingredient.getEstimatedPrice()}" th:text="|&euro; ${ingredient.getEstimatedPrice}|"></h6>
+                            <h6 th:id="'price' + ${stat.index}" th:text="|${ingredient.getQuantity()} ${ingredient.getUnit()}|"></h6>
                         </div>
                         <div class="col">
-                            <div class="row">
-                                <div class="col-md-1 d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-outline-primary rounded-circle ms-2" type="button"
-                                            th:onclick="'increaseCounter(\'' + ${stat.index} + '\')'">+
-                                    </button>
-                                    <p th:id="'counter' + ${stat.index}" class="counter mx-2">1</p>
-                                    <button class="btn btn-outline-primary rounded-circle ms-2" type="button"
-                                            th:onclick="'decreaseCounter(\'' + ${stat.index} + '\')'">-
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h6><b class="total" th:id="'total' + ${stat.index}"
-                                   th:text="|&euro; ${ingredient.getEstimatedPrice()}|">0.00</b></h6>
+                            <button type="button" class="btn btn-outline-danger rounded-circle ms-2">X</button>
                         </div>
                     </div>
                 </div>
@@ -85,6 +66,17 @@
                         <div class="row">
                             <div class="col-md-11 mx-2 border-dark border-bottom bg-light">
                                 <h6 class="my-3">Aantal personen:</h6>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-1 d-flex justify-content-between align-items-center">
+                                            <button class="btn btn-outline-primary rounded-circle ms-2" type="button">+
+                                            </button>
+                                            <p class="counter mx-2">1</p>
+                                            <button class="btn btn-outline-primary rounded-circle ms-2" type="button">-
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
