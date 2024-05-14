@@ -2,6 +2,7 @@ package be.thomasmore.appetito.controllers.modify;
 
 
 import be.thomasmore.appetito.model.*;
+import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.services.GoogleService;
 
@@ -35,6 +36,9 @@ public class DishModifyController {
 
     @Autowired
     GoogleService googleService;
+
+    @Autowired
+    BeverageRepository beverageRepository;
 
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
@@ -262,5 +266,33 @@ public class DishModifyController {
         } else {
             return "redirect:/modify/dishedit/" + id;
         }
+    }
+
+    @PostMapping("/editbeverage/{id}")
+    @Transactional
+    public String updateBeverage(@PathVariable("id") Integer id,
+                                 @RequestParam("name") String name,
+                                 @RequestParam("image") MultipartFile image,
+                                 Model model){
+        Optional<Beverage> optionalBeverage = beverageRepository.findById(id);
+        if(!optionalBeverage.isPresent()){
+            model.addAttribute("error", "Beverage not found with id: " + id);
+            return "/error";
+        }
+
+        Beverage beverage = optionalBeverage.get();
+        beverage.setName(name);
+
+        if (image != null && !image.isEmpty()) {
+            try {
+                beverage.setImgFile(uploadImage(image));
+            } catch (IOException e) {
+                model.addAttribute("error", "Error uploading image: " + e.getMessage());
+                return "redirect:/modify/dishedit/" + id;
+            }
+        }
+
+        beverageRepository.save(beverage);
+        return "redirect:/modify/editbeverage/" + id;
     }
 }
