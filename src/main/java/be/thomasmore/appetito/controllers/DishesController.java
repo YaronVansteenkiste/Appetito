@@ -82,6 +82,18 @@ public class DishesController {
                                @RequestParam(required = false) String occasion,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs,
+                               @RequestParam(required = false) Integer minFiber,
+                               @RequestParam(required = false) Integer maxFiber,
+                               @RequestParam(required = false) Integer minSalt,
+                               @RequestParam(required = false) Integer maxSalt,
+                               @RequestParam(required = false) Integer minSugar,
+                               @RequestParam(required = false) Integer maxSugar,
+                               @RequestParam(required = false) Integer minSaturatedFat,
+                               @RequestParam(required = false) Integer maxSaturatedFat,
+                               @RequestParam(required = false) Integer minFat,
+                               @RequestParam(required = false) Integer maxFat,
+                               @RequestParam(required = false) Integer minProteins,
+                               @RequestParam(required = false) Integer maxProteins,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size) {
         String dietPreferenceStr = "";
@@ -109,7 +121,11 @@ public class DishesController {
         }
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime, preparation, occasion, minCarbs, maxCarbs, pageable);
+        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
+                preparation, occasion, minCarbs, maxCarbs, minFiber,
+                maxFiber, minSalt, maxSalt, minSugar, maxSugar,
+                minSaturatedFat, maxSaturatedFat, minFat, maxFat,
+                minProteins, maxProteins, pageable);
 
         boolean filterEnabled = true;
         model.addAttribute("dietPreferences", dietPreferenceStr);
