@@ -25,8 +25,10 @@
         </div>
         <div class="col-md-6 ">
             <div th:if="${dish}">
-                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
-                <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}" method="post">
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
+                   class="btn btn-primary">Edit</a>
+                <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
+                      method="post">
                     <input type="hidden" name="active" th:value="${!dish.isActive}">
                     <button type="submit" th:class="${dish.isActive ? 'btn btn-success' : 'btn btn-danger'}"
                             th:text="${dish.isActive ? 'Active' : 'Inactive'}">
@@ -65,13 +67,16 @@
                 </div>
             </div>
             <form th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
-                <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary mt-3">Toevoegen aan boodschappenlijst</button>
+                <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary mt-3">Toevoegen aan
+                    boodschappenlijst
+                </button>
             </form>
             <ul th:each="ingredient, stat : ${dish.getIngredients()}"
                 th:if="${ingredient.quantity != null}">
                 <li>
                     <span th:text="|${ingredient.name} ${ingredient.quantity > 0 ? ':' : ''}|"></span>
-                    <span th:data-quantity="${ingredient.quantity}" class="quantity" th:id="|quantity${stat.index}|" th:text="${ingredient.quantity > 0 ? ingredient.quantity : ''}"></span>
+                    <span th:data-quantity="${ingredient.quantity}" class="quantity" th:id="|quantity${stat.index}|"
+                          th:text="${ingredient.quantity > 0 ? ingredient.quantity : ''}"></span>
                     <span th:text="${ingredient.getUnit()}"></span>
                 </li>
             </ul>
@@ -126,16 +131,20 @@
     <div class="row">
         <div>
             <h4>Bereiding</h4>
-            <p>
-                <span th:each="step,iterStat : ${#strings.arraySplit(dish.preparation, '//')}">
-                    <span th:text="${iterStat.index + 1} + '. ' + ${step.substring(3)}"></span><br>
-                </span>
-            </p>
+            <div class="row" th:each="step, stat : ${steps}">
+                <div th:if="${step.getImage() == null}" class="col-12">
+                    <div th:text="${stat.index + 1 + '. ' + step.description}"></div>
+                </div>
+                <div th:if="${step.getImage() != null}" class="row">
+                    <div class="col-8 my-2" th:text="${stat.index + 1 + '. ' + step.description}"></div>
+                    <div class="col-4 my-2 justify-content-center">
+                        <img class="img-fluid ms-auto w-100" th:src="@{${step.getImage()}}" alt="Step Image">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
 
 
 <div class="container">
@@ -144,7 +153,8 @@
         <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}">
             <article class="card">
                 <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
-                    <img th:src="@{${beverage.getImgFile()}}" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" alt="Image Drink">
+                    <img th:src="@{${beverage.getImgFile()}}" class="position-absolute top-0 start-0 w-100 h-100"
+                         style="object-fit: cover;" alt="Image Drink">
                 </div>
 
                 <div class="card-body">
@@ -165,7 +175,7 @@
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
         <th:block
-                th:if="${iterStat.index == currentDish-1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
+                th:if="${iterStat.index == currentDish - 1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
             <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}"
                th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
                th:text="${dish.id}"></a>
@@ -177,7 +187,6 @@
 </div>
 
 <p th:text="'Page ' +${currentDish} + ' of '+ ${lastDish}" class="text-center mt-3"></p>
-
 
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
