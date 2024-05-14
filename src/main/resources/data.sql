@@ -684,9 +684,9 @@ VALUES
 
 
 
-INSERT INTO GROCERY (CHEF_ID) VALUES
-    (2),
-(1);
-
-INSERT INTO GROCERY_INGREDIENTS (GROCERY_ID, INGREDIENTS_ID) VALUES
-                                                                   (1,1)
+-- INSERT INTO GROCERY (CHEF_ID) VALUES
+--     (2),
+-- (1);
+--
+-- INSERT INTO GROCERY_INGREDIENTS (GROCERY_ID, INGREDIENTS_ID) VALUES
+--                                                                    (1,1)
