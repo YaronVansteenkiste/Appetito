@@ -2,6 +2,8 @@ package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Dish;
 
+import com.google.api.gax.paging.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +23,7 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     Optional<Dish> findFirstByIdGreaterThanOrderByIdAsc(Integer id);
 
     Optional<Dish> findFirstByIdLessThanOrderByIdDesc(Integer id);
+
 
 
 
@@ -46,4 +49,9 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
 
     List<Dish> findByActive(boolean active);
+
+    @Query(value = "SELECT * FROM Dish ORDER BY id ASC LIMIT :limit OFFSET :offset", nativeQuery = true)
+    List<Dish> findProductsPageable(@Param("limit") int limit, @Param("offset") int offset);
+
+
 }

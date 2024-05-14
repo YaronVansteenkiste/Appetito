@@ -48,6 +48,19 @@
                     </div>
                 </div>
             </div>
+<!--            <div>-->
+<!--                <ul>-->
+<!--                    <li th:if="${hasPrevious}">-->
+<!--                        <a th:href="@{|/?page=${currentPage - 1}|}">Previous</a>-->
+<!--                    </li>-->
+<!--                    <li th:each="i : ${#numbers.sequence(max(0, currentPage - 5), min(currentPage + 5, totalPages - 1))}">-->
+<!--                        <a th:href="@{|/?page=${i}|}" th:text="${i + 1}" th:class="${currentPage == i ? 'current' : ''}">Page Num</a>-->
+<!--                    </li>-->
+<!--                    <li th:if="${hasNext}">-->
+<!--                        <a th:href="@{|/?page=${currentPage + 1}|}">Next</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
 
             <div class="filter col-md-4 ms-2">
                 <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
@@ -174,10 +187,7 @@
         </div>
     </div>
 </div>
-<div class="text-center">
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
-</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

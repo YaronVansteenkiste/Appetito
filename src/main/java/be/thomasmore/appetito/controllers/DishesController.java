@@ -8,6 +8,8 @@ import jakarta.validation.Valid;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,14 +43,24 @@ public class DishesController {
 
 
     @GetMapping("/dishes")
-    public String Home(Model model) {
+    public String Home(Model model,@RequestParam(defaultValue = "0") int page) {
+        int pageSize = 10;
+        int offset = page * pageSize;
+        List<Dish> dishesPage = dishRepository.findProductsPageable(pageSize, offset);
         boolean filterEnabled = false;
         Iterable<Dish> allDishes = dishRepository.findAll();
         List<Dish> activeDishes = dishRepository.findByActive(true);
+        long totalDishes = dishRepository.count();
+        int totalPages = (int) Math.ceil((double) totalDishes / pageSize);
+        model.addAttribute("dishesPage",dishesPage);
+        model.addAttribute("currentPage",page);
         model.addAttribute("dishes",activeDishes);
         model.addAttribute("count", activeDishes.spliterator().estimateSize());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("filterEnabled", filterEnabled);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("hasPrevious", page > 0);
+        model.addAttribute("hasNext", (page + 1) < totalPages);
         return "dishes";
     }
 
