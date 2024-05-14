@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.sql.Time;
 import java.util.List;
@@ -37,6 +38,18 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(:occasion is null or d.occasion = :occasion) and " +
             "(:minCarbs is null or n.carbs >= :minCarbs) and " +
             "(:maxCarbs is null or n.carbs <= :maxCarbs) and " +
+            "(:minFiber is null or n.fiber <= :minFiber) and " +
+            "(:maxFiber is null or n.fiber <= :maxFiber) and " +
+            "(:minSalt is null or n.salt <= :minSalt) and " +
+            "(:maxSalt is null or n.salt <= :maxSalt) and " +
+            "(:minSugar is null or n.sugar <= :minSugar) and " +
+            "(:maxSugar is null or n.sugar <= :maxSugar) and " +
+            "(:minSaturatedFat is null or n.saturatedFat <= :minSaturatedFat) and " +
+            "(:maxSaturatedFat is null or n.saturatedFat <= :maxSaturatedFat) and " +
+            "(:minFat is null or n.fat <= :minFat) and " +
+            "(:maxFat is null or n.fat <= :maxFat) and " +
+            "(:minProteins is null or n.proteins <= :minProteins) and " +
+            "(:maxProteins is null or n.proteins <= :maxProteins) and " +
             "d.active = true")
     Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
                                   @Param("minPreparationTime") Time minPreparationTime,
@@ -45,6 +58,18 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
                                   @Param("occasion") String occasion,
                                   @Param("minCarbs") Integer minCarbs,
                                   @Param("maxCarbs") Integer maxCarbs,
+                                  @Param("minFiber") Integer minFiber,
+                                  @Param("maxFiber") Integer maxFiber,
+                                  @Param("minSalt") Integer minSalt,
+                                  @Param("maxSalt") Integer maxSalt,
+                                  @Param("minSugar") Integer minSugar,
+                                  @Param("maxSugar") Integer maxSugar,
+                                  @Param("minSaturatedFat") Integer minSaturatedFat,
+                                  @Param("maxSaturatedFat") Integer maxSaturatedFat,
+                                  @Param("minFat") Integer minFat,
+                                  @Param("maxFat") Integer maxFat,
+                                  @Param("minProteins") Integer minProteins,
+                                  @Param("maxProteins") Integer maxProteins,
                                   Pageable pageable);
 
     @Query("select d from Dish d where lower(d.name) like lower(concat('%', :keyword, '%'))")
