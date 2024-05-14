@@ -135,6 +135,18 @@ public class DishesController {
         model.addAttribute("occasion", occasionStr);
         model.addAttribute("minCarbs", minCarbs);
         model.addAttribute("maxCarbs", maxCarbs);
+        model.addAttribute("minFiber", minFiber);
+        model.addAttribute("maxFiber", maxFiber);
+        model.addAttribute("minSalt", minSalt);
+        model.addAttribute("maxSalt", maxSalt);
+        model.addAttribute("minSugar", minSugar);
+        model.addAttribute("maxSugar", maxSugar);
+        model.addAttribute("minSaturatedFat", minSaturatedFat);
+        model.addAttribute("maxSaturatedFat", maxSaturatedFat);
+        model.addAttribute("minFat", minFat);
+        model.addAttribute("maxFat", maxFat);
+        model.addAttribute("minProteins", minProteins);
+        model.addAttribute("maxProteins", maxProteins);
         model.addAttribute("count", allDishes.getTotalElements());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("allIngredients", ingredientRepository.findAll());

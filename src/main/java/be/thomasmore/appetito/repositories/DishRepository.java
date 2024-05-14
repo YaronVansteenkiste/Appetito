@@ -38,17 +38,17 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(:occasion is null or d.occasion = :occasion) and " +
             "(:minCarbs is null or n.carbs >= :minCarbs) and " +
             "(:maxCarbs is null or n.carbs <= :maxCarbs) and " +
-            "(:minFiber is null or n.fiber <= :minFiber) and " +
+            "(:minFiber is null or n.fiber >= :minFiber) and " +
             "(:maxFiber is null or n.fiber <= :maxFiber) and " +
-            "(:minSalt is null or n.salt <= :minSalt) and " +
+            "(:minSalt is null or n.salt >= :minSalt) and " +
             "(:maxSalt is null or n.salt <= :maxSalt) and " +
-            "(:minSugar is null or n.sugar <= :minSugar) and " +
+            "(:minSugar is null or n.sugar >= :minSugar) and " +
             "(:maxSugar is null or n.sugar <= :maxSugar) and " +
-            "(:minSaturatedFat is null or n.saturatedFat <= :minSaturatedFat) and " +
+            "(:minSaturatedFat is null or n.saturatedFat >= :minSaturatedFat) and " +
             "(:maxSaturatedFat is null or n.saturatedFat <= :maxSaturatedFat) and " +
-            "(:minFat is null or n.fat <= :minFat) and " +
+            "(:minFat is null or n.fat >= :minFat) and " +
             "(:maxFat is null or n.fat <= :maxFat) and " +
-            "(:minProteins is null or n.proteins <= :minProteins) and " +
+            "(:minProteins is null or n.proteins >= :minProteins) and " +
             "(:maxProteins is null or n.proteins <= :maxProteins) and " +
             "d.active = true")
     Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
