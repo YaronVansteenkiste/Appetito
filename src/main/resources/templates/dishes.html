@@ -32,8 +32,8 @@
             <div class="col-md-6 order-md-1">
                 <div class="dishes">
                     <div class="row">
-                        <h4 th:text="|All dishes: (${alldishes})|"></h4>
-                        <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${dishesPage}" th:if="${dish.isActive()}">
+                        <h4 th:text="|All dishes: (${count})|"></h4>
+                        <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${alldishes}" th:if="${dish.isActive()}">
                             <div class="card mb-3">
                                 <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
                                      alt="Dish Image" style="height: 200px; object-fit: cover;">
@@ -48,19 +48,6 @@
                     </div>
                 </div>
             </div>
-<!--            <div>-->
-<!--                <ul>-->
-<!--                    <li th:if="${hasPrevious}">-->
-<!--                        <a th:href="@{|/?page=${currentPage - 1}|}">Previous</a>-->
-<!--                    </li>-->
-<!--                    <li th:each="i : ${#numbers.sequence(max(0, currentPage - 5), min(currentPage + 5, totalPages - 1))}">-->
-<!--                        <a th:href="@{|/?page=${i}|}" th:text="${i + 1}" th:class="${currentPage == i ? 'current' : ''}">Page Num</a>-->
-<!--                    </li>-->
-<!--                    <li th:if="${hasNext}">-->
-<!--                        <a th:href="@{|/?page=${currentPage + 1}|}">Next</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
 
             <div class="filter col-md-4 ms-2">
                 <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"

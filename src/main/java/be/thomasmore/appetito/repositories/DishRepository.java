@@ -2,8 +2,8 @@ package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Dish;
 
-import com.google.api.gax.paging.Page;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -38,13 +38,14 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(:minCarbs is null or n.carbs >= :minCarbs) and " +
             "(:maxCarbs is null or n.carbs <= :maxCarbs) and " +
             "d.active = true")
-    Iterable<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
-                                      @Param("minPreparationTime") Time minPreparationTime,
-                                      @Param("maxPreparationTime") Time maxPreparationTime,
-                                      @Param("preparation") String preparation,
-                                      @Param("occasion") String occasion,
-                                      @Param("minCarbs") Integer minCarbs,
-                                      @Param("maxCarbs") Integer maxCarbs);
+    Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
+                                  @Param("minPreparationTime") Time minPreparationTime,
+                                  @Param("maxPreparationTime") Time maxPreparationTime,
+                                  @Param("preparation") String preparation,
+                                  @Param("occasion") String occasion,
+                                  @Param("minCarbs") Integer minCarbs,
+                                  @Param("maxCarbs") Integer maxCarbs,
+                                  Pageable pageable);
 
     @Query("select d from Dish d where lower(d.name) like lower(concat('%', :keyword, '%'))")
     Iterable<Dish> findByName(@Param("keyword") String keyword);
@@ -60,6 +61,7 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     Iterable<Dish> findAll();
     List<Dish> findByActive(boolean active);
+    Page<Dish> findByActive(boolean active, Pageable pageable);
     long count();
 
 

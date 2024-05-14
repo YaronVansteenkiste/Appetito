@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -43,24 +44,22 @@ public class DishesController {
 
 
     @GetMapping("/dishes")
-    public String Home(Model model,@RequestParam(defaultValue = "0") int page) {
+    public String Home(Model model, @RequestParam(defaultValue = "0") int page) {
         int pageSize = 10;
-        int offset = page * pageSize;
-        List<Dish> dishesPage = dishRepository.findProductsPageable(pageSize, offset);
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
         boolean filterEnabled = false;
-        Iterable<Dish> allDishes = dishRepository.findAll();
-        List<Dish> activeDishes = dishRepository.findByActive(true);
-        long totalDishes = dishRepository.count();
-        int totalPages = (int) Math.ceil((double) totalDishes / pageSize);
-        model.addAttribute("dishesPage",dishesPage);
-        model.addAttribute("currentPage",page);
-        model.addAttribute("dishes",activeDishes);
-        model.addAttribute("count", activeDishes.spliterator().estimateSize());
-        model.addAttribute("alldishes", allDishes);
+        long totalDishes = dishesPage.getTotalElements();
+        int totalPages = dishesPage.getTotalPages();
+        List<Dish> dishes = dishesPage.getContent();
+        model.addAttribute("dishesPage", dishesPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("count", totalDishes);
         model.addAttribute("filterEnabled", filterEnabled);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("hasPrevious", page > 0);
-        model.addAttribute("hasNext", (page + 1) < totalPages);
+        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
+        model.addAttribute("hasNext", dishesPage.hasNext());
+        model.addAttribute("alldishes", dishes);
         return "dishes";
     }
 
@@ -75,14 +74,16 @@ public class DishesController {
     }
 
     @GetMapping("/dishes/filter")
-    public String dishesFilter(Model model, @RequestParam(required = false) String dietPreferences,
+    public String dishesFilter(Model model,
+                               @RequestParam(required = false) String dietPreferences,
                                @RequestParam(required = false) String minPreparationTimeStr,
                                @RequestParam(required = false) String maxPreparationTimeStr,
                                @RequestParam(required = false) String preparation,
                                @RequestParam(required = false) String occasion,
                                @RequestParam(required = false) Integer minCarbs,
-                               @RequestParam(required = false) Integer maxCarbs) {
-        Iterable<Dish> allDishes;
+                               @RequestParam(required = false) Integer maxCarbs,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "10") int size) {
         String dietPreferenceStr = "";
         String occasionStr = "";
         if (dietPreferences != null) {
@@ -107,8 +108,10 @@ public class DishesController {
             }
         }
 
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime, preparation, occasion, minCarbs, maxCarbs, pageable);
+
         boolean filterEnabled = true;
-        allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime, preparation, occasion, minCarbs, maxCarbs);
         model.addAttribute("dietPreferences", dietPreferenceStr);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
         model.addAttribute("maxPreparationTime", maxPreparationTimeStr);
@@ -116,11 +119,16 @@ public class DishesController {
         model.addAttribute("occasion", occasionStr);
         model.addAttribute("minCarbs", minCarbs);
         model.addAttribute("maxCarbs", maxCarbs);
-        model.addAttribute("count", allDishes.spliterator().estimateSize());
+        model.addAttribute("count", allDishes.getTotalElements());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("allIngredients", ingredientRepository.findAll());
         model.addAttribute("filterEnabled", filterEnabled);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", allDishes.getTotalPages());
+        model.addAttribute("hasPrevious", allDishes.hasPrevious());
+        model.addAttribute("hasNext", allDishes.hasNext());
+
         return "dishes";
     }
-
 }
