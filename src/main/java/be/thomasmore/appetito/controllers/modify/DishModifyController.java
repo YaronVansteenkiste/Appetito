@@ -272,7 +272,7 @@ public class DishModifyController {
     @Transactional
     public String updateBeverage(@PathVariable("id") Integer id,
                                  @RequestParam("name") String name,
-                                 @RequestParam("image") MultipartFile image,
+                                 @RequestParam(required = false) MultipartFile image,
                                  Model model){
         Optional<Beverage> optionalBeverage = beverageRepository.findById(id);
         if(!optionalBeverage.isPresent()){
