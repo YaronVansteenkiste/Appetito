@@ -1,10 +1,7 @@
 package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.*;
-import be.thomasmore.appetito.repositories.ChefRepository;
-import be.thomasmore.appetito.repositories.DishRepository;
-import be.thomasmore.appetito.repositories.GroceryRepository;
-import be.thomasmore.appetito.repositories.IngredientRepository;
+import be.thomasmore.appetito.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +28,9 @@ public class DishDetailController<ToggleRequest> {
     @Autowired
     private GroceryRepository groceryRepository;
 
+    @Autowired
+    private StepRepository stepRepository;
+
     @GetMapping({"/dishdetails/{id}", "/dishdetails"})
     public String dishDetail(Model model, @PathVariable(required = false) Integer id) {
         final Iterable<Dish> allDishes = dishRepository.findAll();
@@ -43,6 +43,10 @@ public class DishDetailController<ToggleRequest> {
         if (id == null) {
             return "error";
         }
+
+        final Iterable<Step> steps = stepRepository.findByDishId(id);
+
+        model.addAttribute("steps", steps);
 
         Optional<Dish> dishFromDB = dishRepository.findById(id);
         Collection<Beverage> beverages = dishFromDB.get().getBeverages();

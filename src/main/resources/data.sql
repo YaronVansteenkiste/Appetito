@@ -371,4 +371,14 @@ INSERT INTO GROCERY (CHEF_ID) VALUES
 (1);
 
 INSERT INTO GROCERY_INGREDIENTS (GROCERY_ID, INGREDIENTS_ID) VALUES
-                                                                   (1,1)
+                                                                   (1,1);
+
+
+INSERT INTO Step (id, description, image, dish_id)
+VALUES (1, 'Begin met het koken van de fettuccine volgens de aanwijzingen op de verpakking. Vergeet niet een kopje van het kookvocht te bewaren voordat je de pasta afgiet.', '/img/pasta_alfredo_stap1.jpg', 1),
+       (2, 'Terwijl de pasta kookt, kruid je de kipstukjes naar smaak en bak je ze in een aparte pan tot ze volledig gaar en goudbruin zijn. Zet de kip even opzij.', '/img/pasta_alfredo_stap2.jpg', 1),
+       (3, 'Smelt de roomboter in een diepe pan op middelhoog vuur. Voeg het fijngehakte teentje knoflook toe en laat het een minuutje zachtjes bakken, zodat de smaken goed vrijkomen.', '/img/pasta_alfredo_stap3.jpg', 1),
+       (4, 'Voeg de gekookte fettuccine toe aan de pan met gesmolten boter en knoflook. Giet er een goed scheutje van het bewaarde kookvocht bij om de saus smeuïg te maken.', '/img/pasta_alfredo_stap4.jpg', 1),
+       (5, 'Strooi de geraspte Parmezaanse kaas over de pasta en roer alles goed door elkaar totdat de kaas volledig is gesmolten en een romige saus vormt.', '/img/pasta_alfredo_stap5.jpg', 1),
+         (6, 'Voeg nu de gebakken kipstukjes toe aan de pan en meng alles goed door elkaar. Breng op smaak met zwarte peper.', '/img/pasta_alfredo_stap6.jpg', 1),
+         (7, 'Serveer de pasta alfredo op borden en garneer met de gehakte peterselie voor een frisse touch.', '/img/pasta_alfredo.jpg', 1);
