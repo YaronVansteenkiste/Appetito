@@ -7,6 +7,7 @@
 <head>
     <title>Boodschappen</title>
     <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
@@ -17,68 +18,31 @@
 <h6 class="ms-2 mt-3"><strong>Jouw Boodschappenlijst</strong></h6>
 
 <div class="container">
-    <div class="error">
-        <div id="alert" class="alert alert-danger d-none" role="alert">
-            <span>Boodschap staat al in het lijstje.</span>
-        </div>
-    </div>
     <div class="row">
         <div class="row">
-            <div id="ingredientList" class="col-md-6">
-                <div class="dropdown pe-1">
-                    <a class="btn dropdown-toggle text-body-secondary" href="#" role="button" id="dropdownMenuLink"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Voeg ingredient toe
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li th:each="ingredient : ${allIngredients}">
-                            <a class="dropdown-item ingredient" href="#" th:data-price="${ingredient.getEstimatedPrice()}"
-                               th:text="${ingredient.getName()}">ingredient
-                                <p id="price" th:data-price="${ingredient.getEstimatedPrice()}" class="d-none" th:text="${ingredient.getEstimatedPrice()}"></p></a>
-                        </li>
-                    </ul>
-                </div>
+            <div id="ingredientList" class="col-md-6" th:object="${grocery}">
                 <div class="row mt-2">
                     <div class="col mx-2 ">
                         <h6><strong>Artikel</strong></h6>
                     </div>
                     <div class="col">
-                        <h6><strong id="articlePrice">Geschatte Artikelprijs*</strong></h6>
-                    </div>
-                    <div class="col">
                         <h6><strong>Hoeveelheid</strong></h6>
-                    </div>
-                    <div class="col">
-                        <h6><strong>Geschatte Totaal</strong></h6>
                     </div>
                     <div class="col">
                         <h6><strong>Verwijderen</strong></h6>
                     </div>
                 </div>
-                <div  class="ingredient-list" th:each="errand, stat : ${allErrands}">
+                <div  class="ingredient-list" th:each="ingredient, stat : ${grocery.getIngredients()}">
                     <div class="row mt-2">
                         <div class="col mx-2">
-                            <h6 th:text="${errand.getName()}"></h6>
+                            <h6 th:text="${ingredient.getName()}"></h6>
+                        </div>
+                        <div class="col d-inline-flex">
+                            <h6 th:data-quantity="${ingredient.quantity}" class="quantity" th:id="|quantity${stat.index}|" th:text="${ingredient.quantity > 0 ? ingredient.quantity : ''}"></h6>
+                            <h6 class="ms-1" th:text="|${ingredient.getUnit()}|"></h6>
                         </div>
                         <div class="col">
-                            <h6 th:id="'price' + ${stat.index}" th:data-price="${errand.price}" th:text="|&euro; ${errand.price}|"></h6>
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-md-1 d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-outline-primary rounded-circle ms-2" type="button"
-                                            th:onclick="'increaseCounter(\'' + ${stat.index} + '\')'">+
-                                    </button>
-                                    <p th:id="'counter' + ${stat.index}" class="counter mx-2">1</p>
-                                    <button class="btn btn-outline-primary rounded-circle ms-2" type="button"
-                                            th:onclick="'decreaseCounter(\'' + ${stat.index} + '\')'">-
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <h6><b class="total" th:id="'total' + ${stat.index}"
-                                   th:text="|&euro; ${errand.getPrice()}|">0.00</b></h6>
+                            <button type="button" class="btn btn-outline-danger rounded-circle ms-2 delete-ingredient" th:data-ingredient-id="${ingredient.id}">X</button>
                         </div>
                     </div>
                 </div>
@@ -95,7 +59,7 @@
                 <div id="groceryList">
                     <div class="row mt-2">
                         <div class="col mx-2">
-                            <h6><span id="totalGroceries">0</span> aantal boodschappen in lijst</h6>
+                            <h6><span id="totalGroceries" th:text="${grocery.ingredients.size()}">0</span> aantal boodschappen in lijst</h6>
                         </div>
                     </div>
                 </div>
@@ -103,10 +67,18 @@
                     <div class="col-12 bg-light">
                         <div class="row">
                             <div class="col-md-11 mx-2 border-dark border-bottom bg-light">
-                                <h6 class="my-3">Totaal Geschatte Waarde</h6>
-                            </div>
-                            <div class="col-md-11 mx-2 bg-light">
-                                <h6 class="my-3">€<span id="totalPrice">0.00</span></h6>
+                                <h6 class="my-3">Aantal personen:</h6>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-md-1 d-flex justify-content-between align-items-center">
+                                            <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle ms-2" type="button">+
+                                            </button>
+                                            <p id="persons" class="counter mx-2">1</p>
+                                            <button onclick="subtractPersons()" class="btn btn-outline-primary rounded-circle ms-2" type="button">-
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

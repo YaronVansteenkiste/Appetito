@@ -64,6 +64,9 @@
                     <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
                 </div>
             </div>
+            <form th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
+                <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary mt-3">Toevoegen aan boodschappenlijst</button>
+            </form>
             <ul th:each="ingredient, stat : ${dish.getIngredients()}"
                 th:if="${ingredient.quantity != null}">
                 <li>
