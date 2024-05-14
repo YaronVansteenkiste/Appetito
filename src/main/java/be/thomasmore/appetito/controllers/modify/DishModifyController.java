@@ -285,8 +285,11 @@ public class DishModifyController {
 
         if (image != null && !image.isEmpty()) {
             try {
-                beverage.setImgFile(uploadImage(image));
+                String imageUrl = uploadImage(image);
+                beverage.setImgFile(imageUrl);
+                logger.info("Image uploaded successfully: " + imageUrl);
             } catch (IOException e) {
+                logger.error("Error uploading image: " + e.getMessage());
                 model.addAttribute("error", "Error uploading image: " + e.getMessage());
                 return "redirect:/modify/dishedit/" + id;
             }
@@ -294,5 +297,16 @@ public class DishModifyController {
 
         beverageRepository.save(beverage);
         return "redirect:/modify/editbeverage/" + id;
+    }
+
+    private String uploadBevImage(MultipartFile multipartFile) throws IOException {
+        final String filename = multipartFile.getOriginalFilename();
+        final File fileToUpload = new File(filename);
+        try (FileOutputStream fos = new FileOutputStream(fileToUpload)) {
+            fos.write(multipartFile.getBytes());
+        }
+        final String urlInFirebase = googleService.toFirebase(fileToUpload, filename);
+        fileToUpload.delete();
+        return urlInFirebase;
     }
 }
