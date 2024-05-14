@@ -578,6 +578,8 @@ INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
 ('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
+INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
+('admin', 'admin', '', 'admin@appetito.com');
 
 
 
