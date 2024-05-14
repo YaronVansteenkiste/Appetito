@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -176,7 +175,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "error2";
+            return "error";
         }
 
         Dish dish = optionalDish.get();
@@ -222,7 +221,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "error2";
+            return "error";
         }
 
         Dish dish = optionalDish.get();
