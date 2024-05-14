@@ -2,7 +2,6 @@ package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.model.Dish;
-import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

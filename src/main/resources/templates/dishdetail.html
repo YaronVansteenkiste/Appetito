@@ -48,7 +48,7 @@
                 <p th:text="${dish.preparationTime}"></p>
 
 
-                <form th:action="@{/dishdetails/{id}(id=${dish.id})}" method="post">
+                <form  th:action="@{/dishdetails/{id}(id=${dish.id})}" method="post">
                     <input type="hidden" th:name="dishId" th:value="${dish.id}"/>
                     <div class="mt-3 m-2">
                         <button type="submit" class="btn btn-primary">+ Add to X-dagenmenu</button>
@@ -60,14 +60,7 @@
 </main>
 
 
-<div class="row justify-content-center">
-    <div class="col-6">
-        <form sec:authorize="hasAuthority('USER')" th:action="@{/addToMenu}" th:object="${dish}" method="post">
-            <input type="hidden" name="dishId" th:value="${dish.id}">
-            <button type="submit" class="btn btn-outline-dark mt-4">Toevoegen aan Menu</button>
-        </form>
-    </div>
-</div>
+
 
 <div class="container">
     <div class="row">
