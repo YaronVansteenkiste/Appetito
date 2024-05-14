@@ -3,6 +3,7 @@ package be.thomasmore.appetito.controllers.modify;
 
 import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.DishRepository;
+import be.thomasmore.appetito.repositories.StepRepository;
 import be.thomasmore.appetito.services.GoogleService;
 
 
@@ -11,9 +12,11 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +25,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.util.*;
-
 
 
 @RequestMapping("/modify")
@@ -35,6 +37,9 @@ public class DishModifyController {
 
     @Autowired
     GoogleService googleService;
+
+    @Autowired
+    StepRepository stepRepository;
 
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
@@ -163,9 +168,6 @@ public class DishModifyController {
     }
 
 
-
-
-
     @PostMapping("/editingredients/{id}")
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
@@ -174,7 +176,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "/error";
+            return "error2";
         }
 
         Dish dish = optionalDish.get();
@@ -200,7 +202,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
-            nutritionListWrapper wrapper=new nutritionListWrapper();
+            nutritionListWrapper wrapper = new nutritionListWrapper();
             wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
 
             model.addAttribute("dish", dish);
@@ -212,9 +214,6 @@ public class DishModifyController {
     }
 
 
-
-
-
     @PostMapping("/editnutritions/{id}")
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
@@ -223,10 +222,10 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "/error";
+            return "error2";
         }
 
-        Dish  dish = optionalDish.get();
+        Dish dish = optionalDish.get();
         List<Nutrition> currentNutritions = new ArrayList<>(wrapper.getNutritions());
 
 
@@ -244,8 +243,70 @@ public class DishModifyController {
         return "redirect:/modify/dishedit/" + id;
     }
 
+    @GetMapping("/editsteps/{id}")
+    public String showSteps(Model model, @PathVariable("id") Integer id) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Iterable<Step> steps = stepRepository.findByDishId(id);
+            StepListWrapper wrapper = new StepListWrapper();
+            wrapper.setSteps((List<Step>) steps);
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("stepListWrapper", wrapper);
+            return "modify/editsteps";
+        } else {
+            return "redirect:/modify/dishedit/" + id;
+        }
+    }
 
 
+    @PostMapping("/editsteps/{id}")
+    @Transactional
+    public String editSteps(@PathVariable("id") Integer id,
+                            @ModelAttribute("stepListWrapper") StepListWrapper wrapper) throws IOException {
+        List<Step> currentSteps = wrapper.getSteps();
+
+        for (Step step : currentSteps) {
+            MultipartFile imageFile = step.getImageFile();
+
+            if (step.getId() == null) {
+                Step newStep = new Step();
+                newStep.setDish(dishRepository.findById(id).get());
+                newStep.setDescription(step.getDescription());
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    newStep.setImage(uploadImage(imageFile));
+                }
+                stepRepository.save(newStep);
+            } else {
+                Optional<Step> optionalStep = stepRepository.findById(step.getId());
+                if (optionalStep.isPresent()) {
+                    Step existingStep = optionalStep.get();
+                    existingStep.setDish(dishRepository.findById(id).get());
+                    existingStep.setDescription(step.getDescription());
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        existingStep.setImage(uploadImage(imageFile));
+                    }
+                    stepRepository.save(existingStep);
+                }
+            }
+        }
+
+        return "redirect:/modify/dishedit/" + id;
+    }
+
+
+    @DeleteMapping("/step/{id}")
+    public ResponseEntity<Void> deleteStep(@PathVariable Integer id) {
+        Optional<Step> optionalStep = stepRepository.findById(id);
+        if (optionalStep.isPresent()) {
+            stepRepository.delete(optionalStep.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();

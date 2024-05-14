@@ -3,6 +3,7 @@ package be.thomasmore.appetito.model;
 import com.google.api.client.util.Value;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
 import java.util.Collection;
@@ -33,6 +34,7 @@ public class Dish {
 
     @ManyToMany
     private Collection<Beverage> beverages;
+
 
     public Dish() {
         this.active=true;
