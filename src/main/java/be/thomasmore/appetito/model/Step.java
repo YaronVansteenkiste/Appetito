@@ -2,6 +2,7 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 import org.intellij.lang.annotations.Identifier;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
@@ -13,6 +14,17 @@ public class Step {
     private Integer id;
     private String description;
     private String image;
+
+    @Transient
+    private MultipartFile imageFile;
+
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
 
     @ManyToOne
     private Dish dish;

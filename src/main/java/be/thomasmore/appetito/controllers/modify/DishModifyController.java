@@ -265,16 +265,19 @@ public class DishModifyController {
     @PostMapping("/editsteps/{id}")
     @Transactional
     public String editSteps(@PathVariable("id") Integer id,
-                            @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
-                            BindingResult result,
-                            Model model) {
+                            @ModelAttribute("stepListWrapper") StepListWrapper wrapper) throws IOException {
         List<Step> currentSteps = wrapper.getSteps();
 
         for (Step step : currentSteps) {
+            MultipartFile imageFile = step.getImageFile();
+
             if (step.getId() == null) {
                 Step newStep = new Step();
                 newStep.setDish(dishRepository.findById(id).get());
                 newStep.setDescription(step.getDescription());
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    newStep.setImage(uploadImage(imageFile));
+                }
                 stepRepository.save(newStep);
             } else {
                 Optional<Step> optionalStep = stepRepository.findById(step.getId());
@@ -282,6 +285,9 @@ public class DishModifyController {
                     Step existingStep = optionalStep.get();
                     existingStep.setDish(dishRepository.findById(id).get());
                     existingStep.setDescription(step.getDescription());
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        existingStep.setImage(uploadImage(imageFile));
+                    }
                     stepRepository.save(existingStep);
                 }
             }
