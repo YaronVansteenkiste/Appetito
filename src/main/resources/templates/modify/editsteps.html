@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <title>Edit Steps</title>
+</head>
+<body>
+    <h1>Edit Steps</h1>
+
+    <form th:action="@{|/modify/editsteps/${dish.getId()}|}" th:object="${stepListWrapper}" method="post">
+        <table>
+            <tr th:id="|step${step.id}|" th:each="step, stat : *{steps}">
+                <td >
+                    <input type="hidden" th:field="*{steps[__${stat.index}__].id}" />
+                    <input type="text" th:field="*{steps[__${stat.index}__].description}" />
+                </td>
+                <td>
+                    <button type="button" th:onclick="'deleteStep('+*{steps[__${stat.index}__].id}+')'">Delete</button>
+                </td>
+            </tr>
+        </table>
+        <button type="button" onclick="addStep()">Add Step</button>
+        <button type="submit">Save</button>
+    </form>
+<script src="/scripts/editsteps.js"></script>
+</body>
+</html>
