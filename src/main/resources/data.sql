@@ -616,8 +616,9 @@ VALUES ('Begin met het koken van de fettuccine volgens de aanwijzingen op de ver
 
 INSERT INTO Step (description, dish_id)
 VALUES ('Kook de pasta volgens verpakking beetgaar. Snipper ondertussen de ui en de teentjes knoflook fijn. Bak deze glazig in een grote hapjes of wokpan in een eetlepel olie.', 2),
-       ('Voeg de zalm toe en bak rondom aan, steek met een spatel in stukken. Voeg dan in etappes de spinazie toe totdat deze wat geslonken is. Schenk de kookroom erbij en breng op maak met flink wat peper en zout.', 2),
        ('Halveer de tomaatjes en meng deze met de zalm en spinazie. Verwarm een paar minuten door en voeg dan de tagliatelle toe. Mix alles door elkaar en schep op borden. Bestrooi met geroosterde pijnboompitten.', 2);
+INSERT INTO Step (description, dish_id, image)
+VALUES ('Voeg de zalm toe en bak rondom aan, steek met een spatel in stukken. Voeg dan in etappes de spinazie toe totdat deze wat geslonken is. Schenk de kookroom erbij en breng op maak met flink wat peper en zout.', 2, '/img/Pasta met zalm en spinazie_stap1.jpg');
 
 INSERT INTO Step (description, dish_id)
 VALUES ('Snijd de ui fijn en bak in een pan met boter glazig.', 3),
