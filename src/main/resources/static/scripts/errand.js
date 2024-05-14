@@ -30,18 +30,22 @@ document.querySelector('.btn.btn-outline-primary.rounded-circle.ms-2').addEventL
     counterElement.textContent = parseInt(counterElement.textContent) + 1;
 
     document.querySelectorAll('[id^="quantity"]').forEach(function(quantityElement) {
-        var originalQuantity = quantityElement.dataset.originalQuantity;
-        quantityElement.textContent = originalQuantity * parseInt(counterElement.textContent);
+        const originalQuantity = quantityElement.dataset.originalQuantity;
+if (originalQuantity !== '') {
+    quantityElement.textContent = originalQuantity * parseInt(counterElement.textContent);
+}
     });
 });
 
 document.querySelectorAll('.btn.btn-outline-primary.rounded-circle.ms-2')[1].addEventListener('click', function() {
-    if (parseInt(counterElement.textContent) > 0) {
+    if (parseInt(counterElement.textContent) > 1) {
         counterElement.textContent = parseInt(counterElement.textContent) - 1;
 
         document.querySelectorAll('[id^="quantity"]').forEach(function(quantityElement) {
-            var originalQuantity = quantityElement.dataset.originalQuantity;
-            quantityElement.textContent = originalQuantity * parseInt(counterElement.textContent);
+            const originalQuantity = quantityElement.dataset.originalQuantity;
+            if (originalQuantity !== '') {
+                quantityElement.textContent = originalQuantity * parseInt(counterElement.textContent);
+            }
         });
     }
 });

@@ -65,7 +65,7 @@
                 </div>
             </div>
             <form th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
-                <button type="submit" class="btn btn-primary mt-3">Add Ingredient</button>
+                <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary mt-3">Toevoegen aan boodschappenlijst</button>
             </form>
             <ul th:each="ingredient, stat : ${dish.getIngredients()}"
                 th:if="${ingredient.quantity != null}">

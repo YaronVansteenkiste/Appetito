@@ -37,7 +37,6 @@ public String groceries(Model model, Principal principal) {
         return "redirect:/user/login";
     }
     Chef chef = chefRepository.findByUsername(principal.getName());
-    logger.info("Chef: " + chef.getName());
     Integer chefId = chef.getId();
 
     Optional<Grocery> groceryFromDB = groceryRepository.findById(chefId);

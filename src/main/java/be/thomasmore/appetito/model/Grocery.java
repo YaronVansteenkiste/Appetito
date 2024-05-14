@@ -14,7 +14,12 @@ public class Grocery {
     @ManyToOne
     private Chef chef;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "grocery_ingredients",
+            joinColumns = @JoinColumn(name = "grocery_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredients_id")
+    )
     private Collection<Ingredient> ingredients;
 
     public Grocery() {
