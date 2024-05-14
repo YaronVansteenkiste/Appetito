@@ -23,33 +23,40 @@ document.querySelectorAll('.delete-ingredient').forEach(function(button) {
 });
 
 
+function addPersons() {
+    const personsEl = document.getElementById('persons');
+    let amountPersons = parseInt(personsEl.textContent);
 
-const counterElement = document.querySelector('.counter');
+    amountPersons += 1;
+    const quantities = document.querySelectorAll('.quantity')
+    quantities.forEach(quantity => {
+        console.log(quantity.getAttribute('data-quantity'));
+        let quantityData = quantity.getAttribute('data-quantity');
 
-document.querySelector('.btn.btn-outline-primary.rounded-circle.ms-2').addEventListener('click', function() {
-    counterElement.textContent = parseInt(counterElement.textContent) + 1;
-
-    document.querySelectorAll('[id^="quantity"]').forEach(function(quantityElement) {
-        const originalQuantity = quantityElement.dataset.originalQuantity;
-if (originalQuantity !== '') {
-    quantityElement.textContent = originalQuantity * parseInt(counterElement.textContent);
+        if (quantityData == 0) {
+            quantity.innerText = '';
+        } else {
+            quantity.innerText = (quantityData * (amountPersons)).toFixed(1);
+        }
+    })
+    personsEl.innerText = amountPersons;
 }
-    });
-});
 
-document.querySelectorAll('.btn.btn-outline-primary.rounded-circle.ms-2')[1].addEventListener('click', function() {
-    if (parseInt(counterElement.textContent) > 1) {
-        counterElement.textContent = parseInt(counterElement.textContent) - 1;
+function subtractPersons() {
+    const personsEl = document.getElementById('persons');
+    let amountPersons = parseInt(personsEl.textContent);
 
-        document.querySelectorAll('[id^="quantity"]').forEach(function(quantityElement) {
-            const originalQuantity = quantityElement.dataset.originalQuantity;
-            if (originalQuantity !== '') {
-                quantityElement.textContent = originalQuantity * parseInt(counterElement.textContent);
+    if (amountPersons > 1) {
+        amountPersons -= 1;
+        const quantities = document.querySelectorAll('.quantity')
+        quantities.forEach(quantity => {
+            let quantityData = quantity.getAttribute('data-quantity');
+            if (quantityData == 0) {
+                quantity.innerText = '';
+            } else {
+                quantity.innerText = (quantityData * (amountPersons)).toFixed(1);
             }
-        });
+        })
+        personsEl.innerText = amountPersons;
     }
-});
-
-document.querySelectorAll('[id^="quantity"]').forEach(function(quantityElement) {
-    quantityElement.dataset.originalQuantity = parseInt(quantityElement.textContent);
-});
+}
