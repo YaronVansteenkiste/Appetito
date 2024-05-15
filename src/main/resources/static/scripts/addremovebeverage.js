@@ -1,12 +1,28 @@
-function addBev() {
-    let drinkInput = document.createElement('bevs');
-    drinkInput.innerHTML = `
-        <div class="col-sm-12 mt-2">
-            <input class="form-control" type="text" name="drinks">
-        </div>`;
-    document.getElementById('drinkContainer').appendChild(drinkInput);
-}
+let bevCount = 0;
 
+function addBev() {
+    let drinkContainer = document.getElementById('drinkContainer');
+
+    bevCount++;
+
+    let bevContainer = document.createElement('div');
+    bevContainer.classList.add('row', 'mb-3');
+
+    let imageInput = document.createElement('div');
+    imageInput.classList.add('col-sm-6');
+    imageInput.innerHTML = `
+        <input class="form-control" type="file" id="bevimage${bevCount}" accept="image/*" name="image${bevCount}">`;
+
+    let drinkInput = document.createElement('div');
+    drinkInput.classList.add('col-sm-6');
+    drinkInput.innerHTML = `
+        <input class="form-control" type="text" name="drinks${bevCount}">`;
+
+    bevContainer.appendChild(imageInput);
+    bevContainer.appendChild(drinkInput);
+
+    drinkContainer.appendChild(bevContainer);
+}
 function removeBev() {
     let drinkContainer = document.getElementById('drinkContainer');
     if (drinkContainer.children.length > 1) {

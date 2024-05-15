@@ -86,11 +86,8 @@
                     </div>
                 </div>
 
-                <div id="bevs" class="row">
-                    <label class="col-sm-4 col-form-label">Drank(en)</label>
-                    <div class="col-sm-4" id="drinkContainer">
-                        <input class="form-control" type="text" name="drinks">
-                    </div>
+                <div class="row mb-3">
+                    <label class="col-sm-12 col-form-label">Drank en Foto</label>
 
                     <div class="col-sm-2">
                         <button class="form-control btn btn-outline-success" onclick="addBev()">+</button>
@@ -98,6 +95,14 @@
 
                     <div class="col-sm-2">
                         <button class="form-control btn btn-outline-dark" onclick="removeBev()">-</button>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <input class="form-control" type="file" id="bevimage" accept="image/*" name="image">
+                    </div>
+
+                    <div class="col-sm-4" id="drinkContainer">
+                        <input class="form-control" type="text" name="drinks">
                     </div>
                 </div>
 
