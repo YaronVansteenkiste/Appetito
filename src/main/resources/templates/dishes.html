@@ -32,16 +32,21 @@
             <div class="col-md-6 order-md-1">
                 <div class="dishes">
                     <div class="row">
-                        <h4 th:text="|All dishes:(${count})|"></h4>
-                        <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${alldishes}"  th:if="${dish.isActive()}">
-                            <div class="card mb-3">
-                                <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
-                                     alt="dish Image" style="height: 200px; object-fit: cover;">
-                                <div class="card-body">
-                                    <h5 th:text="${dish.name}" class="card-title"></h5>
-                                </div>
-                                <div class="col-sm-4 d-grid p-2 m-2">
-                                    <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}" role="button">Ontdek</a>
+                        <h4 th:text="|Alle maaltijden:(${count})|"></h4>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col" th:each="dish : ${alldishes}" th:if="${dish.isActive()}">
+                                <div class="card h-100">
+                                    <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                                         alt="dish Image" style="height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 th:text="${dish.name}" class="card-title"></h5>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-grid">
+                                            <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                                               role="button">Ontdek</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +57,7 @@
                 <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
                    class="btn btn-primary rounded-pill">Open</a>
                 <form th:if="${filterEnabled}">
-                    <a th:href="@{/dishes}" type="button" class="btn btn-primary rounded-pill">Close</a>
+                    <a th:href="@{/dishes}" type="button" class="btn btn-primary rounded-pill">Sluiten</a>
                     <button type="submit" class="btn btn-outline-primary text-center ">Filter</button>
 
                     <h6><strong>Dieet voorkeuren</strong></h6>
@@ -171,6 +176,13 @@
                 </form>
             </div>
         </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="pagination">
+        <a th:if="${hasPrevious}" th:href="@{/dishes(page=${currentPage - 1})}" class="btn btn-primary"><- Prev</a>
+        <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
+        <a th:if="${hasNext}" th:href="@{/dishes(page=${currentPage + 1})}" class="btn btn-primary">Next -></a>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
