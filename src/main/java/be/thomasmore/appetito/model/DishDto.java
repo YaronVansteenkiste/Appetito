@@ -23,7 +23,6 @@ public class DishDto {
     @NotEmpty(message = "Gelegenheid is vereist")
     private String occasion ;
    
-    private String preparation;
 
 
     public DishDto() {
@@ -63,13 +62,7 @@ public class DishDto {
         this.occasion = occasion;
     }
 
-    public String getPreparation() {
-        return preparation;
-    }
 
-    public void setPreparation(String preparation) {
-        this.preparation = preparation;
-    }
 }
 
 

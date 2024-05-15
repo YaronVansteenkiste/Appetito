@@ -109,7 +109,7 @@ public class DishesController {
         }
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime, preparation, occasion, minCarbs, maxCarbs, pageable);
+        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime, occasion, minCarbs, maxCarbs, pageable);
 
         boolean filterEnabled = true;
         model.addAttribute("dietPreferences", dietPreferenceStr);

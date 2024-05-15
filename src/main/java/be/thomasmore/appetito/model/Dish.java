@@ -22,8 +22,6 @@ public class Dish {
     private Time preparationTime;
     private String occasion;
     private String imgFileName;
-    @Length(max=10000)
-    private String preparation;
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
 
@@ -80,14 +78,6 @@ public class Dish {
 
     public void setImgFileName(String imgFileName) {
         this.imgFileName = imgFileName;
-    }
-
-    public String getPreparation() {
-        return preparation;
-    }
-
-    public void setPreparation(String preparation) {
-        this.preparation = preparation;
     }
 
     public List<Ingredient> getIngredients() {

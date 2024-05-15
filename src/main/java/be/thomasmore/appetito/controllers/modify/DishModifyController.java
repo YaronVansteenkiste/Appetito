@@ -66,7 +66,6 @@ public class DishModifyController {
             dishDto.setDietPreferences(dish.getDietPreferences());
             dishDto.setPreparationTime(dish.getPreparationTime());
             dishDto.setOccasion(dish.getOccasion());
-            dishDto.setPreparation(dish.getPreparation());
 
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("dish", dish);
@@ -104,7 +103,6 @@ public class DishModifyController {
                 dish.setDietPreferences(dishDto.getDietPreferences());
                 dish.setPreparationTime(dishDto.getPreparationTime());
                 dish.setOccasion(dishDto.getOccasion());
-                dish.setPreparation(dishDto.getPreparation());
                 if (image != null && !image.isEmpty()) {
                     dish.setImgFileName(uploadImage(image));
                 }
@@ -139,7 +137,6 @@ public class DishModifyController {
         dish.setName(dishDto.getName());
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
-        dish.setPreparation(dishDto.getPreparation());
         dish.setPreparationTime(dishDto.getPreparationTime());
         if (image != null && !image.isEmpty()) {
             dish.setImgFileName(uploadImage(image));

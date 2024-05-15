@@ -29,23 +29,21 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
 
 
-    @Query("select d from Dish d join d.nutritions n where " +
-            "(:dietPreferences is null or d.dietPreferences = :dietPreferences) and " +
-            "(:minPreparationTime is null or d.preparationTime >= :minPreparationTime) and " +
-            "(:maxPreparationTime is null or d.preparationTime <= :maxPreparationTime) and " +
-            "(:preparation is null or d.preparation = :preparation) and " +
-            "(:occasion is null or d.occasion = :occasion) and " +
-            "(:minCarbs is null or n.carbs >= :minCarbs) and " +
-            "(:maxCarbs is null or n.carbs <= :maxCarbs) and " +
-            "d.active = true")
-    Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
-                                  @Param("minPreparationTime") Time minPreparationTime,
-                                  @Param("maxPreparationTime") Time maxPreparationTime,
-                                  @Param("preparation") String preparation,
-                                  @Param("occasion") String occasion,
-                                  @Param("minCarbs") Integer minCarbs,
-                                  @Param("maxCarbs") Integer maxCarbs,
-                                  Pageable pageable);
+   @Query("select d from Dish d left join d.nutritions n where " +
+        "(:dietPreferences is null or d.dietPreferences = :dietPreferences) and " +
+        "(:minPreparationTime is null or d.preparationTime >= :minPreparationTime) and " +
+        "(:maxPreparationTime is null or d.preparationTime <= :maxPreparationTime) and " +
+        "(:occasion is null or d.occasion = :occasion) and " +
+        "(:minCarbs is null or (n is not null and n.carbs >= :minCarbs)) and " +
+        "(:maxCarbs is null or (n is not null and n.carbs <= :maxCarbs)) and " +
+        "d.active = true")
+Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
+                              @Param("minPreparationTime") Time minPreparationTime,
+                              @Param("maxPreparationTime") Time maxPreparationTime,
+                              @Param("occasion") String occasion,
+                              @Param("minCarbs") Integer minCarbs,
+                              @Param("maxCarbs") Integer maxCarbs,
+                              Pageable pageable);
 
     @Query("select d from Dish d where lower(d.name) like lower(concat('%', :keyword, '%'))")
     Iterable<Dish> findByName(@Param("keyword") String keyword);
