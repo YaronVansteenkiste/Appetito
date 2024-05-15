@@ -31,7 +31,7 @@ public class GroceriesController {
 
     private Logger logger = Logger.getLogger(GroceriesController.class.getName());
 
-    @GetMapping("/groceries/")
+    @GetMapping({"/groceries/", "/groceries"})
 public String groceries(Model model, Principal principal) {
     if (principal == null) {
         return "redirect:/user/login";
