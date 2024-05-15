@@ -1,9 +1,7 @@
 function addBev() {
-    let drinkInput = document.createElement('div');
-    drinkInput.classList.add('row', 'mb-3');
+    let drinkInput = document.createElement('bevs');
     drinkInput.innerHTML = `
-        <label class="col-sm-4 col-form-label">Drank(en)</label>
-        <div class="col-sm-4">
+        <div class="col-sm-12 mt-2">
             <input class="form-control" type="text" name="drinks">
         </div>`;
     document.getElementById('drinkContainer').appendChild(drinkInput);
@@ -17,3 +15,9 @@ function removeBev() {
         alert("At least one drink input must be present.");
     }
 }
+
+document.querySelectorAll('.btn-outline-success, .btn-outline-dark').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+    });
+});
