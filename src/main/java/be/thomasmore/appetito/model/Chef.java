@@ -19,7 +19,7 @@ public class Chef {
     private String username;
 
     private String email;
-    @OneToMany(mappedBy = "chef", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Dish> dishes ;
 
 
@@ -69,6 +69,10 @@ public class Chef {
     public void addDish(Dish dish) {
         dishes.add(dish);
         dish.setChef(this);
+    }
+    public void removeDish(Dish dish) {
+        dishes.remove(dish);
+        dish.setChef(null);
     }
 
     public List<Dish> getDishes() {

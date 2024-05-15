@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,6 +37,7 @@ public class XDagenMenuController {
         return "menu";
     }
 
+
     @GetMapping("/menuoverview")
     public String showMenuOverview(HttpSession session, Model model, Principal principal) {
         List<Dish> selectedDishes = (List<Dish>) session.getAttribute("selectedDishes");
@@ -45,13 +47,16 @@ public class XDagenMenuController {
         if (principal != null) {
             Chef chef = chefRepository.findByUsername(principal.getName());
             model.addAttribute("chefDishes", chef.getDishes());
-           model.addAttribute("count",chef.getDishes().size());
+            model.addAttribute("count", chef.getDishes().size());
             model.addAttribute("user", principal.getName());
+
+
         } else {
             model.addAttribute("chefDishes", new ArrayList<Dish>());
             model.addAttribute("count", selectedDishes != null ? selectedDishes.size() : 0);
             model.addAttribute("user", "Guest");
         }
+
 
         return "menuoverview";
     }
@@ -73,7 +78,12 @@ public class XDagenMenuController {
             }
             chefRepository.save(chef);
         } else {
-            session.setAttribute("selectedDishes", selectedDishes);
+            List<Dish> sessionDishes = (List<Dish>) session.getAttribute("selectedDishes");
+            if (sessionDishes == null) {
+                sessionDishes = new ArrayList<>();
+            }
+            sessionDishes.addAll(selectedDishes);
+            session.setAttribute("selectedDishes", sessionDishes);
         }
 
         return "redirect:/menuoverview";
@@ -106,6 +116,31 @@ public class XDagenMenuController {
         model.addAttribute("dish", selectedDish);
         return "redirect:/dishdetails/" + dishId;
     }
+    @PostMapping("/menuoverview/delete/{dishId}")
+    public String deleteDish(@PathVariable("dishId") Integer dishId, HttpSession session, Principal principal) {
+        if (principal != null) {
+            Chef chef = chefRepository.findByUsername(principal.getName());
+            Dish dishToRemove = chef.getDishes().stream()
+                    .filter(dish -> dish.getId().equals(dishId))
+                    .findFirst()
+                    .orElse(null);
+
+            if (dishToRemove != null) {
+                chef.removeDish(dishToRemove);
+                chefRepository.save(chef);
+            }
+        } else {
+            List<Dish> selectedDishes = (List<Dish>) session.getAttribute("selectedDishes");
+            if (selectedDishes != null) {
+                selectedDishes.removeIf(dish -> dish.getId().equals(dishId));
+                session.setAttribute("selectedDishes", selectedDishes);
+            }
+        }
+
+        return "redirect:/menuoverview";
+    }
+
+
 
 
 
