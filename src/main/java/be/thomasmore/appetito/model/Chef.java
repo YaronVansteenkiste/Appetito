@@ -4,6 +4,10 @@ package be.thomasmore.appetito.model;
 import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.List;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
@@ -18,6 +22,8 @@ public class Chef {
     private String username;
 
     private String email;
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Dish> dishes ;
 
 
     @OneToMany(mappedBy = "chef")
@@ -74,4 +80,21 @@ public class Chef {
     public void setGroceries(Collection<Grocery> groceries) {
         this.groceries = groceries;
     }
+    public void addDish(Dish dish) {
+        dishes.add(dish);
+        dish.setChef(this);
+    }
+    public void removeDish(Dish dish) {
+        dishes.remove(dish);
+        dish.setChef(null);
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
+
 }

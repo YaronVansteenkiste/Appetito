@@ -34,6 +34,11 @@ public class Dish {
     private Collection<Beverage> beverages;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chef_id")
+    private Chef chef;
+
+
     public Dish() {
         this.active=true;
     }
@@ -120,4 +125,12 @@ public class Dish {
     public void setActive(boolean active) {
         this.active = active;
     }
+    public Chef getChef() {
+        return chef;
+    }
+
+    public void setChef(Chef chef) {
+        this.chef = chef;
+    }
+
 }

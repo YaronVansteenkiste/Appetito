@@ -23,6 +23,7 @@
                 <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" style="max-width: 100%;">
             </div>
         </div>
+
         <div class="col-md-6 ">
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
@@ -47,10 +48,21 @@
 
                 <h4>Bereidingstijd</h4>
                 <p th:text="${dish.preparationTime}"></p>
+
+
+                <form sec:authorize="hasAuthority('ADMIN')"  th:action="@{/dishdetails/{id}(id=${dish.id})}" method="post">
+                    <input type="hidden" th:name="dishId" th:value="${dish.id}"/>
+                    <div class="mt-3 m-2">
+                        <button type="submit" class="btn btn-primary">+ Add to X-dagenmenu</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </main>
+
+
+
 
 <div class="container">
     <div class="row">
