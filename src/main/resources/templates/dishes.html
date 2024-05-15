@@ -174,13 +174,13 @@
                            th:value="${maxCarbs}">
                     <hr>
                     <div class="mt-3">
-                    <h6><strong>Vezel</strong></h6>
-                    <label for="minFiber">Min:</label>
-                    <input type="number" name="minFiber" min="0" class="form-control border-primary" id="minFiber"
-                           th:value="${minFiber}">
-                    <label for="maxFiber">Max:</label>
-                    <input type="number" name="maxFiber" min="0" class="form-control border-primary" id="maxFiber"
-                           th:value="${maxFiber}">
+                        <h6><strong>Vezel</strong></h6>
+                        <label for="minFiber">Min:</label>
+                        <input type="number" name="minFiber" min="0" class="form-control border-primary" id="minFiber"
+                               th:value="${minFiber}">
+                        <label for="maxFiber">Max:</label>
+                        <input type="number" name="maxFiber" min="0" class="form-control border-primary" id="maxFiber"
+                               th:value="${maxFiber}">
                     </div>
                     <hr>
                     <div class="mt-3">
@@ -207,10 +207,12 @@
                     <div class="mt-3">
                         <h6><strong>Verzadigd vet</strong></h6>
                         <label for="minSaturatedFat">Min:</label>
-                        <input type="number" name="minSaturatedFat" min="0" class="form-control border-primary" id="minSaturatedFat"
+                        <input type="number" name="minSaturatedFat" min="0" class="form-control border-primary"
+                               id="minSaturatedFat"
                                th:value="${minSaturatedFat}">
                         <label for="maxSaturatedFat">Max:</label>
-                        <input type="number" name="maxSaturatedFat" min="0" class="form-control border-primary" id="maxSaturatedFat"
+                        <input type="number" name="maxSaturatedFat" min="0" class="form-control border-primary"
+                               id="maxSaturatedFat"
                                th:value="${maxSaturatedFat}">
                     </div>
                     <hr>
@@ -229,10 +231,12 @@
                     <div class="mt-3">
                         <h6><strong>Proteine</strong></h6>
                         <label for="minProteins">Min:</label>
-                        <input type="number" name="minProteins" min="0" class="form-control border-primary" id="minProteins"
+                        <input type="number" name="minProteins" min="0" class="form-control border-primary"
+                               id="minProteins"
                                th:value="${minProteins}">
                         <label for="maxProteins">Max:</label>
-                        <input type="number" name="maxProteins" min="0" class="form-control border-primary" id="maxProteins"
+                        <input type="number" name="maxProteins" min="0" class="form-control border-primary"
+                               id="maxProteins"
                                th:value="${maxProteins}">
 
                     </div>
@@ -262,10 +266,10 @@
             <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
             <a th:if="${hasNext}"
                th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferences=${dietPreferences}, minPreparationTime=${minPreparationTime},
-                maxPreparationTime=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
-                minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
-                minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
-                minProteins=${minProteins},maxProteins=${maxProteins})}"
+    maxPreparationTime=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+    minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
+    minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
+    minProteins=${minProteins},maxProteins=${maxProteins})}"
                class="btn btn-primary">Next →</a>
         </div>
     </div>

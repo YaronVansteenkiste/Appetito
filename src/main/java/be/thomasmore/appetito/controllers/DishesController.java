@@ -53,11 +53,11 @@ public class DishesController {
         int totalPages = dishesPage.getTotalPages();
         List<Dish> dishes = dishesPage.getContent();
         model.addAttribute("dishesPage", dishesPage.getContent());
-        model.addAttribute("currentPage", page);
+        model.addAttribute("currentPage", 0);
         model.addAttribute("count", totalDishes);
         model.addAttribute("filterEnabled", filterEnabled);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
+        model.addAttribute("hasPrevious", false);
         model.addAttribute("hasNext", dishesPage.hasNext());
         model.addAttribute("alldishes", dishes);
         return "dishes";
@@ -121,7 +121,9 @@ public class DishesController {
         }
 
 
-        Pageable pageable = PageRequest.of(page, size);
+        int pageSize = size;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        logger.info("pageable: " + pageable);
         Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
                 preparation, occasion, minCarbs, maxCarbs, minFiber,
                 maxFiber, minSalt, maxSalt, minSugar, maxSugar,
