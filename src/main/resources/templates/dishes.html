@@ -63,35 +63,35 @@
                     <h6><strong>Dieet voorkeuren</strong></h6>
                     <div class="form-check">
                         <input th:checked="${dietPreferences.contains('vegan')}" class="form-check-input"
-                               name="dietPreferences" type="radio" value="vegan"
+                               name="dietPreferences" type="checkbox" value="vegan"
                                id="dietPreferencesVegan">
                         <label class="form-check-label" for="dietPreferencesVegan"> Vegan
                         </label>
                     </div>
                     <div class="form-check">
                         <input th:checked="${dietPreferences.contains('vegetarisch')}" class="form-check-input"
-                               name="dietPreferences" type="radio" value="vegetarisch"
+                               name="dietPreferences" type="checkbox" value="vegetarisch"
                                id="dietPreferencesVegetarisch">
                         <label class="form-check-label" for="dietPreferencesVegetarisch"> Vegetarisch
                         </label>
                     </div>
                     <div class="form-check">
                         <input th:checked="${dietPreferences.contains('glutenvrij')}" class="form-check-input"
-                               name="dietPreferences" type="radio" value="glutenvrij"
+                               name="dietPreferences" type="checkbox" value="glutenvrij"
                                id="dietPreferencesGlutenvrij">
                         <label class="form-check-label" for="dietPreferencesGlutenvrij"> Glutenvrij
                         </label>
                     </div>
                     <div class="form-check">
                         <input th:checked="${dietPreferences.contains('paleo')}" class="form-check-input"
-                               name="dietPreferences" type="radio" value="paleo"
+                               name="dietPreferences" type="checkbox" value="paleo"
                                id="dietPreferencesPaleo">
                         <label class="form-check-label" for="dietPreferencesPaleo"> Paleo
                         </label>
                     </div>
                     <div class="form-check">
                         <input th:checked="${dietPreferences.contains('keto')}" class="form-check-input"
-                               name="dietPreferences" type="radio" value="keto"
+                               name="dietPreferences" type="checkbox" value="keto"
                                id="dietPreferencesKeto">
                         <label class="form-check-label" for="dietPreferencesKeto"> Keto
                         </label>
@@ -242,12 +242,36 @@
     </div>
 </div>
 <div class="col-md-12">
-    <div class="pagination">
-        <a th:if="${hasPrevious}" th:href="@{/dishes(page=${currentPage - 1})}" class="btn btn-primary"><- Prev</a>
-        <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
-        <a th:if="${hasNext}" th:href="@{/dishes(page=${currentPage + 1})}" class="btn btn-primary">Next -></a>
+    <div th:unless="${filterEnabled}">
+        <div class="pagination">
+            <a th:if="${hasPrevious}" th:href="@{/dishes(page=${currentPage - 1})}" class="btn btn-primary">← Prev</a>
+            <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
+            <a th:if="${hasNext}" th:href="@{/dishes(page=${currentPage + 1})}" class="btn btn-primary">Next →</a>
+        </div>
+    </div>
+
+    <div th:if="${filterEnabled}">
+        <div class="pagination">
+            <a th:if="${hasPrevious}"
+               th:href="@{/dishes/filter(page=${currentPage - 1}, dietPreferences=${dietPreferences}, minPreparationTime=${minPreparationTime},
+                maxPreparationTime=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+                minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
+                minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
+                minProteins=${minProteins},maxProteins=${maxProteins})}"
+               class="btn btn-primary">← Prev</a>
+            <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
+            <a th:if="${hasNext}"
+               th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferences=${dietPreferences}, minPreparationTime=${minPreparationTime},
+                maxPreparationTime=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+                minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
+                minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
+                minProteins=${minProteins},maxProteins=${maxProteins})}"
+               class="btn btn-primary">Next →</a>
+        </div>
     </div>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

@@ -14,6 +14,7 @@ import org.springframework.security.core.parameters.P;
 import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
 
@@ -89,5 +90,6 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     Page<Dish> findByActive(boolean active, Pageable pageable);
     long count();
 
-
+    @Query("SELECT d FROM Dish d JOIN d.dietPreferences WHERE d.name IN :dietPreferences")
+    List<Dish> findByDietPreferencesIn(List<String> dietPreferences);
 }
