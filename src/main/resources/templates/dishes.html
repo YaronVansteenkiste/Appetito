@@ -257,16 +257,16 @@
     <div th:if="${filterEnabled}">
         <div class="pagination">
             <a th:if="${hasPrevious}"
-               th:href="@{/dishes/filter(page=${currentPage - 1}, dietPreferences=${dietPreferences}, minPreparationTime=${minPreparationTime},
-                maxPreparationTime=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
-                minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
-                minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
-                minProteins=${minProteins},maxProteins=${maxProteins})}"
+               th:href="@{/dishes/filter(page=${currentPage - 1}, dietPreferences=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
+    maxPreparationTimeStr=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+    minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
+    minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
+    minProteins=${minProteins},maxProteins=${maxProteins})}"
                class="btn btn-primary">← Prev</a>
             <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
             <a th:if="${hasNext}"
-               th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferences=${dietPreferences}, minPreparationTime=${minPreparationTime},
-    maxPreparationTime=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+               th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferences=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
+    maxPreparationTimeStr=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
     minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
     minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
     minProteins=${minProteins},maxProteins=${maxProteins})}"
