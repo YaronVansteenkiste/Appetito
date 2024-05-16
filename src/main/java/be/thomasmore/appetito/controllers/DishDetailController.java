@@ -3,12 +3,14 @@ package be.thomasmore.appetito.controllers;
 import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.repositories.BeverageRepository;
+import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,9 @@ public class DishDetailController<ToggleRequest> {
 
     @Autowired
     private DishRepository dishRepository;
+
+    @Autowired
+    private ChefRepository chefRepository;
 
     @Autowired
     private BeverageRepository beverageRepository;
