@@ -5,11 +5,22 @@
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
 <head>
     <meta charset="UTF-8">
     <title>Dishes</title>
 </head>
+<script>
+    document.getElementById('heartIcon').addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent button click event
+        this.classList.toggle('btn-danger'); // Toggle 'favorited' class
+    });
+
+    document.getElementById('favoriteButton').addEventListener('click', function() {
+        alert('Button clicked!'); // Additional action when the whole button is clicked
+    });
+</script>
 <h1 th:replace="~{fragments/header :: header}"></h1>
 <body>
 <h6 class="mt-3 ms-2">Home > Recepten > Categorie</h6>
@@ -41,15 +52,15 @@
                                     <div class="card-body">
                                         <h5 th:text="${dish.name}" class="card-title"></h5>
                                     </div>
+                                    <div class="d-grid">
+                                        <i class="fas fa-heart star text-danger border-0 bg-transparent fs-6 mt-3 ms-1"></i>
+                                    </div>
                                     <div class="card-footer">
                                         <div class="d-grid">
                                             <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
                                                role="button">Ontdek</a>
                                         </div>
-                                        <div class="d-grid">
-                                        <a class="btn btn-success"
-                                           role="button">Favorieten</a>
-                                    </div>
+
                                     </div>
                                 </div>
                             </div>
