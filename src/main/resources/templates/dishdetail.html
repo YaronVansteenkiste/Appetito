@@ -59,12 +59,7 @@
                     <h4 class="mt-3">Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
                 </div>
 
-                <form sec:authorize="hasAuthority('ADMIN')"  th:action="@{/dishdetails/{id}(id=${dish.id})}" method="post">
-                    <input type="hidden" th:name="dishId" th:value="${dish.id}"/>
-                    <div class="mt-3 m-2">
-                        <button type="submit" class="btn btn-primary">+ Add to X-dagenmenu</button>
-                    </div>
-                </form>
+                <a th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
             </div>
         </div>
     </div>
