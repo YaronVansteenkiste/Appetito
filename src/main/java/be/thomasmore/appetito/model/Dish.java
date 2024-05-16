@@ -33,6 +33,8 @@ public class Dish {
     @ManyToMany
     private Collection<Beverage> beverages;
 
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Rating>ratings;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chef_id")
@@ -133,4 +135,11 @@ public class Dish {
         this.chef = chef;
     }
 
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }
