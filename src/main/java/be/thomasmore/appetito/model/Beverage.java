@@ -12,18 +12,16 @@ public class Beverage {
     private String name;
 
     private String imgFile;
-    private String type_of_beverage;
 
     @ManyToMany(mappedBy = "beverages")
     private Collection<Dish> dishes;
 
     public Beverage(){}
 
-    public Beverage(Integer id, String name, String imgFile, String type_of_beverage) {
+    public Beverage(Integer id, String name, String imgFile) {
         this.id = id;
         this.name = name;
         this.imgFile = imgFile;
-        this.type_of_beverage = type_of_beverage;
     }
 
     public Integer getId() {
@@ -48,14 +46,6 @@ public class Beverage {
 
     public void setImgFile(String imgFile) {
         this.imgFile = imgFile;
-    }
-
-    public String getType_of_beverage() {
-        return type_of_beverage;
-    }
-
-    public void setType_of_beverage(String type_of_beverage) {
-        this.type_of_beverage = type_of_beverage;
     }
 
     public Collection<Dish> getDishes() {

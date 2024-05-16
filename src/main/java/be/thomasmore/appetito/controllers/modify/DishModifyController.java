@@ -12,6 +12,8 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -266,70 +268,5 @@ public class DishModifyController {
         } else {
             return "redirect:/modify/dishedit/" + id;
         }
-    }
-
-    @PostMapping("/editbeverage/{id}")
-    @Transactional
-    public String updateBeverage(@PathVariable("id") Integer id,
-                                 @RequestParam("name") String name,
-                                 @RequestParam(required = false) MultipartFile image,
-                                 Model model){
-        Optional<Beverage> optionalBeverage = beverageRepository.findById(id);
-        if(!optionalBeverage.isPresent()){
-            model.addAttribute("error", "Beverage not found with id: " + id);
-            return "/error";
-        }
-
-        Beverage beverage = optionalBeverage.get();
-        beverage.setName(name);
-
-        if (image != null && !image.isEmpty()) {
-            try {
-                String imageUrl = uploadImage(image);
-                beverage.setImgFile(imageUrl);
-                logger.info("Image uploaded successfully: " + imageUrl);
-            } catch (IOException e) {
-                logger.error("Error uploading image: " + e.getMessage());
-                model.addAttribute("error", "Error uploading image: " + e.getMessage());
-                return "redirect:/modify/dishedit/" + id;
-            }
-        }
-
-        beverageRepository.save(beverage);
-        return "redirect:/modify/editbeverage/" + id;
-    }
-
-    @PostMapping("/removebeverage/{dishId}/{beverageId}")
-    @Transactional
-    public String removeBeverage(@PathVariable("dishId") Integer dishId, @PathVariable("beverageId") Integer beverageId) {
-        Optional<Dish> optionalDish = dishRepository.findById(dishId);
-        if (!optionalDish.isPresent()) {
-            return "redirect:/modify/editbeverage/" + dishId;
-        }
-
-        Optional<Beverage> optionalBeverage = beverageRepository.findById(beverageId);
-        if (!optionalBeverage.isPresent()) {
-            return "redirect:/modify/editbeverage/" + dishId;
-        }
-
-        Dish dish = optionalDish.get();
-        Beverage beverageToRemove = optionalBeverage.get();
-
-        dish.removeBeverage(beverageToRemove);
-
-        dishRepository.save(dish);
-
-        return "redirect:/modify/editbeverage/" + dishId;
-    }
-
-    private String uploadBevImage(MultipartFile multipartFile) throws IOException {
-        final String filename = multipartFile.getOriginalFilename();
-        final File fileToUpload = new File(filename);
-        try (FileOutputStream fos = new FileOutputStream(fileToUpload)) {
-            fos.write(multipartFile.getBytes());
-        }
-        final String urlInFirebase = googleService.toFirebase(fileToUpload, filename);
-        fileToUpload.delete();
-        return urlInFirebase;
     }
 }

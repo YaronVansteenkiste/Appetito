@@ -19,7 +19,7 @@
         <div class="row">
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-primary" id="addCardButton">+</button>
+                <button class="btn btn-outline-primary">+</button>
             </div>
 
         </div>
@@ -32,6 +32,7 @@
 
                         <div class="card-body">
                             <form method="post" th:action="@{/modify/editbeverage/{id}(id=${beverage.id})}" enctype="multipart/form-data">
+
                                 <div class="mb-3">
                                     <label for="beverageName" class="form-label">Beverage Name</label>
                                     <input type="text" class="form-control" id="beverageName" name="name" th:value="${beverage.name}">
@@ -40,10 +41,11 @@
                                     <label for="beverageImage" class="form-label">Beverage Image</label>
                                     <input type="file" class="form-control" id="beverageImage" name="image">
                                 </div>
+
                                 <button type="submit" class="btn btn-outline-dark">Save</button>
                             </form>
 
-                            <form id="removeForm" method="post" th:action="@{/modify/removebeverage/{dishId}/{beverageId}(dishId=${dish.id}, beverageId=${beverage.id})}" sec:authorize="hasAuthority('ADMIN')">
+                            <form id="removeForm">
                                 <button type="submit" class="btn btn-outline-danger">Remove</button>
                             </form>
                         </div>
@@ -59,9 +61,6 @@
         </div>
 
     </main>
-
-<!--<script th:src="@{/scripts/addcards.js}"></script>-->
-<script th:src="@{/scripts/addremovebeverage.js}"></script>
 
 <footer th:replace="~{fragments/footer :: footer}">Info-Footer</footer>
 </body>

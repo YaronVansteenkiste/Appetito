@@ -298,34 +298,34 @@ INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
 
 
 
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Coca Cola', '/img/Cola.jpg', 'Carbonated, Caffeinated, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Sprite', '/img/Sprite.jpg', 'Carbonated, Caffeinated, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Ice-Tea', '/img/Lipton_Ice_Tea.jpg', 'Carbonated, Caffeinated, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Cappuccino', '/img/Cappucciono.jpg', 'Caffeinated, Coffee, Hot');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Latte', '/img/Latte.webp', 'Caffeinated, Coffee, Hot');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Macchiato', '/img/Macchiato.jpg', 'Caffeinated, Coffee, Hot');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Duvel', '/img/Duvel_666.jpg', 'Alcohol, Beer, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Jupiler', '/img/Jupiler.jpg', 'Alcohol, Beer, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('La Chouffe', '/img/La_Chouffe.jpg', 'Alcohol, Beer, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Leffe', '/img/Leffe.jpg', 'Alcohol, Beer, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Chardonnay', '/img/Chardonnay.webp', 'Alcohol, White Wine, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Bordeaux', '/img/Bordeaux.jpg', 'Alcohol, Red Wine, Cold');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('Twinings English Breakfast', '/img/Twinings_English_Breakfast.webp', 'Tea, Hot');
-INSERT INTO BEVERAGE (NAME, IMG_FILE, TYPE_OF_BEVERAGE)
-VALUES ('PG tips', '/img/PG_Tips.webp', 'Tea, Hot');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Coca Cola', '/img/Cola.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Sprite', '/img/Sprite.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Ice-Tea', '/img/Lipton_Ice_Tea.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Cappuccino', '/img/Cappucciono.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Latte', '/img/Latte.webp');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Macchiato', '/img/Macchiato.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Duvel', '/img/Duvel_666.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Jupiler', '/img/Jupiler.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('La Chouffe', '/img/La_Chouffe.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Leffe', '/img/Leffe.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Chardonnay', '/img/Chardonnay.webp');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Bordeaux', '/img/Bordeaux.jpg');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('Twinings English Breakfast', '/img/Twinings_English_Breakfast.webp');
+INSERT INTO BEVERAGE (NAME, IMG_FILE)
+VALUES ('PG tips', '/img/PG_Tips.webp');
 
 INSERT INTO DISH_BEVERAGES (DISHES_ID, BEVERAGES_ID)
 VALUES
