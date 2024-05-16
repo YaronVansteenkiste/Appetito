@@ -2,6 +2,7 @@ package be.thomasmore.appetito.controllers;
 
 
 import be.thomasmore.appetito.model.Chef;
+import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -48,7 +50,9 @@ public class UserController {
     public String profile(Model model, Principal principal) {
         if (principal == null) return "redirect:/";
         Chef chef = chefRepository.findByUsername(principal.getName());
+        List<Dish> favoriteDishes = chefRepository.getFavoriteDishesByChefId(chef.getId());
         model.addAttribute("chef", chef);
+        model.addAttribute("favoriteDishes", favoriteDishes);
         return "user/profile";
     }
 

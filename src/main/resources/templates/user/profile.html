@@ -27,6 +27,18 @@
             <p class="card-text">Email: <span th:text="${chef.getEmail()}"></span></p>
         </div>
         </div>
+    <div class="card bg-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Favoriete maaltijden</h5>
+            <div th:each="favoriteDish : ${favoriteDishes}">
+                <div>
+                    <h3 th:text="${favoriteDish.name}">Dish Name</h3>
+                    <span class="heart" th:data-dish-id="${favoriteDish.id}" th:classappend="${#lists.contains(favoriteDishes, favoriteDish) ? 'text-danger' : 'text-dark'}">&#x1F5A4;</span>
+                    <span th:text="${#lists.contains(favoriteDishes, favoriteDish) ? 'Verwijderen' : 'Toevoegen'}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -90,4 +90,7 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
 
     @Query("SELECT d FROM Dish d JOIN d.dietPreferences WHERE d.name IN :dietPreferences")
     List<Dish> findByDietPreferencesIn(List<String> dietPreferences);
+
+    List<Dish> findByChefId(int chef_id);
+
 }

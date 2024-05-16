@@ -38,9 +38,7 @@ public class DishesController {
     DishRepository dishRepository;
     @Autowired
     IngredientRepository ingredientRepository;
-   private Logger logger = Logger.getLogger(DishesController.class.getName());
-
-
+    private Logger logger = Logger.getLogger(DishesController.class.getName());
 
 
     @GetMapping("/dishes")
@@ -131,7 +129,6 @@ public class DishesController {
                 minProteins, maxProteins, pageable);
 
 
-
         boolean filterEnabled = true;
         model.addAttribute("dietPreferences", dietPreferenceStr);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
@@ -163,4 +160,16 @@ public class DishesController {
 
         return "dishes";
     }
+
+
+
+//    @PostMapping("/add-favorite")
+//    public String addFavorite(@RequestParam int favoriteDishesId, @RequestParam int chefId, @RequestParam String action) {
+//        if (action.equals("add")) {
+//            dishRepository.save(new Dish());
+//        } else if (action.equals("remove")) {
+//            dishRepository.deleteByFavoriteDishesIdAndChefId(favoriteDishesId, chefId);
+//        }
+//        return "redirect:/dishes";
+//    }
 }
