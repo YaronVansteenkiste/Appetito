@@ -741,3 +741,16 @@ VALUES ('Snijd diverse soorten fruit zoals meloen, bessen, en druiven.', 20),
 
 INSERT INTO Footer (id, street, city, country, postal_code, phone, email)
 VALUES (1, 'Koning Albertstraat 1', 'Antwerpen', 'België', '2000', '+32 3 123 45 67', 'admin@appetito.com');
+
+
+INSERT INTO MENU (NAME, chef_id)
+VALUES ('Kerstmenu', 2),
+       ('Paasmenu', 2);
+
+INSERT INTO MENU_DISHES (menus_id, dishes_id)
+VALUES (1, 2),
+       (1, 3),
+       (1, 4),
+       (2, 4),
+       (2, 5);
+

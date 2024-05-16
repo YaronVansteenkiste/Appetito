@@ -133,4 +133,14 @@ public class Dish {
         this.chef = chef;
     }
 
+    @ManyToMany(mappedBy = "dishes")
+    private Collection<Menu> menus;
+
+    public Collection<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Collection<Menu> menus) {
+        this.menus = menus;
+    }
 }
