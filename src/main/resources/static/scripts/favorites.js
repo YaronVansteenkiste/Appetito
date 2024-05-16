@@ -1,16 +1,17 @@
-
-    const hearts = document.querySelectorAll('.heart');
-
-    hearts.forEach(heart => {
+document.querySelectorAll('.heart').forEach(function(heart) {
     heart.addEventListener('click', function() {
-        if (this.classList.contains('text-dark')) {
-            this.classList.remove('text-dark');
-            this.classList.add('text-danger');
-            this.innerHTML = '&#x2764;&#xFE0F;';
+        const statusText = heart.nextElementSibling;
+        if (heart.classList.contains('text-danger')) {
+            heart.classList.remove('text-danger');
+            heart.classList.add('text-dark');
+            heart.innerHTML = '&#x1F5A4;';
+            statusText.textContent = 'Toevoegen';
         } else {
-            this.classList.remove('text-danger');
-            this.classList.add('text-dark');
-            this.innerHTML = '&#x1F5A4;';
+            heart.classList.remove('text-dark');
+            heart.classList.add('text-danger');
+            heart.innerHTML = '&#x2764;&#xFE0F;';
+            statusText.textContent = 'Verwijderen';
         }
     });
 });
+
