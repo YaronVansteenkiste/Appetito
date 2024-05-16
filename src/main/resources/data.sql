@@ -738,3 +738,5 @@ VALUES ('Snijd diverse soorten fruit zoals meloen, bessen, en druiven.', 20),
        ('Meng het fruit met fijngesneden munt en een beetje honing of agavesiroop.', 20),
        ('Koel voor het serveren om de smaken te laten mengen.', 20);
 
+INSERT INTO Footer (id, street, city, country, postal_code, phone, email)
+VALUES (1, 'Koning Albertstraat 1', 'Antwerpen', 'België', '2000', '+32 3 123 45 67', 'admin@appetito.com');
