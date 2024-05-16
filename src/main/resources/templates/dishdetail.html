@@ -56,7 +56,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary ms-3">Submit Rating</button>
                     </form>
-                    <h4 class="mt-3">Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span></h4>
+                    <h4 class="mt-3">Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
                 </div>
 
                 <form sec:authorize="hasAuthority('ADMIN')"  th:action="@{/dishdetails/{id}(id=${dish.id})}" method="post">
