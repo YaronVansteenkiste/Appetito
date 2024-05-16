@@ -202,4 +202,12 @@ public class MenuController {
         }
         return "redirect:/login";
     }
+
+    @GetMapping("/menu/details/{id}")
+public String menuDetails(@PathVariable("id") Integer id, Model model) {
+    Menu menu = menuRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + id));
+    model.addAttribute("menu", menu);
+    return "menu/details";
+}
 }

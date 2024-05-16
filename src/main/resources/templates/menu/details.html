@@ -15,33 +15,30 @@
 <h1 th:replace="~{fragments/header :: header}"></h1>
 <h6 class="ms-2 mt-3">Home > Profiel > Menu</h6>
 
-<h3 class="modal-title" id="dishModalLabel">Samengestelde menu voor <span
-        th:text="${count}"></span> dag(en)</h3>
 
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-6 order-md-1 mx-auto">
-            <div class="dishes">
-                <div class="col-sm-1 d-grid p-2 m-2">
-                    <a class="btn btn-primary" th:href="@{/x-dagenmenu}" role="button">Change menu</a>
-                </div>
+            <div class="dishes" th:if="${menu.dishes.size() > 0}">
+                <a class="btn btn-primary mb-2" th:href="@{/menu/list}" role="button">Ga terug</a>
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${selectedDishes}">
+                    <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${menu.dishes}">
                         <div class="card mb-3">
                             <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
                                  alt="dish Image" style="height: 200px; object-fit: cover;">
                             <div class="card-body">
                                 <h5 th:text="${dish.name}" class="card-title"></h5>
                             </div>
-                            <div class="col-sm-4 d-grid p-2 m-2 d-flex">
-                                <a class="btn btn-primary me-2" th:href="@{|/dishdetails/${dish.id}|}" role="button">Ontdek</a>
-                                <form th:action="@{|/menuoverview/delete/${dish.id}|}" method="post" style="display:inline;">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                            <div class="card-footer">
+                                <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                                   role="button">Ontdek</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="dishes" th:if="${menu.dishes.size() == 0}">
+                <h2 class="text-center">Geen gerechten gevonden</h2>
             </div>
         </div>
     </div>
@@ -62,7 +59,8 @@
                             </div>
                             <div class="col-sm-4 d-grid p-2 m-2 d-flex">
                                 <a class="btn btn-primary me-2" th:href="@{|/dishdetails/${dish.id}|}" role="button">Ontdek</a>
-                                <form th:action="@{|/menuoverview/delete/${dish.id}|}" method="post" style="display:inline;">
+                                <form th:action="@{|/menuoverview/delete/${dish.id}|}" method="post"
+                                      style="display:inline;">
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
