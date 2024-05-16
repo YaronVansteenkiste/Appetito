@@ -53,11 +53,11 @@ public class DishesController {
         int totalPages = dishesPage.getTotalPages();
         List<Dish> dishes = dishesPage.getContent();
         model.addAttribute("dishesPage", dishesPage.getContent());
-        model.addAttribute("currentPage", page);
+        model.addAttribute("currentPage", 0);
         model.addAttribute("count", totalDishes);
         model.addAttribute("filterEnabled", filterEnabled);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
+        model.addAttribute("hasPrevious", false);
         model.addAttribute("hasNext", dishesPage.hasNext());
         model.addAttribute("alldishes", dishes);
         return "dishes";
@@ -82,6 +82,18 @@ public class DishesController {
                                @RequestParam(required = false) String occasion,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs,
+                               @RequestParam(required = false) Integer minFiber,
+                               @RequestParam(required = false) Integer maxFiber,
+                               @RequestParam(required = false) Integer minSalt,
+                               @RequestParam(required = false) Integer maxSalt,
+                               @RequestParam(required = false) Integer minSugar,
+                               @RequestParam(required = false) Integer maxSugar,
+                               @RequestParam(required = false) Integer minSaturatedFat,
+                               @RequestParam(required = false) Integer maxSaturatedFat,
+                               @RequestParam(required = false) Integer minFat,
+                               @RequestParam(required = false) Integer maxFat,
+                               @RequestParam(required = false) Integer minProteins,
+                               @RequestParam(required = false) Integer maxProteins,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size) {
         String dietPreferenceStr = "";
@@ -108,17 +120,37 @@ public class DishesController {
             }
         }
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime, occasion, minCarbs, maxCarbs, pageable);
+
+        int pageSize = size;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        logger.info("pageable: " + pageable);
+        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
+                occasion, minCarbs, maxCarbs, minFiber,
+                maxFiber, minSalt, maxSalt, minSugar, maxSugar,
+                minSaturatedFat, maxSaturatedFat, minFat, maxFat,
+                minProteins, maxProteins, pageable);
+
+
 
         boolean filterEnabled = true;
         model.addAttribute("dietPreferences", dietPreferenceStr);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
         model.addAttribute("maxPreparationTime", maxPreparationTimeStr);
-        model.addAttribute("preparation", preparation);
         model.addAttribute("occasion", occasionStr);
         model.addAttribute("minCarbs", minCarbs);
         model.addAttribute("maxCarbs", maxCarbs);
+        model.addAttribute("minFiber", minFiber);
+        model.addAttribute("maxFiber", maxFiber);
+        model.addAttribute("minSalt", minSalt);
+        model.addAttribute("maxSalt", maxSalt);
+        model.addAttribute("minSugar", minSugar);
+        model.addAttribute("maxSugar", maxSugar);
+        model.addAttribute("minSaturatedFat", minSaturatedFat);
+        model.addAttribute("maxSaturatedFat", maxSaturatedFat);
+        model.addAttribute("minFat", minFat);
+        model.addAttribute("maxFat", maxFat);
+        model.addAttribute("minProteins", minProteins);
+        model.addAttribute("maxProteins", maxProteins);
         model.addAttribute("count", allDishes.getTotalElements());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("allIngredients", ingredientRepository.findAll());
