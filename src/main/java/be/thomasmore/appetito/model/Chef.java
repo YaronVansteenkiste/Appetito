@@ -29,6 +29,9 @@ public class Chef {
     @OneToMany(mappedBy = "chef")
     private Collection<Grocery> groceries;
 
+    @ManyToMany(mappedBy = "chefs")
+    private Collection<Dish> favoriteDishes;
+
 
     public Chef() {
     }
@@ -97,4 +100,12 @@ public class Chef {
         this.dishes = dishes;
     }
 
+
+    public Collection<Dish> getFavoriteDishes() {
+        return favoriteDishes;
+    }
+
+    public void setFavoriteDishes(Collection<Dish> favoriteDishes) {
+        this.favoriteDishes = favoriteDishes;
+    }
 }

@@ -1,6 +1,7 @@
 ALTER TABLE Dish
     ALTER COLUMN ACTIVE SET DEFAULT TRUE;
 
+
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
 VALUES (
            'pasta alfredo met kip',
@@ -588,6 +589,8 @@ VALUES
     (20,11),
     (20,2),
     (20,8);
+
+
 
 
 
