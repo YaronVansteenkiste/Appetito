@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ChefRepository extends CrudRepository<Chef, Integer>{
@@ -17,5 +18,6 @@ public interface ChefRepository extends CrudRepository<Chef, Integer>{
 
     @Query("SELECT DISTINCT c FROM Chef c LEFT JOIN FETCH c.favoriteDishes WHERE c.username = :username")
     Chef findByUsernameWithDishes(String username);
+
 
 }
