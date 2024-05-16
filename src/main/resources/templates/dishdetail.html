@@ -157,6 +157,17 @@
                 <div class="card-body">
                     <p class="card-text" th:text="${beverage.name}">Beverage name</p>
                 </div>
+
+                <div class="card-footer">
+                    <div th:if="${beverage}">
+                        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/beverage/{id}(id=${beverage.id})}" method="post">
+                            <input type="hidden" name="active" th:value="${!beverage.active}">
+                            <button type="submit" th:class="${beverage.active ? 'btn btn-success' : 'btn btn-danger'}"
+                                    th:text="${beverage.active ? 'Active' : 'Inactive'}">
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </article>
         </div>
     </div>

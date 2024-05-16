@@ -34,8 +34,6 @@ public class Dish {
     @ManyToMany
     private Collection<Beverage> beverages;
 
-    public void removeBeverage(Beverage beverageToRemove) {
-    }
 
     public Dish() {
         this.active=true;

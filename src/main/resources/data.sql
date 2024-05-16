@@ -296,7 +296,8 @@ VALUES ('stefferke', 'USER');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
 ('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
 
-
+ALTER TABLE Beverage
+    ALTER COLUMN ACTIVE SET DEFAULT TRUE;
 
 INSERT INTO BEVERAGE (NAME, IMG_FILE)
 VALUES ('Coca Cola', '/img/Cola.jpg');

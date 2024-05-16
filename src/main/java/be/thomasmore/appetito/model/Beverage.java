@@ -13,15 +13,25 @@ public class Beverage {
 
     private String imgFile;
 
+    private Boolean active = true;
+
     @ManyToMany(mappedBy = "beverages")
     private Collection<Dish> dishes;
 
-    public Beverage(){}
+    public Beverage(){this.active=true;}
 
     public Beverage(Integer id, String name, String imgFile) {
         this.id = id;
         this.name = name;
         this.imgFile = imgFile;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Integer getId() {

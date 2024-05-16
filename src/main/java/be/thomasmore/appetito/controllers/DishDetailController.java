@@ -19,6 +19,9 @@ public class DishDetailController<ToggleRequest> {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private BeverageRepository beverageRepository;
+
     @GetMapping({"/dishdetails/{id}" , "/dishdetails"})
     public String dishDetail(Model model, @PathVariable(required = false) Integer id){
         final Iterable<Dish> allDishes = dishRepository.findAll();
@@ -68,6 +71,14 @@ public class DishDetailController<ToggleRequest> {
         Dish dish = dishRepository.findById(id).orElseThrow(() -> new IllegalStateException("Dish not found"));
         dish.setActive(active);
         dishRepository.save(dish);
+        return "redirect:/dishdetails/" + id;
+    }
+
+    @PostMapping("/toggle/beverage/{id}")
+    public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active){
+        Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
+        beverage.setActive(active);
+        beverageRepository.save(beverage);
         return "redirect:/dishdetails/" + id;
     }
 
