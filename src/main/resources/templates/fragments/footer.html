@@ -53,11 +53,11 @@
                 </ul>
             </div>
             <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
-                <p class="text-dark mb-1">Straat...</p>
-                <p class="text-dark mb-1">Stad...</p>
-                <p class="text-dark mb-1">Belgie</p>
-                <p class="text-dark mb-1">Telefoonnummer</p>
-                <p class="text-dark mb-1">Contact@email.com</p>
+                <p th:text="${footer.street}" class="text-dark mb-1">Straat...</p>
+                <p th:text="|${footer.city} ${footer.postalCode}|" class="text-dark mb-1">Stad...</p>
+                <p th:text="${footer.country}" class="text-dark mb-1">Belgie</p>
+                <p th:text="${footer.phone}" class="text-dark mb-1">Telefoonnummer</p>
+                <p th:text="${footer.email}" class="text-dark mb-1">Contact@email.com</p>
             </div>
         </div>
     </div>
