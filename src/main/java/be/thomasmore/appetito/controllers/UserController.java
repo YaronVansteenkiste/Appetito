@@ -7,6 +7,9 @@ import be.thomasmore.appetito.repositories.ChefRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -48,10 +51,19 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails, int page) {
+
+
         if (userDetails == null) {
             return "redirect:/";
         }
+        int pagesize = 10;
+        Pageable pageable = PageRequest.of(page, pagesize);
+        Page<Dish> dishesPage = chefRepository.findProductsPageable(10, pageable);
+        long totalDishes = dishesPage.getTotalElements();
+        int totalPages = dishesPage.getTotalPages();
+
+
 
         Chef chef = chefRepository.findByUsernameWithDishes(userDetails.getUsername());
         if (chef == null) {
