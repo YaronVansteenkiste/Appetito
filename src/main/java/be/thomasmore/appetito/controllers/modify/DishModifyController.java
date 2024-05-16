@@ -299,6 +299,29 @@ public class DishModifyController {
         return "redirect:/modify/editbeverage/" + id;
     }
 
+    @PostMapping("/removebeverage/{dishId}/{beverageId}")
+    @Transactional
+    public String removeBeverage(@PathVariable("dishId") Integer dishId, @PathVariable("beverageId") Integer beverageId) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        if (!optionalDish.isPresent()) {
+            return "redirect:/modify/editbeverage/" + dishId;
+        }
+
+        Optional<Beverage> optionalBeverage = beverageRepository.findById(beverageId);
+        if (!optionalBeverage.isPresent()) {
+            return "redirect:/modify/editbeverage/" + dishId;
+        }
+
+        Dish dish = optionalDish.get();
+        Beverage beverageToRemove = optionalBeverage.get();
+
+        dish.removeBeverage(beverageToRemove);
+
+        dishRepository.save(dish);
+
+        return "redirect:/modify/editbeverage/" + dishId;
+    }
+
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();
         final File fileToUpload = new File(filename);

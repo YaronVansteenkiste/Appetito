@@ -1,39 +1,23 @@
-let bevCount = 0;
+const form = document.getElementById("removeForm");
 
-function addBev() {
-    let drinkContainer = document.getElementById('drinkContainer');
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-    bevCount++;
+    const action = form.getAttribute('action');
+    const [dishId, beverageId] = action.match(/\d+/g); // Extract numerical values from the URL
 
-    let bevContainer = document.createElement('div');
-    bevContainer.classList.add('row', 'mb-3');
-
-    let imageInput = document.createElement('div');
-    imageInput.classList.add('col-sm-6');
-    imageInput.innerHTML = `
-        <input class="form-control" type="file" id="bevimage${bevCount}" accept="image/*" name="image${bevCount}">`;
-
-    let drinkInput = document.createElement('div');
-    drinkInput.classList.add('col-sm-6');
-    drinkInput.innerHTML = `
-        <input class="form-control" type="text" name="drinks${bevCount}">`;
-
-    bevContainer.appendChild(imageInput);
-    bevContainer.appendChild(drinkInput);
-
-    drinkContainer.appendChild(bevContainer);
-}
-function removeBev() {
-    let drinkContainer = document.getElementById('drinkContainer');
-    if (drinkContainer.children.length > 1) {
-        drinkContainer.removeChild(drinkContainer.lastChild);
-    } else {
-        alert("At least one drink input must be present.");
-    }
-}
-
-document.querySelectorAll('.btn-outline-success, .btn-outline-dark').forEach(function(button) {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
+    const response = await fetch(action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ dishId, beverageId })
     });
+
+    if (response.ok) {
+        const beverageCard = form.closest('.card');
+        beverageCard.parentNode.removeChild(beverageCard);
+    } else {
+        console.error('Error removing beverage');
+    }
 });

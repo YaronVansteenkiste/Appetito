@@ -1,5 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Beverage Edit</title>
@@ -18,11 +19,11 @@
         <div class="row">
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-primary">+</button>
+                <button class="btn btn-outline-primary" id="addCardButton">+</button>
             </div>
 
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="cardContainer">
             <div class="col-lg-4 text-center mt-3" th:each="beverage: ${dish.getBeverages()}">
                     <article class="card">
                         <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
@@ -40,7 +41,10 @@
                                     <input type="file" class="form-control" id="beverageImage" name="image">
                                 </div>
                                 <button type="submit" class="btn btn-outline-dark">Save</button>
-                                <button class="btn btn-outline-danger">Remove</button>
+                            </form>
+
+                            <form id="removeForm" method="post" th:action="@{/modify/removebeverage/{dishId}/{beverageId}(dishId=${dish.id}, beverageId=${beverage.id})}" sec:authorize="hasAuthority('ADMIN')">
+                                <button type="submit" class="btn btn-outline-danger">Remove</button>
                             </form>
                         </div>
                     </article>
@@ -49,12 +53,16 @@
 
         <div class="row mt-3">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-success me-2">Back</button>
+                <button type="button" class="btn btn-success me-2">Confirm</button>
                 <button type="reset" class="btn btn-outline-danger">Cancel</button>
             </div>
         </div>
 
     </main>
+
+<!--<script th:src="@{/scripts/addcards.js}"></script>-->
+<script th:src="@{/scripts/addremovebeverage.js}"></script>
+
 <footer th:replace="~{fragments/footer :: footer}">Info-Footer</footer>
 </body>
 </html>
