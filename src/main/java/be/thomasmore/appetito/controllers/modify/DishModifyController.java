@@ -172,7 +172,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "error2";
+            return "error";
         }
 
         Dish dish = optionalDish.get();
@@ -218,7 +218,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Dish not found with id: " + id);
-            return "error2";
+            return "error";
         }
 
         Dish dish = optionalDish.get();

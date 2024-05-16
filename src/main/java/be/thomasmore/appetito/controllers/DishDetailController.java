@@ -41,7 +41,7 @@ public class DishDetailController<ToggleRequest> {
 
 
         if (id == null) {
-            return "error2";
+            return "error";
         }
 
         final Iterable<Step> steps = stepRepository.findByDishId(id);
