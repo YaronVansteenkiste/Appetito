@@ -7,6 +7,7 @@ import be.thomasmore.appetito.repositories.ChefRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -47,12 +48,20 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, Principal principal) {
-        if (principal == null) return "redirect:/";
-        Chef chef = chefRepository.findByUsername(principal.getName());
+    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/";
+        }
+
+        Chef chef = chefRepository.findByUsernameWithDishes(userDetails.getUsername());
+        if (chef == null) {
+            return "redirect:/";
+        }
+
         List<Dish> favoriteDishes = chefRepository.getFavoriteDishesByChefId(chef.getId());
         model.addAttribute("chef", chef);
         model.addAttribute("favoriteDishes", favoriteDishes);
+
         return "user/profile";
     }
 
