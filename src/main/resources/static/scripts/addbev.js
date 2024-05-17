@@ -1,34 +1,18 @@
 function addBev() {
-    var container = document.getElementById("drinkContainer");
+    let textContainer = document.getElementById("drinkTextContainer");
+    let imageContainer = document.getElementById("drinkImageContainer");
 
-    var div = document.createElement("div");
-    div.className = "row mb-3";
+    let textInput = document.createElement("input");
+    textInput.className = "form-control mb-3";
+    textInput.setAttribute("type", "text");
+    textInput.setAttribute("name", "drinks");
 
-    var labelCol = document.createElement("label");
-    labelCol.className = "col-sm-4 col-form-label";
-    labelCol.textContent = "Beverage Name";
+    let imageInput = document.createElement("input");
+    imageInput.className = "form-control mb-3";
+    imageInput.setAttribute("type", "file");
+    imageInput.setAttribute("accept", "image/*");
+    imageInput.setAttribute("name", "beverageImages");
 
-    var inputCol1 = document.createElement("div");
-    inputCol1.className = "col-sm-4";
-    var input1 = document.createElement("input");
-    input1.className = "form-control";
-    input1.setAttribute("type", "text");
-    input1.setAttribute("name", "beverages");
-
-    var inputCol2 = document.createElement("div");
-    inputCol2.className = "col-sm-4";
-    var input2 = document.createElement("input");
-    input2.className = "form-control";
-    input2.setAttribute("type", "file");
-    input2.setAttribute("accept", "image/*");
-    input2.setAttribute("name", "beverageImages");
-
-    inputCol1.appendChild(input1);
-    inputCol2.appendChild(input2);
-
-    div.appendChild(labelCol);
-    div.appendChild(inputCol1);
-    div.appendChild(inputCol2);
-
-    container.appendChild(div);
+    textContainer.appendChild(textInput);
+    imageContainer.appendChild(imageInput);
 }
