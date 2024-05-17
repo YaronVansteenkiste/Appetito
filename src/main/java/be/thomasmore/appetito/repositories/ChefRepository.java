@@ -25,5 +25,5 @@ public interface ChefRepository extends CrudRepository<Chef, Integer>{
     Page<Dish> findDishesByChefUsername(String username, Pageable pageable);
 
     @Query("SELECT d FROM Dish d ORDER BY d.id ASC")
-    List<Dish> findProductsPageable(int pageSize, int offset);
+    Page<Dish> findProductsPageable(int pageSize, Pageable offset);
 }

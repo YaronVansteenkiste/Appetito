@@ -51,13 +51,14 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails, int page) {
+    public String profile(Model model, @AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page,
+                          @RequestParam(defaultValue = "10") int size) {
 
 
         if (userDetails == null) {
             return "redirect:/";
         }
-        int pagesize = 10;
+        int pagesize = size;
         Pageable pageable = PageRequest.of(page, pagesize);
         Page<Dish> dishesPage = chefRepository.findProductsPageable(10, pageable);
         long totalDishes = dishesPage.getTotalElements();
