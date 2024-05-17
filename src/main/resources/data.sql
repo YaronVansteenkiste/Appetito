@@ -294,7 +294,9 @@ VALUES ('stefferke', '$2a$10$a3/jTRNSkn0Rt/vENxt8.u2pxbJtWV8f1li3QmrIGt/C5RQ2R1w
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
-('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
+    ('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
+INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL) VALUES
+    ('admin', 'admin', '', 'admin@appetito.com');
 
 ALTER TABLE Beverage
     ALTER COLUMN ACTIVE SET DEFAULT TRUE;
