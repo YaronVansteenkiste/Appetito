@@ -82,11 +82,15 @@ public class DishDetailController<ToggleRequest> {
 
     @PostMapping("/toggle/beverage/{id}")
     public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active, Principal principal){
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
-        beverage.setActive(active);
-        beverageRepository.save(beverage);
-        return "redirect:/dishdetails/" + id;
+        if (!principal.getName().isEmpty()) {
+            Chef chef = chefRepository.findByUsername(principal.getName());
+            if (chef != null) {
+                Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
+                beverage.setActive(active);
+                beverageRepository.save(beverage);
+                return "redirect:/dishdetails/" + id;}
+        }
+        return "redirect:/login";
     }
 
 }
