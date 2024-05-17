@@ -3,6 +3,8 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 
 public class Chef {
@@ -16,6 +18,9 @@ public class Chef {
     private String username;
 
     private String email;
+
+    @OneToMany(mappedBy = "chef")
+    private Collection<Beverage> beverage;
 
 
     public Chef() {
@@ -61,4 +66,11 @@ public class Chef {
         this.email = email;
     }
 
+    public Collection<Beverage> getBeverage() {
+        return beverage;
+    }
+
+    public void setBeverage(Collection<Beverage> beverage) {
+        this.beverage = beverage;
+    }
 }

@@ -18,6 +18,10 @@ public class Beverage {
     @ManyToMany(mappedBy = "beverages")
     private Collection<Dish> dishes;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chef_id")
+    private Chef chef;
+
     public Beverage(){this.active=true;}
 
     public Beverage(Integer id, String name, String imgFile) {
