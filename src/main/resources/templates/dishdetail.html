@@ -34,7 +34,7 @@
                 <h2>
                     <strong th:text="${dish.name}">Dish Name</strong>
                 </h2>
-
+                <a th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
                 <h4>Gelegenheid</h4>
                 <p th:text="${dish.occasion}"></p>
                 <h4>Dieet</h4>
@@ -59,8 +59,6 @@
                     </form>
                     <h4 class="mt-3">Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
                 </div>
-
-                <a th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
             </div>
         </div>
     </div>
