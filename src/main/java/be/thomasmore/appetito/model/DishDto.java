@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
+import java.util.List;
 
 
 public class DishDto {
@@ -24,6 +25,8 @@ public class DishDto {
     private String occasion ;
    
     private String preparation;
+
+    private List<BeverageDto> beverages;
 
 
     public DishDto() {
@@ -69,6 +72,14 @@ public class DishDto {
 
     public void setPreparation(String preparation) {
         this.preparation = preparation;
+    }
+
+    public List<BeverageDto> getBeverages() {
+        return beverages;
+    }
+
+    public void setBeverages(List<BeverageDto> beverages) {
+        this.beverages = beverages;
     }
 }
 
