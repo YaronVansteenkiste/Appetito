@@ -1,6 +1,7 @@
 package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.Beverage;
+import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.ChefRepository;
@@ -80,7 +81,8 @@ public class DishDetailController<ToggleRequest> {
     }
 
     @PostMapping("/toggle/beverage/{id}")
-    public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active){
+    public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active, Principal principal){
+        Chef chef = chefRepository.findByUsername(principal.getName());
         Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
         beverage.setActive(active);
         beverageRepository.save(beverage);
