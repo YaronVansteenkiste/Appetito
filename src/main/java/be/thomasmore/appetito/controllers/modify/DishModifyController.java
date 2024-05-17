@@ -288,15 +288,12 @@ public class DishModifyController {
                             beverage.setImgFile(imageUrl);
                         } catch (IOException e) {
                             e.printStackTrace();
-                            // Handle image upload error
                         }
                     }
                     break;
                 }
             }
             dishRepository.save(dish);
-        } else {
-            // Handle dish not found error
         }
         return "redirect:/modify/dishedit/" + id;
     }
