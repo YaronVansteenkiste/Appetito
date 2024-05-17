@@ -30,6 +30,14 @@ public class Beverage {
         this.imgFile = imgFile;
     }
 
+    public Chef getChef() {
+        return chef;
+    }
+
+    public void setChef(Chef chef) {
+        this.chef = chef;
+    }
+
     public boolean isActive() {
         return active;
     }
