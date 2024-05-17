@@ -1,5 +1,7 @@
 package be.thomasmore.appetito.controllers;
 
+import be.thomasmore.appetito.model.Chef;
+import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.services.GoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,11 @@ public class HomeController {
 
     @Autowired
     private GoogleService googleService;
+
     @GetMapping("/")
     public String Home(Model model, Principal principal) {
         final String loginName = principal != null ? principal.getName() : "anoniem";
+
         model.addAttribute("loginName", loginName);
         return "home";
     }
