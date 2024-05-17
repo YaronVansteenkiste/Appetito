@@ -76,25 +76,16 @@
                         <input class="form-control" type="file" id="image" accept="image/*" name="image">
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Bereiding</label>
-                    <div class="col-sm-8">
-                        <p>Gebruik dit formaat vb ("1. voeg uien toe in de soep //")</p>
-                        <textarea class="form-control" th:field="${dishDto.preparation}" style="max-width: 500px; max-height: 300px;"></textarea>
-                        <p th:if="${#fields.hasErrors('preparation')}" th:errorclass="text-danger"
-                           th:errors="${dishDto.preparation}"></p>
-                    </div>
-                </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-12 col-form-label">Drank en Foto</label>
 
                     <div class="col-sm-2">
-                        <button class="form-control btn btn-outline-success" onclick="addBev()">+</button>
+                        <button type="button" class="form-control btn btn-outline-success" onclick="addBev()">+</button>
                     </div>
 
                     <div class="col-sm-2">
-                        <button class="form-control btn btn-outline-dark" onclick="removeBev()">-</button>
+                        <button type="button" class="form-control btn btn-outline-dark" onclick="removeBev()">-</button>
                     </div>
 
                     <div class="col-sm-4">
@@ -105,6 +96,7 @@
                         <input class="form-control" type="text" name="drinks">
                     </div>
                 </div>
+
 
                 <div class="row justify-content-center">
                     <div class="col-sm-4 d-grid p-2 m-2">
@@ -120,6 +112,9 @@
     </div>
 
 </div>
+
+<script th:src="@{/scripts/addbev.js}"></script>
+<script th:src="@{/scripts/removebev.js}"></script>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
