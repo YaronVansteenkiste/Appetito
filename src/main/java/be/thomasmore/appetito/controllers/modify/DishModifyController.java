@@ -269,4 +269,35 @@ public class DishModifyController {
             return "redirect:/modify/dishedit/" + id;
         }
     }
+
+    @PostMapping("/modify/confirm")
+    public String confirmBeverageModification(@RequestParam("id") Integer id,
+                                              @RequestParam("beverageId") Integer beverageId,
+                                              @RequestParam("name") String name,
+                                              @RequestParam("image") MultipartFile imageFile) {
+        Optional <Dish> optionalDish = dishRepository.findById(id);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Collection <Beverage> beverages = dish.getBeverages();
+            for (Beverage beverage : beverages) {
+                if (beverage.getId().equals(beverageId)) {
+                    beverage.setName(name);
+                    if (!imageFile.isEmpty()) {
+                        try {
+                            String imageUrl = uploadImage(imageFile);
+                            beverage.setImgFile(imageUrl);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            // Handle image upload error
+                        }
+                    }
+                    break;
+                }
+            }
+            dishRepository.save(dish);
+        } else {
+            // Handle dish not found error
+        }
+        return "redirect:/modify/dishedit/" + id;
+    }
 }

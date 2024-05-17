@@ -41,8 +41,6 @@
                                     <label for="beverageImage" class="form-label">Beverage Image</label>
                                     <input type="file" class="form-control" id="beverageImage" name="image">
                                 </div>
-
-                                <button type="submit" class="btn btn-outline-dark">Save</button>
                             </form>
                         </div>
                     </article>
@@ -51,8 +49,12 @@
 
         <div class="row mt-3">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-success me-2">Confirm</button>
-                <button type="reset" class="btn btn-outline-danger">Cancel</button>
+                <form method="post" th:action="@{/modify/confirm}">
+                    <input type="hidden" name="id" th:value="${dish.id}">
+                    <button type="button" class="btn btn-success me-2">Opslagen</button>
+                </form>
+
+                <a class="btn btn-primary" th:src="@{|/dishedit/${id}|}">Annuleer</a>
             </div>
         </div>
 
