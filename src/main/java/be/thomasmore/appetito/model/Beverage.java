@@ -58,11 +58,23 @@ public class Beverage {
         this.imgFile = imgFile;
     }
 
+    public String getType_of_beverage() {
+        return type_of_beverage;
+    }
+
+    public void setType_of_beverage(String type_of_beverage) {
+        this.type_of_beverage = type_of_beverage;
+    }
+
     public Collection<Dish> getDishes() {
         return dishes;
     }
 
     public void setDishes(Collection<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    public void setActive(boolean active) {
+
     }
 }
