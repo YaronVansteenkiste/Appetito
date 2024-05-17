@@ -10,7 +10,12 @@
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}">Header Component</h1>
-<h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > Ingrediënten > ' + ${dish.name}"></h6>
+<h6 class="mt-3 ms-2">
+    <a href="/" class="text-decoration-none">Home</a> >
+    <a href="/dishes" class="text-decoration-none">Recepten</a> >
+    <a>Ingrediënten</a> >
+    <a th:text="${dish.name}"></a>
+</h6>
 <h3>Aanpassen ingrediënten</h3>
 
 <form method="post" th:action="@{/modify/editingredients/{id}(id=${dish.id})}" th:object="${ingredientListWrapper}">

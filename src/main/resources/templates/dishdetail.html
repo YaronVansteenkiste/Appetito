@@ -11,7 +11,11 @@
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
-<h6 class="mt-3 ms-2" th:text="'Home > Recepten > Categorie > ' + ${dish.name}"></h6>
+<h6 class="mt-3 ms-2 text-decoration-none">
+    <a href="/" class="text-decoration-none">Home</a> >
+    <a href="/dishes" class="text-decoration-none">Recepten</a> >
+    <a th:text="${dish.name}"></a>
+</h6>
 <main class="container">
     <div class="row">
         <div class="col-md-6">

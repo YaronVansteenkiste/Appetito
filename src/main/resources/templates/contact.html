@@ -13,7 +13,11 @@
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
 
-<h6 class="mt-3 ms-2" text="Home &gt; Recepten &gt; Contact"></h6>
+<h6 class="mt-3 ms-2">
+    <a href="/" class="text-decoration-none">Home</a> >
+    <a href="/dishes" class="text-decoration-none">Recepten</a> >
+    <a>Contact</a>
+</h6>
 
 <div th:if="${success}" class="alert alert-success" role="alert">
     Email sent successfully!
