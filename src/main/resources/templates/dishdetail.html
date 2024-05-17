@@ -28,8 +28,8 @@
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-primary">Edit</a>
                 <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}" method="post">
-                    <input type="hidden" name="active" th:value="${!dish.active}">
-                    <button type="submit" th:class="${dish.active ? 'btn btn-success' : 'btn btn-danger'}"
+                    <input type="hidden" name="active" th:value="${!dish.isActive}">
+                    <button type="submit" th:class="${dish.isActive ? 'btn btn-success' : 'btn btn-danger'}"
                             th:text="${dish.active ? 'Active' : 'Inactive'}">
                     </button>
                 </form>
@@ -148,7 +148,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <h4>Suggested Drinks</h4>
-        <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}">
+        <div class="col-lg-4 mt-3 text-center" th:each="beverage: ${beverages}" th:if="${beverage.isActive}">
             <article class="card">
                 <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
                     <img th:src="@{${beverage.getImgFile()}}" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover;" alt="Image Drink">
@@ -161,8 +161,8 @@
                 <div class="card-footer">
                     <div th:if="${beverage}">
                         <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/beverage/{id}(id=${beverage.id})}" method="post">
-                            <input type="hidden" name="active" th:value="${!beverage.active}">
-                            <button type="submit" th:class="${beverage.active ? 'btn btn-success' : 'btn btn-danger'}"
+                            <input type="hidden" name="active" th:value="${!beverage.isActive}">
+                            <button type="submit" th:class="${beverage.isActive ? 'btn btn-success' : 'btn btn-danger'}"
                                     th:text="${beverage.active ? 'Active' : 'Inactive'}">
                             </button>
                         </form>
