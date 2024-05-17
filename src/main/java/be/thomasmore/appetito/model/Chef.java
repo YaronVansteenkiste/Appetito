@@ -19,7 +19,7 @@ public class Chef {
 
     private String email;
 
-    @OneToMany(mappedBy = "chef")
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Collection<Beverage> beverage;
 
 
