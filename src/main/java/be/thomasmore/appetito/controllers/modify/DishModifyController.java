@@ -270,31 +270,41 @@ public class DishModifyController {
         }
     }
 
-    @PostMapping("/modify/confirm")
-    public String confirmBeverageModification(@RequestParam("id") Integer id,
-                                              @RequestParam("beverageId") Integer beverageId,
-                                              @RequestParam("name") String name,
-                                              @RequestParam("image") MultipartFile imageFile) {
-        Optional <Dish> optionalDish = dishRepository.findById(id);
+    @PostMapping("/editbeverage/saveAll")
+    @Transactional
+    public String saveAllBeverages(@RequestParam("id") Integer id,
+                                   @RequestParam("name") List<String> names,
+                                   @RequestParam("image") List<MultipartFile> imageFiles) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
-            Collection <Beverage> beverages = dish.getBeverages();
-            for (Beverage beverage : beverages) {
-                if (beverage.getId().equals(beverageId)) {
-                    beverage.setName(name);
-                    if (!imageFile.isEmpty()) {
-                        try {
-                            String imageUrl = uploadImage(imageFile);
-                            beverage.setImgFile(imageUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+            List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
+            for (int i = 0; i < beverages.size(); i++) {
+                Beverage beverage = beverages.get(i);
+                beverage.setName(names.get(i));
+                MultipartFile imageFile = imageFiles.get(i);
+                if (!imageFile.isEmpty()) {
+                    try {
+                        String imageUrl = uploadBevImage(imageFile);
+                        beverage.setImgFile(imageUrl);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    break;
                 }
             }
             dishRepository.save(dish);
         }
         return "redirect:/modify/dishedit/" + id;
+    }
+
+
+    private String uploadBevImage(MultipartFile multipartFile) throws IOException {
+        final String filename = multipartFile.getOriginalFilename();
+        final File fileToUpload = new File(filename);
+        FileOutputStream fos = new FileOutputStream(fileToUpload);
+        fos.write(multipartFile.getBytes());
+        final String urlInFirebase = googleService.toFirebase(fileToUpload, filename);
+        fileToUpload.delete();
+        return urlInFirebase;
     }
 }
