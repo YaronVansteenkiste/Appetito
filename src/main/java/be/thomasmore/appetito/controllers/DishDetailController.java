@@ -88,7 +88,8 @@ public class DishDetailController<ToggleRequest> {
                 Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
                 beverage.setActive(active);
                 beverageRepository.save(beverage);
-                return "redirect:/dishdetails/" + id;}
+                return "redirect:/dishdetails/" + id;
+            }
         }
         return "redirect:/login";
     }
