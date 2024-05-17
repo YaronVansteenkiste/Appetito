@@ -152,4 +152,6 @@ public class Dish {
     public void setMenus(Collection<Menu> menus) {
         this.menus = menus;
     }
+
+
 }

@@ -64,27 +64,37 @@
         </div>
 
         <div class="row">
-            <article class="col-md-4 col-lg-4 text-center">
-                <img th:src="@{/img/best-meal.png}" th:width="200px" alt="Best meal">
+            <article th:if="${topRatedDish==null}" class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+                <img th:src="@{/img/best-meal.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
                 <h3>Inspirerende Menusuggesties</h3>
                 <p>Ontdek aanbevolen menu's</p>
                 <a href="/x-dagenmenu">Kom meer te weten</a>
             </article>
 
-            <article class="col-md-4 col-lg-4 text-center">
-                <img th:src="@{/img/meal-list.png}" th:width="200px"  alt="Meal list">
+            <article th:if="${topRatedDish != null}" class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+                <img th:src="@{${topRatedDish.getImgFileName()}}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
+                <h3 th:text="${topRatedDish.name}"></h3>
+                <p th:text="'Rating: ' + ${topRatedDishAverageRating} + '/5'"></p>
+                <p>Maaltijd met hoogste score</p>
+                <a th:href="@{/dishdetails/{id}(id=${topRatedDish.id})}">Ontdek</a>
+            </article>
+
+            <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+                <img th:src="@{/img/meal-list.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Meal list">
                 <h3>Ontdek een verscheidenheid aan maaltijdopties</h3>
                 <p>Ontdek nieuwe smaken en culinaire ervaringen</p>
                 <a href="/dishes">Ontdek</a>
             </article>
 
-            <article class="col-md-4 col-lg-4 text-center">
-                <img th:src="@{/img/meal-creation.png}" th:width="200px"  alt="Meal Creation">
+            <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+                <img th:src="@{/img/meal-creation.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Meal Creation">
                 <h3>Publiceer uw eigen unieke recepten</h3>
-                <p>deel de wereld wat je hebt gemaakt!</p>
+                <p>Deel de wereld wat je hebt gemaakt!</p>
                 <a href="/user/login">Aanmelden</a>
             </article>
         </div>
+
+
     </div>
 <footer th:insert="~{fragments/footer :: footer}"></footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

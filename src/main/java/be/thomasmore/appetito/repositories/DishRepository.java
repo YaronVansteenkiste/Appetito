@@ -74,12 +74,6 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
     @Query("select d from Dish d where lower(d.name) like lower(concat('%', :keyword, '%'))")
     Iterable<Dish> findByName(@Param("keyword") String keyword);
 
-
-
-
-
-
-
     @Query("SELECT d FROM Dish d ORDER BY d.id ASC")
     List<Dish> findProductsPageable(int pageSize, int offset);
 
