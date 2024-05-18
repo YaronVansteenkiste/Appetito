@@ -19,27 +19,29 @@
     <div class="row justify-content-center" id="cardContainer">
         <form method="post" th:action="@{/modify/editbeverage/saveAll}" enctype="multipart/form-data">
             <input type="hidden" name="id" th:value="${dish.id}">
-            <div class="col-lg-4 text-center mt-3" th:each="beverage: ${dish.getBeverages()}">
-                <article class="card" th:if="${beverage.isActive}">
-                    <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
-                        <img th:src="@{${beverage.imgFile}}" class="position-absolute top-0 start-0 w-100 h-100"
-                             style="object-fit: cover;" alt="Image Drink">
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 text-center mt-3" th:each="beverage: ${dish.getBeverages()}">
+                    <article class="card" th:if="${beverage.isActive}">
+                        <div style="position: relative; width: 100%; height: 200px; overflow: hidden;">
+                            <img th:src="@{${beverage.imgFile}}" class="position-absolute top-0 start-0 w-100 h-100"
+                                 style="object-fit: cover;" alt="Image Drink">
+                        </div>
 
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="beverageName" class="form-label">Beverage Name</label>
-                            <input type="text" class="form-control" id="beverageName" name="name"
-                                   th:value="${beverage.name}">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="beverageName" class="form-label">Beverage Name</label>
+                                <input type="text" class="form-control" id="beverageName" name="name"
+                                       th:value="${beverage.name}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="beverageImage" class="form-label">Beverage Image</label>
+                                <input type="file" class="form-control" id="beverageImage" name="image">
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="beverageImage" class="form-label">Beverage Image</label>
-                            <input type="file" class="form-control" id="beverageImage" name="image">
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                </div>
             </div>
-            <!-- Single button outside the cards -->
+
             <div class="row mt-3 justify-content-center">
                 <div class="col-lg-4 text-center">
                     <button type="submit" class="btn btn-success me-2">Opslagen</button>

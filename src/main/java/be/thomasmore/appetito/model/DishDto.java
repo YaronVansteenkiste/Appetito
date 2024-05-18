@@ -26,8 +26,6 @@ public class DishDto {
    
     private String preparation;
 
-    private List<BeverageDto> beverages;
-
 
     public DishDto() {
     }
@@ -74,13 +72,6 @@ public class DishDto {
         this.preparation = preparation;
     }
 
-    public List<BeverageDto> getBeverages() {
-        return beverages;
-    }
-
-    public void setBeverages(List<BeverageDto> beverages) {
-        this.beverages = beverages;
-    }
 }
 
 
