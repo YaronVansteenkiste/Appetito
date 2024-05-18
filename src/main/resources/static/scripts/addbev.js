@@ -5,13 +5,13 @@ function addBev() {
     let textInput = document.createElement("input");
     textInput.className = "form-control mb-3";
     textInput.setAttribute("type", "text");
-    textInput.setAttribute("name", "drinks");
+    textInput.setAttribute("beverageNames", "drinks");
 
     let imageInput = document.createElement("input");
     imageInput.className = "form-control mb-3";
     imageInput.setAttribute("type", "file");
     imageInput.setAttribute("accept", "image/*");
-    imageInput.setAttribute("name", "beverageImages");
+    imageInput.setAttribute("beverageImages", "beverageImages");
 
     textContainer.appendChild(textInput);
     imageContainer.appendChild(imageInput);

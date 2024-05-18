@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,7 +37,9 @@ public class Dish {
 
 
     public Dish() {
+
         this.active=true;
+        this.beverages = new ArrayList<>();
     }
 
 

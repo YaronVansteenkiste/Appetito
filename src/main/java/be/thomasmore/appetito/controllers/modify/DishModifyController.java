@@ -133,6 +133,8 @@ public class DishModifyController {
     public String createDish(Model model,
                              @Valid DishDto dishDto,
                              @RequestParam(required = false) MultipartFile image,
+                             @RequestParam("beverageNames") List<String> beverageNames,
+                             @RequestParam("beverageImages") List<MultipartFile> beverageImages,
                              BindingResult bindingResult) throws IOException {
 
         Dish dish = new Dish();
@@ -149,6 +151,21 @@ public class DishModifyController {
 
 
         dishRepository.save(dish);
+
+        for (int i = 0; i < beverageNames.size(); i++) {
+            String beverageName = beverageNames.get(i);
+            MultipartFile beverageImage = beverageImages.get(i);
+            Beverage beverage = new Beverage();
+            beverage.setName(beverageName);
+            if (beverageImage != null && !beverageImage.isEmpty()) {
+                beverage.setImgFile(uploadBevImage(beverageImage));
+            }
+            dish.getBeverages().add(beverage);
+            beverageRepository.save(beverage);
+        }
+
+        dishRepository.save(dish);
+
         return "redirect:/dishes";
     }
 
