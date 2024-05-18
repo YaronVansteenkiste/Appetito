@@ -292,6 +292,7 @@ public class DishModifyController {
                     }
                 }
             }
+            beverageRepository.saveAll(beverages);
             dishRepository.save(dish);
         }
         return "redirect:/modify/dishedit/" + id;
