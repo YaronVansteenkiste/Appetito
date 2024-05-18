@@ -1,7 +1,9 @@
 package be.thomasmore.appetito.controllers;
 
+import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.model.DishDto;
+import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.repositories.IngredientRepository;
 import jakarta.validation.Valid;
@@ -28,6 +30,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +38,9 @@ import java.util.logging.Logger;
 @Controller
 public class DishesController {
     @Autowired
-    DishRepository dishRepository;
+    private DishRepository dishRepository;
+    @Autowired
+    private ChefRepository chefRepository;
     @Autowired
     IngredientRepository ingredientRepository;
     private Logger logger = Logger.getLogger(DishesController.class.getName());
@@ -162,14 +167,24 @@ public class DishesController {
     }
 
 
-
-//    @PostMapping("/add-favorite")
-//    public String addFavorite(@RequestParam int favoriteDishesId, @RequestParam int chefId, @RequestParam String action) {
-//        if (action.equals("add")) {
-//            dishRepository.save(new Dish());
-//        } else if (action.equals("remove")) {
-//            dishRepository.deleteByFavoriteDishesIdAndChefId(favoriteDishesId, chefId);
-//        }
-//        return "redirect:/dishes";
-//    }
+    @PostMapping("/add-favorite")
+    public String addFavorite(@RequestBody Map<String, String> body) {
+        logger.info("body: " + body);
+        Integer favoriteDishesId = Integer.parseInt(body.get("favoriteDishesId"));
+        Integer chefId = Integer.parseInt(body.get("chefId"));
+        String action = body.get("action");
+        Optional<Dish> optionalDish = dishRepository.findById(favoriteDishesId);
+        Optional<Chef> optionalChef = chefRepository.findById(chefId);
+        if (optionalDish.isPresent() && optionalChef.isPresent()) {
+            Dish dish = optionalDish.get();
+            Chef chef = optionalChef.get();
+            if (action.equals("add")) {
+                chef.getFavoriteDishes().add(dish);
+            } else if (action.equals("remove")) {
+                chef.getFavoriteDishes().remove(dish);
+            }
+            chefRepository.save(chef);
+        }
+        return "redirect:/dishes";
+    }
 }

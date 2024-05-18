@@ -29,7 +29,12 @@ public class Chef {
     @OneToMany(mappedBy = "chef")
     private Collection<Grocery> groceries;
 
-    @ManyToMany(mappedBy = "chefs")
+
+    @ManyToMany
+    @JoinTable(
+            name = "favorite_dishes",
+            joinColumns = @JoinColumn(name = "chef_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id"))
     private Collection<Dish> favoriteDishes;
 
 
