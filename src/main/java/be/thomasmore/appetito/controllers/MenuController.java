@@ -52,6 +52,24 @@ public class MenuController {
         return "/menu/select";
     }
 
+    @PostMapping("/menu/{menuId}/removeDish/{dishId}")
+    public String removeDishFromMenu(@PathVariable Integer menuId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+        if (menu.getDishes().contains(dish)) {
+            menu.getDishes().remove(dish);
+            menuRepository.save(menu);
+            redirectAttributes.addFlashAttribute("success", dish.getName() + " is removed from " + menu.getName());
+        } else {
+            redirectAttributes.addFlashAttribute("warning", dish.getName() + " is not in " + menu.getName());
+        }
+
+        return "redirect:/menu/details/" + menuId;
+    }
+
     @PostMapping("/menu/{menuId}/addDish/{dishId}")
     public String addDishToMenu(@PathVariable Integer menuId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
         Menu menu = menuRepository.findById(menuId)
@@ -60,7 +78,7 @@ public class MenuController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
         if (menu.getDishes().contains(dish)) {
-            redirectAttributes.addFlashAttribute("success", dish.getName() + " is al toegevoegd aan " + menu.getName());
+            redirectAttributes.addFlashAttribute("warning", dish.getName() + " is al toegevoegd aan " + menu.getName());
         } else {
             menu.getDishes().add(dish);
             menuRepository.save(menu);
