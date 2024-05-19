@@ -165,6 +165,10 @@ public class DishModifyController {
             beverages.add(beverage);
         }
 
+        beverageRepository.saveAll(beverages);
+
+        dish.setBeverages(beverages);
+
         dishRepository.save(dish);
         return "redirect:/dishes";
     }
