@@ -53,11 +53,11 @@ public class DishesController {
         int totalPages = dishesPage.getTotalPages();
         List<Dish> dishes = dishesPage.getContent();
         model.addAttribute("dishesPage", dishesPage.getContent());
-        model.addAttribute("currentPage", 0);
+        model.addAttribute("currentPage", page);
         model.addAttribute("count", totalDishes);
         model.addAttribute("filterEnabled", filterEnabled);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("hasPrevious", false);
+        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
         model.addAttribute("hasNext", dishesPage.hasNext());
         model.addAttribute("alldishes", dishes);
         return "dishes";
