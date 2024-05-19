@@ -296,33 +296,52 @@ public class DishModifyController {
         }
     }
 
+
     @PostMapping("/editbeverage/saveAll")
     @Transactional
     public String saveAllBeverages(@RequestParam("id") Integer id,
                                    @RequestParam("name") List<String> names,
-                                   @RequestParam("image") List<MultipartFile> imageFiles) {
+                                   @RequestParam("imageFiles") List<MultipartFile> imageFiles) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
+
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
             List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
+
             for (int i = 0; i < beverages.size(); i++) {
                 Beverage beverage = beverages.get(i);
                 beverage.setName(names.get(i));
+
                 MultipartFile imageFile = imageFiles.get(i);
-                if (!imageFile.isEmpty()) {
-                    try {
-                        String imageUrl = uploadBevImage(imageFile);
-                        beverage.setImgFile(imageUrl);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                try {
+
+                    System.out.println("beverage: " + beverage.getName());
+                    if (imageFile != null) {
+                        System.out.println("Image file name: " + imageFile.getOriginalFilename());
+                        System.out.println("Image file size: " + imageFile.getSize());
+                    } else {
+                        System.out.println("Image file is null");
                     }
+
+                    if (imageFile != null && !imageFile.isEmpty()) {
+
+                        beverage.setImgFile(null);
+
+                        beverage.setImgFile(uploadBevImage(imageFile));
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
+                beverageRepository.save(beverage);
             }
-            beverageRepository.saveAll(beverages);
             dishRepository.save(dish);
         }
         return "redirect:/modify/dishedit/" + id;
     }
+
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {
