@@ -7,6 +7,7 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <meta charset="UTF-8">
     <title>Menu Build</title>
@@ -28,6 +29,11 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-4" th:each="dish : ${menu.dishes}">
                         <div class="card mb-3">
+                            <form th:action="@{'/menu/' + ${menu.getId()} + '/removeDish/'+ ${dish.id}}" method="post">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                             <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
                                  alt="dish Image" style="height: 200px; object-fit: cover;">
                             <div class="card-body">
@@ -37,9 +43,6 @@
                                 <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
                                    role="button">Ontdek</a>
                             </div>
-                            <form th:action="@{'/menu/' + ${menu.getId()} + '/removeDish/'+ ${dish.id}}" method="post">
-                                <button type="submit" class="btn btn-danger">Remove</button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -66,10 +69,6 @@
                             </div>
                             <div class="col-sm-4 d-grid p-2 m-2 d-flex">
                                 <a class="btn btn-primary me-2" th:href="@{|/dishdetails/${dish.id}|}" role="button">Ontdek</a>
-                                <form th:action="@{|/menuoverview/delete/${dish.id}|}" method="post"
-                                      style="display:inline;">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
                             </div>
                         </div>
                     </div>

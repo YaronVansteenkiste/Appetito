@@ -9,6 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Menus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <h1 th:replace="~{fragments/header :: header}"></h1>
 <body>
@@ -38,6 +40,11 @@
                 <div class="row">
                     <div class="col-4 g-2" th:each="menu : ${menus}">
                         <div class="card h-100">
+                            <form th:action="@{'/menu/delete/' + ${menu.getId()}}" method="post">
+    <button type="submit" class="btn btn-danger">
+        <i class="fas fa-trash"></i>
+    </button>
+</form>
                             <div class="row">
                                 <img th:src="${!menu.getDishes().isEmpty() ? menu.getDishes().get(0).getImgFileName() : '/img/Empty_plate.png'}"
                                      class="card-img-top" alt="...">

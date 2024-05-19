@@ -48,7 +48,6 @@ public class MenuController {
         model.addAttribute("menus", menusOfChef);
 
 
-
         return "/menu/select";
     }
 
@@ -88,6 +87,20 @@ public class MenuController {
         return "redirect:/menu/select/" + dishId;
     }
 
+    @PostMapping("/menu/delete/{menuId}")
+    public String deleteMenu(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+
+        menu.getDishes().clear();
+        menuRepository.save(menu);
+
+        menuRepository.delete(menu);
+        redirectAttributes.addFlashAttribute("success", "Menu is successfully deleted");
+
+        return "redirect:/menu/list";
+    }
+
     @GetMapping("/menu/list")
     public String listMenus(Model model, Principal principal) {
         Iterable<Menu> menus = menuRepository.findAll();
@@ -113,10 +126,10 @@ public class MenuController {
     }
 
     @GetMapping("/menu/details/{id}")
-public String menuDetails(@PathVariable("id") Integer id, Model model) {
-    Menu menu = menuRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + id));
-    model.addAttribute("menu", menu);
-    return "menu/details";
-}
+    public String menuDetails(@PathVariable("id") Integer id, Model model) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + id));
+        model.addAttribute("menu", menu);
+        return "menu/details";
+    }
 }
