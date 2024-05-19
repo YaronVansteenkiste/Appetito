@@ -133,41 +133,50 @@ public class DishModifyController {
     public String createDish(Model model,
                              @Valid DishDto dishDto,
                              @RequestParam(required = false) MultipartFile image,
-                             @RequestParam("beverageNames") List<String> beverageNames,
-                             @RequestParam("beverageImages") List<MultipartFile> beverageImages,
+                             @RequestParam("beverageNames[]") List<String> beverageNames,
+                             @RequestParam("beverageImages[]") List<MultipartFile> beverageImages,
                              BindingResult bindingResult) throws IOException {
 
         Dish dish = new Dish();
+        // Set dish properties using dishDto...
 
-
-        dish.setName(dishDto.getName());
-        dish.setDietPreferences(dishDto.getDietPreferences());
-        dish.setOccasion(dishDto.getOccasion());
-        dish.setPreparation(dishDto.getPreparation());
-        dish.setPreparationTime(dishDto.getPreparationTime());
+        // Save dish image if provided...
         if (image != null && !image.isEmpty()) {
             dish.setImgFileName(uploadImage(image));
         }
 
-
-        dishRepository.save(dish);
+        // Process beverage inputs...
+        List<Beverage> beverages = new ArrayList<>();
 
         for (int i = 0; i < beverageNames.size(); i++) {
             String beverageName = beverageNames.get(i);
             MultipartFile beverageImage = beverageImages.get(i);
+
             Beverage beverage = new Beverage();
             beverage.setName(beverageName);
+
+            // Save beverage image if provided...
             if (beverageImage != null && !beverageImage.isEmpty()) {
                 beverage.setImgFile(uploadBevImage(beverageImage));
             }
-            dish.getBeverages().add(beverage);
-            beverageRepository.save(beverage);
+
+            // Add beverage to the list...
+            beverages.add(beverage);
         }
 
+        // Save all beverages
+        beverageRepository.saveAll(beverages);
+
+        // Associate beverages with the dish
+        dish.setBeverages(beverages);
+
+        // Save the dish
         dishRepository.save(dish);
 
         return "redirect:/dishes";
     }
+
+
 
     @GetMapping("/editingredients/{id}")
     public String showIngredients(Model model, @PathVariable("id") Integer id) {
