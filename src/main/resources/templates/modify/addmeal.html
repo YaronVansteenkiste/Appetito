@@ -81,6 +81,27 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <label class="col-sm-12 col-form-label">Drank en Foto</label>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="form-control btn btn-outline-success" onclick="addBev()">+</button>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="form-control btn btn-outline-dark" onclick="removeBev()">-</button>
+                    </div>
+
+                    <div class="col-sm-4" id="drinkImageContainer">
+                        <input class="form-control" type="file" id="bevimage" accept="image/*" name="beverageImages[]">
+                    </div>
+
+                    <div class="col-sm-4" id="drinkTextContainer">
+                        <input class="form-control" type="text" name="beverageNames[]">
+                    </div>
+                </div>
+
+
                 <div class="row justify-content-center">
                     <div class="col-sm-4 d-grid p-2 m-2">
                         <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Submit</button>
@@ -96,6 +117,8 @@
 
 </div>
 
+<script th:src="@{/scripts/addbev.js}"></script>
+<script th:src="@{/scripts/removebev.js}"></script>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

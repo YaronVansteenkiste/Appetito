@@ -2,6 +2,7 @@ package be.thomasmore.appetito.controllers.modify;
 
 
 import be.thomasmore.appetito.model.*;
+import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.repositories.StepRepository;
 import be.thomasmore.appetito.services.GoogleService;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,6 +41,9 @@ public class DishModifyController {
 
     @Autowired
     StepRepository stepRepository;
+
+    @Autowired
+    BeverageRepository beverageRepository;
 
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
@@ -129,6 +134,8 @@ public class DishModifyController {
     public String createDish(Model model,
                              @Valid DishDto dishDto,
                              @RequestParam(required = false) MultipartFile image,
+                             @RequestParam("beverageNames[]") List<String> beverageNames,
+                             @RequestParam("beverageImages[]") List<MultipartFile> beverageImages,
                              BindingResult bindingResult) throws IOException {
 
         Dish dish = new Dish();
@@ -142,10 +149,27 @@ public class DishModifyController {
             dish.setImgFileName(uploadImage(image));
         }
 
+        List<Beverage> beverages = new ArrayList<>();
+
+        for (int i = 0; i < beverageNames.size(); i++) {
+            String beverageName = beverageNames.get(i);
+            MultipartFile beverageImage = beverageImages.get(i);
+
+            Beverage beverage = new Beverage();
+            beverage.setName(beverageName);
+
+            if (beverageImage != null && !beverageImage.isEmpty()) {
+                beverage.setImgFile(uploadBevImage(beverageImage));
+            }
+
+            beverages.add(beverage);
+        }
 
         dishRepository.save(dish);
         return "redirect:/dishes";
     }
+
+
 
     @GetMapping("/editingredients/{id}")
     public String showIngredients(Model model, @PathVariable("id") Integer id) {
@@ -314,4 +338,76 @@ public class DishModifyController {
         return urlInFirebase;
     }
 
+    @GetMapping("/editbeverage/{id}")
+    public String editBeverages(Model model, @PathVariable("id") Integer id) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+        Collection<Beverage> beverage = optionalDish.get().getBeverages();
+        model.addAttribute("beverage", beverage);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+
+            model.addAttribute("dish", dish);
+            return "modify/editbeverage";
+        } else {
+            return "redirect:/modify/dishedit/" + id;
+        }
+    }
+
+
+    @PostMapping("/editbeverage/saveAll")
+    @Transactional
+    public String saveAllBeverages(@RequestParam("id") Integer id,
+                                   @RequestParam("name") List<String> names,
+                                   @RequestParam("imageFiles") List<MultipartFile> imageFiles) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
+
+            for (int i = 0; i < beverages.size(); i++) {
+                Beverage beverage = beverages.get(i);
+                beverage.setName(names.get(i));
+
+                MultipartFile imageFile = imageFiles.get(i);
+
+                try {
+
+                    System.out.println("beverage: " + beverage.getName());
+                    if (imageFile != null) {
+                        System.out.println("Image file name: " + imageFile.getOriginalFilename());
+                        System.out.println("Image file size: " + imageFile.getSize());
+                    } else {
+                        System.out.println("Image file is null");
+                    }
+
+                    if (imageFile != null && !imageFile.isEmpty()) {
+
+                        beverage.setImgFile(null);
+
+                        beverage.setImgFile(uploadBevImage(imageFile));
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                beverageRepository.save(beverage);
+            }
+            dishRepository.save(dish);
+        }
+        return "redirect:/modify/dishedit/" + id;
+    }
+
+
+
+    private String uploadBevImage(MultipartFile multipartFile) throws IOException {
+        final String filename = multipartFile.getOriginalFilename();
+        final File fileToUpload = new File(filename);
+        FileOutputStream fos = new FileOutputStream(fileToUpload);
+        fos.write(multipartFile.getBytes());
+        final String urlInFirebase = googleService.toFirebase(fileToUpload, filename);
+        fileToUpload.delete();
+        return urlInFirebase;
+    }
 }

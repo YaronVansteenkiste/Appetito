@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Collection;
 @Entity
 
 public class Chef {
@@ -28,6 +29,9 @@ public class Chef {
 
     @OneToMany(mappedBy = "chef")
     private Collection<Grocery> groceries;
+
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Collection<Beverage> beverage;
 
 
     public Chef() {
@@ -97,4 +101,11 @@ public class Chef {
         this.dishes = dishes;
     }
 
+    public Collection<Beverage> getBeverage() {
+        return beverage;
+    }
+
+    public void setBeverage(Collection<Beverage> beverage) {
+        this.beverage = beverage;
+    }
 }
