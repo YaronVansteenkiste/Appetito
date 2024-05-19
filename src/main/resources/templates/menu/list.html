@@ -16,7 +16,7 @@
 <body>
 <h6 class="mt-3 ms-2">
     <a href="/" class="text-decoration-none">Home</a> >
-    <a>Menus</a>
+    <a>Menu's</a>
 </h6>
 <div class="container">
     <div class="row">
@@ -40,14 +40,17 @@
                 <div class="row">
                     <div class="col-4 g-2" th:each="menu : ${menus}">
                         <div class="card h-100">
-                            <form th:action="@{'/menu/delete/' + ${menu.getId()}}" method="post">
-    <button type="submit" class="btn btn-danger">
-        <i class="fas fa-trash"></i>
-    </button>
-</form>
-                            <div class="row">
-                                <img th:src="${!menu.getDishes().isEmpty() ? menu.getDishes().get(0).getImgFileName() : '/img/Empty_plate.png'}"
-                                     class="card-img-top" alt="...">
+                            <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/menu/delete/' + ${menu.getId()}}" method="post">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            <div class="row h-100">
+                                <div th:each="dish, stat : ${menu.getDishes()}" th:if="${stat.count <= 4}"
+                                     th:class="${#lists.size(menu.getDishes()) == 1} ? 'col-12' : ((${#lists.size(menu.getDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">
+                                    <img alt="dish image" class="card-img-top img-fluid h-100 object-fit-cover"
+                                         th:src="${dish.getImgFileName()}">
+                                </div>
                             </div>
                             <div class="card-body">
                                 <h5 th:text="${menu.getName()}" class="card-title"></h5>

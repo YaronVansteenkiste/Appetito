@@ -35,6 +35,8 @@ public class MenuController {
     public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal, RedirectAttributes redirectAttributes) {
 
         Chef chef = chefRepository.findByUsername(principal.getName());
+        Dish dish = dishRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + id));
         Iterable<Menu> menusOfChef = menuRepository.findByChef(chef);
 
         if (chef == null) {
@@ -46,6 +48,7 @@ public class MenuController {
         }
         model.addAttribute("dishId", id);
         model.addAttribute("menus", menusOfChef);
+        model.addAttribute("dish", dish);
 
 
         return "/menu/select";
