@@ -289,8 +289,14 @@ public class DishModifyController {
     @PostMapping("/editsteps/{id}")
     @Transactional
     public String editSteps(@PathVariable("id") Integer id,
-                            @ModelAttribute("stepListWrapper") StepListWrapper wrapper) throws IOException {
+                            @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
+                            Model model) throws IOException {
         List<Step> currentSteps = wrapper.getSteps();
+
+        if (currentSteps == null || currentSteps.isEmpty()) {
+            model.addAttribute("error", "Er moet minimaal één stap worden toegevoegd.");
+            return "modify/editsteps";
+        }
 
         for (Step step : currentSteps) {
             MultipartFile imageFile = step.getImageFile();

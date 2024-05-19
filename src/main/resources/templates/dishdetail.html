@@ -39,7 +39,7 @@
                     <strong th:text="${dish.name}">Dish Name</strong>
 
                 </h2>
-                <a th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
                 <h4>Gelegenheid</h4>
                 <p th:text="${dish.occasion}"></p>
 
