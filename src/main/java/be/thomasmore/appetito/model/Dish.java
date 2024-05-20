@@ -17,11 +17,12 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private String dietPreferences;
+
+    private List<String> dietPreferences;
 
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
-    private String occasion;
+    private List<String> occasion;
     private String imgFileName;
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
@@ -69,20 +70,19 @@ public class Dish {
         this.name = name;
     }
 
-    public String getDietPreferences() {
+    public List<String> getDietPreferences() {
         return dietPreferences;
     }
 
-    public void setDietPreferences(String dietPreferences) {
+    public void setDietPreferences(List<String> dietPreferences) {
         this.dietPreferences = dietPreferences;
     }
 
-
-    public String getOccasion() {
+    public List<String> getOccasion() {
         return occasion;
     }
 
-    public void setOccasion(String occasion) {
+    public void setOccasion(List<String> occasion) {
         this.occasion = occasion;
     }
 
