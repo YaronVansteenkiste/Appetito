@@ -755,7 +755,7 @@ INSERT INTO MENU (NAME, chef_id)
 VALUES ('Kerstmenu', 2),
        ('Paasmenu', 2);
 
-INSERT INTO MENU_DISHES (menus_id, dishes_id)
+INSERT INTO MENU_DISHES (menu_id, dishes_id)
 VALUES (1, 2),
        (1, 3),
        (1, 4),

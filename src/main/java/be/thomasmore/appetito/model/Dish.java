@@ -165,4 +165,12 @@ public class Dish {
     public void setFavoritedByChefs(Collection<Chef> favoritedByChefs) {
         this.favoritedByChefs = favoritedByChefs;
     }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }
