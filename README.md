@@ -1,7 +1,7 @@
 # Appetito
 
 <p align="center">
-  <img src="https://github.com/YaronVansteenkiste/Appetito/blob/master/src/main/resources/static/img/Appetito_logo.png?raw=true" alt="Appetito spotlight">
+  <img style="width: 200px;" src="https://github.com/YaronVansteenkiste/Appetito/blob/master/src/main/resources/static/img/Appetito_logo.png?raw=true" alt="Appetito spotlight">
 </p>
 
 Welcome to Appetito, your go-to application for culinary adventures! Whether you're in search of new recipes, need help finding ingredients, or want to share your own culinary creations, Appetito has got you covered. Plus, with the Errandslist feature, managing your grocery shopping has never been easier!
