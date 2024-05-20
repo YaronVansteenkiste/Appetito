@@ -1,8 +1,10 @@
 package be.thomasmore.appetito.controllers.admin;
 
+import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.model.Footer;
+import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.repositories.FooterRepository;
@@ -25,6 +27,9 @@ public class AdminController {
 
     @Autowired
     private FooterRepository footerRepository;
+
+    @Autowired
+    private BeverageRepository beverageRepository;
 
 
     @GetMapping("/")
@@ -60,5 +65,13 @@ public class AdminController {
         Optional<Footer> footer = footerRepository.findById(1);
         footer.ifPresent(value -> model.addAttribute("footer", value));
         return "admin/editfooter";
+    }
+
+    @PostMapping("/toggle/beverage/{id}")
+    public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active){
+        Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
+        beverage.setActive(active);
+        beverageRepository.save(beverage);
+        return "redirect:/dishdetails/" + id;
     }
 }

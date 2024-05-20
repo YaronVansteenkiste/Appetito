@@ -51,14 +51,15 @@ public class DishesController {
         int totalPages = dishesPage.getTotalPages();
         List<Dish> dishes = dishesPage.getContent();
         model.addAttribute("dishesPage", dishesPage.getContent());
-        model.addAttribute("currentPage", 0);
+        model.addAttribute("currentPage", page);
         model.addAttribute("count", totalDishes);
         model.addAttribute("filterEnabled", filterEnabled);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("hasPrevious", false);
+        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
         model.addAttribute("hasNext", dishesPage.hasNext());
         model.addAttribute("alldishes", dishes);
         return "dishes";
+
     }
 
 
@@ -76,7 +77,6 @@ public class DishesController {
                                @RequestParam(required = false) String dietPreferences,
                                @RequestParam(required = false) String minPreparationTimeStr,
                                @RequestParam(required = false) String maxPreparationTimeStr,
-                               @RequestParam(required = false) String preparation,
                                @RequestParam(required = false) String occasion,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs,
@@ -92,8 +92,7 @@ public class DishesController {
                                @RequestParam(required = false) Integer maxFat,
                                @RequestParam(required = false) Integer minProteins,
                                @RequestParam(required = false) Integer maxProteins,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size) {
+                               @RequestParam(defaultValue = "0") int page) {
         String dietPreferenceStr = "";
         String occasionStr = "";
         if (dietPreferences != null) {
@@ -119,7 +118,7 @@ public class DishesController {
         }
 
 
-        int pageSize = size;
+        int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         logger.info("pageable: " + pageable);
         Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,

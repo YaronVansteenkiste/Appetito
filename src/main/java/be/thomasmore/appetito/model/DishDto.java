@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
+import java.util.List;
 
 
 public class DishDto {
@@ -22,7 +23,7 @@ public class DishDto {
     private Time preparationTime;
     @NotEmpty(message = "Gelegenheid is vereist")
     private String occasion ;
-   
+
 
 
     public DishDto() {

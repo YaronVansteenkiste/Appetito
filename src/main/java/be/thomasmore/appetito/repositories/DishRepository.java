@@ -31,7 +31,7 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
 
 
-@Query("select d from Dish d inner join d.nutritions n where " +
+@Query("select d from Dish d left join d.nutritions n where " +
         "(coalesce(:dietPreferences, '') = '' or d.dietPreferences = :dietPreferences) and " +
         "(coalesce(:minPreparationTime, '00:00:00') = '00:00:00' or d.preparationTime >= :minPreparationTime) and " +
         "(coalesce(:maxPreparationTime, '00:00:00') = '00:00:00' or d.preparationTime <= :maxPreparationTime) and " +

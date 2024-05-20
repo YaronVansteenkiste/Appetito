@@ -32,6 +32,9 @@ public class Chef {
     @ManyToMany(mappedBy = "chefs")
     private Collection<Dish> favoriteDishes;
 
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Collection<Beverage> beverage;
+
 
     public Chef() {
     }
@@ -107,5 +110,12 @@ public class Chef {
 
     public void setFavoriteDishes(Collection<Dish> favoriteDishes) {
         this.favoriteDishes = favoriteDishes;
+    }
+    public Collection<Beverage> getBeverage() {
+        return beverage;
+    }
+
+    public void setBeverage(Collection<Beverage> beverage) {
+        this.beverage = beverage;
     }
 }

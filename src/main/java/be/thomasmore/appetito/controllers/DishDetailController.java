@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import be.thomasmore.appetito.model.Beverage;
+import be.thomasmore.appetito.repositories.ChefRepository;
+import be.thomasmore.appetito.repositories.DishRepository;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -32,6 +35,9 @@ public class DishDetailController<ToggleRequest> {
 
     @Autowired
     private StepRepository stepRepository;
+
+    @Autowired
+    private BeverageRepository beverageRepository;
 
     @GetMapping({"/dishdetails/{id}", "/dishdetails"})
     public String dishDetail(Model model, @PathVariable(required = false) Integer id) {
@@ -138,6 +144,16 @@ public class DishDetailController<ToggleRequest> {
             groceryRepository.save(grocery);
         }
         return "redirect:/groceries/";
+    }
+
+    @PostMapping("/toggle/beverage/{id}")
+    public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active) {
+        Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
+        beverage.setActive(active);
+        beverageRepository.save(beverage);
+
+        int dishId = beverage.getDishes().iterator().next().getId();
+        return "redirect:/dishdetails/" + dishId;
     }
 
 }
