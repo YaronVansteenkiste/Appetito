@@ -373,41 +373,36 @@ public class DishModifyController {
 
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
-            List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
+            List<Beverage> beverages = new ArrayList<>();
 
-            for (int i = 0; i < beverages.size(); i++) {
-                Beverage beverage = beverages.get(i);
-                beverage.setName(names.get(i));
-
+            for (int i = 0; i < names.size(); i++) {
+                String name = names.get(i);
                 MultipartFile imageFile = imageFiles.get(i);
 
+                Beverage beverage = new Beverage();
+                beverage.setName(name);
+
                 try {
-
-                    System.out.println("beverage: " + beverage.getName());
-                    if (imageFile != null) {
-                        System.out.println("Image file name: " + imageFile.getOriginalFilename());
-                        System.out.println("Image file size: " + imageFile.getSize());
-                    } else {
-                        System.out.println("Image file is null");
-                    }
-
                     if (imageFile != null && !imageFile.isEmpty()) {
-
-                        beverage.setImgFile(null);
-
                         beverage.setImgFile(uploadBevImage(imageFile));
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                beverageRepository.save(beverage);
+                beverages.add(beverage);
             }
+
+            beverageRepository.saveAll(beverages);
+
+            // Update the dish's list of beverages
+            dish.setBeverages(beverages);
             dishRepository.save(dish);
         }
+
         return "redirect:/modify/dishedit/" + id;
     }
+
 
 
 
