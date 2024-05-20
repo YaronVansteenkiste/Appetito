@@ -32,10 +32,10 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
 
 @Query("select d from Dish d left join d.nutritions n where " +
-        "(coalesce(:dietPreferences, '') = '' or d.dietPreferences = :dietPreferences) and " +
+        "(coalesce(:dietPreferences, '') = '' or d.dietPreferences IN :dietPreferences) and " +
         "(coalesce(:minPreparationTime, '00:00:00') = '00:00:00' or d.preparationTime >= :minPreparationTime) and " +
         "(coalesce(:maxPreparationTime, '00:00:00') = '00:00:00' or d.preparationTime <= :maxPreparationTime) and " +
-        "(coalesce(:occasion, '') = '' or d.occasion = :occasion) and " +
+        "(coalesce(:occasion, '') = '' or d.occasion IN :occasion) and " +
         "(coalesce(:minCarbs, 0) = 0 or n.carbs >= :minCarbs) and " +
         "(coalesce(:maxCarbs, 0) = 0 or n.carbs <= :maxCarbs) and " +
         "(coalesce(:minFiber, 0) = 0 or n.fiber >= :minFiber) and " +
@@ -51,10 +51,10 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
         "(coalesce(:minProteins, 0) = 0 or n.proteins >= :minProteins) and " +
         "(coalesce(:maxProteins, 0) = 0 or n.proteins <= :maxProteins) and " +
         "d.active = true")
-Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
+Page<Dish> findFilteredDishes(@Param("dietPreferences") List <String> dietPreferences,
                               @Param("minPreparationTime") Time minPreparationTime,
                               @Param("maxPreparationTime") Time maxPreparationTime,
-                              @Param("occasion") String occasion,
+                              @Param("occasion") List <String> occasion,
                               @Param("minCarbs") Integer minCarbs,
                               @Param("maxCarbs") Integer maxCarbs,
                               @Param("minFiber") Integer minFiber,

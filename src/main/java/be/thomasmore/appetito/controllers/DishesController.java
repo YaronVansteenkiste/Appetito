@@ -79,10 +79,10 @@ public class DishesController {
 
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model,
-                               @RequestParam(required = false) String dietPreferences,
+                               @RequestParam(required = false) List<String> dietPreferences,
                                @RequestParam(required = false) String minPreparationTimeStr,
                                @RequestParam(required = false) String maxPreparationTimeStr,
-                               @RequestParam(required = false) String occasion,
+                               @RequestParam(required = false) List<String> occasion,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs,
                                @RequestParam(required = false) Integer minFiber,
@@ -101,10 +101,10 @@ public class DishesController {
         String dietPreferenceStr = "";
         String occasionStr = "";
         if (dietPreferences != null) {
-            dietPreferenceStr = dietPreferences;
+            dietPreferenceStr = dietPreferences.toString();
         }
         if (occasion != null) {
-            occasionStr = occasion;
+            occasionStr = occasion.toString();
         }
 
         Time minPreparationTime = null;
@@ -126,11 +126,14 @@ public class DishesController {
         int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         logger.info("pageable: " + pageable);
+
         Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
                 occasion, minCarbs, maxCarbs, minFiber,
                 maxFiber, minSalt, maxSalt, minSugar, maxSugar,
                 minSaturatedFat, maxSaturatedFat, minFat, maxFat,
                 minProteins, maxProteins, pageable);
+
+
 
 
         boolean filterEnabled = true;
