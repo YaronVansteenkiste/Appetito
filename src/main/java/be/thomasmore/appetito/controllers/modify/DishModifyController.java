@@ -126,7 +126,6 @@ public class DishModifyController {
     public String showCreateDish(Model model) {
         DishDto dishDto = new DishDto();
         model.addAttribute("dishDto", dishDto);
-
         return "modify/addmeal";
     }
 
@@ -170,7 +169,8 @@ public class DishModifyController {
         dish.setBeverages(beverages);
 
         dishRepository.save(dish);
-        return "redirect:/dishes";
+//        return "redirect:/dishes";
+        return "redirect:/modify/editsteps/" + dish.getId();
     }
 
 
@@ -337,6 +337,7 @@ public class DishModifyController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();
