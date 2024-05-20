@@ -44,6 +44,8 @@ public class Dish {
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
+    @ManyToMany(mappedBy = "favoriteDishes")
+    private Collection<Chef> favoritedByChefs;
 
     public Dish() {
         this.active=true;
@@ -154,5 +156,13 @@ public class Dish {
 
     public void setChefs(Collection<Chef> chefs) {
         this.chefs = chefs;
+    }
+
+    public Collection<Chef> getFavoritedByChefs() {
+        return favoritedByChefs;
+    }
+
+    public void setFavoritedByChefs(Collection<Chef> favoritedByChefs) {
+        this.favoritedByChefs = favoritedByChefs;
     }
 }

@@ -3,15 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
         heart.addEventListener('click', function() {
             const statusText = heart.nextElementSibling;
             const dishId = heart.getAttribute('data-dish-id');
-            const chefId = /* get this dynamically if needed */ 1;
+            const chefId = 1;
             const action = heart.classList.contains('text-danger') ? 'remove' : 'add';
+
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 
             fetch('/add-favorite', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
                 },
-                body: new URLSearchParams({
+                body: JSON.stringify({
                     favoriteDishesId: dishId,
                     chefId: chefId,
                     action: action

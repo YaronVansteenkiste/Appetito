@@ -591,20 +591,9 @@ VALUES
     (20,2),
     (20,8);
 
-INSERT INTO DISH_CHEFS (FAVORITE_DISHES_ID, CHEFS_ID)
+    INSERT INTO FAVORITE_DISHES (DISH_ID, CHEF_ID)
 VALUES
-(1, 1),
-(3, 1),
-(4, 1),
-(6, 1),
-(8, 1),
-(9, 1),
-(11, 1),
-(13, 1),
-(14, 1),
-(16, 1),
-(18, 1),
-(19, 1);
+(1, 1);
 
 
 
