@@ -19,6 +19,7 @@ function addBev() {
 
 
 document.querySelector('input[type="button"]').addEventListener('click', addDrink);
+
 function addDrink() {
     let cardContainer = document.getElementById("cardContainer").getElementsByClassName("row justify-content-center")[0];
 
@@ -41,7 +42,12 @@ function addDrink() {
                     <input type="file" class="form-control" name="imageFiles" accept="image/*">
                 </div>
             </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-warning" onclick="toggleInactive(this)">Actief</button>
+            </div>
         </article>
     `;
     cardContainer.appendChild(card);
 }
+
+

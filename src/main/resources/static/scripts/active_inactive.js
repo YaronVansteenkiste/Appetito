@@ -4,7 +4,7 @@ function toggleInactive(button) {
     if (isActive) {
         let originalContent = card.innerHTML;
 
-        card.innerHTML = '<div class="card-body"><p class="text-muted">This drink is inactive</p><button type="button" class="btn btn-success" onclick="toggleInactive(this)">Reactivate</button></div>';
+        card.innerHTML = '<div class="card-body"><p class="text-muted">Drank onbeschikbaar</p><button type="button" class="btn btn-success" onclick="toggleInactive(this)">Inactief</button></div>';
         card.classList.add('inactive');
 
         card.dataset.originalContent = originalContent;
