@@ -7,12 +7,6 @@ function removeBev() {
 
     let beverageCount = textInputs.length;
 
-    if (beverageCount <= 1) {
-        alert("You must have at least one beverage.");
-        return;
-    }
-
-
     textContainer.removeChild(textInputs[textInputs.length - 1]);
 
     imageContainer.removeChild(imageInputs[imageInputs.length - 1]);
