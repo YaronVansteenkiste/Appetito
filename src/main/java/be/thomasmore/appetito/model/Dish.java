@@ -27,6 +27,9 @@ public class Dish {
 
     private Boolean active = true;
 
+    @ManyToMany
+    private Collection<Chef> chefs;
+
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
 
@@ -135,23 +138,19 @@ public class Dish {
         this.chef = chef;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
-    @ManyToMany(mappedBy = "dishes")
-    private Collection<Menu> menus;
-
-    public Collection<Menu> getMenus() {
-        return menus;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
-    public void setMenus(Collection<Menu> menus) {
-        this.menus = menus;
+    public Collection<Chef> getChefs() {
+        return chefs;
     }
 
-
+    public void setChefs(Collection<Chef> chefs) {
+        this.chefs = chefs;
+    }
 }

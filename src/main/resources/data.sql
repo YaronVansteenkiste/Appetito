@@ -1,6 +1,7 @@
 ALTER TABLE Dish
     ALTER COLUMN ACTIVE SET DEFAULT TRUE;
 
+
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
 VALUES (
            'pasta alfredo met kip',
@@ -588,6 +589,23 @@ VALUES
     (20,11),
     (20,2),
     (20,8);
+
+INSERT INTO DISH_CHEFS (FAVORITE_DISHES_ID, CHEFS_ID)
+VALUES
+(1, 1),
+(3, 1),
+(4, 1),
+(6, 1),
+(8, 1),
+(9, 1),
+(11, 1),
+(13, 1),
+(14, 1),
+(16, 1),
+(18, 1),
+(19, 1);
+
+
 
 
 
