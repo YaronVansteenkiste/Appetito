@@ -149,31 +149,31 @@
                     <hr>
                     <h6><strong>Gelegenheid</strong></h6>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('ontbijt')}" class="form-check-input" type="checkbox"
+                        <input th:checked="${occasion == 'ontbijt'}" class="form-check-input" type="checkbox"
                                name="occasion" value="ontbijt" id="occasionBreakfast">
                         <label class="form-check-label" for="occasionBreakfast"> Ontbijt
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('middagmaal')}" class="form-check-input" type="checkbox"
+                        <input th:checked="${occasion == 'middagmaal'}" class="form-check-input" type="checkbox"
                                name="occasion" value="middagmaal" id="occasionLunch">
                         <label class="form-check-label" for="occasionLunch"> Middagmaal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('snacks')}" class="form-check-input" type="checkbox"
+                        <input th:checked="${occasion == 'snacks'}" class="form-check-input" type="checkbox"
                                name="occasion" value="snacks" id="occasionSnacks">
                         <label class="form-check-label" for="occasionSnacks"> Snacks
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('avondmaal')}" class="form-check-input" type="checkbox"
+                        <input th:checked="${occasion == 'avondmaal'}" class="form-check-input" type="checkbox"
                                name="occasion" value="avondmaal" id="occasionDinner">
                         <label class="form-check-label" for="occasionDinner"> Avondmaal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('dessert')}" class="form-check-input" type="checkbox"
+                        <input th:checked="${occasion == 'dessert'}" class="form-check-input" type="checkbox"
                                name="occasion" value="dessert" id="occasionDessert">
                         <label class="form-check-label" for="occasionDessert"> Dessert
                         </label>

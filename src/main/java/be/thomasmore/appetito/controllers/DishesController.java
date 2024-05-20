@@ -135,7 +135,6 @@ public class DishesController {
 
 
 
-
         boolean filterEnabled = true;
         model.addAttribute("dietPreferences", dietPreferenceStr);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
