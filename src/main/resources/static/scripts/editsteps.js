@@ -2,6 +2,7 @@ function addStep() {
     const table = document.querySelector("table");
 
     const row = document.createElement("tr");
+    const tableBody = document.createElement("tbody");
     row.dataset.id = table.rows.length;
 
     const descriptionCell = document.createElement("td");
@@ -30,17 +31,19 @@ function addStep() {
     const deleteCell = document.createElement("td");
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
-    deleteButton.className = "btn btn-danger";
+    deleteButton.className = "btn btn-outline-danger";
     deleteButton.textContent = "Delete";
-    deleteButton.onclick = function() {
-        deleteStep(row.dataset.id);
-    };
+    deleteButton.addEventListener('click', function() {
+        row.remove();
+    });
     deleteCell.appendChild(deleteButton);
 
     row.appendChild(descriptionCell);
     row.appendChild(deleteCell);
 
-    table.appendChild(row);
+    tableBody.appendChild(row)
+
+    table.appendChild(tableBody);
 
     imageInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
