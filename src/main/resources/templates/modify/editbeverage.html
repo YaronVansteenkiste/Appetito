@@ -16,8 +16,16 @@
 
 <main class="container">
 
+
     <div class="row justify-content-center" id="cardContainer">
         <form method="post" th:action="@{/modify/editbeverage/saveAll}" enctype="multipart/form-data">
+
+            <div class="row justify-content-end mb-1">
+                <div class="col-2 text-end">
+                    <input class="form-control btn btn-outline-primary" onclick="addDrink" type="button" value="+">
+                </div>
+            </div>
+
             <input type="hidden" name="id" th:value="${dish.id}">
             <div class="row justify-content-center">
                 <div class="col-lg-4 text-center mt-3" th:each="beverage: ${dish.getBeverages()}">
@@ -56,6 +64,8 @@
         </div>
     </div>
 </main>
+
+<script th:src="@{/scripts/addbev.js}"></script>
 
 <footer th:replace="~{fragments/footer :: footer}">Info-Footer</footer>
 </body>
