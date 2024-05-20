@@ -38,7 +38,7 @@
                             <img class="stepImagePreview img-fluid w-25" th:src="${step.getImage()}"/>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger"
+                            <button type="button" class="btn btn-outline-danger"
                                     th:onclick="'deleteStep('+*{steps[__${stat.index}__].id}+')'">Delete
                             </button>
                         </td>
