@@ -155,4 +155,12 @@ public class Dish {
     public void setChefs(Collection<Chef> chefs) {
         this.chefs = chefs;
     }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
 }
