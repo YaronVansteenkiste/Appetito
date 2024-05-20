@@ -46,6 +46,13 @@ public class AdminController {
         return "admin/users";
     }
 
+    @GetMapping("/beverage")
+    public String beverage(Model model){
+        Iterable<Beverage> beverages = beverageRepository.findAll();
+        model.addAttribute("beverages", beverages);
+        return "admin/beverage";
+    }
+
     @PostMapping("/toggle/dish/{id}")
     public String updateDishToggleState(@PathVariable("id") int id, @RequestParam boolean active) {
         Dish dish = dishRepository.findById(id).orElseThrow(() -> new IllegalStateException("Dish not found"));
