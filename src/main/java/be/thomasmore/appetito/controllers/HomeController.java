@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.File;
 import java.security.Principal;
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,25 @@ public class HomeController {
                 .orElse(0)
                 : null;
 
+        LocalTime now = LocalTime.now();
+        String message;
+        int hour = now.getHour();
+
+        if (hour < 5){
+            message = "Goedenacht";
+        }
+        else if (hour < 12){
+            message = "Goedemorgen, Hier is een suggestie van de lekkerste ontbijten";
+        }
+        else if (hour < 17){
+            message = "Goedemiddag, Hier is een suggestie van de lekkerste middagmalen";
+        }
+        else {
+            message = "Goedeavond, Hier is een suggestie van de lekkerste avondmalen";
+
+        }
+
+        model.addAttribute("message",message);
         model.addAttribute("loginName", loginName);
         model.addAttribute("topRatedDish", topRatedDish);
         model.addAttribute("topRatedDishAverageRating", topRatedDishAverageRating);
