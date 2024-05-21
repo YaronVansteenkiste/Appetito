@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.File;
 import java.security.Principal;
 import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -87,7 +86,8 @@ public class HomeController {
             message += "";
         }
 
-        List <Dish> dishes = dishRepository.findByOccasion(occasion, PageRequest.of(0,3));
+        List <Dish> dishes = dishRepository.findRandomDishesByOccasion(occasion);
+
         model.addAttribute("message",message);
         model.addAttribute("dishes",dishes);
         model.addAttribute("suggestion",suggestion);

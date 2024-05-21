@@ -84,5 +84,6 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
 
     List<Dish> findByChefId(int chef_id);
 
-    List<Dish> findByOccasion(String occasion, PageRequest of);
+    @Query(value = "SELECT * FROM Dish WHERE occasion = ?1 ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    List<Dish> findRandomDishesByOccasion(String occasion);
 }
