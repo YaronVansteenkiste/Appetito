@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -83,9 +83,9 @@ public class DishModifyController {
     }
 
     @PostMapping("/dishedit/{id}")
-    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto,
+    public String dishEditPost(@Valid @ModelAttribute DishDto dishDto, BindingResult result,
                                @RequestParam(required = false) MultipartFile image,
-                               BindingResult result, @PathVariable int id, Model model) {
+                               @PathVariable int id, Model model) {
 
         logger.debug("posting data for id {}", id);
 
@@ -93,7 +93,6 @@ public class DishModifyController {
             logger.error("validation errors: {}", result.getAllErrors());
 
             model.addAttribute("dishDto", dishDto);
-            model.addAttribute("bindingResult", result);
             return "modify/dishedit";
         }
 
@@ -131,21 +130,24 @@ public class DishModifyController {
 
     @PostMapping("/addmeal")
     public String createDish(Model model,
-                             @Valid DishDto dishDto,
-                             @RequestParam(required = false) MultipartFile image,
+                             @Valid @ModelAttribute DishDto dishDto,
+                             BindingResult bindingResult,
                              @RequestParam("beverageNames[]") List<String> beverageNames,
-                             @RequestParam("beverageImages[]") List<MultipartFile> beverageImages,
-                             BindingResult bindingResult) throws IOException {
+                             @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("dishDto", dishDto);
+            return "modify/addmeal";
+        }
 
         Dish dish = new Dish();
-
-
         dish.setName(dishDto.getName());
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparationTime(dishDto.getPreparationTime());
-        if (image != null && !image.isEmpty()) {
-            dish.setImgFileName(uploadImage(image));
+
+        if (dishDto.getImage() != null && !dishDto.getImage().isEmpty()) {
+            dish.setImgFileName(uploadImage(dishDto.getImage()));
         }
 
         List<Beverage> beverages = new ArrayList<>();
@@ -165,11 +167,9 @@ public class DishModifyController {
         }
 
         beverageRepository.saveAll(beverages);
-
         dish.setBeverages(beverages);
-
         dishRepository.save(dish);
-//        return "redirect:/dishes";
+
         return "redirect:/modify/editsteps/" + dish.getId();
     }
 
