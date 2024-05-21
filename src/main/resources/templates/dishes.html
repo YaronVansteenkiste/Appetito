@@ -54,7 +54,15 @@
                                             <span class="status-text">Toevoegen</span>
                                         </div>
                                     </form>
-                                    <div class="card-footer">
+                                    <p class="card-text" th:text="${dish.getAverageRating()}"></p>
+                                    <div class="d-inline">
+                                    <span class="far fa-star"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                        </div>
+
                                         <div class="d-grid">
                                             <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
                                                role="button">Ontdek</a>

@@ -173,4 +173,13 @@ public class Dish {
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
     }
+
+    public double getAverageRating(){
+        if (ratings.isEmpty()) return 0;
+        double sum = 0;
+        for (Rating rating : ratings) {
+            sum += rating.getRating();
+        }
+        return sum / ratings.size();
+    }
 }
