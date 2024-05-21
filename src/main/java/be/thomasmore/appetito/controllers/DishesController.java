@@ -139,7 +139,7 @@ public class DishesController {
         model.addAttribute("dietPreferences", dietPreferences);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
         model.addAttribute("maxPreparationTime", maxPreparationTimeStr);
-        model.addAttribute("occasion", occasionStr);
+        model.addAttribute("occasion", occasion);
         model.addAttribute("minCarbs", minCarbs);
         model.addAttribute("maxCarbs", maxCarbs);
         model.addAttribute("minFiber", minFiber);
