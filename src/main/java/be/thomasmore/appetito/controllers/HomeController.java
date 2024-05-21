@@ -33,7 +33,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String Home(Model model, Principal principal) {
-        final String loginName = principal != null ? principal.getName() : "anoniem";
+        final String loginName = principal != null ? principal.getName() : "";
 
         List<Dish> allDishes = (List<Dish>) dishRepository.findAll();
         Optional<Dish> topRatedDishOptional = allDishes.stream()
