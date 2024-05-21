@@ -34,26 +34,11 @@ public class HomeController {
     public String Home(Model model, Principal principal) {
         final String loginName = principal != null ? principal.getName() : "anoniem";
 
-        List<Dish> allDishes = (List<Dish>) dishRepository.findAll();
-        Optional<Dish> topRatedDishOptional = allDishes.stream()
-                .filter(dish -> dish.getRatings() != null && !dish.getRatings().isEmpty())
-                .max(Comparator.comparingDouble(dish -> dish.getRatings().stream()
-                        .mapToInt(Rating::getRating)
-                        .average()
-                        .orElse(0)));
-
-
-        Dish topRatedDish = topRatedDishOptional.orElse(null);
-        Double topRatedDishAverageRating = topRatedDish != null
-                ? topRatedDish.getRatings().stream()
-                .mapToInt(Rating::getRating)
-                .average()
-                .orElse(0)
-                : null;
+        List<Dish> topRatedDishes = dishRepository.findTopDishes();
 
         model.addAttribute("loginName", loginName);
-        model.addAttribute("topRatedDish", topRatedDish);
-        model.addAttribute("topRatedDishAverageRating", topRatedDishAverageRating);
+        model.addAttribute("topRatedDishes", topRatedDishes);
+        model.addAttribute("topRatedDishAverageRating", 5);
         return "home";
     }
 
