@@ -6,7 +6,7 @@ document.querySelectorAll('#ratingForm input[type="radio"]').forEach(function(ra
 
 
 window.onload = function() {
-    const starContainers = document.querySelectorAll('.d-inline');
+    const starContainers = document.querySelectorAll('.rating-box');
 
     starContainers.forEach(container => {
         const rating = Math.round(container.dataset.rating);

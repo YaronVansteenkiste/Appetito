@@ -47,6 +47,14 @@
                                          alt="dish Image" style="height: 200px; object-fit: cover;">
                                     <div class="card-body">
                                         <h5 th:text="${dish.name}" class="card-title"></h5>
+                                        <!--                                        ratings-->
+                                        <div class="d-inline rating-box" th:attr="data-rating=${dish.getAverageRating()}">
+                                            <span class="far fa-star"></span>
+                                            <span class="far fa-star"></span>
+                                            <span class="far fa-star"></span>
+                                            <span class="far fa-star"></span>
+                                            <span class="far fa-star"></span>
+                                        </div>
                                     </div>
                                     <form sec:authorize="hasAuthority('USER')" method="post">
                                         <div class=" mt-3">
@@ -55,217 +63,210 @@
                                             <span class="status-text">Toevoegen</span>
                                         </div>
                                     </form>
-                                    <div class="d-inline" th:attr="data-rating=${dish.getAverageRating()}">
-                                        <span class="far fa-star"></span>
-                                        <span class="far fa-star"></span>
-                                        <span class="far fa-star"></span>
-                                        <span class="far fa-star"></span>
-                                        <span class="far fa-star"></span>
-                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-grid">
+                                            <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                                               role="button">Ontdek</a>
+                                        </div>
 
-                                    <div class="d-grid">
-                                        <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
-                                           role="button">Ontdek</a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="filter col-md-4 ms-2">
-            <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
-               class="btn btn-primary rounded-pill">Open</a>
-            <form th:if="${filterEnabled}">
-                <a th:href="@{/dishes}" type="button" class="btn btn-primary rounded-pill">Sluiten</a>
-                <button type="submit" class="btn btn-outline-primary text-center ">Filter</button>
+            <div class="filter col-md-4 ms-2">
+                <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
+                   class="btn btn-primary rounded-pill">Open</a>
+                <form th:if="${filterEnabled}">
+                    <a th:href="@{/dishes}" type="button" class="btn btn-primary rounded-pill">Sluiten</a>
+                    <button type="submit" class="btn btn-outline-primary text-center ">Filter</button>
 
-                <h6><strong>Dieet voorkeuren</strong></h6>
-                <div class="form-check">
-                    <input th:checked="${dietPreferences.contains('vegan')}" class="form-check-input"
-                           name="dietPreferences" type="checkbox" value="vegan"
-                           id="dietPreferencesVegan">
-                    <label class="form-check-label" for="dietPreferencesVegan"> Vegan
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${dietPreferences.contains('vegetarisch')}" class="form-check-input"
-                           name="dietPreferences" type="checkbox" value="vegetarisch"
-                           id="dietPreferencesVegetarisch">
-                    <label class="form-check-label" for="dietPreferencesVegetarisch"> Vegetarisch
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${dietPreferences.contains('glutenvrij')}" class="form-check-input"
-                           name="dietPreferences" type="checkbox" value="glutenvrij"
-                           id="dietPreferencesGlutenvrij">
-                    <label class="form-check-label" for="dietPreferencesGlutenvrij"> Glutenvrij
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${dietPreferences.contains('paleo')}" class="form-check-input"
-                           name="dietPreferences" type="checkbox" value="paleo"
-                           id="dietPreferencesPaleo">
-                    <label class="form-check-label" for="dietPreferencesPaleo"> Paleo
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${dietPreferences.contains('keto')}" class="form-check-input"
-                           name="dietPreferences" type="checkbox" value="keto"
-                           id="dietPreferencesKeto">
-                    <label class="form-check-label" for="dietPreferencesKeto"> Keto
-                    </label>
-                </div>
-                <hr>
-                <!--                <h6><strong>Beoordeling</strong></h6>-->
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxFiveStars">-->
-                <!--                    <label class="form-check-label" for="checkboxFiveStars"> 5+ sterren-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxFourStars">-->
-                <!--                    <label class="form-check-label" for="checkboxFourStars"> 4+ sterren-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxThreeStars">-->
-                <!--                    <label class="form-check-label" for="checkboxThreeStars"> 3+ sterren-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxTwoStars">-->
-                <!--                    <label class="form-check-label" for="checkboxTwoStars"> 2+ sterren-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxOneStar">-->
-                <!--                    <label class="form-check-label" for="checkboxOneStar"> 1+ sterren-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <h6><strong>Bereidingstijd</strong></h6>
-                <label for="minPreparationTimeStr">Min:</label>
-                <input type="time" name="minPreparationTimeStr" class="form-control border-primary"
-                       id="minPreparationTimeStr"
-                       th:value="${minPreparationTime}" step="1">
-                <label for="maxPreparationTimeStr">Max:</label>
-                <input type="time" name="maxPreparationTimeStr"
-                       class="form-control border-primary" id="maxPreparationTimeStr"
-                       th:value="${maxPreparationTime}" step="1">
-                <hr>
-                <h6><strong>Gelegenheid</strong></h6>
-                <div class="form-check">
-                    <input th:checked="${occasion.contains('ontbijt')}" class="form-check-input" type="checkbox"
-                           name="occasion" value="ontbijt" id="occasionBreakfast">
-                    <label class="form-check-label" for="occasionBreakfast"> Ontbijt
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${occasion.contains('middagmaal')}" class="form-check-input" type="checkbox"
-                           name="occasion" value="middagmaal" id="occasionLunch">
-                    <label class="form-check-label" for="occasionLunch"> Middagmaal
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${occasion.contains('snacks')}" class="form-check-input" type="checkbox"
-                           name="occasion" value="snacks" id="occasionSnacks">
-                    <label class="form-check-label" for="occasionSnacks"> Snacks
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${occasion.contains('avondmaal')}" class="form-check-input" type="checkbox"
-                           name="occasion" value="avondmaal" id="occasionDinner">
-                    <label class="form-check-label" for="occasionDinner"> Avondmaal
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input th:checked="${occasion.contains('dessert')}" class="form-check-input" type="checkbox"
-                           name="occasion" value="dessert" id="occasionDessert">
-                    <label class="form-check-label" for="occasionDessert"> Dessert
-                    </label>
-                </div>
-                <hr>
-                <h6><strong>Koolhydraten</strong></h6>
-                <label for="minCarbs">Min:</label>
-                <input type="number" name="minCarbs" min="0" class="form-control border-primary" id="minCarbs"
-                       th:value="${minCarbs}">
-                <label for="maxCarbs">Max:</label>
-                <input type="number" name="maxCarbs" min="0" class="form-control border-primary" id="maxCarbs"
-                       th:value="${maxCarbs}">
-                <hr>
-                <div class="mt-3">
-                    <h6><strong>Vezel</strong></h6>
-                    <label for="minFiber">Min:</label>
-                    <input type="number" name="minFiber" min="0" class="form-control border-primary" id="minFiber"
-                           th:value="${minFiber}">
-                    <label for="maxFiber">Max:</label>
-                    <input type="number" name="maxFiber" min="0" class="form-control border-primary" id="maxFiber"
-                           th:value="${maxFiber}">
-                </div>
-                <hr>
-                <div class="mt-3">
-                    <h6><strong>Zout</strong></h6>
-                    <label for="minSalt">Min:</label>
-                    <input type="number" name="minSalt" min="0" class="form-control border-primary" id="minSalt"
-                           th:value="${minSalt}">
-                    <label for="maxSalt">Max:</label>
-                    <input type="number" name="maxSalt" min="0" class="form-control border-primary" id="maxSalt"
-                           th:value="${maxSalt}">
-                </div>
-                <hr>
-                <div class="mt-3">
-                    <h6><strong>Suiker</strong></h6>
-                    <label for="minSugar">Min:</label>
-                    <input type="number" name="minSugar" min="0" class="form-control border-primary" id="minSugar"
-                           th:value="${minSugar}">
-                    <label for="maxSugar">Max:</label>
-                    <input type="number" name="maxSugar" min="0" class="form-control border-primary" id="maxSugar"
-                           th:value="${maxSugar}">
-                </div>
-                <hr>
+                    <h6><strong>Dieet voorkeuren</strong></h6>
+                    <div class="form-check">
+                        <input th:checked="${dietPreferences.contains('vegan')}" class="form-check-input"
+                               name="dietPreferences" type="checkbox" value="vegan"
+                               id="dietPreferencesVegan">
+                        <label class="form-check-label" for="dietPreferencesVegan"> Vegan
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${dietPreferences.contains('vegetarisch')}" class="form-check-input"
+                               name="dietPreferences" type="checkbox" value="vegetarisch"
+                               id="dietPreferencesVegetarisch">
+                        <label class="form-check-label" for="dietPreferencesVegetarisch"> Vegetarisch
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${dietPreferences.contains('glutenvrij')}" class="form-check-input"
+                               name="dietPreferences" type="checkbox" value="glutenvrij"
+                               id="dietPreferencesGlutenvrij">
+                        <label class="form-check-label" for="dietPreferencesGlutenvrij"> Glutenvrij
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${dietPreferences.contains('paleo')}" class="form-check-input"
+                               name="dietPreferences" type="checkbox" value="paleo"
+                               id="dietPreferencesPaleo">
+                        <label class="form-check-label" for="dietPreferencesPaleo"> Paleo
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${dietPreferences.contains('keto')}" class="form-check-input"
+                               name="dietPreferences" type="checkbox" value="keto"
+                               id="dietPreferencesKeto">
+                        <label class="form-check-label" for="dietPreferencesKeto"> Keto
+                        </label>
+                    </div>
+                    <hr>
+                    <!--                <h6><strong>Beoordeling</strong></h6>-->
+                    <!--                <div class="form-check">-->
+                    <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxFiveStars">-->
+                    <!--                    <label class="form-check-label" for="checkboxFiveStars"> 5+ sterren-->
+                    <!--                    </label>-->
+                    <!--                </div>-->
+                    <!--                <div class="form-check">-->
+                    <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxFourStars">-->
+                    <!--                    <label class="form-check-label" for="checkboxFourStars"> 4+ sterren-->
+                    <!--                    </label>-->
+                    <!--                </div>-->
+                    <!--                <div class="form-check">-->
+                    <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxThreeStars">-->
+                    <!--                    <label class="form-check-label" for="checkboxThreeStars"> 3+ sterren-->
+                    <!--                    </label>-->
+                    <!--                </div>-->
+                    <!--                <div class="form-check">-->
+                    <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxTwoStars">-->
+                    <!--                    <label class="form-check-label" for="checkboxTwoStars"> 2+ sterren-->
+                    <!--                    </label>-->
+                    <!--                </div>-->
+                    <!--                <div class="form-check">-->
+                    <!--                    <input class="form-check-input" type="checkbox" value="" id="checkboxOneStar">-->
+                    <!--                    <label class="form-check-label" for="checkboxOneStar"> 1+ sterren-->
+                    <!--                    </label>-->
+                    <!--                </div>-->
+                    <h6><strong>Bereidingstijd</strong></h6>
+                    <label for="minPreparationTimeStr">Min:</label>
+                    <input type="time" name="minPreparationTimeStr" class="form-control border-primary"
+                           id="minPreparationTimeStr"
+                           th:value="${minPreparationTime}" step="1">
+                    <label for="maxPreparationTimeStr">Max:</label>
+                    <input type="time" name="maxPreparationTimeStr"
+                           class="form-control border-primary" id="maxPreparationTimeStr"
+                           th:value="${maxPreparationTime}" step="1">
+                    <hr>
+                    <h6><strong>Gelegenheid</strong></h6>
+                    <div class="form-check">
+                        <input th:checked="${occasion.contains('ontbijt')}" class="form-check-input" type="checkbox"
+                               name="occasion" value="ontbijt" id="occasionBreakfast">
+                        <label class="form-check-label" for="occasionBreakfast"> Ontbijt
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${occasion.contains('middagmaal')}" class="form-check-input" type="checkbox"
+                               name="occasion" value="middagmaal" id="occasionLunch">
+                        <label class="form-check-label" for="occasionLunch"> Middagmaal
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${occasion.contains('snacks')}" class="form-check-input" type="checkbox"
+                               name="occasion" value="snacks" id="occasionSnacks">
+                        <label class="form-check-label" for="occasionSnacks"> Snacks
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${occasion.contains('avondmaal')}" class="form-check-input" type="checkbox"
+                               name="occasion" value="avondmaal" id="occasionDinner">
+                        <label class="form-check-label" for="occasionDinner"> Avondmaal
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${occasion.contains('dessert')}" class="form-check-input" type="checkbox"
+                               name="occasion" value="dessert" id="occasionDessert">
+                        <label class="form-check-label" for="occasionDessert"> Dessert
+                        </label>
+                    </div>
+                    <hr>
+                    <h6><strong>Koolhydraten</strong></h6>
+                    <label for="minCarbs">Min:</label>
+                    <input type="number" name="minCarbs" min="0" class="form-control border-primary" id="minCarbs"
+                           th:value="${minCarbs}">
+                    <label for="maxCarbs">Max:</label>
+                    <input type="number" name="maxCarbs" min="0" class="form-control border-primary" id="maxCarbs"
+                           th:value="${maxCarbs}">
+                    <hr>
+                    <div class="mt-3">
+                        <h6><strong>Vezel</strong></h6>
+                        <label for="minFiber">Min:</label>
+                        <input type="number" name="minFiber" min="0" class="form-control border-primary" id="minFiber"
+                               th:value="${minFiber}">
+                        <label for="maxFiber">Max:</label>
+                        <input type="number" name="maxFiber" min="0" class="form-control border-primary" id="maxFiber"
+                               th:value="${maxFiber}">
+                    </div>
+                    <hr>
+                    <div class="mt-3">
+                        <h6><strong>Zout</strong></h6>
+                        <label for="minSalt">Min:</label>
+                        <input type="number" name="minSalt" min="0" class="form-control border-primary" id="minSalt"
+                               th:value="${minSalt}">
+                        <label for="maxSalt">Max:</label>
+                        <input type="number" name="maxSalt" min="0" class="form-control border-primary" id="maxSalt"
+                               th:value="${maxSalt}">
+                    </div>
+                    <hr>
+                    <div class="mt-3">
+                        <h6><strong>Suiker</strong></h6>
+                        <label for="minSugar">Min:</label>
+                        <input type="number" name="minSugar" min="0" class="form-control border-primary" id="minSugar"
+                               th:value="${minSugar}">
+                        <label for="maxSugar">Max:</label>
+                        <input type="number" name="maxSugar" min="0" class="form-control border-primary" id="maxSugar"
+                               th:value="${maxSugar}">
+                    </div>
+                    <hr>
 
-                <div class="mt-3">
-                    <h6><strong>Verzadigd vet</strong></h6>
-                    <label for="minSaturatedFat">Min:</label>
-                    <input type="number" name="minSaturatedFat" min="0" class="form-control border-primary"
-                           id="minSaturatedFat"
-                           th:value="${minSaturatedFat}">
-                    <label for="maxSaturatedFat">Max:</label>
-                    <input type="number" name="maxSaturatedFat" min="0" class="form-control border-primary"
-                           id="maxSaturatedFat"
-                           th:value="${maxSaturatedFat}">
-                </div>
-                <hr>
+                    <div class="mt-3">
+                        <h6><strong>Verzadigd vet</strong></h6>
+                        <label for="minSaturatedFat">Min:</label>
+                        <input type="number" name="minSaturatedFat" min="0" class="form-control border-primary"
+                               id="minSaturatedFat"
+                               th:value="${minSaturatedFat}">
+                        <label for="maxSaturatedFat">Max:</label>
+                        <input type="number" name="maxSaturatedFat" min="0" class="form-control border-primary"
+                               id="maxSaturatedFat"
+                               th:value="${maxSaturatedFat}">
+                    </div>
+                    <hr>
 
-                <div class="mt-3">
-                    <h6><strong>Vet</strong></h6>
-                    <label for="minFat">Min:</label>
-                    <input type="number" name="minFat" min="0" class="form-control border-primary" id="minFat"
-                           th:value="${minFat}">
-                    <label for="maxFat">Max:</label>
-                    <input type="number" name="maxFat" min="0" class="form-control border-primary" id="maxFat"
-                           th:value="${maxFat}">
-                </div>
-                <hr>
+                    <div class="mt-3">
+                        <h6><strong>Vet</strong></h6>
+                        <label for="minFat">Min:</label>
+                        <input type="number" name="minFat" min="0" class="form-control border-primary" id="minFat"
+                               th:value="${minFat}">
+                        <label for="maxFat">Max:</label>
+                        <input type="number" name="maxFat" min="0" class="form-control border-primary" id="maxFat"
+                               th:value="${maxFat}">
+                    </div>
+                    <hr>
 
-                <div class="mt-3">
-                    <h6><strong>Proteine</strong></h6>
-                    <label for="minProteins">Min:</label>
-                    <input type="number" name="minProteins" min="0" class="form-control border-primary"
-                           id="minProteins"
-                           th:value="${minProteins}">
-                    <label for="maxProteins">Max:</label>
-                    <input type="number" name="maxProteins" min="0" class="form-control border-primary"
-                           id="maxProteins"
-                           th:value="${maxProteins}">
+                    <div class="mt-3">
+                        <h6><strong>Proteine</strong></h6>
+                        <label for="minProteins">Min:</label>
+                        <input type="number" name="minProteins" min="0" class="form-control border-primary"
+                               id="minProteins"
+                               th:value="${minProteins}">
+                        <label for="maxProteins">Max:</label>
+                        <input type="number" name="maxProteins" min="0" class="form-control border-primary"
+                               id="maxProteins"
+                               th:value="${maxProteins}">
 
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="col-md-12">
     <div th:unless="${filterEnabled}">
