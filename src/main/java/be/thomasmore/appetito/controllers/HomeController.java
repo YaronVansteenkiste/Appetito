@@ -60,17 +60,40 @@ public class HomeController {
             message = "Goedenacht";
         }
         else if (hour < 12){
-            message = "Goedemorgen, Hier is een suggestie van de lekkerste ontbijten";
+            message = "Goedemorgen";
         }
         else if (hour < 17){
-            message = "Goedemiddag, Hier is een suggestie van de lekkerste middagmalen";
+            message = "Goedemiddag";
         }
         else {
-            message = "Goedeavond, Hier is een suggestie van de lekkerste avondmalen";
+            message = "Goedeavond";
+
+        }
+        if (loginName != null && !loginName.isEmpty()) {
+            message += ", " +loginName;
+        } else {
+            message += "";
+        }
+
+        String suggestion = "";
+
+        if (hour < 5){
+            suggestion = "";
+        }
+        else if (hour < 12){
+            suggestion = "Hier is een suggestie van de lekkerste ontbijten";
+        }
+        else if (hour < 17){
+            suggestion = "Hier is een suggestie van de lekkerste middagmalen";
+        }
+        else {
+            suggestion = "Hier is een suggestie van de lekkerste avondmalen";
 
         }
 
+
         model.addAttribute("message",message);
+        model.addAttribute("suggestion",suggestion);
         model.addAttribute("loginName", loginName);
         model.addAttribute("topRatedDish", topRatedDish);
         model.addAttribute("topRatedDishAverageRating", topRatedDishAverageRating);
