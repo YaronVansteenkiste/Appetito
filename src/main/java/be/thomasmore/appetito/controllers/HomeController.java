@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.security.Principal;
@@ -32,7 +33,7 @@ public class HomeController {
     private DishRepository dishRepository;
 
     @GetMapping("/")
-    public String Home(Model model, Principal principal) {
+    public String Home(Model model, Principal principal, @RequestParam(name = "occasion", required = false) String occasion) {
         final String loginName = principal != null ? principal.getName() : "";
 
         List<Dish> allDishes = (List<Dish>) dishRepository.findAll();
@@ -55,18 +56,28 @@ public class HomeController {
         LocalTime now = LocalTime.now();
         String message;
         int hour = now.getHour();
+        String suggestion = "";
+
 
         if (hour < 5){
             message = "Goedenacht";
+            suggestion = "Er zijn momenteel geen suggesties";
         }
         else if (hour < 12){
             message = "Goedemorgen";
+            suggestion = "Hier is een suggestie van de lekkerste ontbijten";
+            occasion = "ontbijt";
         }
         else if (hour < 17){
             message = "Goedemiddag";
+            suggestion = "Hier is een suggestie van de lekkerste middagmalen";
+            occasion = "middagmaal";
+
         }
         else {
             message = "Goedeavond";
+            suggestion = "Hier is een suggestie van de lekkerste avondmalen";
+            occasion = "avondmaal";
 
         }
         if (loginName != null && !loginName.isEmpty()) {
@@ -75,24 +86,9 @@ public class HomeController {
             message += "";
         }
 
-        String suggestion = "";
-
-        if (hour < 5){
-            suggestion = "";
-        }
-        else if (hour < 12){
-            suggestion = "Hier is een suggestie van de lekkerste ontbijten";
-        }
-        else if (hour < 17){
-            suggestion = "Hier is een suggestie van de lekkerste middagmalen";
-        }
-        else {
-            suggestion = "Hier is een suggestie van de lekkerste avondmalen";
-
-        }
-
-
+        List <Dish> dishes = dishRepository.findByOccasion(occasion);
         model.addAttribute("message",message);
+        model.addAttribute("dishes",dishes);
         model.addAttribute("suggestion",suggestion);
         model.addAttribute("loginName", loginName);
         model.addAttribute("topRatedDish", topRatedDish);

@@ -87,4 +87,5 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") String dietPreferences,
 
     List<Dish> findByChefId(int chef_id);
 
+    List<Dish> findByOccasion(String occasion);
 }

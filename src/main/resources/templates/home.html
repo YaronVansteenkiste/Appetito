@@ -103,6 +103,35 @@
     <h3 th:text="${message}" class="text-center mt-5"></h3>
     <h3 th:text="${suggestion}" class="text-center mt-5"></h3>
 </div>
+<div th:if="${!dishes.isEmpty()}">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="dish : ${dishes}" th:if="${dish.isActive()}">
+            <div class="card" style="height: 400px;">
+                <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                     alt="dish Image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 th:text="${dish.name}" class="card-title"></h5>
+                </div>
+                <form sec:authorize="hasAuthority('USER')" method="post">
+                    <div class=" mt-3">
+                        <span class="heart fs-6 cursor-pointer text-dark ms-2" th:attr="data-dish-id=${dish.id}">&#x1F5A4;</span>
+                        <span class="status-text">Toevoegen</span>
+                    </div>
+                </form>
+                <div class="card-footer">
+                    <div class="d-grid">
+                        <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                           role="button">Ontdek</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${dishes.isEmpty()}">
+    <p>No dishes available for this time and occasion.</p>
+</div>
 
 <footer th:insert="~{fragments/footer :: footer}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
