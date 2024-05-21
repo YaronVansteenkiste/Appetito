@@ -39,7 +39,8 @@
                     <strong th:text="${dish.name}">Dish Name</strong>
 
                 </h2>
-                <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}"
+                   class="btn btn-primary">Toevoegen aan menu</a>
                 <h4>Gelegenheid</h4>
                 <p th:text="${dish.occasion}"></p>
 
@@ -64,14 +65,13 @@
                             <label for="1-star">&#9733;</label>
                         </div>
                     </form>
-                    <h4 class="mt-3">Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
+                    <h4 class="mt-3">Average Rating: <span
+                            th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
                 </div>
             </div>
         </div>
     </div>
 </main>
-
-
 
 
 <div class="container">
@@ -103,101 +103,105 @@
                 </li>
             </ul>
         </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
 
-
-        <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
-            <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
-            <div th:each="nutrition: ${dish.getNutritions()}">
+            <div th:classappend="${dish.getNutritions() == null}">
+                <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
                 <div class="row">
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Vezel</label>
-                        <p th:text="${nutrition.fiber}"></p>
+                        <p th:text="'0 gr'">0 gr</p>
                     </div>
 
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Zout</label>
-                        <p th:text="${nutrition.salt}"></p>
+                        <p th:text="'0 mg'">0 mg</p>
                     </div>
 
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Suiker</label>
-                        <p th:text="${nutrition.sugar}"></p>
+                        <p th:text="'0 gr'">0 gr</p>
                     </div>
 
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Verz. Vet</label>
-                        <p th:text="${nutrition.saturatedFat}"></p>
+                        <p th:text="'0 gr'">0 gr</p>
                     </div>
 
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Vet</label>
-                        <p th:text="${nutrition.fat}"></p>
+                        <p th:text="'0 gr'">0 gr</p>
                     </div>
 
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Koolhydraten</label>
-                        <p th:text="${nutrition.carbs}"></p>
+                        <p th:text="'0 gr'">0 gr</p>
                     </div>
 
                     <div class="col-lg-4 border text-center mt-2">
                         <label>Eiwit</label>
-                        <p th:text="${nutrition.proteins}"></p>
+                        <p th:text="'0 gr'">0 gr</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text" th:classappend="${dish.getNutritions()}">
+            <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+
+                <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
+                <div th:each="nutrition: ${dish.getNutritions()}">
+                    <div class="row">
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Vezel</label>
+                            <p th:text="${nutrition.fiber}"></p>
+                        </div>
+
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Zout</label>
+                            <p th:text="${nutrition.salt}"></p>
+                        </div>
+
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Suiker</label>
+                            <p th:text="${nutrition.sugar}"></p>
+                        </div>
+
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Verz. Vet</label>
+                            <p th:text="${nutrition.saturatedFat}"></p>
+                        </div>
+
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Vet</label>
+                            <p th:text="${nutrition.fat}"></p>
+                        </div>
+
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Koolhydraten</label>
+                            <p th:text="${nutrition.carbs}"></p>
+                        </div>
+
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Eiwit</label>
+                            <p th:text="${nutrition.proteins}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col-sm-2 m-4" >
-    <p th:classappend="${dish.getIngredients() == null}" class="alert alert-danger border border-danger p-3">
-        Geen Ingredienten beschikbaar. Voeg dit toe!
-    </p>
-</div>
 
-<div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
-    <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
-    <div th:classappend="${dish.getNutritions() == null}">
-        <div class="row">
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Vezel</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Zout</label>
-                <p th:text="'0 mg'">0 mg</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Suiker</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Verz. Vet</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Vet</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Koolhydraten</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Eiwit</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-        </div>
+<div class="container">
+    <div class="col-md-2 m-3">
+        <p th:classappend="${dish.getIngredients() == null }"
+           class="alert alert-danger border border-danger p-1 m-0">
+            Geen Ingredienten beschikbaar. Voeg dit toe!
+        </p>
     </div>
 </div>
-
-
-
 
 <div class="container">
     <div class="row">
@@ -219,8 +223,6 @@
 </div>
 
 
-
-
 <div class="container">
     <div class="row justify-content-center">
         <h4>Suggested Drinks</h4>
@@ -237,9 +239,11 @@
 
                 <div class="card-footer">
                     <div th:if="${beverage}">
-                        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/beverage/{id}(id=${beverage.id})}" method="post">
+                        <form sec:authorize="hasAuthority('ADMIN')"
+                              th:action="@{/toggle/beverage/{id}(id=${beverage.id})}" method="post">
                             <input type="hidden" name="active" th:value="${!beverage.isActive}">
-                            <button type="submit" th:class="${beverage.isActive ? 'btn btn-success' : 'btn btn-danger'}"
+                            <button type="submit"
+                                    th:class="${beverage.isActive ? 'btn btn-success' : 'btn btn-danger'}"
                                     th:text="${beverage.active ? 'Active' : 'Inactive'}">
                             </button>
                         </form>
