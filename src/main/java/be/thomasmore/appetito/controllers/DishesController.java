@@ -79,10 +79,10 @@ public class DishesController {
 
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model,
-                               @RequestParam(required = false) List<String> dietPreferences,
+                               @RequestParam(required = false) String dietPreferences,
                                @RequestParam(required = false) String minPreparationTimeStr,
                                @RequestParam(required = false) String maxPreparationTimeStr,
-                               @RequestParam(required = false) List<String> occasion,
+                               @RequestParam(required = false) String occasion,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs,
                                @RequestParam(required = false) Integer minFiber,

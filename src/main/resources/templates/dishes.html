@@ -42,7 +42,7 @@
                         <h4 th:text="|Alle maaltijden:(${count})|"></h4>
                         <div class="row row-cols-1 row-cols-md-3 g-4">
                             <div class="col" th:each="dish : ${alldishes}" th:if="${dish.isActive()}">
-                                <div class="card h-100">
+                                <div class="card" style="height: 400px;">
                                     <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
                                          alt="dish Image" style="height: 200px; object-fit: cover;">
                                     <div class="card-body">

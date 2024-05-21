@@ -24,7 +24,7 @@ public class DishDto {
     @NotEmpty(message = "Gelegenheid is vereist")
     private String occasion ;
 
-
+    private MultipartFile image;
 
     public DishDto() {
     }
@@ -64,6 +64,13 @@ public class DishDto {
     }
 
 
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
 }
 
 
