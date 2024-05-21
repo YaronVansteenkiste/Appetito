@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || {};
+    const favorites = JSON.parse(sessionStorage.getItem('favorites')) || {};
 
     document.querySelectorAll('.heart').forEach(function(heart) {
         const dishId = heart.getAttribute('data-dish-id');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         statusText.textContent = 'Toevoegen';
                         delete favorites[dishId];
                     }
-                    localStorage.setItem('favorites', JSON.stringify(favorites));
+                    sessionStorage.setItem('favorites', JSON.stringify(favorites));
                 })
 
         });
