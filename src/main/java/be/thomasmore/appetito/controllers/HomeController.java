@@ -8,6 +8,7 @@ import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.repositories.RatingRepository;
 import be.thomasmore.appetito.services.GoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,7 +87,7 @@ public class HomeController {
             message += "";
         }
 
-        List <Dish> dishes = dishRepository.findByOccasion(occasion);
+        List <Dish> dishes = dishRepository.findByOccasion(occasion, PageRequest.of(0,3));
         model.addAttribute("message",message);
         model.addAttribute("dishes",dishes);
         model.addAttribute("suggestion",suggestion);
