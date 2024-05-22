@@ -1,8 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const favorites = JSON.parse(sessionStorage.getItem('favorites')) || {};
+
     document.querySelectorAll('.heart').forEach(function(heart) {
+        const dishId = heart.getAttribute('data-dish-id');
+
+        if (favorites[dishId] === 'added') {
+            heart.classList.remove('text-dark');
+            heart.classList.add('text-danger');
+            heart.innerHTML = '&#x2764;&#xFE0F;';
+            heart.nextElementSibling.textContent = 'Verwijderen';
+        }
+
         heart.addEventListener('click', function() {
             const statusText = heart.nextElementSibling;
-            const dishId = heart.getAttribute('data-dish-id');
             const chefId = 1;
             const action = heart.classList.contains('text-danger') ? 'remove' : 'add';
 
@@ -27,19 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         heart.classList.add('text-danger');
                         heart.innerHTML = '&#x2764;&#xFE0F;';
                         statusText.textContent = 'Verwijderen';
+                        favorites[dishId] = 'added';
                     } else {
                         heart.classList.remove('text-danger');
                         heart.classList.add('text-dark');
                         heart.innerHTML = '&#x1F5A4;';
                         statusText.textContent = 'Toevoegen';
+                        delete favorites[dishId];
                     }
+                    sessionStorage.setItem('favorites', JSON.stringify(favorites));
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+
         });
     });
 });
-
-
-

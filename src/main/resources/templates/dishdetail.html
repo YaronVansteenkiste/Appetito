@@ -258,7 +258,7 @@
 <div class=" text-center">
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}"
        th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"><- Prev</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
         <th:block
                 th:if="${iterStat.index == currentDish - 1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
@@ -267,7 +267,7 @@
                th:text="${dish.id}"></a>
         </th:block>
     </th:block>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}">Next -></a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}" th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Next -></a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
        th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
 </div>
