@@ -76,36 +76,36 @@
 
                     <h6><strong>Dieet voorkeuren</strong></h6>
                     <div class="form-check">
-                        <input th:checked="${dietPreferences.contains('vegan')}" class="form-check-input"
-                               name="dietPreferences" type="checkbox" value="vegan"
+                        <input th:checked="${dietPreferences != null && dietPreferences.contains('vegan')}" class="form-check-input"
+                               name="dietPreferencesStr" type="checkbox" value="vegan"
                                id="dietPreferencesVegan">
                         <label class="form-check-label" for="dietPreferencesVegan"> Vegan
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${dietPreferences.contains('vegetarisch')}" class="form-check-input"
-                               name="dietPreferences" type="checkbox" value="vegetarisch"
+                        <input th:checked="${dietPreferences != null && dietPreferences.contains('vegetarisch')}" class="form-check-input"
+                               name="dietPreferencesStr" type="checkbox" value="vegetarisch"
                                id="dietPreferencesVegetarisch">
                         <label class="form-check-label" for="dietPreferencesVegetarisch"> Vegetarisch
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${dietPreferences.contains('glutenvrij')}" class="form-check-input"
-                               name="dietPreferences" type="checkbox" value="glutenvrij"
+                        <input th:checked="${dietPreferences != null && dietPreferences.contains('glutenvrij')}" class="form-check-input"
+                               name="dietPreferencesStr" type="checkbox" value="glutenvrij"
                                id="dietPreferencesGlutenvrij">
                         <label class="form-check-label" for="dietPreferencesGlutenvrij"> Glutenvrij
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${dietPreferences.contains('paleo')}" class="form-check-input"
-                               name="dietPreferences" type="checkbox" value="paleo"
+                        <input th:checked="${dietPreferences != null && dietPreferences.contains('paleo')}" class="form-check-input"
+                               name="dietPreferencesStr" type="checkbox" value="paleo"
                                id="dietPreferencesPaleo">
                         <label class="form-check-label" for="dietPreferencesPaleo"> Paleo
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${dietPreferences.contains('keto')}" class="form-check-input"
-                               name="dietPreferences" type="checkbox" value="keto"
+                        <input th:checked="${ dietPreferences != null && dietPreferences.contains('keto')}" class="form-check-input"
+                               name="dietPreferencesStr" type="checkbox" value="keto"
                                id="dietPreferencesKeto">
                         <label class="form-check-label" for="dietPreferencesKeto"> Keto
                         </label>
@@ -149,32 +149,37 @@
                     <hr>
                     <h6><strong>Gelegenheid</strong></h6>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('ontbijt')}" class="form-check-input" type="checkbox"
-                               name="occasion" value="ontbijt" id="occasionBreakfast">
-                        <label class="form-check-label" for="occasionBreakfast"> Ontbijt
+                        <input th:checked="${occasion != null && occasion.contains('ontbijt')}" class="form-check-input"
+                               name="occasionStr" type="checkbox" value="ontbijt"
+                               id="occasionOntbijt">
+                        <label class="form-check-label" for="occasionOntbijt"> Ontbijt
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('middagmaal')}" class="form-check-input" type="checkbox"
-                               name="occasion" value="middagmaal" id="occasionLunch">
-                        <label class="form-check-label" for="occasionLunch"> Middagmaal
+                        <input th:checked="${occasion != null && occasion.contains('middagmaal')}" class="form-check-input"
+                               name="occasionStr" type="checkbox" value="middagmaal"
+                               id="occasionMiddagmaal">
+                        <label class="form-check-label" for="occasionMiddagmaal"> Middagmaal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('snacks')}" class="form-check-input" type="checkbox"
-                               name="occasion" value="snacks" id="occasionSnacks">
+                        <input th:checked="${occasion != null && occasion.contains('snacks')}" class="form-check-input"
+                               name="occasionStr" type="checkbox" value="snacks"
+                               id="occasionSnacks">
                         <label class="form-check-label" for="occasionSnacks"> Snacks
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('avondmaal')}" class="form-check-input" type="checkbox"
-                               name="occasion" value="avondmaal" id="occasionDinner">
-                        <label class="form-check-label" for="occasionDinner"> Avondmaal
+                        <input th:checked="${occasion != null && occasion.contains('avondmaal')}" class="form-check-input"
+                               name="occasionStr" type="checkbox" value="avondmaal"
+                               id="occasionAvondmaal">
+                        <label class="form-check-label" for="occasionAvondmaal"> Avondmaal
                         </label>
                     </div>
                     <div class="form-check">
-                        <input th:checked="${occasion.contains('dessert')}" class="form-check-input" type="checkbox"
-                               name="occasion" value="dessert" id="occasionDessert">
+                        <input th:checked="${ occasion != null && occasion.contains('dessert')}" class="form-check-input"
+                               name="occasionStr" type="checkbox" value="dessert"
+                               id="occasionDessert">
                         <label class="form-check-label" for="occasionDessert"> Dessert
                         </label>
                     </div>
@@ -271,16 +276,16 @@
     <div th:if="${filterEnabled}">
         <div class="pagination">
             <a th:if="${hasPrevious}"
-               th:href="@{/dishes/filter(page=${currentPage - 1}, dietPreferences=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
-    maxPreparationTimeStr=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+               th:href="@{/dishes/filter(page=${currentPage - 1}, dietPreferencesStr=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
+    maxPreparationTimeStr=${maxPreparationTime}, occasionStr=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
     minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
     minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
     minProteins=${minProteins},maxProteins=${maxProteins})}"
                class="btn btn-primary">← Prev</a>
             <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
             <a th:if="${hasNext}"
-               th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferences=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
-    maxPreparationTimeStr=${maxPreparationTime}, occasion=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
+               th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferencesStr=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
+    maxPreparationTimeStr=${maxPreparationTime}, occasionStr=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
     minFiber=${minFiber}, maxFiber=${maxFiber}, minSalt=${minSalt}, maxSalt=${maxSalt},minSugar=${minSugar},maxSugar=${maxSugar},
     minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
     minProteins=${minProteins},maxProteins=${maxProteins})}"
@@ -289,12 +294,7 @@
     </div>
 </div>
 <footer th:insert="~{fragments/footer :: footer}"></footer>
-<script>
-function toggleHeartColor(element) {
-const icon = element.querySelector('i');
-icon.classList.toggle('heart-red');
-}
-</script>
+
 
 <script th:src="@{/scripts/favorites.js}"></script>
 

@@ -29,6 +29,7 @@ import java.nio.file.Paths;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -79,10 +80,10 @@ public class DishesController {
 
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model,
-                               @RequestParam(required = false) String dietPreferences,
+                               @RequestParam(required = false) String dietPreferencesStr,
                                @RequestParam(required = false) String minPreparationTimeStr,
                                @RequestParam(required = false) String maxPreparationTimeStr,
-                               @RequestParam(required = false) String occasion,
+                               @RequestParam(required = false) String occasionStr,
                                @RequestParam(required = false) Integer minCarbs,
                                @RequestParam(required = false) Integer maxCarbs,
                                @RequestParam(required = false) Integer minFiber,
@@ -98,13 +99,13 @@ public class DishesController {
                                @RequestParam(required = false) Integer minProteins,
                                @RequestParam(required = false) Integer maxProteins,
                                @RequestParam(defaultValue = "0") int page) {
-        String dietPreferenceStr = "";
-        String occasionStr = "";
-        if (dietPreferences != null) {
-            dietPreferenceStr = dietPreferences.toString();
+        List<String> dietPreferences = null;
+        if (dietPreferencesStr != null && !dietPreferencesStr.isEmpty()) {
+            dietPreferences = Arrays.asList(dietPreferencesStr.split(","));
         }
-        if (occasion != null) {
-            occasionStr = occasion.toString();
+        List<String> occasion = null;
+        if (occasionStr != null && !occasionStr.isEmpty()) {
+            occasion = Arrays.asList(occasionStr.split(","));
         }
 
         Time minPreparationTime = null;
@@ -134,13 +135,11 @@ public class DishesController {
                 minProteins, maxProteins, pageable);
 
 
-
-
         boolean filterEnabled = true;
-        model.addAttribute("dietPreferences", dietPreferenceStr);
+        model.addAttribute("dietPreferences", dietPreferences);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
         model.addAttribute("maxPreparationTime", maxPreparationTimeStr);
-        model.addAttribute("occasion", occasionStr);
+        model.addAttribute("occasion", occasion);
         model.addAttribute("minCarbs", minCarbs);
         model.addAttribute("maxCarbs", maxCarbs);
         model.addAttribute("minFiber", minFiber);
