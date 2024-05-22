@@ -41,8 +41,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="/about">Over Ons</a></li>
                         <li><a class="dropdown-item" href="/contact">Contact</a></li>
-<!--                        admin dashboard-->
-                        <li><a class="dropdown-item" href="/admin/">Admin dashboard</a></li>
+                        <li sec:authorize="hasAuthority('ADMIN')"><a class="dropdown-item" href="/admin/">Admin dashboard</a></li>
                     </ul>
                 </div>
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
