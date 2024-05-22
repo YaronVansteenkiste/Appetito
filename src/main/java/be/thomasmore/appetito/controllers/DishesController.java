@@ -78,6 +78,7 @@ public class DishesController {
         }
         model.addAttribute("count", allDishes.size());
         model.addAttribute("alldishes", allDishes);
+
         return "dishes";
     }
 

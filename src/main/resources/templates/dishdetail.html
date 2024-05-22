@@ -104,7 +104,7 @@
                     <span th:text="${ingredient.getUnit()}"></span>
                 </li>
             </ul>
-            <div th:if="${dish.getIngredients() == null}">
+            <div th:if="${dish.getIngredients() == null && !dish.getNutritions().isEmpty()}">
                 <p class="alert alert-danger border border-danger p-1 m-0">
                     Geen Ingredienten beschikbaar. Voeg dit toe!
                 </p>
