@@ -18,8 +18,6 @@ function addBev() {
 }
 
 
-document.querySelector('input[type="button"]').addEventListener('click', addDrink);
-
 function addDrink() {
     let cardContainer = document.getElementById("cardContainer").getElementsByClassName("row justify-content-center")[0];
 
