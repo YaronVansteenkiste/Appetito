@@ -29,25 +29,6 @@ public class MenuController {
     @Autowired
     MenuRepository menuRepository;
 
-    @GetMapping("/menu/select/{id}")
-    public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal, RedirectAttributes redirectAttributes) {
-
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        Dish dish = dishRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + id));
-        Iterable<Menu> menusOfChef = menuRepository.findByChef(chef);
-
-        if (chef == null) {
-            return "redirect:/login";
-        }
-
-        model.addAttribute("dishId", id);
-        model.addAttribute("menus", menusOfChef);
-        model.addAttribute("dish", dish);
-
-
-        return "/menu/select";
-    }
 
     @PostMapping("/menu/{menuId}/removeDish/{dishId}")
     public String removeDishFromMenu(@PathVariable Integer menuId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
@@ -129,5 +110,25 @@ public class MenuController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + id));
         model.addAttribute("menu", menu);
         return "menu/details";
+    }
+
+    @GetMapping("/menu/select/{id}")
+    public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal) {
+
+        Chef chef = chefRepository.findByUsername(principal.getName());
+        Dish dish = dishRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + id));
+        Iterable<Menu> menusOfChef = menuRepository.findByChef(chef);
+
+        if (chef == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("dishId", id);
+        model.addAttribute("menus", menusOfChef);
+        model.addAttribute("dish", dish);
+
+
+        return "menu/select";
     }
 }
