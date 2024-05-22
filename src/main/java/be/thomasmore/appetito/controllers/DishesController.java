@@ -75,6 +75,7 @@ public class DishesController {
         Iterable<Dish> allDishes = dishRepository.findByName("%" + keyword + "%");
         model.addAttribute("count", allDishes.spliterator().estimateSize());
         model.addAttribute("alldishes", allDishes);
+
         return "dishes";
     }
 
