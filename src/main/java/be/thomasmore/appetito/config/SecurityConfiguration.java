@@ -58,11 +58,7 @@ public class SecurityConfiguration {
         );
         http.logout(form -> form.logoutUrl("/user/logout"));
 
-        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/addmeal"));
-        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editingredients/**"));
-        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editnutritions/**"));
-        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/dishedit/**"));
-        http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editbeverage/**"));
+        http.csrf((csrf) -> csrf.disable());
 
 
         //to enable h2-console:
