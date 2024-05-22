@@ -19,8 +19,6 @@ public class Ingredient {
     private double quantity;
     private String unit;
 
-    private double estimatedPrice;
-
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private Dish dish;
@@ -69,13 +67,6 @@ public class Ingredient {
         this.dish = dish;
     }
 
-    public double getEstimatedPrice() {
-        return estimatedPrice;
-    }
-
-    public void setEstimatedPrice(double estimatedPrice) {
-        this.estimatedPrice = estimatedPrice;
-    }
 
 
 
