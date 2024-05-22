@@ -12,92 +12,127 @@
 </head>
 <body>
 
-    <h1 th:replace="~{fragments/header :: header}"></h1>
+<h1 th:replace="~{fragments/header :: header}"></h1>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 col-lg-6 mt-5">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 mt-5">
 
-                <div class="col-12">
-                    <h2>Ontdek top ingrediënten voor heerlijke maaltijden</h2>
+            <div class="col-12">
+                <h2>Ontdek top ingrediënten voor heerlijke maaltijden</h2>
 
-                    <p>Welkom bij Appetito, uw bron voor hoogwaardige ingrediënten om uw kookkunsten
-                        naar een hoger niveau te tillen. Ontdek onze ruime keuze aan verse producten,
-                        vlees van hoge kwaliteit en ambachtelijke producten om onvergetelijke maaltijden
-                        te creëren.</p>
+                <p>Welkom bij Appetito, uw bron voor hoogwaardige ingrediënten om uw kookkunsten
+                    naar een hoger niveau te tillen. Ontdek onze ruime keuze aan verse producten,
+                    vlees van hoge kwaliteit en ambachtelijke producten om onvergetelijke maaltijden
+                    te creëren.</p>
 
-                </div>
-                <div class="row">
-                    <div class="col-6 mt-4">
-                        <h2>50%</h2>
-                        <p>Sneller bij het bereiden van maaltijden</p>
-                    </div>
-
-                    <div class="col-6 mt-4">
-                        <h2>50%</h2>
-                        <p>Gezondere en voedzamere maaltijden</p>
-                    </div>
-                </div>
             </div>
-            <div class="col-6">
-                <img class="img-fluid" th:src="@{|/img/home-banner.png|}">
+            <div class="row">
+                <div class="col-6 mt-4">
+                    <h2>50%</h2>
+                    <p>Sneller bij het bereiden van maaltijden</p>
+                </div>
+
+                <div class="col-6 mt-4">
+                    <h2>50%</h2>
+                    <p>Gezondere en voedzamere maaltijden</p>
+                </div>
             </div>
         </div>
+        <div class="col-6">
+            <img class="img-fluid" th:src="@{|/img/home-banner.png|}">
+        </div>
+    </div>
 
 
-
-        <div class="row">
-            <div class="col-3 col-md-2 col-lg-1">
-                <a class="btn btn-primary" href="/dishes">Ontdek</a>
-            </div>
+    <div class="row">
+        <div class="col-3 col-md-2 col-lg-1">
+            <a class="btn btn-primary" href="/dishes">Ontdek</a>
+        </div>
 
         <div sec:authorize="!isAuthenticated()" class="col-3 col-md-2 col-lg-1">
-                <a class="btn btn-outline-primary" href="/user/login">Aanmelden</a>
-            </div>
-            <div sec:authorize="isAuthenticated()" class="col-6 col-md-6 col-lg-6">
-                <a class="btn btn-outline-primary" href="/user/profile">Jouw profiel</a>
-            </div>
+            <a class="btn btn-outline-primary" href="/user/login">Aanmelden</a>
         </div>
-
-        <div class="row">
-            <h2 class="col-12 mt-5 text-center">Maaltijden voor iedereen</h2>
+        <div sec:authorize="isAuthenticated()" class="col-6 col-md-6 col-lg-6">
+            <a class="btn btn-outline-primary" href="/user/profile">Jouw profiel</a>
         </div>
-
-        <div class="row">
-            <article th:if="${topRatedDish==null}" class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
-                <img th:src="@{/img/best-meal.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
-                <h3>Inspirerende Menusuggesties</h3>
-                <p>Ontdek aanbevolen menu's</p>
-                <a href="/x-dagenmenu">Kom meer te weten</a>
-            </article>
-
-            <article th:if="${topRatedDish != null}" class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
-                <img th:src="@{${topRatedDish.getImgFileName()}}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
-                <h3 th:text="${topRatedDish.name}"></h3>
-                <p th:text="'Rating: ' + ${topRatedDishAverageRating} + '/5'"></p>
-                <p>Maaltijd met hoogste score</p>
-                <a th:href="@{/dishdetails/{id}(id=${topRatedDish.id})}">Ontdek</a>
-            </article>
-
-            <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
-                <img th:src="@{/img/meal-list.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Meal list">
-                <h3>Ontdek een verscheidenheid aan maaltijdopties</h3>
-                <p>Ontdek nieuwe smaken en culinaire ervaringen</p>
-                <a href="/dishes">Ontdek</a>
-            </article>
-
-            <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
-                <img th:src="@{/img/meal-creation.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Meal Creation">
-                <h3>Publiceer uw eigen unieke recepten</h3>
-                <p>Deel de wereld wat je hebt gemaakt!</p>
-                <a href="/user/login">Aanmelden</a>
-            </article>
-        </div>
-
-
     </div>
+
+    <div class="row">
+        <h2 class="col-12 mt-5 text-center">Maaltijden voor iedereen</h2>
+    </div>
+
+    <div class="row">
+        <article th:if="${topRatedDish==null}"
+                 class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+            <img th:src="@{/img/best-meal.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
+            <h3>Inspirerende Menusuggesties</h3>
+            <p>Ontdek aanbevolen menu's</p>
+            <a href="/x-dagenmenu">Kom meer te weten</a>
+        </article>
+
+        <article th:if="${topRatedDish != null}"
+                 class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+            <img th:src="@{${topRatedDish.getImgFileName()}}" class="img-fluid h-50 w-75" style="max-height: 150px;"
+                 alt="Best meal">
+            <h3 th:text="${topRatedDish.name}"></h3>
+            <p th:text="'Rating: ' + ${topRatedDishAverageRating} + '/5'"></p>
+            <p>Maaltijd met hoogste score</p>
+            <a th:href="@{/dishdetails/{id}(id=${topRatedDish.id})}">Ontdek</a>
+        </article>
+
+        <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+            <img th:src="@{/img/meal-list.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Meal list">
+            <h3>Ontdek een verscheidenheid aan maaltijdopties</h3>
+            <p>Ontdek nieuwe smaken en culinaire ervaringen</p>
+            <a href="/dishes">Ontdek</a>
+        </article>
+
+        <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
+            <img th:src="@{/img/meal-creation.png}" class="img-fluid h-50 w-75" style="max-height: 150px;"
+                 alt="Meal Creation">
+            <h3>Publiceer uw eigen unieke recepten</h3>
+            <p>Deel de wereld wat je hebt gemaakt!</p>
+            <a href="/user/login">Aanmelden</a>
+        </article>
+    </div>
+
+
+</div>
+<div>
+    <h3 th:text="${message}" class="text-center mt-5"></h3>
+    <h3 th:text="${suggestion}" class="text-center mt-5"></h3>
+</div>
+<div th:if="${!dishes.isEmpty()}">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mt-5">
+        <div class="col" th:each="dish : ${dishes}" th:if="${dish.isActive()}">
+            <div class="card" style="height: 400px;">
+                <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                     alt="dish Image" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 th:text="${dish.name}" class="card-title"></h5>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid">
+                        <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                           role="button">Ontdek</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${dishes.isEmpty()}">
+    <h3 class="text-center mt-5">No dishes available for this time and occasion.</h3>
+</div>
+
 <footer th:insert="~{fragments/footer :: footer}"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
 </body>
 </html>
