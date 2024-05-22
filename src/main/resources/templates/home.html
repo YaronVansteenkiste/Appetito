@@ -8,6 +8,7 @@
           rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
 </head>
 <body>
@@ -63,22 +64,12 @@
     </div>
 
     <div class="row">
-        <article th:if="${topRatedDish==null}"
+        <article
                  class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
             <img th:src="@{/img/best-meal.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
             <h3>Inspirerende Menusuggesties</h3>
             <p>Ontdek aanbevolen menu's</p>
             <a href="/x-dagenmenu">Kom meer te weten</a>
-        </article>
-
-        <article th:if="${topRatedDish != null}"
-                 class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
-            <img th:src="@{${topRatedDish.getImgFileName()}}" class="img-fluid h-50 w-75" style="max-height: 150px;"
-                 alt="Best meal">
-            <h3 th:text="${topRatedDish.name}"></h3>
-            <p th:text="'Rating: ' + ${topRatedDishAverageRating} + '/5'"></p>
-            <p>Maaltijd met hoogste score</p>
-            <a th:href="@{/dishdetails/{id}(id=${topRatedDish.id})}">Ontdek</a>
         </article>
 
         <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
@@ -96,58 +87,62 @@
             <a href="/user/login">Aanmelden</a>
         </article>
 
-
-        <div class="row">
-            <h2 class="col-12 mt-5 text-center">Onze best beoordeelde maaltijden!</h2>
-        </div>
-
-        <div class="row">
-            <div th:each="dish : ${topRatedDishes}"
-                 class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
-                <img th:src="@{${dish.getImgFileName()}}" class="img-fluid h-50 w-75" style="max-height: 150px;"
-                     alt="Best meal">
-                <h3 th:text="${dish.name}"></h3>
-                <div class="d-inline rating-box" th:attr="data-rating=${dish.getAverageRating()}">
-                    <span class="far fa-star"></span>
-                    <span class="far fa-star"></span>
-                    <span class="far fa-star"></span>
-                    <span class="far fa-star"></span>
-                    <span class="far fa-star"></span>
-                </div>
-                <a th:href="@{/dishdetails/{id}(id=${dish.id})}">Ontdek</a>
-            </div>
-        </div>
     </div>
 
 
-</div>
-<div>
-    <h3 th:text="${message}" class="text-center mt-5"></h3>
-    <h3 th:text="${suggestion}" class="text-center mt-5"></h3>
-</div>
-<div th:if="${!dishes.isEmpty()}">
-    <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mt-5">
-        <div class="col" th:each="dish : ${dishes}" th:if="${dish.isActive()}">
-            <div class="card" style="height: 400px;">
-                <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
-                     alt="dish Image" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 th:text="${dish.name}" class="card-title"></h5>
-                </div>
-                <div class="card-footer">
-                    <div class="d-grid">
-                        <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
-                           role="button">Ontdek</a>
+    <div>
+        <h3 th:text="${message}" class="text-center mt-5"></h3>
+        <h3 th:text="${suggestion}" class="text-center mt-5"></h3>
+    </div>
+    <div th:if="${!dishes.isEmpty()}">
+        <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mt-5">
+            <div class="col" th:each="dish : ${dishes}" th:if="${dish.isActive()}">
+                <div class="card" style="height: 400px;">
+                    <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                         alt="dish Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 th:text="${dish.name}" class="card-title"></h5>
                     </div>
-
+                    <div class="card-footer">
+                        <div class="d-grid">
+                            <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                               role="button">Ontdek</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${!topRatedDishes.isEmpty()}">
+        <h2 class="text-center mt-5">Ontdek onze best beoordeelde maaltijden!</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mt-5">
+            <div class="col" th:each="dish : ${topRatedDishes}" th:if="${dish.isActive()}">
+                <div class="card" style="height: 400px;">
+                    <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                         alt="dish Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 th:text="${dish.name}" class="card-title"></h5>
+                        <div class="d-inline rating-box" th:attr="data-rating=${dish.getAverageRating()}">
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-grid">
+                            <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                               role="button">Ontdek</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div th:if="${dishes.isEmpty()}">
-    <h3 class="text-center mt-5">No dishes available for this time and occasion.</h3>
-</div>
+
+
 
 <footer th:insert="~{fragments/footer :: footer}"></footer>
 
