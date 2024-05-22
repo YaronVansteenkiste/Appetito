@@ -25,7 +25,7 @@
         </div>
         <div class="col-6">
             <form sec:authorize="isAuthenticated()" action="/menu/create" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                 <div class="mb-3">
                     <label for="menuName" class="form-label">Menu naam</label>
                     <input type="text" class="form-control" id="menuName" name="menuName">

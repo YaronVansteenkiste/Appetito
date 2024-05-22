@@ -6,7 +6,7 @@ function sendPostRequest(id, active) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            [csrfHeader]: csrfToken
+            // [csrfHeader]: csrfToken
         },
         body: 'active=' + active
     })
