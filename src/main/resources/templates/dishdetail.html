@@ -74,8 +74,10 @@
 </main>
 
 
+
+
 <div class="container">
-    <div class="row">
+    <div class="d-flex flex-row">
         <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
             <h4>Ingrediënten</h4>
             <div class="row">
@@ -102,54 +104,15 @@
                     <span th:text="${ingredient.getUnit()}"></span>
                 </li>
             </ul>
-        </div>
-        <div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
-
-            <div th:classappend="${dish.getNutritions() == null}">
-                <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
-                <div class="row">
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Vezel</label>
-                        <p th:text="'0 gr'">0 gr</p>
-                    </div>
-
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Zout</label>
-                        <p th:text="'0 mg'">0 mg</p>
-                    </div>
-
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Suiker</label>
-                        <p th:text="'0 gr'">0 gr</p>
-                    </div>
-
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Verz. Vet</label>
-                        <p th:text="'0 gr'">0 gr</p>
-                    </div>
-
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Vet</label>
-                        <p th:text="'0 gr'">0 gr</p>
-                    </div>
-
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Koolhydraten</label>
-                        <p th:text="'0 gr'">0 gr</p>
-                    </div>
-
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Eiwit</label>
-                        <p th:text="'0 gr'">0 gr</p>
-                    </div>
-                </div>
+            <div th:if="${dish.getIngredients() == null}">
+                <p class="alert alert-danger border border-danger p-1 m-0">
+                    Geen Ingredienten beschikbaar. Voeg dit toe!
+                </p>
             </div>
         </div>
 
-
-        <div class="text" th:classappend="${dish.getNutritions()}">
-            <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
-
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
+            <div th:if="${dish.getNutritions() != null && !dish.getNutritions().isEmpty()}">
                 <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
                 <div th:each="nutrition: ${dish.getNutritions()}">
                     <div class="row">
@@ -157,32 +120,26 @@
                             <label>Vezel</label>
                             <p th:text="${nutrition.fiber}"></p>
                         </div>
-
                         <div class="col-lg-4 border text-center mt-2">
                             <label>Zout</label>
                             <p th:text="${nutrition.salt}"></p>
                         </div>
-
                         <div class="col-lg-4 border text-center mt-2">
                             <label>Suiker</label>
                             <p th:text="${nutrition.sugar}"></p>
                         </div>
-
                         <div class="col-lg-4 border text-center mt-2">
                             <label>Verz. Vet</label>
                             <p th:text="${nutrition.saturatedFat}"></p>
                         </div>
-
                         <div class="col-lg-4 border text-center mt-2">
                             <label>Vet</label>
                             <p th:text="${nutrition.fat}"></p>
                         </div>
-
                         <div class="col-lg-4 border text-center mt-2">
                             <label>Koolhydraten</label>
                             <p th:text="${nutrition.carbs}"></p>
                         </div>
-
                         <div class="col-lg-4 border text-center mt-2">
                             <label>Eiwit</label>
                             <p th:text="${nutrition.proteins}"></p>
@@ -194,12 +151,49 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="col-md-2 m-3">
-        <p th:classappend="${dish.getIngredients() == null }"
-           class="alert alert-danger border border-danger p-1 m-0">
-            Geen Ingredienten beschikbaar. Voeg dit toe!
-        </p>
+
+
+<div class="d-flex flex-row">
+    <div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
+        <div th:if="${dish.getNutritions() == null || dish.getNutritions().isEmpty()}">
+            <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
+            <div class="row">
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Vezel</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
+
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Zout</label>
+                    <p th:text="'0 mg'">0 mg</p>
+                </div>
+
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Suiker</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
+
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Verz. Vet</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
+
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Vet</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
+
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Koolhydraten</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
+
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Eiwit</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -221,6 +215,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <div class="container">

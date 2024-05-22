@@ -53,6 +53,48 @@
             </div>
         </div>
     </div>
+    <div th:if="*{nutritions.size() == 0}">
+        <p>Geen voedingswaarden beschikbaar . Voeg deze toe.</p>
+        <div id="ingredientsContainer">
+            <div class="ingredient-row">
+                <input type="hidden" name="nutritions[0].id" value=""/>
+                <div class="row mb-3 m-2">
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Vezel</label>
+                        <input class="form-control" type="text" name="nutritions[0].fiber"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Zout</label>
+                        <input class="form-control" type="text" name="nutritions[0].salt"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Suiker</label>
+                        <input class="form-control" type="text" name="nutritions[0].sugar"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Verzadigde vet</label>
+                        <input class="form-control" type="text" name="nutritions[0].saturatedFat"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Vet</label>
+                        <input class="form-control" type="text" name="nutritions[0].fat"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Koolhydraten</label>
+                        <input class="form-control" type="text" name="nutritions[0].carbs"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Proteinen</label>
+                        <input class="form-control" type="text" name="nutritions[0].proteins"/>
+                    </div>
+                    v
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-sm-4 d-grid p-2 m-2">
             <button type="submit" class="btn btn-success btn-block">Confirm</button>
