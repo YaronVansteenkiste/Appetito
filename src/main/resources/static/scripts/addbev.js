@@ -41,7 +41,7 @@ function addDrink() {
                 </div>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-danger" onclick="toggleInactive(this)">
+                <button type="button" class="btn btn-danger">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -49,5 +49,6 @@ function addDrink() {
     `;
     cardContainer.appendChild(card);
 }
+
 
 

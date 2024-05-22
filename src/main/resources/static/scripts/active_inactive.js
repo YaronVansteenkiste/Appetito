@@ -1,3 +1,10 @@
+
+document.addEventListener('click', function(event) {
+    if (event.target && event.target.classList.contains('btn-danger')) {
+        toggleInactive(event.target);
+    }
+});
+
 function toggleInactive(button) {
     let card = button.closest('.card');
     let isActive = !card.classList.contains('inactive');
