@@ -79,6 +79,6 @@ public class AdminController {
         Beverage beverage = beverageRepository.findById(id).orElseThrow(() -> new IllegalStateException("Beverage not found"));
         beverage.setActive(active);
         beverageRepository.save(beverage);
-        return "redirect:/dishdetails/" + id;
+        return "redirect:/beverage";
     }
 }
