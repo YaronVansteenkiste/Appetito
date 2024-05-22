@@ -29,12 +29,10 @@ import java.nio.file.Paths;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Controller
 public class DishesController {
@@ -72,8 +70,13 @@ public class DishesController {
     @GetMapping("/dishes/search")
     public String search(Model model, @RequestParam String keyword) {
         logger.info("searching for: " + keyword);
-        Iterable<Dish> allDishes = dishRepository.findByName("%" + keyword + "%");
-        model.addAttribute("count", allDishes.spliterator().estimateSize());
+        List<String> keywords = Arrays.asList(keyword.split(",")).stream().map(String::trim).collect(Collectors.toList());
+        Set<Dish> allDishes = new HashSet<>();
+        for (String key : keywords) {
+            Iterable<Dish> dishes = dishRepository.findByNameOrIngredients(key);
+            dishes.forEach(allDishes::add);
+        }
+        model.addAttribute("count", allDishes.size());
         model.addAttribute("alldishes", allDishes);
         return "dishes";
     }

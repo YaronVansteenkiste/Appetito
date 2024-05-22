@@ -399,7 +399,6 @@ VALUES ('Meloen', 200, 'gr', 11),
        ('Honing of agavesiroop', 20, 'ml', 11);
 
 
--- Dish ID 12
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Groene linzen', 200, 'gr', 12),
        ('Tomaten', 150, 'gr', 12),
@@ -407,14 +406,12 @@ VALUES ('Groene linzen', 200, 'gr', 12),
        ('Rode ui', 50, 'gr', 12),
        ('Verse peterselie', 10, 'gr', 12);
 
--- Dish ID 13
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zalmfilets', 200, 'gr', 13),
        ('Asperges', 200, 'gr', 13),
        ('Olijfolie', 10, 'ml', 13),
        ('Citroen', 0.5, 'stuks', 13);
 
--- Dish ID 14
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zwarte bonen', 150, 'gr', 14),
        ('Quinoa', 100, 'gr', 14),
@@ -422,7 +419,6 @@ VALUES ('Zwarte bonen', 150, 'gr', 14),
        ('Volkoren broodje', 1, 'stuks', 14),
        ('Sla', 30, 'gr', 14);
 
--- Dish ID 15
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zoete aardappel', 300, 'gr', 15),
        ('Currypasta', 30, 'gr', 15),
@@ -430,7 +426,6 @@ VALUES ('Zoete aardappel', 300, 'gr', 15),
        ('Kikkererwten', 150, 'gr', 15),
        ('Spinazie', 100, 'gr', 15);
 
--- Dish ID 16
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Eieren', 2, 'stuks', 16),
        ('Zwarte bonen', 50, 'gr', 16),
@@ -438,7 +433,6 @@ VALUES ('Eieren', 2, 'stuks', 16),
        ('Paprika', 50, 'gr', 16),
        ('Volkoren tortilla', 1, 'stuks', 16);
 
--- Dish ID 17
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Quinoa', 150, 'gr', 17),
        ('Avocado', 1, 'stuks', 17),
@@ -446,7 +440,6 @@ VALUES ('Quinoa', 150, 'gr', 17),
        ('Tomaat', 100, 'gr', 17),
        ('Rode ui', 50, 'gr', 17);
 
--- Dish ID 18
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Volkorenpasta', 200, 'gr', 18),
        ('Olijven', 50, 'gr', 18),
@@ -454,14 +447,12 @@ VALUES ('Volkorenpasta', 200, 'gr', 18),
        ('Artisjokharten', 100, 'gr', 18),
        ('Feta', 50, 'gr', 18);
 
--- Dish ID 19
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Gekookte garnalen', 150, 'gr', 19),
        ('Cocktailsaus', 50, 'ml', 19),
        ('Sla', 50, 'gr', 19),
        ('Citroen', 0.5, 'stuks', 19);
 
--- Dish ID 20
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Meloen', 200, 'gr', 20),
        ('Bessen', 100, 'gr', 20),
