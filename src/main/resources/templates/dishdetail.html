@@ -31,8 +31,8 @@
                 <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
                       method="post">
                     <input type="hidden" name="active" th:value="${!dish.isActive}">
-                    <button type="submit" th:class="${dish.isActive ? 'btn btn-success' : 'btn btn-danger'}"
-                            th:text="${dish.isActive ? 'Active' : 'Inactive'}">
+                    <button type="submit" th:class="${dish.isActive ? 'btn btn-danger' : 'btn btn-success'}"
+                            th:text="${dish.isActive ? '&#x1F5D1 Verwijderen' : ' &#x23FB Toevoegen'}">
                     </button>
                 </form>
                 <h2>
