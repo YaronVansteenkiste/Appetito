@@ -43,7 +43,9 @@ function addDrink() {
                 </div>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-warning" onclick="toggleInactive(this)">Actief</button>
+                <button type="button" class="btn btn-danger" onclick="toggleInactive(this)">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
         </article>
     `;
