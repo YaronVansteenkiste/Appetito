@@ -2,19 +2,16 @@ package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Dish;
 
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 
 import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface DishRepository extends CrudRepository<Dish, Integer> {
 
@@ -78,11 +75,8 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPrefere
     List<Dish> findProductsPageable(int pageSize, int offset);
 
     Iterable<Dish> findAll();
-
     List<Dish> findByActive(boolean active);
-
     Page<Dish> findByActive(boolean active, Pageable pageable);
-
     long count();
 
     @Query("SELECT d FROM Dish d JOIN d.dietPreferences WHERE d.name IN :dietPreferences")
@@ -90,6 +84,11 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPrefere
 
     List<Dish> findByChefId(int chef_id);
 
+
+
+
+    @Query(value = "SELECT * FROM Dish WHERE occasion = ?1 ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    List<Dish> findRandomDishesByOccasion(String occasion);
 
 @Query("SELECT d FROM Dish d JOIN Rating r ON d.id = r.dish.id GROUP BY d.id ORDER BY AVG(r.rating) DESC limit 3")
 List<Dish> findTopDishes();
