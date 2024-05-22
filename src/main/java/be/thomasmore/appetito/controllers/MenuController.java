@@ -41,9 +41,6 @@ public class MenuController {
             return "redirect:/login";
         }
 
-        if (menusOfChef == null) {
-            return "redirect:/menu/add";
-        }
         model.addAttribute("dishId", id);
         model.addAttribute("menus", menusOfChef);
         model.addAttribute("dish", dish);
