@@ -78,7 +78,6 @@ public class HomeController {
         model.addAttribute("suggestion",suggestion);
         model.addAttribute("loginName", loginName);
         model.addAttribute("topRatedDishes", topRatedDishes);
-        model.addAttribute("topRatedDishAverageRating", 5);
         return "home";
     }
 
