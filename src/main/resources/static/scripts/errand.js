@@ -4,7 +4,7 @@ document.querySelectorAll('.delete-ingredient').forEach(function(button) {
         fetch('/groceries/ingredients/' + ingredientId, {
             method: 'DELETE',
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content')
+                // 'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content')
             }
         })
             .then(response => {

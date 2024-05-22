@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken
+                    // 'X-CSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify({
                     favoriteDishesId: dishId,
