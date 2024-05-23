@@ -8,6 +8,8 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
     <link rel="stylesheet" th:href="@{|/css/rating.css|}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
@@ -31,8 +33,7 @@
                 <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
                       method="post">
                     <input type="hidden" name="active" th:value="${!dish.isActive}">
-                    <button type="submit" th:class="${dish.isActive ? 'btn btn-danger' : 'btn btn-success'}"
-                            th:text="${dish.isActive ? '&#x1F5D1 Verwijderen' : ' &#x23FB Toevoegen'}">
+                    <button type="submit" th:class="${dish.isActive ? ' bi bi-trash3-fill btn btn-danger' : 'bi bi-power btn btn-success'}" th:text="${dish.isActive ? ' Verwijderen' : ' Toevoegen'}">
                     </button>
                 </form>
                 <h2>

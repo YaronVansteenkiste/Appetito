@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +53,17 @@ public class DishesController {
 
     @GetMapping("/dishes")
     public String Home(Model model, @RequestParam(defaultValue = "0") int page) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
+        List<Dish> allTheDishes;
+        if (isAdmin) {
+            allTheDishes = dishRepository.findAll();
+        } else {
+            allTheDishes = dishRepository.findByActiveTrue();
+        }
+
         int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
@@ -64,6 +79,7 @@ public class DishesController {
         model.addAttribute("hasPrevious", dishesPage.hasPrevious());
         model.addAttribute("hasNext", dishesPage.hasNext());
         model.addAttribute("alldishes", dishes);
+        model.addAttribute("allTheDishes",allTheDishes);
         return "dishes";
 
     }

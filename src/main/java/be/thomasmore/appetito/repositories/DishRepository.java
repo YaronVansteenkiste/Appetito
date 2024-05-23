@@ -77,7 +77,7 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPrefere
     @Query("SELECT d FROM Dish d ORDER BY d.id ASC")
     List<Dish> findProductsPageable(int pageSize, int offset);
 
-    Iterable<Dish> findAll();
+    @NotNull List<Dish> findAll();
     List<Dish> findByActive(boolean active);
     Page<Dish> findByActive(boolean active, Pageable pageable);
     long count();
@@ -86,5 +86,10 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPrefere
     List<Dish> findByDietPreferencesIn(List<String> dietPreferences);
 
     List<Dish> findByChefId(int chef_id);
+
+    @Query("SELECT d FROM Dish d JOIN d.chef c WHERE c.username = :username AND (d.active = true OR :isAdmin = true)")
+    List<Dish> findAllDishesForUser(String username, boolean isAdmin);
+
+    List<Dish> findByActiveTrue();
 
 }
