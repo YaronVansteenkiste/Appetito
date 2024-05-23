@@ -367,14 +367,19 @@ public class DishModifyController {
 
     @PostMapping("/editbeverage/saveAll")
     @Transactional
-    public String saveAllBeverages(@RequestParam("id") Integer id,
-                                   @RequestParam("name") List<String> names,
-                                   @RequestParam("imageFiles") List<MultipartFile> imageFiles) {
+    public String saveAllBeverages(
+            @RequestParam("id") Integer id,
+            @RequestParam("name") List<String> names,
+            @RequestParam("imageFiles") List<MultipartFile> imageFiles,
+            @RequestParam("beverageNames[]") List<String> beverageNames,
+            @RequestParam("beverageImages[]") List<MultipartFile> beverageImages)
+    {
         Optional<Dish> optionalDish = dishRepository.findById(id);
 
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
             List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
+
 
             for (int i = 0; i < beverages.size(); i++) {
                 Beverage beverage = beverages.get(i);
@@ -383,33 +388,46 @@ public class DishModifyController {
                 MultipartFile imageFile = imageFiles.get(i);
 
                 try {
-
-                    System.out.println("beverage: " + beverage.getName());
-                    if (imageFile != null) {
-                        System.out.println("Image file name: " + imageFile.getOriginalFilename());
-                        System.out.println("Image file size: " + imageFile.getSize());
-                    } else {
-                        System.out.println("Image file is null");
-                    }
-
                     if (imageFile != null && !imageFile.isEmpty()) {
-
-                        beverage.setImgFile(null);
-
                         beverage.setImgFile(uploadBevImage(imageFile));
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 beverageRepository.save(beverage);
             }
-            dishRepository.save(dish);
-        }
-        return "redirect:/modify/dishedit/" + id;
-    }
 
+
+            for (int i = 0; i < beverageNames.size(); i++) {
+                String beverageName = beverageNames.get(i);
+                MultipartFile beverageImage = beverageImages.get(i);
+
+                Beverage newBeverage = new Beverage();
+                newBeverage.setName(beverageName);
+
+                try {
+                    if (beverageImage != null && !beverageImage.isEmpty()) {
+                        newBeverage.setImgFile(uploadBevImage(beverageImage));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                beverages.add(newBeverage);
+                beverageRepository.save(newBeverage);
+            }
+
+
+            dish.setBeverages(beverages);
+            dishRepository.save(dish);
+
+            return "redirect:/modify/dishedit/" + id;
+        } else {
+
+            return "redirect:/error";
+        }
+    }
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {

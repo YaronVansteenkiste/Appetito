@@ -1,3 +1,4 @@
+
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml">
@@ -41,7 +42,25 @@
                     </article>
                 </div>
             </div>
+            <div class="row mb-3">
+                <label class="col-sm-12 col-form-label">Drank en Foto</label>
 
+                <div class="col-sm-2">
+                    <button type="button" class="form-control btn btn-outline-success" onclick="addBev()">+</button>
+                </div>
+
+                <div class="col-sm-2">
+                    <button type="button" class="form-control btn btn-outline-dark" onclick="removeBev()">-</button>
+                </div>
+
+                <div class="col-sm-4" id="drinkImageContainer">
+                    <input class="form-control" type="file" id="bevimage" accept="image/*" name="beverageImages[]">
+                </div>
+
+                <div class="col-sm-4" id="drinkTextContainer">
+                    <input class="form-control" type="text" name="beverageNames[]">
+                </div>
+            </div>
             <div class="row mt-3 justify-content-center">
                 <div class="col-lg-4 text-center">
                     <button type="submit" class="btn btn-success me-2">Opslagen</button>
@@ -56,6 +75,9 @@
         </div>
     </div>
 </main>
+
+<script th:src="@{/scripts/addbev.js}"></script>
+<script th:src="@{/scripts/removebev.js}"></script>
 
 <footer th:replace="~{fragments/footer :: footer}">Info-Footer</footer>
 </body>
