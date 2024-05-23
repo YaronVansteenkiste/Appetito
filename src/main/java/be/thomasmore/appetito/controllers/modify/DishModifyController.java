@@ -174,7 +174,6 @@ public class DishModifyController {
     }
 
 
-
     @GetMapping("/editingredients/{id}")
     public String showIngredients(Model model, @PathVariable("id") Integer id) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
@@ -338,6 +337,32 @@ public class DishModifyController {
         }
     }
 
+    @PostMapping("/deletebeverage/{dishId}/{beverageId}")
+    public String delteBeverage(@PathVariable("dishId") Integer dishId, @PathVariable("beverageId") Integer beverageId) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Beverage beverageToRemove = null;
+
+
+            for (Beverage beverage : dish.getBeverages()) {
+                if (beverage.getId().equals(beverageId)) {
+                    beverageToRemove = beverage;
+                    break;
+                }
+            }
+
+            if (beverageToRemove != null) {
+                dish.getBeverages().remove(beverageToRemove);
+                dishRepository.save(dish);
+
+            }
+        }
+
+        return "redirect:/modify/editbeverage/" + dishId;
+    }
+
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();
@@ -354,6 +379,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         Collection<Beverage> beverage = optionalDish.get().getBeverages();
         model.addAttribute("beverage", beverage);
+
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
 
@@ -372,8 +398,7 @@ public class DishModifyController {
             @RequestParam("name") List<String> names,
             @RequestParam("imageFiles") List<MultipartFile> imageFiles,
             @RequestParam("beverageNames[]") List<String> beverageNames,
-            @RequestParam("beverageImages[]") List<MultipartFile> beverageImages)
-    {
+            @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
 
         if (optionalDish.isPresent()) {
