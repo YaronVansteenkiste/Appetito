@@ -24,7 +24,7 @@ public class Dish {
     private Time preparationTime;
     private String occasion;
     private String imgFileName;
-    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Ingredient> ingredients;
 
     private Boolean active = true;

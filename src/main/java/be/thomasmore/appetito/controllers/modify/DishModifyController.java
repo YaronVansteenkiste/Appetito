@@ -4,6 +4,7 @@ package be.thomasmore.appetito.controllers.modify;
 import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.BeverageRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
+import be.thomasmore.appetito.repositories.IngredientRepository;
 import be.thomasmore.appetito.repositories.StepRepository;
 import be.thomasmore.appetito.services.GoogleService;
 
@@ -44,6 +45,8 @@ public class DishModifyController {
 
     @Autowired
     BeverageRepository beverageRepository;
+    @Autowired
+    IngredientRepository ingredientRepository;
 
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
@@ -362,7 +365,33 @@ public class DishModifyController {
 
         return "redirect:/modify/editbeverage/" + dishId;
     }
+    @PostMapping("/deleteingredient/{dishId}/{ingredientId}")
+    public String deleteIngredient(@PathVariable("dishId") Integer dishId,
+                                   @PathVariable("ingredientId") Integer ingredientId) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
 
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Ingredient ingredientToRemove = null;
+
+
+            for (Ingredient ingredient : dish.getIngredients()) {
+                if (ingredient.getId().equals(ingredientId)) {
+                    ingredientToRemove = ingredient;
+                    break;
+                }
+            }
+
+            if (ingredientToRemove != null) {
+                dish.getIngredients().remove(ingredientToRemove);
+                ingredientToRemove.setDish(null);
+                ingredientRepository.delete(ingredientToRemove);
+                dishRepository.save(dish);
+            }
+        }
+
+        return "redirect:/modify/editingredients/" + dishId;
+    }
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();

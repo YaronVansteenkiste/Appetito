@@ -39,7 +39,7 @@
                                 <input type="file" class="form-control" id="beverageImage" name="imageFiles">
                             </div>
                             <form method="post" th:action="@{/modify/deletebeverage/{dishId}/{beverageId}(dishId=${dish.id}, beverageId=${beverage.id})}"
-                                 onsubmit="return confirm('Are you sure you want to delete this beverage?');">
+                                 onsubmit="return confirm('Ben je zeker dat je dit wilt verwijderen?');">
                                 <button type="submit" class="btn btn-danger">Verwijder</button>
                             </form>
                         </div>
