@@ -80,6 +80,7 @@ public class DishesController {
         model.addAttribute("hasNext", dishesPage.hasNext());
         model.addAttribute("alldishes", dishes);
         model.addAttribute("allTheDishes",allTheDishes);
+        model.addAttribute("isAdmin", isAdmin);
         return "dishes";
 
     }
