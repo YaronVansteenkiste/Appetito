@@ -432,22 +432,9 @@ public String editIngredients(@PathVariable("id") Integer id,
                 MultipartFile imageFile = imageFiles.get(i);
 
                 try {
-
-                    System.out.println("beverage: " + beverage.getName());
-                    if (imageFile != null) {
-                        System.out.println("Image file name: " + imageFile.getOriginalFilename());
-                        System.out.println("Image file size: " + imageFile.getSize());
-                    } else {
-                        System.out.println("Image file is null");
-                    }
-
                     if (imageFile != null && !imageFile.isEmpty()) {
-
-                        beverage.setImgFile(null);
-
                         beverage.setImgFile(uploadBevImage(imageFile));
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -485,6 +472,7 @@ public String editIngredients(@PathVariable("id") Integer id,
             return "redirect:/error";
         }
     }
+
 
 
 
