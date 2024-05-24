@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-6 d-inline-flex">
                     <button onclick="subtractPersons()" class="btn btn-outline-primary rounded-circle">-</button>
-                    <p id="persons" class="mx-3">1</p>
+                    <p th:text="${dish.getNumberOfPeople() != null ? dish.getNumberOfPeople() : 1}" id="persons" class="mx-3">1</p>
                     <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
                 </div>
             </div>
