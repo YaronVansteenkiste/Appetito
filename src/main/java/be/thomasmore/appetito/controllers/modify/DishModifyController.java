@@ -285,7 +285,6 @@ public String editIngredients(@PathVariable("id") Integer id,
         return "redirect:/modify/dishedit/" + id;
     }
 
-
     @GetMapping("/editsteps/{id}")
     public String showSteps(Model model, @PathVariable("id") Integer id) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
@@ -357,6 +356,32 @@ public String editIngredients(@PathVariable("id") Integer id,
         }
     }
 
+    @PostMapping("/deletebeverage/{dishId}/{beverageId}")
+    public String delteBeverage(@PathVariable("dishId") Integer dishId, @PathVariable("beverageId") Integer beverageId) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Beverage beverageToRemove = null;
+
+
+            for (Beverage beverage : dish.getBeverages()) {
+                if (beverage.getId().equals(beverageId)) {
+                    beverageToRemove = beverage;
+                    break;
+                }
+            }
+
+            if (beverageToRemove != null) {
+                dish.getBeverages().remove(beverageToRemove);
+                dishRepository.save(dish);
+
+            }
+        }
+
+        return "redirect:/modify/editbeverage/" + dishId;
+    }
+
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();
@@ -373,6 +398,7 @@ public String editIngredients(@PathVariable("id") Integer id,
         Optional<Dish> optionalDish = dishRepository.findById(id);
         Collection<Beverage> beverage = optionalDish.get().getBeverages();
         model.addAttribute("beverage", beverage);
+
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
 
@@ -386,14 +412,18 @@ public String editIngredients(@PathVariable("id") Integer id,
 
     @PostMapping("/editbeverage/saveAll")
     @Transactional
-    public String saveAllBeverages(@RequestParam("id") Integer id,
-                                   @RequestParam("name") List<String> names,
-                                   @RequestParam("imageFiles") List<MultipartFile> imageFiles) {
+    public String saveAllBeverages(
+            @RequestParam("id") Integer id,
+            @RequestParam("name") List<String> names,
+            @RequestParam("imageFiles") List<MultipartFile> imageFiles,
+            @RequestParam("beverageNames[]") List<String> beverageNames,
+            @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
 
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
             List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
+
 
             for (int i = 0; i < beverages.size(); i++) {
                 Beverage beverage = beverages.get(i);
@@ -424,10 +454,38 @@ public String editIngredients(@PathVariable("id") Integer id,
 
                 beverageRepository.save(beverage);
             }
+
+
+            for (int i = 0; i < beverageNames.size(); i++) {
+                String beverageName = beverageNames.get(i);
+                MultipartFile beverageImage = beverageImages.get(i);
+
+                Beverage newBeverage = new Beverage();
+                newBeverage.setName(beverageName);
+
+                try {
+                    if (beverageImage != null && !beverageImage.isEmpty()) {
+                        newBeverage.setImgFile(uploadBevImage(beverageImage));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                beverages.add(newBeverage);
+                beverageRepository.save(newBeverage);
+            }
+
+
+            dish.setBeverages(beverages);
             dishRepository.save(dish);
+
+            return "redirect:/modify/dishedit/" + id;
+        } else {
+
+            return "redirect:/error";
         }
-        return "redirect:/modify/dishedit/" + id;
     }
+
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {
