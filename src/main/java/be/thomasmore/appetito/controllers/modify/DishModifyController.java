@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -58,6 +59,31 @@ public class DishModifyController {
             return dishFromDB.orElseGet(Dish::new);
         } else {
             return new Dish();
+        }
+    }
+
+    @GetMapping("/addnutritions/{dishId}")
+    public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model, nutritionListWrapper nutritionListWrapper) {
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        model.addAttribute("dish", dish);
+        model.addAttribute("nutritionsListWrapper", nutritionListWrapper);
+        return "modify/addnutritions";
+    }
+
+    @PostMapping("/addnutritions/{dishId}")
+    public String addNutritions(@PathVariable("dishId") Integer dishId, @ModelAttribute nutritionListWrapper nutritionsListWrapper, Model model) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            nutritionListWrapper wrapper = new nutritionListWrapper();
+            wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("nutritionsListWrapper", wrapper);
+            return "redirect:/dishdetails/" + dishId;
+        } else {
+            return "redirect:/dishdetails/" + dishId;
         }
     }
 
@@ -127,6 +153,59 @@ public class DishModifyController {
     }
 
 
+    @GetMapping("/addsteps/{dishId}")
+public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model model, RedirectAttributes redirectAttributes) {
+    if (dishId == null || dishId <= 0) {
+        redirectAttributes.addFlashAttribute("error", "Invalid dish Id!");
+        return "redirect:/";
+    }
+
+    Dish dish = dishRepository.findById(dishId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+    StepListWrapper wrapper = new StepListWrapper();
+    model.addAttribute("dish", dish);
+    model.addAttribute("stepListWrapper", wrapper);
+    return "modify/addsteps";
+}
+
+    @PostMapping("/addsteps/{dishId}")
+public String addSteps(@PathVariable("dishId") Integer dishId, @ModelAttribute StepListWrapper stepListWrapper, RedirectAttributes redirectAttributes) {
+    Dish dish = dishRepository.findById(dishId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+    if (stepListWrapper.getSteps().isEmpty()) {
+        redirectAttributes.addFlashAttribute("error", "Steps must be filled in!");
+        return "redirect:/modify/addsteps/" + dishId;
+    }
+
+    for (Step step : stepListWrapper.getSteps()) {
+        step.setDish(dish);
+        stepRepository.save(step);
+    }
+    return "redirect:/modify/addnutritions/" + dishId;
+}
+
+
+    @GetMapping("/addingredients/{dishId}")
+    public String showAddIngredientsForm(@PathVariable("dishId") Integer dishId, Model model) {
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        model.addAttribute("dish", dish);
+        return "modify/addingredients";
+    }
+
+    @PostMapping("/addingredients/{dishId}")
+    public String addIngredients(@PathVariable("dishId") Integer dishId, @ModelAttribute IngredientListWrapper ingredientListWrapper) {
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        for (Ingredient ingredient : ingredientListWrapper.getIngredients()) {
+            ingredient.setDish(dish);
+            ingredientRepository.save(ingredient);
+        }
+        return "redirect:/modify/addnutritions/" + dishId;
+    }
+
+
     @GetMapping("/addmeal")
     public String showCreateDish(Model model) {
         DishDto dishDto = new DishDto();
@@ -176,32 +255,32 @@ public class DishModifyController {
         dish.setBeverages(beverages);
         dishRepository.save(dish);
 
-        return "redirect:/modify/editsteps/" + dish.getId();
+        return "redirect:/modify/addsteps/" + dish.getId();
     }
 
 
-@DeleteMapping("/editingredients/delete/{id}")
-public ResponseEntity<Void> deleteIngredientDb(@PathVariable Integer id) {
-    Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
-    if (optionalIngredient.isPresent()) {
-        Ingredient ingredient = optionalIngredient.get();
+    @DeleteMapping("/editingredients/delete/{id}")
+    public ResponseEntity<Void> deleteIngredientDb(@PathVariable Integer id) {
+        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
+        if (optionalIngredient.isPresent()) {
+            Ingredient ingredient = optionalIngredient.get();
 
-        List<Grocery> groceries = groceryRepository.findByIngredients(ingredient);
-        logger.info("Groceries: {}", groceries);
+            List<Grocery> groceries = groceryRepository.findByIngredients(ingredient);
+            logger.info("Groceries: {}", groceries);
 
-        for (Grocery grocery : groceries) {
-            grocery.getIngredients().remove(ingredient);
-            groceryRepository.save(grocery);
+            for (Grocery grocery : groceries) {
+                grocery.getIngredients().remove(ingredient);
+                groceryRepository.save(grocery);
+            }
+
+            Dish dish = ingredient.getDish();
+            dish.getIngredients().remove(ingredient);
+            ingredientRepository.delete(ingredient);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
-
-        Dish dish = ingredient.getDish();
-        dish.getIngredients().remove(ingredient);
-        ingredientRepository.delete(ingredient);
-        return ResponseEntity.ok().build();
-    } else {
-        return ResponseEntity.notFound().build();
     }
-}
 
 
     @GetMapping("/editingredients/{id}")
