@@ -414,65 +414,64 @@ public String editIngredients(@PathVariable("id") Integer id,
     @Transactional
     public String saveAllBeverages(
             @RequestParam("id") Integer id,
-            @RequestParam("name") List<String> names,
-            @RequestParam("imageFiles") List<MultipartFile> imageFiles,
-            @RequestParam("beverageNames[]") List<String> beverageNames,
-            @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) {
+            @RequestParam(value = "names", required = false) List<String> names,
+            @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
+            @RequestParam(value = "beverageNames", required = false) List<String> beverageNames,
+            @RequestParam(value = "beverageImages", required = false) List<MultipartFile> beverageImages) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
 
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
             List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
 
+            if (names != null && imageFiles != null) {
+                for (int i = 0; i < beverages.size(); i++) {
+                    Beverage beverage = beverages.get(i);
+                    beverage.setName(names.get(i));
 
-            for (int i = 0; i < beverages.size(); i++) {
-                Beverage beverage = beverages.get(i);
-                beverage.setName(names.get(i));
+                    MultipartFile imageFile = imageFiles.get(i);
 
-                MultipartFile imageFile = imageFiles.get(i);
-
-                try {
-                    if (imageFile != null && !imageFile.isEmpty()) {
-                        beverage.setImgFile(uploadBevImage(imageFile));
+                    try {
+                        if (imageFile != null && !imageFile.isEmpty()) {
+                            beverage.setImgFile(uploadBevImage(imageFile));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                beverageRepository.save(beverage);
+                    beverageRepository.save(beverage);
+                }
             }
 
+            if (beverageNames != null && beverageImages != null) {
+                for (int i = 0; i < beverageNames.size(); i++) {
+                    String beverageName = beverageNames.get(i);
+                    MultipartFile beverageImage = beverageImages.get(i);
 
-            for (int i = 0; i < beverageNames.size(); i++) {
-                String beverageName = beverageNames.get(i);
-                MultipartFile beverageImage = beverageImages.get(i);
+                    Beverage newBeverage = new Beverage();
+                    newBeverage.setName(beverageName);
 
-                Beverage newBeverage = new Beverage();
-                newBeverage.setName(beverageName);
-
-                try {
-                    if (beverageImage != null && !beverageImage.isEmpty()) {
-                        newBeverage.setImgFile(uploadBevImage(beverageImage));
+                    try {
+                        if (beverageImage != null && !beverageImage.isEmpty()) {
+                            newBeverage.setImgFile(uploadBevImage(beverageImage));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                    beverages.add(newBeverage);
+                    beverageRepository.save(newBeverage);
                 }
-
-                beverages.add(newBeverage);
-                beverageRepository.save(newBeverage);
             }
-
 
             dish.setBeverages(beverages);
             dishRepository.save(dish);
 
             return "redirect:/modify/dishedit/" + id;
         } else {
-
             return "redirect:/error";
         }
     }
-
 
 
 

@@ -12,8 +12,25 @@ function removeBev() {
         return;
     }
 
-
     textContainer.removeChild(textInputs[textInputs.length - 1]);
-
     imageContainer.removeChild(imageInputs[imageInputs.length - 1]);
+}
+function deleteBeverage(dishId, beverageId) {
+    if (confirm('Ben je zeker dat je dit wilt verwijderen?')) {
+        fetch(`/modify/deletebeverage/${dishId}/${beverageId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Failed to delete the beverage');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('Failed to delete the beverage');
+        });
+    }
 }
