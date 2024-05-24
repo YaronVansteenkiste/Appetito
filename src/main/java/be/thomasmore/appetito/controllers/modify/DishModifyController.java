@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -179,19 +180,28 @@ public class DishModifyController {
     }
 
 
-    @DeleteMapping("/editingredients/delete/{id}")
-    public ResponseEntity<Void> deleteIngredientDb(@PathVariable Integer id) {
-        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
-        if (optionalIngredient.isPresent()) {
-            Ingredient ingredient = optionalIngredient.get();
-            Dish dish = ingredient.getDish();
-            dish.getIngredients().remove(ingredient);
-            ingredientRepository.delete(ingredient);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
+@DeleteMapping("/editingredients/delete/{id}")
+public ResponseEntity<Void> deleteIngredientDb(@PathVariable Integer id) {
+    Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
+    if (optionalIngredient.isPresent()) {
+        Ingredient ingredient = optionalIngredient.get();
+
+        List<Grocery> groceries = groceryRepository.findByIngredients(ingredient);
+        logger.info("Groceries: {}", groceries);
+
+        for (Grocery grocery : groceries) {
+            grocery.getIngredients().remove(ingredient);
+            groceryRepository.save(grocery);
         }
+
+        Dish dish = ingredient.getDish();
+        dish.getIngredients().remove(ingredient);
+        ingredientRepository.delete(ingredient);
+        return ResponseEntity.ok().build();
+    } else {
+        return ResponseEntity.notFound().build();
     }
+}
 
 
     @GetMapping("/editingredients/{id}")
@@ -211,33 +221,33 @@ public class DishModifyController {
     }
 
 
-   @PostMapping("/editingredients/{id}")
-@Transactional
-public String editIngredients(@PathVariable("id") Integer id,
-                              @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
-                              Dish dish,
-                              Model model) {
-    Optional<Dish> optionalDish = dishRepository.findById(id);
-    if (!optionalDish.isPresent()) {
-        model.addAttribute("error", "Dish not found with id: " + id);
-        return "error";
+    @PostMapping("/editingredients/{id}")
+    @Transactional
+    public String editIngredients(@PathVariable("id") Integer id,
+                                  @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                                  Dish dish,
+                                  Model model) {
+        Optional<Dish> optionalDish = dishRepository.findById(id);
+        if (!optionalDish.isPresent()) {
+            model.addAttribute("error", "Dish not found with id: " + id);
+            return "error";
+        }
+
+        Dish currentDish = optionalDish.get();
+        List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
+
+        currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
+
+        ingredientsFromWrapper.forEach(ingredient -> {
+            ingredient.setDish(currentDish);
+            currentDish.getIngredients().add(ingredient);
+            ingredientRepository.save(ingredient);
+        });
+
+        dishRepository.save(currentDish);
+
+        return "redirect:/modify/dishedit/" + id;
     }
-
-    Dish currentDish = optionalDish.get();
-    List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
-
-    currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
-
-    ingredientsFromWrapper.forEach(ingredient -> {
-        ingredient.setDish(currentDish);
-        currentDish.getIngredients().add(ingredient);
-        ingredientRepository.save(ingredient);
-    });
-
-    dishRepository.save(currentDish);
-
-    return "redirect:/modify/dishedit/" + id;
-}
 
     @GetMapping("/editnutritions/{id}")
     public String showNutritions(Model model, @PathVariable("id") Integer id) {
@@ -472,8 +482,6 @@ public String editIngredients(@PathVariable("id") Integer id,
             return "redirect:/error";
         }
     }
-
-
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {
