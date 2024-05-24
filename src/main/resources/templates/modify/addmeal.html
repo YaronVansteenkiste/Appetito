@@ -33,9 +33,9 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-4 col-form-label">Diet</label>
+                    <label class="col-sm-4 col-form-label">Categorie</label>
                     <div class="col-sm-8">
-                        <select class="form-control" th:field="${dishDto.dietPreferences}" multiple>
+                        <select class="form-control" id="dietPreferencesSelect" th:field="${dishDto.dietPreferences}">
 
                             <option value="paleo">Paleo</option>
                             <option value="vegetarisch">Vegetarisch</option>
@@ -45,16 +45,18 @@
                             <option value="Andere">Andere</option>
 
                         </select>
+
                         <p th:if="${#fields.hasErrors('dietPreferences')}" th:errorclass="text-danger"
                            th:errors="${dishDto.dietPreferences}"></p>
                     </div>
-                    <div class="row mb-3 mt-3">
-                        <label class="col-sm-4 col-form-label">Andere</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" type="text" th:field="${dishDto.dietPreferences}">
-                        </div>
+
+                    <label class="col-sm-4 col-form-label">Andere</label>
+                    <div class="col-sm-8 mt-3">
+                            <input class="form-control" type="text" disabled th:field="${dishDto.preparationTime}" id="otherField">
                     </div>
+
                 </div>
+
 
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Bereidingstijd</label>
@@ -126,6 +128,7 @@
 
 <script th:src="@{/scripts/addbev.js}"></script>
 <script th:src="@{/scripts/removebev.js}"></script>
+<script th:src="@{/scripts/addcategory.js}"></script>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
