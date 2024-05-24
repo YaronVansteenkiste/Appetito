@@ -18,6 +18,7 @@ public class Ingredient {
     private String name;
     private double quantity;
     private String unit;
+    private Boolean deleted = false;
 
     @ManyToOne
     @JoinColumn(name = "dish_id")
@@ -68,7 +69,11 @@ public class Ingredient {
     }
 
 
+    public boolean isDeleted() {
+        return deleted;
+    }
 
-
-
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

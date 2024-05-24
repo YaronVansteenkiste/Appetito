@@ -2,9 +2,7 @@ package be.thomasmore.appetito.controllers.modify;
 
 
 import be.thomasmore.appetito.model.*;
-import be.thomasmore.appetito.repositories.BeverageRepository;
-import be.thomasmore.appetito.repositories.DishRepository;
-import be.thomasmore.appetito.repositories.StepRepository;
+import be.thomasmore.appetito.repositories.*;
 import be.thomasmore.appetito.services.GoogleService;
 
 
@@ -25,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.sql.Wrapper;
 import java.util.*;
 
 
@@ -44,6 +43,12 @@ public class DishModifyController {
 
     @Autowired
     BeverageRepository beverageRepository;
+
+    @Autowired
+    IngredientRepository ingredientRepository;
+
+    @Autowired
+    GroceryRepository groceryRepository;
 
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
@@ -174,6 +179,20 @@ public class DishModifyController {
     }
 
 
+    @DeleteMapping("/editingredients/delete/{id}")
+    public ResponseEntity<Void> deleteIngredientDb(@PathVariable Integer id) {
+        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
+        if (optionalIngredient.isPresent()) {
+            Ingredient ingredient = optionalIngredient.get();
+            Dish dish = ingredient.getDish();
+            dish.getIngredients().remove(ingredient);
+            ingredientRepository.delete(ingredient);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @GetMapping("/editingredients/{id}")
     public String showIngredients(Model model, @PathVariable("id") Integer id) {
@@ -192,34 +211,33 @@ public class DishModifyController {
     }
 
 
-    @PostMapping("/editingredients/{id}")
-    @Transactional
-    public String editIngredients(@PathVariable("id") Integer id,
-                                  @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
-                                  Model model) {
-        Optional<Dish> optionalDish = dishRepository.findById(id);
-        if (!optionalDish.isPresent()) {
-            model.addAttribute("error", "Dish not found with id: " + id);
-            return "error";
-        }
-
-        Dish dish = optionalDish.get();
-        List<Ingredient> currentIngredients = new ArrayList<>(wrapper.getIngredients());
-
-
-        dish.getIngredients().clear();
-
-        currentIngredients.forEach(ingredient -> {
-            ingredient.setDish(dish);
-            dish.getIngredients().add(ingredient);
-
-        });
-
-
-        dishRepository.save(dish);
-
-        return "redirect:/modify/dishedit/" + id;
+   @PostMapping("/editingredients/{id}")
+@Transactional
+public String editIngredients(@PathVariable("id") Integer id,
+                              @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                              Dish dish,
+                              Model model) {
+    Optional<Dish> optionalDish = dishRepository.findById(id);
+    if (!optionalDish.isPresent()) {
+        model.addAttribute("error", "Dish not found with id: " + id);
+        return "error";
     }
+
+    Dish currentDish = optionalDish.get();
+    List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
+
+    currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
+
+    ingredientsFromWrapper.forEach(ingredient -> {
+        ingredient.setDish(currentDish);
+        currentDish.getIngredients().add(ingredient);
+        ingredientRepository.save(ingredient);
+    });
+
+    dishRepository.save(currentDish);
+
+    return "redirect:/modify/dishedit/" + id;
+}
 
     @GetMapping("/editnutritions/{id}")
     public String showNutritions(Model model, @PathVariable("id") Integer id) {
@@ -266,6 +284,7 @@ public class DishModifyController {
 
         return "redirect:/modify/dishedit/" + id;
     }
+
 
     @GetMapping("/editsteps/{id}")
     public String showSteps(Model model, @PathVariable("id") Integer id) {
@@ -409,7 +428,6 @@ public class DishModifyController {
         }
         return "redirect:/modify/dishedit/" + id;
     }
-
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {

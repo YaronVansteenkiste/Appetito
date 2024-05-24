@@ -48,6 +48,9 @@ public class Dish {
     @ManyToMany(mappedBy = "favoriteDishes")
     private Collection<Chef> favoritedByChefs;
 
+
+    private Integer numberOfPeople;
+
     public Dish() {
         this.active=true;
         this.beverages = new ArrayList<>();
@@ -181,5 +184,13 @@ public class Dish {
             sum += rating.getRating();
         }
         return sum / ratings.size();
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }
