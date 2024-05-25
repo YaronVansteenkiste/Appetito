@@ -256,24 +256,26 @@
     <button type="button" onclick="printDishDetails()" class="btn btn-primary mt-3"> Download Details</button>
 </div>
 
-<div class=" text-center">
+<div class="text-center">
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}"
        th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''"><- Prev</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''"><- Prev</a>
+
     <th:block th:each="dish, iterStat : ${allDishes}">
-        <th:block
-                th:if="${iterStat.index == currentDish - 1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
+        <th:block th:if="${iterStat.index == currentDish - 1 or iterStat.index == currentDish or iterStat.index == currentDish + 1}">
             <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}"
                th:classappend="${dish.id == currentDish} ? 'btn-warning active' : ''"
                th:text="${dish.id}"></a>
         </th:block>
     </th:block>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}" th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Next -></a>
+
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}"
+       th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Next -></a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
        th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
 </div>
-
-<p th:text="'Page ' +${currentDish} + ' of '+ ${lastDish}" class="text-center mt-3"></p>
+</body>
 
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>

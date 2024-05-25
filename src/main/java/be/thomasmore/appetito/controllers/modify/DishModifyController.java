@@ -135,6 +135,7 @@ public class DishModifyController {
                              @RequestParam("beverageNames[]") List<String> beverageNames,
                              @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
 
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishDto", dishDto);
             return "modify/addmeal";

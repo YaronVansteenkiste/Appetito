@@ -20,13 +20,13 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     List<Dish> findAllByOrderByIdAsc();
 
-    Optional<Dish> findFirstByOrderByIdAsc();
+    Optional<Dish> findFirstByActiveOrderByIdAsc(Boolean active);
 
-    Optional<Dish> findFirstByOrderByIdDesc();
+    Optional<Dish> findFirstByActiveOrderByIdDesc(Boolean active);
 
-    Optional<Dish> findFirstByIdGreaterThanOrderByIdAsc(Integer id);
+    Optional<Dish> findFirstByIdGreaterThanAndActiveOrderByIdAsc(Integer id, Boolean active);
 
-    Optional<Dish> findFirstByIdLessThanOrderByIdDesc(Integer id);
+    Optional<Dish> findFirstByIdLessThanAndActiveOrderByIdDesc(Integer id, Boolean active);
 
 
 
@@ -91,5 +91,7 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPrefere
     List<Dish> findAllDishesForUser(String username, boolean isAdmin);
 
     List<Dish> findByActiveTrue();
+
+    List<Dish> findAllByActive(Boolean active);
 
 }

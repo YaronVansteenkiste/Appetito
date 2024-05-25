@@ -66,20 +66,20 @@ public class DishDetailController<ToggleRequest> {
 
         });
 
-        if (dishFromDB.isPresent()) {
+        if (dishFromDB.isPresent() && dishFromDB.get().isActive()) {
             model.addAttribute("dish", dishFromDB.get());
-            Optional<Dish> previousDish = dishRepository.findFirstByIdLessThanOrderByIdDesc(id);
-            Optional<Dish> firstDish = dishRepository.findFirstByOrderByIdAsc();
+            Optional<Dish> previousDish = dishRepository.findFirstByIdLessThanAndActiveOrderByIdDesc(id,true);
+            Optional<Dish> firstDish = dishRepository.findFirstByActiveOrderByIdAsc(true);
             if (previousDish.isEmpty())
-                previousDish = dishRepository.findFirstByOrderByIdDesc();
-            Optional<Dish> nextDish = dishRepository.findFirstByIdGreaterThanOrderByIdAsc(id);
-            Optional<Dish> lastDish = dishRepository.findFirstByOrderByIdDesc();
+                previousDish = dishRepository.findFirstByActiveOrderByIdDesc(true);
+            Optional<Dish> nextDish = dishRepository.findFirstByIdGreaterThanAndActiveOrderByIdAsc(id,true);
+            Optional<Dish> lastDish = dishRepository.findFirstByActiveOrderByIdDesc(true);
             if (nextDish.isEmpty())
-                nextDish = dishRepository.findFirstByOrderByIdAsc();
-            model.addAttribute("previousDish", previousDish.get().getId());
-            model.addAttribute("nextDish", nextDish.get().getId());
-            model.addAttribute("firstDish", firstDish.get().getId());
-            model.addAttribute("lastDish", lastDish.get().getId());
+                nextDish = dishRepository.findFirstByActiveOrderByIdAsc(true);
+            previousDish.ifPresent(dish -> model.addAttribute("previousDish", dish.getId()));
+            nextDish.ifPresent(dish -> model.addAttribute("nextDish", dish.getId()));
+            firstDish.ifPresent(dish -> model.addAttribute("firstDish", dish.getId()));
+            lastDish.ifPresent(dish -> model.addAttribute("lastDish", dish.getId()));
         }
 
         Optional<Dish> optionalDish = dishRepository.findById(id);
