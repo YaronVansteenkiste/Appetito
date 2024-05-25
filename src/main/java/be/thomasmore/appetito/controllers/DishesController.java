@@ -55,7 +55,7 @@ public class DishesController {
     public String Home(Model model, @RequestParam(defaultValue = "0") int page) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
 
         List<Dish> allTheDishes;
         if (isAdmin) {

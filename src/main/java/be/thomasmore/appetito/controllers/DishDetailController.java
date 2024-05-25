@@ -83,16 +83,31 @@ public class DishDetailController<ToggleRequest> {
 
         }
 
-        if (dishFromDB.get().isActive()) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth != null && auth.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ADMIN"));
+
+        if (isAdmin || dishFromDB.get().isActive()) {
             model.addAttribute("dish", dishFromDB.get());
-            Optional<Dish> previousDish = dishRepository.findFirstByIdLessThanAndActiveOrderByIdDesc(id,true);
-            Optional<Dish> firstDish = dishRepository.findFirstByActiveOrderByIdAsc(true);
+            Optional<Dish> previousDish;
+            Optional<Dish> firstDish;
+            Optional<Dish> nextDish;
+            Optional<Dish> lastDish;
+            if (isAdmin) {
+                previousDish = dishRepository.findFirstByIdLessThanOrderByIdDesc(id);
+                firstDish = dishRepository.findFirstByOrderByIdAsc();
+                nextDish = dishRepository.findFirstByIdGreaterThanOrderByIdAsc(id);
+                lastDish = dishRepository.findFirstByOrderByIdDesc();
+            } else {
+                previousDish = dishRepository.findFirstByIdLessThanAndActiveOrderByIdDesc(id, true);
+                firstDish = dishRepository.findFirstByActiveOrderByIdAsc(true);
+                nextDish = dishRepository.findFirstByIdGreaterThanAndActiveOrderByIdAsc(id, true);
+                lastDish = dishRepository.findFirstByActiveOrderByIdDesc(true);
+            }
             if (previousDish.isEmpty())
-                previousDish = dishRepository.findFirstByActiveOrderByIdDesc(true);
-            Optional<Dish> nextDish = dishRepository.findFirstByIdGreaterThanAndActiveOrderByIdAsc(id,true);
-            Optional<Dish> lastDish = dishRepository.findFirstByActiveOrderByIdDesc(true);
+                previousDish = dishRepository.findFirstByOrderByIdDesc();
             if (nextDish.isEmpty())
-                nextDish = dishRepository.findFirstByActiveOrderByIdAsc(true);
+                nextDish = dishRepository.findFirstByOrderByIdAsc();
             previousDish.ifPresent(dish -> model.addAttribute("previousDish", dish.getId()));
             nextDish.ifPresent(dish -> model.addAttribute("nextDish", dish.getId()));
             firstDish.ifPresent(dish -> model.addAttribute("firstDish", dish.getId()));

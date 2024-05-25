@@ -94,4 +94,11 @@ Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPrefere
 
     List<Dish> findAllByActive(Boolean active);
 
+    Optional<Dish> findFirstByIdLessThanOrderByIdDesc(Integer id);
+
+    Optional<Dish> findFirstByOrderByIdAsc();
+
+    Optional<Dish> findFirstByIdGreaterThanOrderByIdAsc(Integer id);
+
+    Optional<Dish> findFirstByOrderByIdDesc();
 }
