@@ -3,6 +3,10 @@ package be.thomasmore.appetito.controllers;
 import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +44,7 @@ public class DishDetailController<ToggleRequest> {
     private BeverageRepository beverageRepository;
 
     @GetMapping({"/dishdetails/{id}", "/dishdetails"})
-    public String dishDetail(Model model, @PathVariable(required = false) Integer id) {
+    public String dishDetail(Model model, @PathVariable(required = false) Integer id, Authentication authentication) {
         final Iterable<Dish> allDishes = dishRepository.findAll();
         List<Dish> allTheDishes = dishRepository.findAllByOrderByIdAsc();
         model.addAttribute("dishes", allDishes);
@@ -66,7 +70,20 @@ public class DishDetailController<ToggleRequest> {
 
         });
 
-        if (dishFromDB.isPresent() && dishFromDB.get().isActive()) {
+        if (dishFromDB.isPresent()) {
+            Dish dish = dishFromDB.get();
+            boolean isAuthenticated = authentication != null && authentication.isAuthenticated();
+            boolean isAdmin = isAuthenticated && authentication.getAuthorities().stream()
+                    .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+            model.addAttribute("isAdmin", isAdmin);
+            if (!dish.isActive() && !isAdmin) {
+                return "redirect:/error";
+            }
+            model.addAttribute("dish",dish);
+            return "dishdetail";
+        }
+
+        if (dishFromDB.get().isActive()) {
             model.addAttribute("dish", dishFromDB.get());
             Optional<Dish> previousDish = dishRepository.findFirstByIdLessThanAndActiveOrderByIdDesc(id,true);
             Optional<Dish> firstDish = dishRepository.findFirstByActiveOrderByIdAsc(true);
