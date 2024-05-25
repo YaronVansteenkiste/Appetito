@@ -80,7 +80,7 @@ public class DishDetailController<ToggleRequest> {
                 return "redirect:/error";
             }
             model.addAttribute("dish",dish);
-            return "dishdetail";
+
         }
 
         if (dishFromDB.get().isActive()) {
