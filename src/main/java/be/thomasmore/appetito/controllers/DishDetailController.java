@@ -70,11 +70,11 @@ public class DishDetailController<ToggleRequest> {
 
         });
 
-        if (dishFromDB.isPresent()) {
+        {
             Dish dish = dishFromDB.get();
             boolean isAuthenticated = authentication != null && authentication.isAuthenticated();
             boolean isAdmin = isAuthenticated && authentication.getAuthorities().stream()
-                    .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                    .anyMatch(r -> r.getAuthority().equals("ADMIN"));
             model.addAttribute("isAdmin", isAdmin);
             if (!dish.isActive() && !isAdmin) {
                 return "redirect:/error";
