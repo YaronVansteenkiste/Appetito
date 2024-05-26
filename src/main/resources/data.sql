@@ -1,13 +1,13 @@
 ALTER TABLE Dish
     ALTER COLUMN ACTIVE SET DEFAULT TRUE;
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('pasta alfredo met kip',
         'paleo',
         '00:20:00',
         'avondmaal',
-        '/img/pasta_alfredo.jpg');
+        '/img/pasta_alfredo.jpg',
+        'https://www.youtube.com/embed/CTTsN3QggDc?si=H38FL0DlVetOONCS');
 
 INSERT INTO Ingredient (name, quantity, unit, dish_id)
 VALUES ('fettuccine', 75, 'gr', 1),
@@ -19,18 +19,16 @@ VALUES ('fettuccine', 75, 'gr', 1),
        ('peterselie (gehakt voor garnering)', 0, NULL, 1),
        ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, 1);
 
-
-
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '500 mg', '1 g', '15 g', '30 g', '400 gr', '20 g', 1);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Pasta met zalm en spinazie',
         'paleo',
         '00:30:00',
         'avondmaal',
-        '/img/pasta_zalm.jpg');
+        '/img/pasta_zalm.jpg',
+        'https://www.youtube.com/embed/ezNR7bSgPDU?si=3v6LV09oVqGV2Cem');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('tagliatelle', 350, 'gr', 2),
@@ -47,12 +45,13 @@ VALUES ('tagliatelle', 350, 'gr', 2),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '500 mg', '1 g', '8 g', '20 g', '400 gr', '30 g', 2);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Spinaziesoep',
         'vegetarisch',
         '00:20:00',
-        'avondmaal', '/img/spinaziesoep.jpg');
+        'avondmaal',
+        '/img/spinaziesoep.jpg',
+        'https://www.youtube.com/embed/MmJtCXhJTYI?si=QfbKbYg9zpoHv6HM');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('gehakte spinazie (ontdooid)', 450, 'gr', 3),
@@ -66,11 +65,13 @@ VALUES ('gehakte spinazie (ontdooid)', 450, 'gr', 3),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '600 mg', '1 g', '3 g', '5 g', '100 gr', '10 g', 3);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Spinazie feta bladerdeegrolletjes',
         'vegetarisch',
         '00:25:00',
-        'snacks', '/img/spinaziebladerdeeg.jpg');
+        'snacks',
+        '/img/spinaziebladerdeeg.jpg',
+        'https://www.youtube.com/embed/4zJ_ynJ2aRk?si=rTqBHfdBB9l_K4bF');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('vers bladerdeeg', 0, NULL, 4),
@@ -83,13 +84,13 @@ VALUES ('vers bladerdeeg', 0, NULL, 4),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '200 mg', '1 g', '5 g', '6 g', '150 gr', '15 g', 4);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Glutenvrije pizza',
         'glutenvrij',
         '00:10:00',
         'middagmaal',
-        '/img/glutenvrije_pizza.jpg');
-
+        '/img/glutenvrije_pizza.jpg',
+        'https://www.youtube.com/embed/SRf0t-RCr98?si=8EoQidsl6g2hhEkL');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5),
@@ -107,13 +108,13 @@ VALUES ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '200 mg', '3 g', '5 g', '10 g', '250 gr', '30 g', 5);
 
-INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Snelle cranberry compote',
         'vegan',
         '00:20:00',
         'dessert',
-        '/img/cranberry_compote.jpg');
-
+        '/img/cranberry_compote.jpg',
+        'https://www.youtube.com/embed/JZLaUvia708?si=nKd_FFJfUT359YkT');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('verse cranberries', 250, 'gr', 6),
@@ -125,13 +126,14 @@ VALUES ('verse cranberries', 250, 'gr', 6),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '50 mg', '8 g', '0.1 g', '0.5 g', '40 gr', '10 g', 6);
 
-
-INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Snicker bliss balls',
         'dessert',
         '00:10:00',
         'snacks',
-        '/img/snicker_balls.jpg');
+        '/img/snicker_balls.jpg',
+        'https://www.youtube.com/embed/ytABtqsUo2g?si=fW8cxH_rCkrqQRwl');
+
 INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('pindakaas', 2, 'eetlepels', 7),
        ('dadels', 13, NULL, 7),
@@ -143,14 +145,13 @@ VALUES ('pindakaas', 2, 'eetlepels', 7),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '50 mg', '10 g', '4 g', '6 g', '150 gr', '15 g', 7);
 
-
-INSERT INTO DISH(NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Babi ketjap spiezen',
         'keto',
         '00:50:00',
         'avondmaal',
-        '/img/babi_ketjap_spiezen.jpg');
-
+        '/img/babi_ketjap_spiezen.jpg',
+        'https://www.youtube.com/embed/YlZn5YRGLG4?si=hmsLVY-IX_v4l2eL');
 
 INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('varkenslappen', 400, 'gr', 8),
@@ -167,12 +168,13 @@ VALUES ('varkenslappen', 400, 'gr', 8),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '800 mg', '15 g', '10 g', '20 g', '300 gr', '20 g', 8);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Yoghurt met fruit ontbijt',
         'vegetarisch',
         '00:05:00',
         'ontbijt',
-        '/img/yoghurt_granola_ontbijt.jpg');
+        '/img/yoghurt_granola_ontbijt.jpg',
+        'https://www.youtube.com/embed/3TgqMjiwFhE?si=7gK1ki3gtySHu0bO');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9),
@@ -185,14 +187,13 @@ VALUES ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '80 mg', '20 g', '4 g', '5 g', '200 gr', '30 g', 9);
 
-
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Pompoensoep',
         'veganistisch',
         '00:30:00',
         'avondmaal',
-        '/img/pompoensoep.jpg');
+        '/img/pompoensoep.jpg',
+        'https://www.youtube.com/embed/-s9sdXVV5cg?si=fOLi8ftAIkIctD7Q');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Pompoen', 500, 'gr', 1),
@@ -205,14 +206,13 @@ VALUES ('Pompoen', 500, 'gr', 1),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '500 mg', '5 g', '2 g', '6 g', '30 g', '4 g', 10);
 
-
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Kip Caesar Salade',
         'glutenvrij',
         '00:20:00',
         'middagmaal',
-        '/img/kipcaesarsalade.jpg');
+        '/img/kipcaesarsalade.jpg',
+        'https://www.youtube.com/embed/DPio7tGzOgU?si=GApY0fmuN2W1g5xd');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Kipfilet', 200, 'gr', 2),
@@ -221,17 +221,16 @@ VALUES ('Kipfilet', 200, 'gr', 2),
        ('Parmezaanse kaas', 30, 'gr', 2),
        ('Glutenvrije croutons', 30, 'gr', 2);
 
-
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '600 mg', '3 g', '5 g', '15 g', '18 g', '25 g', 11);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Linzensalade met Geitenkaas',
         'vegetarisch',
         '00:25:00',
         'middagmaal',
-        '/img/linzen_salade_met_geitenkaas.jpg');
+        '/img/linzen_salade_met_geitenkaas.jpg',
+        'https://www.youtube.com/embed/cArBwqq6ALs?si=r67f2tsyUWg0TCJu');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Groene linzen', 200, 'gr', 3),
@@ -246,13 +245,13 @@ VALUES ('Groene linzen', 200, 'gr', 3),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('7 g', '320 mg', '4 g', '6 g', '10 g', '40 g', '18 g', 12);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Gegrilde Zalm met Asperges',
         'pescotarisch',
         '00:20:00',
         'avondmaal',
-        '/img/gegrildezalmasperges.jpg');
+        '/img/gegrildezalmasperges.jpg',
+        'https://www.youtube.com/embed/5oBOsumL8Uo?si=xiqoZz7gLzzITKJi');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zalmfilets', 200, 'gr', 4),
@@ -263,14 +262,13 @@ VALUES ('Zalmfilets', 200, 'gr', 4),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '75 mg', '2 g', '3 g', '10 g', '5 g', '23 g', 13);
 
-
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Veganistische Burger',
         'vegan',
         '00:15:00',
         'avondmaal',
-        '/img/veganburger.jpg');
+        '/img/veganburger.jpg',
+        'https://www.youtube.com/embed/IXqseoFJBg0?si=aECQVzH7fzJeQYaM');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zwarte bonen', 150, 'gr', 5),
@@ -284,13 +282,13 @@ VALUES ('Zwarte bonen', 150, 'gr', 5),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '460 mg', '5 g', '1 g', '8 g', '35 g', '10 g', 14);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Zoete Aardappel Curry',
         'vegan',
         '00:35:00',
         'avondmaal',
-        '/img/zoete_aardappel_curry.jpg');
+        '/img/zoete_aardappel_curry.jpg',
+        'https://www.youtube.com/embed/aRL-v5pOlPg?si=wBNxvZtw_Eoue2Ux');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zoete aardappel', 300, 'gr', 6),
@@ -304,13 +302,13 @@ VALUES ('Zoete aardappel', 300, 'gr', 6),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('5 g', '380 mg', '6 g', '5 g', '10 g', '50 g', '12 g', 15);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Ontbijt Burrito',
         'vegetarisch',
         '00:15:00',
         'ontbijt',
-        '/img/ontbijt_burrito.jpg');
+        '/img/ontbijt_burrito.jpg',
+        'https://www.youtube.com/embed/yNp5PHHgMS0?si=mVY92RCeTUG3L9PH');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Eieren', 2, 'stuks', 7),
@@ -322,14 +320,13 @@ VALUES ('Eieren', 2, 'stuks', 7),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '550 mg', '2 g', '6 g', '15 g', '45 g', '22 g', 16);
 
-
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Quinoa Salade met Avocado',
         'vegan',
         '00:20:00',
         'middagmaal',
-        '/img/quinoa_salade_avocado.jpg');
+        '/img/quinoa_salade_avocado.jpg',
+        'https://www.youtube.com/embed/OQ9mU_zAtEs?si=XWlWDdHHeMLLjChx');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Quinoa', 150, 'gr', 8),
@@ -344,13 +341,13 @@ VALUES ('Quinoa', 150, 'gr', 8),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('7 g', '100 mg', '3 g', '2 g', '12 g', '45 g', '8 g', 17);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Mediterrane Pasta',
         'vegetarisch',
         '00:25:00',
         'avondmaal',
-        '/img/mediterrane_pasta.jpg');
+        '/img/mediterrane_pasta.jpg',
+        'https://www.youtube.com/embed/EUu90_qILH4?si=fVVTqAt6fVcZe_y0');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Volkorenpasta', 200, 'gr', 9),
@@ -365,14 +362,13 @@ VALUES ('Volkorenpasta', 200, 'gr', 9),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '80 mg', '20 g', '4 g', '5 g', '200 g', '30 g', 18);
 
-
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Garnalencocktail',
         'pescotarisch',
         '00:10:00',
         'snacks',
-        '/img/garnalencocktail.jpg');
+        '/img/garnalencocktail.jpg',
+        'https://www.youtube.com/embed/fcyxWiHAfW8?si=QGT0SyZS44al8TZO');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Gekookte garnalen', 150, 'gr', 10),
@@ -383,13 +379,13 @@ VALUES ('Gekookte garnalen', 150, 'gr', 10),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('1 g', '850 mg', '4 g', '0 g', '2 g', '6 g', '20 g', 19);
 
-
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL)
 VALUES ('Fruitsalade met Munt',
         'vegan',
         '00:10:00',
         'dessert',
-        '/img/fruitsalade_munt.jpg');
+        '/img/fruitsalade_munt.jpg',
+        'https://www.youtube.com/embed/Qw498kjEeTE?si=RqTawGtZHvYiecmJ');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Meloen', 200, 'gr', 11),
@@ -787,3 +783,4 @@ VALUES (5, 3),
        (5, 6),
        (5, 4),
        (5, 9);
+
