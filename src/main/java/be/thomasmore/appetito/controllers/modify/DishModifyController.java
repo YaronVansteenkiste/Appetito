@@ -168,22 +168,7 @@ public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model mod
     return "modify/addsteps";
 }
 
-    @PostMapping("/addsteps/{dishId}")
-public String addSteps(@PathVariable("dishId") Integer dishId, @ModelAttribute StepListWrapper stepListWrapper, RedirectAttributes redirectAttributes) {
-    Dish dish = dishRepository.findById(dishId)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
-    if (stepListWrapper.getSteps().isEmpty()) {
-        redirectAttributes.addFlashAttribute("error", "Steps must be filled in!");
-        return "redirect:/modify/addsteps/" + dishId;
-    }
-
-    for (Step step : stepListWrapper.getSteps()) {
-        step.setDish(dish);
-        stepRepository.save(step);
-    }
-    return "redirect:/modify/addnutritions/" + dishId;
-}
 
 
     @GetMapping("/addingredients/{dishId}")
@@ -204,7 +189,6 @@ public String addSteps(@PathVariable("dishId") Integer dishId, @ModelAttribute S
         }
         return "redirect:/modify/addnutritions/" + dishId;
     }
-
 
     @GetMapping("/addmeal")
     public String showCreateDish(Model model) {
@@ -431,6 +415,45 @@ public String addSteps(@PathVariable("dishId") Integer dishId, @ModelAttribute S
         }
 
         return "redirect:/modify/dishedit/" + id;
+    }
+
+    @PostMapping("/addsteps/{id}")
+    @Transactional
+    public String addSteps (@PathVariable("id") Integer id,
+    @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
+    Model model) throws IOException {
+        List<Step> currentSteps = wrapper.getSteps();
+
+        if (currentSteps == null || currentSteps.isEmpty()) {
+            model.addAttribute("error", "Er moet minimaal één stap worden toegevoegd.");
+            return "modify/addsteps";
+        }
+
+        for (Step step : currentSteps) {
+            MultipartFile imageFile = step.getImageFile();
+
+            if (step.getId() == null) {
+                Step newStep = new Step();
+                newStep.setDish(dishRepository.findById(id).get());
+                newStep.setDescription(step.getDescription());
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    newStep.setImage(uploadImage(imageFile));
+                }
+                stepRepository.save(newStep);
+            } else {
+                Optional<Step> optionalStep = stepRepository.findById(step.getId());
+                if (optionalStep.isPresent()) {
+                    Step existingStep = optionalStep.get();
+                    existingStep.setDish(dishRepository.findById(id).get());
+                    existingStep.setDescription(step.getDescription());
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        existingStep.setImage(uploadImage(imageFile));
+                    }
+                    stepRepository.save(existingStep);
+                }
+            }
+        }
+        return "redirect:/modify/addingredients/" + id;
     }
 
 

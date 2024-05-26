@@ -20,12 +20,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.PrincipalMethodArgumentResolver;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +48,7 @@ public class DishesController {
 
 
     @GetMapping("/dishes")
-    public String Home(Model model, @RequestParam(defaultValue = "0") int page) {
+    public String Home(Model model, @RequestParam(defaultValue = "0") int page, Principal principal) {
         int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);

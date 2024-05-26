@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <!--    <meta name="_csrf" th:content="${_csrf.token}"/>-->
-    <!--    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dishes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -22,7 +22,7 @@
     <a>Recepten</a> >
 </h6>
 <div class="row   justify-content-center">
-   <div class="col-8">
+   <div class="col-12 col-md-8">
     <form id="search" action="/dishes/search" method="get">
         <div class="d-flex">
             <input type="text" id="keyword" th:value="${keyword}" name="keyword" class="form-control me-1"
@@ -77,13 +77,15 @@
                     </div>
                 </div>
             </div>
-            <div class="filter col-md-4 ms-2">
+            <div class="filter col-md-4 ms-2 order-first">
                 <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
                    class="btn btn-primary rounded-pill">Open</a>
                 <form th:if="${filterEnabled}">
                     <a th:href="@{/dishes}" type="button" class="btn btn-primary rounded-pill">Sluiten</a>
                     <button type="submit" class="btn btn-outline-primary text-center ">Filter</button>
-
+                    <div class="row">
+                        <div class="col1"
+                    </div>
                     <h6><strong>Dieet voorkeuren</strong></h6>
                     <div class="form-check">
                         <input th:checked="${dietPreferences != null && dietPreferences.contains('vegan')}"
@@ -155,12 +157,10 @@
                     <h6><strong>Bereidingstijd</strong></h6>
                     <label for="minPreparationTimeStr">Min:</label>
                     <input type="time" name="minPreparationTimeStr" class="form-control border-primary"
-                           id="minPreparationTimeStr"
-                           th:value="${minPreparationTime}" step="1">
+                           id="minPreparationTimeStr" th:value="${minPreparationTime}" step="1">
                     <label for="maxPreparationTimeStr">Max:</label>
-                    <input type="time" name="maxPreparationTimeStr"
-                           class="form-control border-primary" id="maxPreparationTimeStr"
-                           th:value="${maxPreparationTime}" step="1">
+                    <input type="time" name="maxPreparationTimeStr" class="form-control border-primary"
+                           id="maxPreparationTimeStr" th:value="${maxPreparationTime}" step="1">
                     <hr>
                     <h6><strong>Gelegenheid</strong></h6>
                     <div class="form-check">
