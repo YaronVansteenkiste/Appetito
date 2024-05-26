@@ -1,6 +1,8 @@
 package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,11 +17,14 @@ public class Ingredient {
     private Integer id;
 
 
+    @NotNull(message = "Naam mag niet leeg zijn")
+    @Size(min = 1, message = "Naam mag niet leeg zijn")
     private String name;
-    private double quantity;
-    private String unit;
 
-    private double estimatedPrice;
+    private Double quantity;
+
+    private String unit;
+    private Boolean deleted = false;
 
     @ManyToOne
     @JoinColumn(name = "dish_id")
@@ -69,15 +74,12 @@ public class Ingredient {
         this.dish = dish;
     }
 
-    public double getEstimatedPrice() {
-        return estimatedPrice;
+
+    public boolean isDeleted() {
+        return deleted;
     }
 
-    public void setEstimatedPrice(double estimatedPrice) {
-        this.estimatedPrice = estimatedPrice;
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
-
-
-
-
 }

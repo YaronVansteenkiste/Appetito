@@ -3,6 +3,8 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dish Detail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -40,7 +42,8 @@
                     <strong th:text="${dish.name}">Dish Name</strong>
 
                 </h2>
-                <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}" class="btn btn-primary">Toevoegen aan menu</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}"
+                   class="btn btn-primary">Toevoegen aan menu</a>
                 <h4>Gelegenheid</h4>
                 <p th:text="${dish.occasion}"></p>
 
@@ -65,7 +68,8 @@
                             <label for="1-star">&#9733;</label>
                         </div>
                     </form>
-                    <h4 class="mt-3">Average Rating: <span th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
+                    <h4 class="mt-3">Average Rating: <span
+                            th:text="${#numbers.formatDecimal(averageRating, 1, 1)}"></span>/5</h4>
                 </div>
             </div>
         </div>
@@ -73,11 +77,9 @@
 </main>
 
 
-
-
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+    <div class="row mt-2">
+        <div class="col-sm-12 col-md-6">
             <h4>Ingrediënten</h4>
             <div class="row">
                 <div class="col-6">
@@ -85,7 +87,8 @@
                 </div>
                 <div class="col-6 d-inline-flex">
                     <button onclick="subtractPersons()" class="btn btn-outline-primary rounded-circle">-</button>
-                    <p id="persons" class="mx-3">1</p>
+                    <p th:text="${dish.getNumberOfPeople() != null ? dish.getNumberOfPeople() : 1}" id="persons"
+                       class="mx-3">1</p>
                     <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
                 </div>
             </div>
@@ -103,102 +106,105 @@
                     <span th:text="${ingredient.getUnit()}"></span>
                 </li>
             </ul>
+            <div th:if="${dish.getIngredients() == null && !dish.getNutritions().isEmpty()}">
+                <p class="alert alert-danger border border-danger p-1 m-0">
+                    Geen Ingredienten beschikbaar. Voeg dit toe!
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div th:if="${dish.getNutritions() != null && !dish.getNutritions().isEmpty()}">
+                <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
+                <div th:each="nutrition: ${dish.getNutritions()}">
+                    <div class="row">
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Vezel</label>
+                            <p th:text="${nutrition.fiber}"></p>
+                        </div>
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Zout</label>
+                            <p th:text="${nutrition.salt}"></p>
+                        </div>
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Suiker</label>
+                            <p th:text="${nutrition.sugar}"></p>
+                        </div>
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Verz. Vet</label>
+                            <p th:text="${nutrition.saturatedFat}"></p>
+                        </div>
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Vet</label>
+                            <p th:text="${nutrition.fat}"></p>
+                        </div>
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Koolhydraten</label>
+                            <p th:text="${nutrition.carbs}"></p>
+                        </div>
+                        <div class="col-lg-4 border text-center mt-2">
+                            <label>Eiwit</label>
+                            <p th:text="${nutrition.proteins}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 p-2 m-2">
+                <div class="video">
+                    <iframe width="560" height="315" th:src="${dish.getVideoUrl()}" title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
 
+    </div>
+</div>
 
-        <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+
+<div class="d-flex flex-row">
+    <div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
+        <div th:if="${dish.getNutritions() == null || dish.getNutritions().isEmpty()}">
             <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
-            <div th:each="nutrition: ${dish.getNutritions()}">
-                <div class="row">
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Vezel</label>
-                        <p th:text="${nutrition.fiber}"></p>
-                    </div>
+            <div class="row">
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Vezel</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
 
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Zout</label>
-                        <p th:text="${nutrition.salt}"></p>
-                    </div>
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Zout</label>
+                    <p th:text="'0 mg'">0 mg</p>
+                </div>
 
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Suiker</label>
-                        <p th:text="${nutrition.sugar}"></p>
-                    </div>
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Suiker</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
 
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Verz. Vet</label>
-                        <p th:text="${nutrition.saturatedFat}"></p>
-                    </div>
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Verz. Vet</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
 
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Vet</label>
-                        <p th:text="${nutrition.fat}"></p>
-                    </div>
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Vet</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
 
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Koolhydraten</label>
-                        <p th:text="${nutrition.carbs}"></p>
-                    </div>
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Koolhydraten</label>
+                    <p th:text="'0 gr'">0 gr</p>
+                </div>
 
-                    <div class="col-lg-4 border text-center mt-2">
-                        <label>Eiwit</label>
-                        <p th:text="${nutrition.proteins}"></p>
-                    </div>
+                <div class="col-lg-4 border text-center mt-2">
+                    <label>Eiwit</label>
+                    <p th:text="'0 gr'">0 gr</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col-sm-2 m-4" >
-    <p th:classappend="${dish.getIngredients() == null}" class="alert alert-danger border border-danger p-3">
-        Geen Ingredienten beschikbaar. Voeg dit toe!
-    </p>
-</div>
-
-<div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
-    <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
-    <div th:classappend="${dish.getNutritions() == null}">
-        <div class="row">
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Vezel</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Zout</label>
-                <p th:text="'0 mg'">0 mg</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Suiker</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Verz. Vet</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Vet</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Koolhydraten</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-
-            <div class="col-lg-4 border text-center mt-2">
-                <label>Eiwit</label>
-                <p th:text="'0 gr'">0 gr</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 
 <div class="container">
     <div class="row">
@@ -209,8 +215,8 @@
                     <div th:text="${stat.index + 1 + '. ' + step.description}"></div>
                 </div>
                 <div th:if="${step.getImage() != null}" class="row">
-                    <div class="col-8 my-2" th:text="${stat.index + 1 + '. ' + step.description}"></div>
-                    <div class="col-4 my-2 justify-content-center">
+                    <div class="col-12 col-md-8 my-2" th:text="${stat.index + 1 + '. ' + step.description}"></div>
+                    <div class="col-12 col-md-4 my-2 justify-content-center">
                         <img class="img-fluid ms-auto w-100" th:src="@{${step.getImage()}}" alt="Step Image">
                     </div>
                 </div>
@@ -218,8 +224,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <div class="container">
@@ -238,9 +242,11 @@
 
                 <div class="card-footer">
                     <div th:if="${beverage}">
-                        <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/beverage/{id}(id=${beverage.id})}" method="post">
+                        <form sec:authorize="hasAuthority('ADMIN')"
+                              th:action="@{/toggle/beverage/{id}(id=${beverage.id})}" method="post">
                             <input type="hidden" name="active" th:value="${!beverage.isActive}">
-                            <button type="submit" th:class="${beverage.isActive ? 'btn btn-success' : 'btn btn-danger'}"
+                            <button type="submit"
+                                    th:class="${beverage.isActive ? 'btn btn-success' : 'btn btn-danger'}"
                                     th:text="${beverage.active ? 'Active' : 'Inactive'}">
                             </button>
                         </form>
@@ -264,6 +270,12 @@
 
     <th:block th:each="dish : ${allDishes}">
         <th:block th:if="${dish.id == currentDish - 1 or dish.id == currentDish or dish.id == currentDish + 1}">
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</th:block>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''"><- Prev</a>
+    <th:block th:each="dish, iterStat : ${allDishes}">
+        <th:block
+                th:if="${iterStat.index == currentDish - 1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
             <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${dish.id}|}"
                th:classappend="${dish.id == currentDish ? 'btn-warning active' : ''}"
                th:text="${dish.id}"></a>
@@ -272,9 +284,13 @@
 
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}"
        th:classappend="${currentDish == lastDish ? 'disabled' : ''}">Next →</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}"
+       th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Next -></a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
        th:classappend="${currentDish == lastDish ? 'disabled' : ''}">Last</a>
+    </th:block>
 </div>
+
 
 </body>
 
@@ -289,5 +305,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-</body>
 </html>

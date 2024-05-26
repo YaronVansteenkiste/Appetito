@@ -19,7 +19,7 @@ public class Dish {
     private String name;
 
     private String dietPreferences;
-
+    private String videoUrl;
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
     private String occasion;
@@ -47,6 +47,9 @@ public class Dish {
 
     @ManyToMany(mappedBy = "favoriteDishes")
     private Collection<Chef> favoritedByChefs;
+
+
+    private Integer numberOfPeople;
 
     public Dish() {
         this.active=true;
@@ -172,5 +175,30 @@ public class Dish {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public double getAverageRating(){
+        if (ratings.isEmpty()) return 0;
+        double sum = 0;
+        for (Rating rating : ratings) {
+            sum += rating.getRating();
+        }
+        return sum / ratings.size();
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

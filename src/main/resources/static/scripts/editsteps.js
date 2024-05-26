@@ -60,9 +60,7 @@ function deleteStep(id) {
     if (rowEl) {
         fetch('/modify/step/' + id, {
             method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content')
-            }
+
         }).then((response) => {
             if (response.ok) {
                 rowEl.remove();

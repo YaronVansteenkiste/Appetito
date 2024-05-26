@@ -63,7 +63,8 @@ public class SecurityConfiguration {
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editnutritions/**"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/dishedit/**"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/modify/editbeverage/**"));
-
+        http.csrf(csfr -> csfr.ignoringRequestMatchers("/**"));
+        http.csrf(csfr -> csfr.ignoringRequestMatchers("/menu/select/**"));
 
         //to enable h2-console:
         if (h2ConsoleNeeded) {

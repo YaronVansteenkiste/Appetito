@@ -2,9 +2,7 @@ package be.thomasmore.appetito.controllers.modify;
 
 
 import be.thomasmore.appetito.model.*;
-import be.thomasmore.appetito.repositories.BeverageRepository;
-import be.thomasmore.appetito.repositories.DishRepository;
-import be.thomasmore.appetito.repositories.StepRepository;
+import be.thomasmore.appetito.repositories.*;
 import be.thomasmore.appetito.services.GoogleService;
 
 
@@ -13,6 +11,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -20,11 +19,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.Binding;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.sql.Wrapper;
 import java.util.*;
 
 
@@ -45,6 +47,12 @@ public class DishModifyController {
     @Autowired
     BeverageRepository beverageRepository;
 
+    @Autowired
+    IngredientRepository ingredientRepository;
+
+    @Autowired
+    GroceryRepository groceryRepository;
+
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
         if (id != null) {
@@ -52,6 +60,31 @@ public class DishModifyController {
             return dishFromDB.orElseGet(Dish::new);
         } else {
             return new Dish();
+        }
+    }
+
+    @GetMapping("/addnutritions/{dishId}")
+    public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model, nutritionListWrapper nutritionListWrapper) {
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        model.addAttribute("dish", dish);
+        model.addAttribute("nutritionsListWrapper", nutritionListWrapper);
+        return "modify/addnutritions";
+    }
+
+    @PostMapping("/addnutritions/{dishId}")
+    public String addNutritions(@PathVariable("dishId") Integer dishId, @ModelAttribute nutritionListWrapper nutritionsListWrapper, Model model) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            nutritionListWrapper wrapper = new nutritionListWrapper();
+            wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("nutritionsListWrapper", wrapper);
+            return "redirect:/dishdetails/" + dishId;
+        } else {
+            return "redirect:/dishdetails/" + dishId;
         }
     }
 
@@ -121,6 +154,49 @@ public class DishModifyController {
     }
 
 
+    @GetMapping("/addsteps/{dishId}")
+    public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model model, RedirectAttributes redirectAttributes) {
+        if (dishId == null || dishId <= 0) {
+            redirectAttributes.addFlashAttribute("error", "Invalid dish Id!");
+            return "redirect:/";
+        }
+
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        StepListWrapper wrapper = new StepListWrapper();
+        model.addAttribute("dish", dish);
+        model.addAttribute("stepListWrapper", wrapper);
+        return "modify/addsteps";
+    }
+
+
+    @GetMapping("/addingredients/{dishId}")
+    public String showAddIngredientsForm(@PathVariable("dishId") Integer dishId, Model model) {
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        model.addAttribute("dish", dish);
+        return "modify/addingredients";
+    }
+
+    @PostMapping("/addingredients/{dishId}")
+    public String addIngredients(@PathVariable("dishId") Integer dishId, @ModelAttribute IngredientListWrapper ingredientListWrapper,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("dish", dishRepository.findById(dishId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId)));
+            model.addAttribute("error", "Er moet minimaal één ingrediënt worden toegevoegd");
+            return "modify/addingredients";
+        }
+
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        for (Ingredient ingredient : ingredientListWrapper.getIngredients()) {
+            ingredient.setDish(dish);
+            ingredientRepository.save(ingredient);
+        }
+        return "redirect:/modify/addnutritions/" + dishId;
+    }
+
     @GetMapping("/addmeal")
     public String showCreateDish(Model model) {
         DishDto dishDto = new DishDto();
@@ -171,9 +247,32 @@ public class DishModifyController {
         dish.setBeverages(beverages);
         dishRepository.save(dish);
 
-        return "redirect:/modify/editsteps/" + dish.getId();
+        return "redirect:/modify/addsteps/" + dish.getId();
     }
 
+
+    @DeleteMapping("/editingredients/delete/{id}")
+    public ResponseEntity<Void> deleteIngredientDb(@PathVariable Integer id) {
+        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
+        if (optionalIngredient.isPresent()) {
+            Ingredient ingredient = optionalIngredient.get();
+
+            List<Grocery> groceries = groceryRepository.findByIngredients(ingredient);
+            logger.info("Groceries: {}", groceries);
+
+            for (Grocery grocery : groceries) {
+                grocery.getIngredients().remove(ingredient);
+                groceryRepository.save(grocery);
+            }
+
+            Dish dish = ingredient.getDish();
+            dish.getIngredients().remove(ingredient);
+            ingredientRepository.delete(ingredient);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
     @GetMapping("/editingredients/{id}")
@@ -197,6 +296,7 @@ public class DishModifyController {
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
                                   @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                                  Dish dish,
                                   Model model) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
@@ -204,20 +304,18 @@ public class DishModifyController {
             return "error";
         }
 
-        Dish dish = optionalDish.get();
-        List<Ingredient> currentIngredients = new ArrayList<>(wrapper.getIngredients());
+        Dish currentDish = optionalDish.get();
+        List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
 
+        currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
 
-        dish.getIngredients().clear();
-
-        currentIngredients.forEach(ingredient -> {
-            ingredient.setDish(dish);
-            dish.getIngredients().add(ingredient);
-
+        ingredientsFromWrapper.forEach(ingredient -> {
+            ingredient.setDish(currentDish);
+            currentDish.getIngredients().add(ingredient);
+            ingredientRepository.save(ingredient);
         });
 
-
-        dishRepository.save(dish);
+        dishRepository.save(currentDish);
 
         return "redirect:/modify/dishedit/" + id;
     }
@@ -327,6 +425,45 @@ public class DishModifyController {
         return "redirect:/modify/dishedit/" + id;
     }
 
+    @PostMapping("/addsteps/{id}")
+    @Transactional
+    public String addSteps(@PathVariable("id") Integer id,
+                           @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
+                           Model model) throws IOException {
+        List<Step> currentSteps = wrapper.getSteps();
+
+        if (currentSteps == null || currentSteps.isEmpty()) {
+            model.addAttribute("error", "Er moet minimaal één stap worden toegevoegd.");
+            return "modify/addsteps";
+        }
+
+        for (Step step : currentSteps) {
+            MultipartFile imageFile = step.getImageFile();
+
+            if (step.getId() == null) {
+                Step newStep = new Step();
+                newStep.setDish(dishRepository.findById(id).get());
+                newStep.setDescription(step.getDescription());
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    newStep.setImage(uploadImage(imageFile));
+                }
+                stepRepository.save(newStep);
+            } else {
+                Optional<Step> optionalStep = stepRepository.findById(step.getId());
+                if (optionalStep.isPresent()) {
+                    Step existingStep = optionalStep.get();
+                    existingStep.setDish(dishRepository.findById(id).get());
+                    existingStep.setDescription(step.getDescription());
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        existingStep.setImage(uploadImage(imageFile));
+                    }
+                    stepRepository.save(existingStep);
+                }
+            }
+        }
+        return "redirect:/modify/addingredients/" + id;
+    }
+
 
     @DeleteMapping("/step/{id}")
     public ResponseEntity<Void> deleteStep(@PathVariable Integer id) {
@@ -337,6 +474,32 @@ public class DishModifyController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/deletebeverage/{dishId}/{beverageId}")
+    public String delteBeverage(@PathVariable("dishId") Integer dishId, @PathVariable("beverageId") Integer beverageId) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Beverage beverageToRemove = null;
+
+
+            for (Beverage beverage : dish.getBeverages()) {
+                if (beverage.getId().equals(beverageId)) {
+                    beverageToRemove = beverage;
+                    break;
+                }
+            }
+
+            if (beverageToRemove != null) {
+                dish.getBeverages().remove(beverageToRemove);
+                dishRepository.save(dish);
+
+            }
+        }
+
+        return "redirect:/modify/editbeverage/" + dishId;
     }
 
 
@@ -355,6 +518,7 @@ public class DishModifyController {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         Collection<Beverage> beverage = optionalDish.get().getBeverages();
         model.addAttribute("beverage", beverage);
+
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
 
@@ -368,49 +532,66 @@ public class DishModifyController {
 
     @PostMapping("/editbeverage/saveAll")
     @Transactional
-    public String saveAllBeverages(@RequestParam("id") Integer id,
-                                   @RequestParam("name") List<String> names,
-                                   @RequestParam("imageFiles") List<MultipartFile> imageFiles) {
+    public String saveAllBeverages(
+            @RequestParam("id") Integer id,
+            @RequestParam(value = "names", required = false) List<String> names,
+            @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
+            @RequestParam(value = "beverageNames", required = false) List<String> beverageNames,
+            @RequestParam(value = "beverageImages", required = false) List<MultipartFile> beverageImages) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
 
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
             List<Beverage> beverages = new ArrayList<>(dish.getBeverages());
 
-            for (int i = 0; i < beverages.size(); i++) {
-                Beverage beverage = beverages.get(i);
-                beverage.setName(names.get(i));
+            if (names != null && imageFiles != null) {
+                for (int i = 0; i < beverages.size(); i++) {
+                    Beverage beverage = beverages.get(i);
+                    beverage.setName(names.get(i));
 
-                MultipartFile imageFile = imageFiles.get(i);
+                    MultipartFile imageFile = imageFiles.get(i);
 
-                try {
-
-                    System.out.println("beverage: " + beverage.getName());
-                    if (imageFile != null) {
-                        System.out.println("Image file name: " + imageFile.getOriginalFilename());
-                        System.out.println("Image file size: " + imageFile.getSize());
-                    } else {
-                        System.out.println("Image file is null");
+                    try {
+                        if (imageFile != null && !imageFile.isEmpty()) {
+                            beverage.setImgFile(uploadBevImage(imageFile));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
 
-                    if (imageFile != null && !imageFile.isEmpty()) {
-
-                        beverage.setImgFile(null);
-
-                        beverage.setImgFile(uploadBevImage(imageFile));
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    beverageRepository.save(beverage);
                 }
-
-                beverageRepository.save(beverage);
             }
-            dishRepository.save(dish);
-        }
-        return "redirect:/modify/dishedit/" + id;
-    }
 
+            if (beverageNames != null && beverageImages != null) {
+                for (int i = 0; i < beverageNames.size(); i++) {
+                    String beverageName = beverageNames.get(i);
+                    MultipartFile beverageImage = beverageImages.get(i);
+
+                    Beverage newBeverage = new Beverage();
+                    newBeverage.setName(beverageName);
+
+                    try {
+                        if (beverageImage != null && !beverageImage.isEmpty()) {
+                            newBeverage.setImgFile(uploadBevImage(beverageImage));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    beverages.add(newBeverage);
+                    beverageRepository.save(newBeverage);
+                }
+            }
+
+            dish.setBeverages(beverages);
+            dishRepository.save(dish);
+
+            return "redirect:/modify/dishedit/" + id;
+        } else {
+            return "redirect:/error";
+        }
+    }
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {

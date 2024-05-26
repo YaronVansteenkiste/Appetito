@@ -3,6 +3,7 @@ package be.thomasmore.appetito.controllers;
 import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.model.DishDto;
+import be.thomasmore.appetito.model.Rating;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 import be.thomasmore.appetito.repositories.IngredientRepository;
@@ -23,6 +24,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.PrincipalMethodArgumentResolver;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,12 +35,10 @@ import java.security.Principal;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Controller
 public class DishesController {
@@ -52,7 +52,7 @@ public class DishesController {
 
 
     @GetMapping("/dishes")
-    public String Home(Model model, @RequestParam(defaultValue = "0") int page) {
+    public String Home(Model model, @RequestParam(defaultValue = "0") int page, Principal principal) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
@@ -64,34 +64,40 @@ public class DishesController {
             allTheDishes = dishRepository.findByActiveTrue();
         }
 
-        int pageSize = 10;
-        Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
-        boolean filterEnabled = false;
-        long totalDishes = dishesPage.getTotalElements();
-        int totalPages = dishesPage.getTotalPages();
-        List<Dish> dishes = dishesPage.getContent();
-        model.addAttribute("dishesPage", dishesPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("count", totalDishes);
-        model.addAttribute("filterEnabled", filterEnabled);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
-        model.addAttribute("hasNext", dishesPage.hasNext());
-        model.addAttribute("alldishes", dishes);
-        model.addAttribute("allTheDishes",allTheDishes);
-        model.addAttribute("isAdmin", isAdmin);
-        return "dishes";
+            int pageSize = 10;
+            Pageable pageable = PageRequest.of(page, pageSize);
+            Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
+            boolean filterEnabled = false;
+            long totalDishes = dishesPage.getTotalElements();
+            int totalPages = dishesPage.getTotalPages();
+            List<Dish> dishes = dishesPage.getContent();
+            model.addAttribute("dishesPage", dishesPage.getContent());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("count", totalDishes);
+            model.addAttribute("filterEnabled", filterEnabled);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("hasPrevious", dishesPage.hasPrevious());
+            model.addAttribute("hasNext", dishesPage.hasNext());
+            model.addAttribute("alldishes", dishes);
+            model.addAttribute("allTheDishes", allTheDishes);
+            model.addAttribute("isAdmin", isAdmin);
+            return "dishes";
 
-    }
+        }
 
 
     @GetMapping("/dishes/search")
     public String search(Model model, @RequestParam String keyword) {
         logger.info("searching for: " + keyword);
-        Iterable<Dish> allDishes = dishRepository.findByName("%" + keyword + "%");
-        model.addAttribute("count", allDishes.spliterator().estimateSize());
+        List<String> keywords = Arrays.asList(keyword.split(",")).stream().map(String::trim).collect(Collectors.toList());
+        Set<Dish> allDishes = new HashSet<>();
+        for (String key : keywords) {
+            Iterable<Dish> dishes = dishRepository.findByNameOrIngredients(key);
+            dishes.forEach(allDishes::add);
+        }
+        model.addAttribute("count", allDishes.size());
         model.addAttribute("alldishes", allDishes);
+
         return "dishes";
     }
 
@@ -115,6 +121,7 @@ public class DishesController {
                                @RequestParam(required = false) Integer maxFat,
                                @RequestParam(required = false) Integer minProteins,
                                @RequestParam(required = false) Integer maxProteins,
+                               @RequestParam(required = false) String ratingStr,
                                @RequestParam(defaultValue = "0") int page) {
         List<String> dietPreferences = null;
         if (dietPreferencesStr != null && !dietPreferencesStr.isEmpty()) {
@@ -140,7 +147,19 @@ public class DishesController {
             }
         }
 
-
+        List<Integer> ratings = null;
+        if (ratingStr != null && !ratingStr.isEmpty()) {
+            ratings = switch (ratingStr) {
+                case "5" -> List.of(5);
+                case "4" -> List.of(4);
+                case "3" -> List.of(3);
+                case "2" -> List.of(2);
+                case "1" -> List.of(1);
+                default -> Arrays.stream(ratingStr.split(","))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+            };
+        }
         int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         logger.info("pageable: " + pageable);
@@ -149,7 +168,7 @@ public class DishesController {
                 occasion, minCarbs, maxCarbs, minFiber,
                 maxFiber, minSalt, maxSalt, minSugar, maxSugar,
                 minSaturatedFat, maxSaturatedFat, minFat, maxFat,
-                minProteins, maxProteins, pageable);
+                minProteins, maxProteins,ratings,pageable);
 
 
         boolean filterEnabled = true;
@@ -171,6 +190,7 @@ public class DishesController {
         model.addAttribute("maxFat", maxFat);
         model.addAttribute("minProteins", minProteins);
         model.addAttribute("maxProteins", maxProteins);
+        model.addAttribute("ratings", ratings);
         model.addAttribute("count", allDishes.getTotalElements());
         model.addAttribute("alldishes", allDishes);
         model.addAttribute("allIngredients", ingredientRepository.findAll());

@@ -117,23 +117,13 @@ public class DishDetailController<ToggleRequest> {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (optionalDish.isPresent()) {
             Dish dish = optionalDish.get();
-            double averageRating = calculateAverageRating(dish);
+            double averageRating = dish.getAverageRating();
             model.addAttribute("dish", dish);
             model.addAttribute("averageRating", averageRating);
         } else {
             return "error";
         }
         return "dishdetail";
-    }
-    private double calculateAverageRating(Dish dish) {
-        List<Rating> ratings = dish.getRatings();
-        if (ratings == null || ratings.isEmpty()) {
-            return 0.0;
-        }
-        return ratings.stream()
-                .mapToInt(Rating::getRating)
-                .average()
-                .orElse(0.0);
     }
 
     @PostMapping("/toggle/dish/{id}")

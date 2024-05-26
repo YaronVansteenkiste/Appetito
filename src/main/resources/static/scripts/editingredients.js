@@ -1,5 +1,5 @@
 function addIngredient() {
-    const container = document.getElementById('ingredientsContainer');
+    const container = document.querySelector('.container-fluid');
     const index = container.children.length;
 
     const ingredientRow = document.createElement('div');
@@ -32,4 +32,22 @@ function addIngredient() {
 function deleteIngredient(button) {
     const row = button.closest('.ingredient-row');
     row.parentNode.removeChild(row);
+}
+
+
+function deleteIngredientDb(button, ingredientId) {
+    fetch(`/modify/editingredients/delete/${ingredientId}`, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const row = button.closest('.ingredient-row');
+        row.remove();
+        window.location.reload();
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
 }
