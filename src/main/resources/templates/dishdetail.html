@@ -76,11 +76,9 @@
 </main>
 
 
-
-
 <div class="container">
-    <div class="d-flex flex-row">
-        <div class="col-sm-12 col-md-12 col-lg-6 mb-1">
+    <div class="row mt-2">
+        <div class="col-sm-12 col-md-6">
             <h4>Ingrediënten</h4>
             <div class="row">
                 <div class="col-6">
@@ -88,7 +86,8 @@
                 </div>
                 <div class="col-6 d-inline-flex">
                     <button onclick="subtractPersons()" class="btn btn-outline-primary rounded-circle">-</button>
-                    <p th:text="${dish.getNumberOfPeople() != null ? dish.getNumberOfPeople() : 1}" id="persons" class="mx-3">1</p>
+                    <p th:text="${dish.getNumberOfPeople() != null ? dish.getNumberOfPeople() : 1}" id="persons"
+                       class="mx-3">1</p>
                     <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
                 </div>
             </div>
@@ -112,8 +111,7 @@
                 </p>
             </div>
         </div>
-
-        <div class="col-sm-12 col-md-12 col-lg-6 mb-1 ms-auto">
+        <div class="col-sm-12 col-md-6">
             <div th:if="${dish.getNutritions() != null && !dish.getNutritions().isEmpty()}">
                 <h4>Voedingswaarde <span class="text-secondary">(per persoon)</span></h4>
                 <div th:each="nutrition: ${dish.getNutritions()}">
@@ -152,7 +150,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="d-flex flex-row">
@@ -208,8 +205,8 @@
                     <div th:text="${stat.index + 1 + '. ' + step.description}"></div>
                 </div>
                 <div th:if="${step.getImage() != null}" class="row">
-                    <div class="col-8 my-2" th:text="${stat.index + 1 + '. ' + step.description}"></div>
-                    <div class="col-4 my-2 justify-content-center">
+                    <div class="col-12 col-md-8 my-2" th:text="${stat.index + 1 + '. ' + step.description}"></div>
+                    <div class="col-12 col-md-4 my-2 justify-content-center">
                         <img class="img-fluid ms-auto w-100" th:src="@{${step.getImage()}}" alt="Step Image">
                     </div>
                 </div>
@@ -217,8 +214,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <div class="container">
@@ -260,7 +255,8 @@
 <div class=" text-center">
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${firstDish}|}"
        th:classappend="${currentDish == firstDish} ? 'disabled' : ''">First</a>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}" th:classappend="${currentDish == firstDish} ? 'disabled' : ''"><- Prev</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${previousDish}|}"
+       th:classappend="${currentDish == firstDish} ? 'disabled' : ''"><- Prev</a>
     <th:block th:each="dish, iterStat : ${allDishes}">
         <th:block
                 th:if="${iterStat.index == currentDish - 1 or iterStat.index == currentDish or iterStat.index == currentDish+1}">
@@ -269,7 +265,8 @@
                th:text="${dish.id}"></a>
         </th:block>
     </th:block>
-    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}" th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Next -></a>
+    <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${nextDish}|}"
+       th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Next -></a>
     <a class="btn btn-primary mt-3" th:href="@{|/dishdetails/${lastDish}|}"
        th:classappend="${currentDish == lastDish} ? 'disabled' : ''">Last</a>
 </div>
