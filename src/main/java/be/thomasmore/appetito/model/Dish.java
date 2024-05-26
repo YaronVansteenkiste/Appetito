@@ -19,7 +19,7 @@ public class Dish {
     private String name;
 
     private String dietPreferences;
-
+    private String videoUrl;
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
     private String occasion;
@@ -192,5 +192,13 @@ public class Dish {
 
     public void setNumberOfPeople(Integer numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }
