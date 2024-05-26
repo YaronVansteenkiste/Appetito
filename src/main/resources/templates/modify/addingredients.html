@@ -18,37 +18,14 @@
   <a th:text="${dish.name}"></a>
 </h6>
 <h3>Toevoegen ingrediënten</h3>
-
 <div class="container" >
+  <div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+  </div>
   <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}" th:object="${dish}">
     <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
     <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1" th:value="${dish.numberOfPeople}"/>
-    <div th:if="*{ingredients.size() > 0}">
-      <div class="container-fluid">
-        <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row">
-          <input type="hidden" th:field="*{ingredients[__${iterStat.index}__].id}"/>
-          <div class="row mb-3 m-2 ingredient-row">
-            <div class="col-sm-3">
-              <label class="col-form-label">Naam</label>
-              <input class="form-control" type="text" th:field="*{ingredients[__${iterStat.index}__].name}"/>
-            </div>
-            <div class="col-sm-3">
-              <label class="col-form-label">Hoeveelheid</label>
-              <input class="form-control" type="number" th:field="*{ingredients[__${iterStat.index}__].quantity}"/>
-            </div>
-            <div class="col-sm-3">
-              <label class="col-form-label">Eenheid(gr,ml,..)</label>
-              <input class="form-control" type="text" th:field="*{ingredients[__${iterStat.index}__].unit}"/>
-            </div>
-            <div class="col-sm-3">
-              <button type="button" class="btn btn-danger" th:onclick="|deleteIngredientDb(this, ${ingredient.id})|">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div th:if="*{ingredients.size() == 0}">
-      <p>Geen ingredienten besckibaar . Voeg deze toe.</p>
+    <div>
       <div class="container-fluid">
         <div class="ingredient-row">
           <input type="hidden" name="ingredients[0].id" value=""/>

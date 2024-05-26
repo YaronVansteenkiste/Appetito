@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.Binding;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -154,21 +155,19 @@ public class DishModifyController {
 
 
     @GetMapping("/addsteps/{dishId}")
-public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model model, RedirectAttributes redirectAttributes) {
-    if (dishId == null || dishId <= 0) {
-        redirectAttributes.addFlashAttribute("error", "Invalid dish Id!");
-        return "redirect:/";
+    public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model model, RedirectAttributes redirectAttributes) {
+        if (dishId == null || dishId <= 0) {
+            redirectAttributes.addFlashAttribute("error", "Invalid dish Id!");
+            return "redirect:/";
+        }
+
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        StepListWrapper wrapper = new StepListWrapper();
+        model.addAttribute("dish", dish);
+        model.addAttribute("stepListWrapper", wrapper);
+        return "modify/addsteps";
     }
-
-    Dish dish = dishRepository.findById(dishId)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
-    StepListWrapper wrapper = new StepListWrapper();
-    model.addAttribute("dish", dish);
-    model.addAttribute("stepListWrapper", wrapper);
-    return "modify/addsteps";
-}
-
-
 
 
     @GetMapping("/addingredients/{dishId}")
@@ -180,7 +179,15 @@ public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model mod
     }
 
     @PostMapping("/addingredients/{dishId}")
-    public String addIngredients(@PathVariable("dishId") Integer dishId, @ModelAttribute IngredientListWrapper ingredientListWrapper) {
+    public String addIngredients(@PathVariable("dishId") Integer dishId, @ModelAttribute IngredientListWrapper ingredientListWrapper,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("dish", dishRepository.findById(dishId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId)));
+            model.addAttribute("error", "Er moet minimaal één ingrediënt worden toegevoegd");
+            return "modify/addingredients";
+        }
+
         Dish dish = dishRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
         for (Ingredient ingredient : ingredientListWrapper.getIngredients()) {
@@ -419,9 +426,9 @@ public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model mod
 
     @PostMapping("/addsteps/{id}")
     @Transactional
-    public String addSteps (@PathVariable("id") Integer id,
-    @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
-    Model model) throws IOException {
+    public String addSteps(@PathVariable("id") Integer id,
+                           @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
+                           Model model) throws IOException {
         List<Step> currentSteps = wrapper.getSteps();
 
         if (currentSteps == null || currentSteps.isEmpty()) {
@@ -584,7 +591,6 @@ public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model mod
             return "redirect:/error";
         }
     }
-
 
 
     private String uploadBevImage(MultipartFile multipartFile) throws IOException {
