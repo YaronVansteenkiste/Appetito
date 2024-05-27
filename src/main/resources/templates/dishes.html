@@ -132,7 +132,7 @@
                         <label for="dietPreferencesOther"></label>
                         <input class="form-check-input" name="dietPreferencesStr" type="checkbox"
                                value="other" id="dietPreferencesOther">
-                        <label class="form-check-label" for="dietPreferencesKeto"> Andere
+                        <label class="form-check-label" for="dietPreferencesKeto">Andere
                         </label>
                     </div>
                     <hr>
@@ -150,42 +150,6 @@
                                name="occasionStr" type="checkbox" value="ontbijt"
                                id="occasionOntbijt">
                         <label class="form-check-label" for="occasionOntbijt"> Ontbijt
-                        </label>
-                    </div>
-                    <h6><strong>Beoordeling</strong></h6>
-                    <div class="form-check">
-                        <input th:checked="${ratings != null && ratings.contains(5)}" class="form-check-input"
-                               name="ratingStr" type="checkbox" value="5"
-                               id="rating5">
-                        <label class="form-check-label" for="rating5"> 5 sterren
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input th:checked="${ratings != null && ratings.contains(4)}" class="form-check-input"
-                               name="ratingStr" type="checkbox" value="4"
-                               id="rating4">
-                        <label class="form-check-label" for="rating4"> 4 sterren
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input th:checked="${ratings != null && ratings.contains(3)}" class="form-check-input"
-                               name="ratingStr" type="checkbox" value="3"
-                               id="rating3">
-                        <label class="form-check-label" for="rating3"> 3 sterren
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input th:checked="${ratings != null && ratings.contains(2)}" class="form-check-input"
-                               name="ratingStr" type="checkbox" value="2"
-                               id="rating2">
-                        <label class="form-check-label" for="rating2"> 2 sterren
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input th:checked="${ratings != null && ratings.contains(1)}" class="form-check-input"
-                               name="ratingStr" type="checkbox" value="1"
-                               id="rating1">
-                        <label class="form-check-label" for="rating1"> 1 ster
                         </label>
                     </div>
                     <div class="form-check">
@@ -217,6 +181,68 @@
                                name="occasionStr" type="checkbox" value="dessert"
                                id="occasionDessert">
                         <label class="form-check-label" for="occasionDessert"> Dessert
+                        </label>
+                    </div>
+                    <hr>
+                    <h6><strong>Beoordeling</strong></h6>
+                    <div class="form-check">
+                        <input th:checked="${ratings != null && ratings.contains(5)}" class="form-check-input"
+                               name="ratingStr" type="checkbox" value="5"
+                               id="rating5">
+                        <label class="form-check-label" for="rating5">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${ratings != null && ratings.contains(4)}" class="form-check-input"
+                               name="ratingStr" type="checkbox" value="4"
+                               id="rating4">
+                        <label class="form-check-label" for="rating4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${ratings != null && ratings.contains(3)}" class="form-check-input"
+                               name="ratingStr" type="checkbox" value="3"
+                               id="rating3">
+                        <label class="form-check-label" for="rating3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${ratings != null && ratings.contains(2)}" class="form-check-input"
+                               name="ratingStr" type="checkbox" value="2"
+                               id="rating2">
+                        <label class="form-check-label" for="rating2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input th:checked="${ratings != null && ratings.contains(1)}" class="form-check-input"
+                               name="ratingStr" type="checkbox" value="1"
+                               id="rating1">
+                        <label class="form-check-label" for="rating1">
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
                         </label>
                     </div>
                     <hr>
