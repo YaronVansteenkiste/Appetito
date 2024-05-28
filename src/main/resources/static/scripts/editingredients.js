@@ -20,8 +20,12 @@ function addIngredient() {
             <label class="col-form-label">Unit</label>
             <input class="form-control" type="text" name="ingredients[${index}].unit"/>
         </div>
+         <div class="col-sm-3" id="ingredientImageContainer">
+                            <label class="col-form-label">Foto</label>
+                            <input class="form-control" type="file" id="image" accept="image/*" name="imageFiles">
+                        </div>
         <div class="col-sm-3">
-            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete</button>
+            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Verwijder</button>
         </div>
     </div>
     `;
@@ -39,15 +43,15 @@ function deleteIngredientDb(button, ingredientId) {
     fetch(`/modify/editingredients/delete/${ingredientId}`, {
         method: 'DELETE',
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const row = button.closest('.ingredient-row');
-        row.remove();
-        window.location.reload();
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const row = button.closest('.ingredient-row');
+            row.remove();
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
 }
