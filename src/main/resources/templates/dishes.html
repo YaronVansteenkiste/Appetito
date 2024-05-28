@@ -38,7 +38,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 order-md-1">
+            <div th:class="${filterEnabled} ? 'col-md-6 order-md-1' : 'col-12'">
                 <div class="dishes">
                     <div class="row">
                         <h4 th:text="|Alle maaltijden:(${count})|"></h4>
@@ -78,9 +78,9 @@
                     </div>
                 </div>
             </div>
-            <div class="filter col-md-4 ms-2 order-first">
+            <div th:class="${filterEnabled} ? 'filter col-md-4 ms-5 order-first' : 'col-md-12 order-first'">
                 <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
-                   class="btn btn-primary rounded-pill">Open</a>
+                   class="btn btn-primary rounded-pill mb-2">Open Filters</a>
                 <form th:if="${filterEnabled}">
                     <a th:href="@{/dishes}" type="button" class="btn btn-primary rounded-pill">Sluiten</a>
                     <button type="submit" class="btn btn-outline-primary text-center ">Filter</button>
