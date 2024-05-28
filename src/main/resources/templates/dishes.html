@@ -16,12 +16,12 @@
 </head>
 
 <h1 th:replace="~{fragments/header :: header}"></h1>
-<body>
+<body class="overflow-x-hidden">
 <h6 class="mt-3 ms-2 text-decoration-none">
     <a href="/" class="text-decoration-none">Home</a> >
     <a>Recepten</a> >
 </h6>
-<div class="row   justify-content-center">
+<div class="row justify-content-center">
     <div class="col-12 col-md-8">
         <form id="search" action="/dishes/search" method="get">
             <div class="d-flex">
@@ -37,13 +37,13 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
+        <div class="row mx-auto">
             <div th:class="${filterEnabled} ? 'col-md-6 order-md-1' : 'col-12'">
                 <div class="dishes">
                     <div class="row">
                         <h4 th:text="|Alle maaltijden:(${count})|"></h4>
                         <div class="row row-cols-1 row-cols-md-3 g-4">
-                            <div class="col" th:each="dish : ${alldishes}" th:if="${dish.isActive()}">
+                            <div th:each="dish : ${alldishes}" th:if="${dish.isActive()}" class="col">
                                 <div class="card" style="height: 400px;">
                                     <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
                                          alt="dish Image" style="height: 200px; object-fit: cover;">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div th:class="${filterEnabled} ? 'filter col-md-4 ms-5 order-first' : 'col-md-12 order-first'">
+            <div th:class="${filterEnabled} ? 'filter col-md-4 ms-0 ms-md-5 order-first' : 'col-md-12 order-first'">
                 <a th:unless="${filterEnabled}" th:href="@{/dishes/filter}" type="button"
                    class="btn btn-primary rounded-pill mb-2">Open Filters</a>
                 <form th:if="${filterEnabled}">
@@ -319,7 +319,6 @@
                         <input type="number" name="maxProteins" min="0" class="form-control border-primary"
                                id="maxProteins"
                                th:value="${maxProteins}">
-
                     </div>
                 </form>
             </div>
