@@ -19,6 +19,9 @@ public class DishDto {
     @NotEmpty(message = "Dieetvoorkeur is vereist")
     private String dietPreferences;
 
+    @NotEmpty(message = "Dieetvoorkeur is vereist")
+    private String customDietPreferences;
+
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
     @NotEmpty(message = "Gelegenheid is vereist")
@@ -70,6 +73,14 @@ public class DishDto {
 
     public void setImage(MultipartFile image) {
         this.image = image;
+    }
+
+    public String getCustomDietPreferences() {
+        return customDietPreferences;
+    }
+
+    public void setCustomDietPreferences(String customDietPreferences) {
+        this.customDietPreferences = customDietPreferences;
     }
 }
 
