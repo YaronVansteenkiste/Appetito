@@ -46,18 +46,18 @@
                             <option value="vegan">Vegan</option>
                             <option value="keto">Keto</option>
                             <option value="glutenvrij">Glutenvrij</option>
-                            <option th:value="${customDietPreferences}" th:text="dish.customDietPreferences" selected>Andere</option>
+                            <option th:value="${dishDto.customDietPreferences}" th:text="${dishDto.customDietPreferences}"selected></option>
 
                         </select>
                         <p th:if="${#fields.hasErrors('dietPreferences')}" th:errorclass="text-danger"
                            th:errors="${dishDto.dietPreferences}"></p>
                     </div>
-                    <div class="row mb-3 mt-3">
-                        <label class="col-sm-4 col-form-label" for="otherField">Andere</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" id="otherField" type="text" th:field="${dishDto.dietPreferences}">
-                        </div>
-                    </div>
+<!--                    <div class="row mb-3 mt-3">-->
+<!--                        <label class="col-sm-4 col-form-label" for="otherField">Andere</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <input class="form-control" id="otherField" type="text" th:field="${dishDto.dietPreferences}">-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </div>
 

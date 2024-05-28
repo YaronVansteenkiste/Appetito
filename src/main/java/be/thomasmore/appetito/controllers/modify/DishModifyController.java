@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RequestMapping("/modify")
@@ -103,10 +104,11 @@ public class DishModifyController {
             dishDto.setDietPreferences(dish.getDietPreferences());
             dishDto.setPreparationTime(dish.getPreparationTime());
             dishDto.setOccasion(dish.getOccasion());
+            dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
 
+            System.out.println("custom diet preferences: " + dish.getCustomDietPreferences());
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("dish", dish);
-            model.addAttribute("customDietPreferences", dish.getCustomDietPreferences());
 
             return "modify/dishedit";
         } else {
@@ -240,6 +242,8 @@ public class DishModifyController {
 
         if(!StringUtils.isEmpty(newDietPreference)){
             dishDto.setCustomDietPreferences(newDietPreference);
+            Dish dish = new Dish();
+            dishRepository.save(dish);
         }
 
 
@@ -279,6 +283,7 @@ public class DishModifyController {
 
             beverages.add(beverage);
         }
+
 
         beverageRepository.saveAll(beverages);
         dish.setBeverages(beverages);
