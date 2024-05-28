@@ -59,4 +59,11 @@ public class Menu {
         return chef;
     }
 
+    public List<be.thomasmore.appetito.model.MenuDay> getMenuDay() {
+        return MenuDay;
+    }
+
+    public void setMenuDay(List<be.thomasmore.appetito.model.MenuDay> menuDay) {
+        MenuDay = menuDay;
+    }
 }

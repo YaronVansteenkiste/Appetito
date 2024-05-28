@@ -73,7 +73,7 @@ public class MenuController {
     }
 
 
-    @PostMapping("/menu/{menuId}/selectDay/{dayId}/addDish/{dishId}")
+   @PostMapping("/menu/{menuId}/selectDay/{dayId}/addDish/{dishId}")
 public String addDishToDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
     Menu menu = menuRepository.findById(menuId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
@@ -82,7 +82,7 @@ public String addDishToDay(@PathVariable Integer menuId, @PathVariable Integer d
     Dish dish = dishRepository.findById(dishId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
-    if (!menu.getMenuDays().contains(menuDay)) {
+    if (!menuDay.getMenu().equals(menu)) {
         throw new IllegalArgumentException("The selected day does not belong to the selected menu");
     }
 
