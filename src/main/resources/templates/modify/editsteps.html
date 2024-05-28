@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Steps</title>
+    <title>Aanpassen Bereiding</title>
 </head>
 <body>
 <h1 th:replace="~{fragments/header :: header}"></h1>
@@ -17,13 +17,15 @@
 <h6 class="mt-3 ms-2">
     <a href="/" class="text-decoration-none">Home</a> >
     <a href="/dishes" class="text-decoration-none">Recepten</a> >
-    <a th:text="${dish.name}"></a>
+    <a th:href="@{|/dishdetails/${dish.id}|}" class="text-decoration-none" th:text="${dish.name}"></a> >
+    <a th:href="@{|/modify/dishedit/${dish.id}|}" th:text="|Edit ${dish.name}|"></a> >
+    <a th:text="|Edit Steps ${dish.name}|"></a>
 </h6>
 
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
-            <h2 class="text-center mb-5">Edit Steps</h2>
+            <h2 class="text-center mb-5">Aanpassen Bereiding</h2>
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <p th:text="${error}"></p>
             </div>
@@ -46,7 +48,8 @@
                     </tr>
                 </table>
                 <button type="button" class="btn btn-primary" onclick="addStep()">Add Step</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{|/modify/dishedit/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
+                <button type="submit" class="btn btn-primary">Volgende</button>
             </form>
         </div>
     </div>

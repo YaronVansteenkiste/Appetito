@@ -97,6 +97,7 @@ public class DishesController {
         }
         model.addAttribute("count", allDishes.size());
         model.addAttribute("alldishes", allDishes);
+        model.addAttribute("keyword", keyword);
 
         return "dishes";
     }

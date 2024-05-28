@@ -23,7 +23,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
-            <h2 class="text-center mb-5">Toevoegen bereiding</h2>
+            <h2 class="text-center mb-5">Toevoegen Bereiding</h2>
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <p th:text="${error}"></p>
             </div>
@@ -46,7 +46,8 @@
                     </tr>
                 </table>
                 <button type="button" class="btn btn-primary" onclick="addStep()">Add Step</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <a th:href="@{|/modify/adddish/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
+                <button type="submit" class="btn btn-primary">Volgende</button>
             </form>
         </div>
     </div>

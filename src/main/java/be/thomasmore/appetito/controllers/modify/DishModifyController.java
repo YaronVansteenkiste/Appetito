@@ -12,7 +12,6 @@ import jdk.jfr.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -23,12 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
-import javax.naming.Binding;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.sql.Wrapper;
 import java.util.*;
 
 
@@ -122,8 +119,6 @@ public class DishModifyController {
                                @RequestParam(required = false) MultipartFile image,
                                @PathVariable int id, Model model) {
 
-        logger.debug("posting data for id {}", id);
-
         if (result.hasErrors()) {
             logger.error("validation errors: {}", result.getAllErrors());
 
@@ -147,28 +142,31 @@ public class DishModifyController {
                 }
                 dishRepository.save(dish);
 
-                return "redirect:/dishdetails/" + id;
+                return "redirect:/modify/editsteps/" + id;
             }
         } catch (Exception ex) {
             logger.error("Error: {}", ex.getMessage());
         }
-        return "redirect:/dishdetails/" + id;
+        return "redirect:/modify/editsteps/" + id;
     }
 
 
     @GetMapping("/addsteps/{dishId}")
     public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model model, RedirectAttributes redirectAttributes) {
-        if (dishId == null || dishId <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Invalid dish Id!");
-            return "redirect:/";
-        }
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
 
-        Dish dish = dishRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
-        StepListWrapper wrapper = new StepListWrapper();
-        model.addAttribute("dish", dish);
-        model.addAttribute("stepListWrapper", wrapper);
-        return "modify/addsteps";
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Iterable<Step> steps = stepRepository.findByDishId(dishId);
+            StepListWrapper wrapper = new StepListWrapper();
+            wrapper.setSteps((List<Step>) steps);
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("stepListWrapper", wrapper);
+            return "modify/addsteps";
+        } else {
+            return "redirect:/modify/adddish/" + dishId;
+        }
     }
 
 
@@ -199,28 +197,58 @@ public class DishModifyController {
         return "redirect:/modify/addnutritions/" + dishId;
     }
 
-    @GetMapping("/addmeal")
-    public String showCreateDish(Model model) {
+    @GetMapping({"/adddish", "/adddish/{id}"})
+    public String showCreateDish(Model model, @RequestParam(value = "id", required = false) Integer id) {
+        if (id != null) {
+            Optional<Dish> dishOptional = dishRepository.findById(id);
+
+            if (dishOptional.isPresent()) {
+
+                Dish dish = dishOptional.get();
+
+                DishDto dishDto = new DishDto();
+                dishDto.setName(dish.getName());
+                dishDto.setDietPreferences(dish.getDietPreferences());
+                dishDto.setPreparationTime(dish.getPreparationTime());
+                dishDto.setOccasion(dish.getOccasion());
+
+                model.addAttribute("dishDto", dishDto);
+                model.addAttribute("dish", dish);
+
+                return "modify/adddish";
+            }
+        }
         DishDto dishDto = new DishDto();
         model.addAttribute("dishDto", dishDto);
-        return "modify/addmeal";
+        return "modify/adddish";
     }
 
-    @PostMapping("/addmeal")
+    @PostMapping({"/adddish", "/adddish/{id}"})
     public String createDish(Model model,
+                             @PathVariable(required = false) Integer id,
                              @Valid @ModelAttribute DishDto dishDto,
                              BindingResult bindingResult,
                              @RequestParam(required = false) String newDietPreference,
                              @RequestParam("beverageNames[]") List<String> beverageNames,
                              @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
 
-
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishDto", dishDto);
-            return "modify/addmeal";
+            return "modify/adddish";
         }
 
-        Dish dish = new Dish();
+        Dish dish;
+        if (id != null) {
+            Optional<Dish> optionalDish = dishRepository.findById(id);
+            if (optionalDish.isPresent()) {
+                dish = optionalDish.get();
+            } else {
+                return "redirect:/error";
+            }
+        } else {
+            dish = new Dish();
+        }
+
         dish.setName(dishDto.getName());
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
@@ -320,7 +348,7 @@ public class DishModifyController {
 
         dishRepository.save(currentDish);
 
-        return "redirect:/modify/dishedit/" + id;
+        return "redirect:/modify/editnutritions/" + id;
     }
 
     @GetMapping("/editnutritions/{id}")
@@ -366,7 +394,7 @@ public class DishModifyController {
 
         dishRepository.save(dish);
 
-        return "redirect:/modify/dishedit/" + id;
+        return "redirect:/modify/editbeverage/" + id;
     }
 
     @GetMapping("/editsteps/{id}")
@@ -425,7 +453,7 @@ public class DishModifyController {
             }
         }
 
-        return "redirect:/modify/dishedit/" + id;
+        return "redirect:/modify/editingredients/" + id;
     }
 
     @PostMapping("/addsteps/{id}")
@@ -590,7 +618,7 @@ public class DishModifyController {
             dish.setBeverages(beverages);
             dishRepository.save(dish);
 
-            return "redirect:/modify/dishedit/" + id;
+            return "redirect:/dishdetails/" + id;
         } else {
             return "redirect:/error";
         }
