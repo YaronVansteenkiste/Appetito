@@ -106,6 +106,7 @@ public class DishModifyController {
 
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("dish", dish);
+            model.addAttribute("customDietPreferences", dish.getCustomDietPreferences());
 
             return "modify/dishedit";
         } else {
@@ -236,6 +237,11 @@ public class DishModifyController {
             model.addAttribute("dishDto", dishDto);
             return "modify/adddish";
         }
+
+        if(!StringUtils.isEmpty(newDietPreference)){
+            dishDto.setCustomDietPreferences(newDietPreference);
+        }
+
 
         Dish dish;
         if (id != null) {

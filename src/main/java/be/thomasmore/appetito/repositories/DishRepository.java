@@ -112,4 +112,5 @@ Iterable<Dish> findByNameOrIngredients(@Param("keyword") String keyword);
     @Query("SELECT d FROM Dish d JOIN Rating r ON d.id = r.dish.id GROUP BY d.id ORDER BY AVG(r.rating) DESC limit 3")
     List<Dish> findTopDishes();
 
+    List<Dish> findByCustomDietPreferencesIsNotNull();
 }

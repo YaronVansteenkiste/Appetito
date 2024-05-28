@@ -52,7 +52,8 @@ public class DishesController {
 
 
     @GetMapping("/dishes")
-    public String Home(Model model, @RequestParam(defaultValue = "0") int page, Principal principal) {
+    public String Home(Model model, @RequestParam(defaultValue = "0") int page, Principal principal,
+                       String filter) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"));
@@ -64,6 +65,12 @@ public class DishesController {
             allTheDishes = dishRepository.findByActiveTrue();
         }
 
+        List<Dish> diets;
+        if ("Andere".equals(filter)) {
+            diets = dishRepository.findByCustomDietPreferencesIsNotNull();
+        } else {
+            diets = dishRepository.findAll();
+        }
             int pageSize = 10;
             Pageable pageable = PageRequest.of(page, pageSize);
             Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
@@ -81,6 +88,7 @@ public class DishesController {
             model.addAttribute("alldishes", dishes);
             model.addAttribute("allTheDishes", allTheDishes);
             model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("diets", diets);
             return "dishes";
 
         }

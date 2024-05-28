@@ -46,7 +46,7 @@
                             <option value="vegan">Vegan</option>
                             <option value="keto">Keto</option>
                             <option value="glutenvrij">Glutenvrij</option>
-                            <option value="Andere">Andere</option>
+                            <option th:value="${customDietPreferences}" th:text="dish.customDietPreferences" selected>Andere</option>
 
                         </select>
                         <p th:if="${#fields.hasErrors('dietPreferences')}" th:errorclass="text-danger"

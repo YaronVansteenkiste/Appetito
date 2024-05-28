@@ -19,7 +19,6 @@ public class DishDto {
     @NotEmpty(message = "Dieetvoorkeur is vereist")
     private String dietPreferences;
 
-    @NotEmpty(message = "Dieetvoorkeur is vereist")
     private String customDietPreferences;
 
     @Temporal(TemporalType.TIME)
