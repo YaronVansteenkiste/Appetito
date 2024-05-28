@@ -1,7 +1,21 @@
 document.getElementById('categorySelect').addEventListener('change', function() {
+    let newCategoryInput = document.getElementById('newCategoryInput');
     if (this.value === 'Andere') {
-        document.getElementById('newCategoryInput').style.display = 'block';
+        newCategoryInput.style.display = 'block';
+        newCategoryInput.required = true;
     } else {
-        document.getElementById('newCategoryInput').style.display = 'none';
+        newCategoryInput.style.display = 'none';
+        newCategoryInput.required = false;
+    }
+});
+
+
+document.getElementById('categorySelect').addEventListener('submit', function(event) {
+    let newCategory = document.getElementById('newCategoryInput').value;
+    let existingCategories = Array.from(document.getElementById('categorySelect').options).map(option => option.value);
+
+    if (existingCategories.includes(newCategory)) {
+        alert('This category already exists.');
+        event.preventDefault();
     }
 });

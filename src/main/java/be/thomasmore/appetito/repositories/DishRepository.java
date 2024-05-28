@@ -2,10 +2,8 @@ package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Dish;
 
-import be.thomasmore.appetito.model.Rating;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -111,6 +109,7 @@ Iterable<Dish> findByNameOrIngredients(@Param("keyword") String keyword);
 
     @Query("SELECT d FROM Dish d JOIN Rating r ON d.id = r.dish.id GROUP BY d.id ORDER BY AVG(r.rating) DESC limit 3")
     List<Dish> findTopDishes();
+
 
     List<Dish> findByCustomDietPreferencesIsNotNull();
 }
