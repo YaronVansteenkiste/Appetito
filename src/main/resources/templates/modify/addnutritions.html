@@ -18,92 +18,94 @@
   <a>Nutritions</a> >
   <a th:text="${dish.name}"></a>
 </h6>
-<h3>Toevoegen voedingswaarden</h3>
 
-<form method="post" th:action="@{/modify/addnutritions/{id}(id=${dish.id})}" th:object="${nutritionsListWrapper}">
-  <div th:each="ingredient, iterStat : *{nutritions}">
-    <input type="hidden" th:field="*{nutritions[__${iterStat.index}__].id}" />
+<div class="container">
+  <h3>Toevoegen voedingswaarden</h3>
 
-    <div class="row mb-3 m-2">
-      <div class="col-sm-3">
-        <label class="col-form-label">Vezel</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].fiber}" />
-      </div>
-      <div class="col-sm-3">
-        <label class="col-form-label">Zout</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].salt}" />
-      </div>
-      <div class="col-sm-3">
-        <label class="col-form-label">Suiker</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].sugar}" />
-      </div>
-      <div class="col-sm-3">
-        <label class="col-form-label">Verzadigde vetten</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].saturatedFat}" />
-      </div>
-      <div class="col-sm-3">
-        <label class="col-form-label">Vetten</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].fat}" />
-      </div>
-      <div class="col-sm-3">
-        <label class="col-form-label">Koolhydraten</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].carbs}" />
-      </div>
-      <div class="col-sm-3">
-        <label class="col-form-label">Proteinen</label>
-        <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].proteins}" />
+  <form method="post" th:action="@{/modify/addnutritions/{id}(id=${dish.id})}" th:object="${nutritionsListWrapper}">
+    <div th:each="ingredient, iterStat : *{nutritions}">
+      <input type="hidden" th:field="*{nutritions[__${iterStat.index}__].id}" />
+
+      <div class="row mb-3 m-2">
+        <div class="col-sm-3">
+          <label class="col-form-label">Vezel</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].fiber}" />
+        </div>
+        <div class="col-sm-3">
+          <label class="col-form-label">Zout</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].salt}" />
+        </div>
+        <div class="col-sm-3">
+          <label class="col-form-label">Suiker</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].sugar}" />
+        </div>
+        <div class="col-sm-3">
+          <label class="col-form-label">Verzadigde vetten</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].saturatedFat}" />
+        </div>
+        <div class="col-sm-3">
+          <label class="col-form-label">Vetten</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].fat}" />
+        </div>
+        <div class="col-sm-3">
+          <label class="col-form-label">Koolhydraten</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].carbs}" />
+        </div>
+        <div class="col-sm-3">
+          <label class="col-form-label">Proteinen</label>
+          <input class="form-control" type="text" th:field="*{nutritions[__${iterStat.index}__].proteins}" />
+        </div>
       </div>
     </div>
-  </div>
-  <div th:if="*{nutritions.size() == 0}">
-    <p>Geen voedingswaarden beschikbaar . Voeg deze toe.</p>
-    <div id="ingredientsContainer">
-      <div class="ingredient-row">
-        <input type="hidden" name="nutritions[0].id" value=""/>
-        <div class="row mb-3 m-2">
-          <div class="col-sm-3">
-            <label class="col-form-label">Vezel</label>
-            <input class="form-control" type="text" name="nutritions[0].fiber"/>
-          </div>
-          <div class="col-sm-3">
-            <label class="col-form-label">Zout</label>
-            <input class="form-control" type="text" name="nutritions[0].salt"/>
-          </div>
-          <div class="col-sm-3">
-            <label class="col-form-label">Suiker</label>
-            <input class="form-control" type="text" name="nutritions[0].sugar"/>
-          </div>
-          <div class="col-sm-3">
-            <label class="col-form-label">Verzadigde vet</label>
-            <input class="form-control" type="text" name="nutritions[0].saturatedFat"/>
-          </div>
-          <div class="col-sm-3">
-            <label class="col-form-label">Vet</label>
-            <input class="form-control" type="text" name="nutritions[0].fat"/>
-          </div>
-          <div class="col-sm-3">
-            <label class="col-form-label">Koolhydraten</label>
-            <input class="form-control" type="text" name="nutritions[0].carbs"/>
-          </div>
-          <div class="col-sm-3">
-            <label class="col-form-label">Proteinen</label>
-            <input class="form-control" type="text" name="nutritions[0].proteins"/>
-          </div>
+    <div th:if="*{nutritions.size() == 0}">
+      <p>Geen voedingswaarden beschikbaar . Voeg deze toe.</p>
+      <div id="ingredientsContainer">
+        <div class="ingredient-row">
+          <input type="hidden" name="nutritions[0].id" value=""/>
+          <div class="row mb-3 m-2">
+            <div class="col-sm-3">
+              <label class="col-form-label">Vezel</label>
+              <input class="form-control" type="text" name="nutritions[0].fiber"/>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-form-label">Zout</label>
+              <input class="form-control" type="text" name="nutritions[0].salt"/>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-form-label">Suiker</label>
+              <input class="form-control" type="text" name="nutritions[0].sugar"/>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-form-label">Verzadigde vet</label>
+              <input class="form-control" type="text" name="nutritions[0].saturatedFat"/>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-form-label">Vet</label>
+              <input class="form-control" type="text" name="nutritions[0].fat"/>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-form-label">Koolhydraten</label>
+              <input class="form-control" type="text" name="nutritions[0].carbs"/>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-form-label">Proteinen</label>
+              <input class="form-control" type="text" name="nutritions[0].proteins"/>
+            </div>
 
-          <div class="col-sm-3">
-            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete</button>
+            <div class="col-sm-3 align-content-center">
+              <button type="button" class="btn btn-danger align-content-center" onclick="deleteIngredient(this)">Delete</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row justify-content-center">
-    <div class="col-sm-4 d-grid p-2 m-2">
-      <button type="submit" class="btn btn-success btn-block">Confirm</button>
+    <div class="row justify-content-center">
+      <div class="col-sm-4 d-grid p-2 m-2">
+        <button type="submit" class="btn btn-success btn-block">Confirm</button>
+      </div>
     </div>
-  </div>
-</form>
-
+  </form>
+</div>
 
 <footer th:replace="~{fragments/footer :: footer}">Footer Component</footer>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

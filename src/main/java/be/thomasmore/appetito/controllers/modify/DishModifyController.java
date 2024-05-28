@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.stereotype.Controller;
@@ -21,12 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.Binding;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import java.sql.Wrapper;
 import java.util.*;
 
 
@@ -145,12 +142,12 @@ public class DishModifyController {
                 }
                 dishRepository.save(dish);
 
-                return "redirect:/dishdetails/" + id;
+                return "redirect:/modify/editsteps/" + id;
             }
         } catch (Exception ex) {
             logger.error("Error: {}", ex.getMessage());
         }
-        return "redirect:/dishdetails/" + id;
+        return "redirect:/modify/editsteps/" + id;
     }
 
 
@@ -197,14 +194,33 @@ public class DishModifyController {
         return "redirect:/modify/addnutritions/" + dishId;
     }
 
-    @GetMapping("/addmeal")
-    public String showCreateDish(Model model) {
+    @GetMapping({"/adddish", "/adddish/{id}"})
+    public String showCreateDish(Model model, @RequestParam(value = "id", required = false) Integer id) {
+        if (id != null) {
+            Optional<Dish> dishOptional = dishRepository.findById(id);
+
+            if (dishOptional.isPresent()) {
+
+                Dish dish = dishOptional.get();
+
+                DishDto dishDto = new DishDto();
+                dishDto.setName(dish.getName());
+                dishDto.setDietPreferences(dish.getDietPreferences());
+                dishDto.setPreparationTime(dish.getPreparationTime());
+                dishDto.setOccasion(dish.getOccasion());
+
+                model.addAttribute("dishDto", dishDto);
+                model.addAttribute("dish", dish);
+
+                return "modify/dishedit";
+            }
+        }
         DishDto dishDto = new DishDto();
         model.addAttribute("dishDto", dishDto);
-        return "modify/addmeal";
+        return "modify/adddish";
     }
 
-    @PostMapping("/addmeal")
+    @PostMapping("/adddish")
     public String createDish(Model model,
                              @Valid @ModelAttribute DishDto dishDto,
                              BindingResult bindingResult,
@@ -214,7 +230,7 @@ public class DishModifyController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishDto", dishDto);
-            return "modify/addmeal";
+            return "modify/adddish";
         }
 
         Dish dish = new Dish();
@@ -317,7 +333,7 @@ public class DishModifyController {
 
         dishRepository.save(currentDish);
 
-        return "redirect:/modify/dishedit/" + id;
+        return "redirect:/modify/editnutritions/" + id;
     }
 
     @GetMapping("/editnutritions/{id}")
@@ -363,7 +379,7 @@ public class DishModifyController {
 
         dishRepository.save(dish);
 
-        return "redirect:/modify/dishedit/" + id;
+        return "redirect:/modify/editbeverage/" + id;
     }
 
     @GetMapping("/editsteps/{id}")
@@ -422,7 +438,7 @@ public class DishModifyController {
             }
         }
 
-        return "redirect:/modify/dishedit/" + id;
+        return "redirect:/modify/editingredients/" + id;
     }
 
     @PostMapping("/addsteps/{id}")
@@ -587,7 +603,7 @@ public class DishModifyController {
             dish.setBeverages(beverages);
             dishRepository.save(dish);
 
-            return "redirect:/modify/dishedit/" + id;
+            return "redirect:/dishdetails/" + id;
         } else {
             return "redirect:/error";
         }

@@ -17,11 +17,12 @@
   <a href="/dishes" class="text-decoration-none">Recepten</a> >
   <a th:text="${dish.name}"></a>
 </h6>
-<h3>Toevoegen ingrediënten</h3>
 <div class="container" >
+  <h3>Toevoegen ingrediënten</h3>
   <div th:if="${error}" class="alert alert-danger" role="alert">
     <p th:text="${error}"></p>
   </div>
+  <div class="col-md-8 mx-auto rounded border p-4 m-4">
   <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}" th:object="${dish}">
     <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
     <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1" th:value="${dish.numberOfPeople}"/>
@@ -50,15 +51,11 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-sm-4 d-grid p-2 m-2">
-        <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Ingredient</button>
-      </div>
-      <div class="col-sm-4 d-grid p-2 m-2">
-        <button type="submit" class="btn btn-success btn-block">Confirm</button>
-      </div>
-    </div>
+    <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Step</button>
+    <a th:href="@{|/modify/addsteps/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
+    <button type="submit" class="btn btn-primary">Volgende</button>
   </form>
+    </div>
 </div>
 
 <script src="/scripts/editingredients.js" defer></script>

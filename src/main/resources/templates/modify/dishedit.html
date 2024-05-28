@@ -17,7 +17,8 @@
 <h6 class="mt-3 ms-2">
     <a href="/" class="text-decoration-none">Home</a> >
     <a href="/dishes" class="text-decoration-none">Recepten</a> >
-    <a th:text="${dish.name}"></a>
+    <a th:href="@{|/dishdetails/${dish.id}|}" class="text-decoration-none" th:text="${dish.name}"></a> >
+    <a  th:text="|Edit ${dish.name}|"></a>
 </h6>
 
 <div class="container">
@@ -93,16 +94,10 @@
                              th:alt="${dish.name}" width="200" height="130" style="margin: 10px;">
                     </div>
                 </div>
-
-                <div class="row justify-content-center">
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Volgende</button>
-                    </div>
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{|/dishdetails/${dish.id}|}" role="button">Annuleren</a>
-                    </div>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-outline-primary btn-block" th:href="@{|/dishdetails/${dish.id}|}" role="button">Annuleren</a>
+                    <button type="submit" class="btn btn-primary btn-block ms-2">Volgende</button>
                 </div>
-
             </form>
         </div>
     </div>
