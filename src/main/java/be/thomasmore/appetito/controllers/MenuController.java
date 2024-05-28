@@ -34,21 +34,23 @@ public class MenuController {
 
 
     @PostMapping("/menu/{menuId}/addDay")
-    public String addDayToMenu(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+public String addDay(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
 
-        MenuDay menuDay = new MenuDay();
+    List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
+    int nextDayNumber = menuDays.size() + 1;
 
-        menuDay = menuDayRepository.save(menuDay);
+    MenuDay newMenuDay = new MenuDay();
+    newMenuDay.setDayNumber(nextDayNumber);
+    newMenuDay.setMenu(menu);
 
-        menuDay.setMenu(menu);
-        menuDayRepository.save(menuDay);
+    menuDayRepository.save(newMenuDay);
 
-        redirectAttributes.addFlashAttribute("success", "Day added to menu successfully");
+    redirectAttributes.addFlashAttribute("success", "Day added to menu successfully");
 
-        return "redirect:/menu/details/" + menuId;
-    }
+    return "redirect:/menu/details/" + menuId;
+}
 
 
     @PostMapping("/menu/{menuId}/addDish/{dishId}")
