@@ -32,13 +32,45 @@ public class MenuController {
     @Autowired
     private MenuDayRepository menuDayRepository;
 
+    @PostMapping("/menu/select/{menuId}/addDay/{dishId}")
+    public String addSelectDay(@PathVariable Integer menuId,
+                               @PathVariable Integer dishId,
+                               RedirectAttributes redirectAttributes) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
 
-    @PostMapping("/menu/{menuId}/addDay")
+        List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
+
+        if (menuDays.size() >= 7) {
+            redirectAttributes.addFlashAttribute("error", "Er kunnen niet meer dan 7 dagen aan een menu worden toegevoegd.");
+            return "redirect:/menu/details/" + menuId;
+        }
+
+        int nextDayNumber = menuDays.size() + 1;
+
+        MenuDay newMenuDay = new MenuDay();
+        newMenuDay.setDayNumber(nextDayNumber);
+        newMenuDay.setMenu(menu);
+
+        menuDayRepository.save(newMenuDay);
+
+        redirectAttributes.addFlashAttribute("success", "Day added to menu successfully");
+
+        return "redirect:/menu/select/" + dishId;
+    }
+
+@PostMapping("/menu/{menuId}/addDay")
 public String addDay(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
     Menu menu = menuRepository.findById(menuId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
 
     List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
+
+    if (menuDays.size() >= 7) {
+        redirectAttributes.addFlashAttribute("error", "Er kunnen niet meer dan 7 dagen aan een menu worden toegevoegd.");
+        return "redirect:/menu/details/" + menuId;
+    }
+
     int nextDayNumber = menuDays.size() + 1;
 
     MenuDay newMenuDay = new MenuDay();
@@ -47,35 +79,14 @@ public String addDay(@PathVariable Integer menuId, RedirectAttributes redirectAt
 
     menuDayRepository.save(newMenuDay);
 
-    redirectAttributes.addFlashAttribute("success", "Day added to menu successfully");
+    redirectAttributes.addFlashAttribute("success", "Dag succesvol toegevoegd aan het menu");
 
     return "redirect:/menu/details/" + menuId;
 }
 
 
-    @PostMapping("/menu/{menuId}/addDish/{dishId}")
-    public String addDishToMenu(@PathVariable Integer menuId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
-        Optional<Menu> menu = Optional.ofNullable(menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId)));
-        Dish dish = dishRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
-        List<MenuDay> menuDays = menuDayRepository.findByMenu(menu);
-        for (MenuDay menuDay : menuDays) {
-            if (menuDay.getDishes().size() < 3) {
-                menuDay.getDishes().add(dish);
-                menuDayRepository.save(menuDay);
-                redirectAttributes.addFlashAttribute("success", "Dish added to menu");
-                return "redirect:/menu/details/" + menuId;
-            }
-        }
-
-        redirectAttributes.addFlashAttribute("error", "Menu is full");
-        return "redirect:/menu/details/" + menuId;
-    }
-
-
-   @PostMapping("/menu/{menuId}/selectDay/{dayId}/addDish/{dishId}")
+  @PostMapping("/menu/{menuId}/selectDay/{dayId}/addDish/{dishId}")
 public String addDishToDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
     Menu menu = menuRepository.findById(menuId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
@@ -85,15 +96,20 @@ public String addDishToDay(@PathVariable Integer menuId, @PathVariable Integer d
             .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
     if (!menuDay.getMenu().equals(menu)) {
-        throw new IllegalArgumentException("The selected day does not belong to the selected menu");
+        throw new IllegalArgumentException("De geselecteerde dag behoort niet tot het geselecteerde menu");
+    }
+
+    if (menuDay.getDishes().size() >= 5) {
+        redirectAttributes.addFlashAttribute("error", "Niet meer dan 5 maaltijden per dag toegestaan.");
+        return "redirect:/menu/select/" + dishId;
     }
 
     menuDay.getDishes().add(dish);
     menuDayRepository.save(menuDay);
 
-    redirectAttributes.addFlashAttribute("success", "Dish added to day successfully");
+    redirectAttributes.addFlashAttribute("success", dish.getName() + " toegevoegd aan dag "+menuDay.getDayNumber());
 
-    return "redirect:/menu/details/" + menuId;
+    return "redirect:/menu/select/" + dishId;
 }
 
     @PostMapping("/menu/delete/{menuId}")
