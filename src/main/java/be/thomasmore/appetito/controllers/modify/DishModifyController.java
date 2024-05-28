@@ -324,24 +324,69 @@ public class DishModifyController {
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
                                   @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
-                                  Dish dish,
+                                  @RequestParam(value = "imageFiles",required = false) List<MultipartFile> imageFiles,
                                   Model model) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
-            model.addAttribute("error", "Dish not found with id: " + id);
+            model.addAttribute("error", "Maaltijd niet gevonden: " + id);
             return "error";
         }
 
         Dish currentDish = optionalDish.get();
         List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
+        List<Ingredient> existingIngredients = currentDish.getIngredients();
 
-        currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
+        for (int i = 0; i < ingredientsFromWrapper.size(); i++) {
+            Ingredient ingredientFromWrapper = ingredientsFromWrapper.get(i);
+            boolean ingredientExists = false;
 
-        ingredientsFromWrapper.forEach(ingredient -> {
-            ingredient.setDish(currentDish);
-            currentDish.getIngredients().add(ingredient);
-            ingredientRepository.save(ingredient);
-        });
+
+            for (Ingredient existingIngredient : existingIngredients) {
+                if (existingIngredient.getId().equals(ingredientFromWrapper.getId())) {
+                    existingIngredient.setName(ingredientFromWrapper.getName());
+                    existingIngredient.setQuantity(ingredientFromWrapper.getQuantity());
+                    existingIngredient.setUnit(ingredientFromWrapper.getUnit());
+
+
+                    if (i < imageFiles.size()) {
+                        MultipartFile imageFile = imageFiles.get(i);
+                        if (imageFile != null && !imageFile.isEmpty()) {
+                            try {
+                                String fileName = uploadImage(imageFile);
+                                existingIngredient.setImgFileName(fileName);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    ingredientRepository.save(existingIngredient);
+                    ingredientExists = true;
+                    break;
+                }
+            }
+
+
+            if (!ingredientExists) {
+                ingredientFromWrapper.setDish(currentDish);
+
+
+                if (i < imageFiles.size()) {
+                    MultipartFile imageFile = imageFiles.get(i);
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        try {
+                            String fileName = uploadImage(imageFile);
+                            ingredientFromWrapper.setImgFileName(fileName);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                currentDish.getIngredients().add(ingredientFromWrapper);
+                ingredientRepository.save(ingredientFromWrapper);
+            }
+        }
 
         dishRepository.save(currentDish);
 
