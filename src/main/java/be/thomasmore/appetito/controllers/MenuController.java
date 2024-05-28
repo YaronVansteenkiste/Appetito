@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +61,33 @@ public class MenuController {
         return "redirect:/menu/select/" + dishId;
     }
 
+
+  @PostMapping("/menu/{menuId}/removeDay/{dayId}")
+public String removeDayFromMenu(@PathVariable Integer menuId, @PathVariable Integer dayId, RedirectAttributes redirectAttributes) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+    MenuDay menuDay = menuDayRepository.findById(dayId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid day Id:" + dayId));
+
+    if (!menuDay.getMenu().equals(menu)) {
+        throw new IllegalArgumentException("The selected day does not belong to the selected menu");
+    }
+
+    menuDayRepository.delete(menuDay);
+
+      List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.of(menu));
+      Collections.sort(menuDays, Comparator.comparing(MenuDay::getDayNumber));
+      for (int i = 0; i < menuDays.size(); i++) {
+          MenuDay day = menuDays.get(i);
+          day.setDayNumber(i + 1);
+          menuDayRepository.save(day);
+      }
+
+    redirectAttributes.addFlashAttribute("success", "Day "+menuDay.getDayNumber()+" removed from menu");
+
+    return "redirect:/menu/details/" + menuId;
+}
+
 @PostMapping("/menu/{menuId}/addDay")
 public String addDay(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
     Menu menu = menuRepository.findById(menuId)
@@ -80,6 +109,28 @@ public String addDay(@PathVariable Integer menuId, RedirectAttributes redirectAt
     menuDayRepository.save(newMenuDay);
 
     redirectAttributes.addFlashAttribute("success", "Dag succesvol toegevoegd aan het menu");
+
+    return "redirect:/menu/details/" + menuId;
+}
+
+
+@PostMapping("/menu/{menuId}/selectDay/{dayId}/removeDish/{dishId}")
+public String removeDishFromDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+    MenuDay menuDay = menuDayRepository.findById(dayId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid day Id:" + dayId));
+    Dish dish = dishRepository.findById(dishId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+    if (!menuDay.getMenu().equals(menu)) {
+        throw new IllegalArgumentException("The selected day does not belong to the selected menu");
+    }
+
+    menuDay.getDishes().remove(dish);
+    menuDayRepository.save(menuDay);
+
+    redirectAttributes.addFlashAttribute("success", dish.getName() + " removed from day "+menuDay.getDayNumber());
 
     return "redirect:/menu/details/" + menuId;
 }

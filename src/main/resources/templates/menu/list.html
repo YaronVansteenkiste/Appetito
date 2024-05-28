@@ -41,17 +41,19 @@
                 <div class="row">
                     <div class="col-4 g-2" th:each="menu : ${menus}">
                         <div class="card h-100">
-                            <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/menu/delete/' + ${menu.getId()}}" method="post">
+                            <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/menu/delete/' + ${menu.getId()}}"
+                                  method="post">
                                 <button type="submit" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                             <div class="row h-100">
-<!--                                <div th:each="dish, stat : ${}" th:if="${stat.count <= 4}"-->
-<!--                                     th:class="${#lists.size(menu.getMenuDishes()) == 1} ? 'col-12' : ((${#lists.size(menu.getMenuDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">-->
-<!--                                    <img alt="dish image" class="card-img-top img-fluid h-100 object-fit-cover"-->
-<!--                                         th:src="${dish.getDish().getImgFileName()}">-->
-<!--                                </div>-->
+                                <div class="row" th:each="day, stat : ${menu.getMenuDay()}" th:if="${stat.count <= 1}">
+                                    <div th:each="dish, stat : ${day.getDishes()}" th:if="${stat.count <= 4}"
+                                         th:class="${#lists.size(day.getDishes()) == 1} ? 'col-12' : ((${#lists.size(day.getDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">
+                                        <img class="img-fluid" th:src="${dish.getImgFileName()}"></img>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <h5 th:text="${menu.getName()}" class="card-title"></h5>

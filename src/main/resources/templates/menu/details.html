@@ -34,6 +34,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="card-title d-inline-block" th:text="|Dag ${menuDay.getDayNumber()}|"></h5>
+                        <form th:action="@{|/menu/${menu.getId()}/removeDay/${menuDay.getId()}|}" method="post">
+                            <button type="submit" class="btn btn-danger">Remove Day</button>
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="row" th:each="dish : ${menuDay.getDishes()}">
@@ -45,6 +48,9 @@
                                     <div class="card-body">
                                         <h5 class="card-title text-center"
                                             th:text="${dish.getName()}"></h5>
+                                        <form th:action="@{|/menu/${menu.getId()}/selectDay/${menuDay.getId()}/removeDish/${dish.getId()}|}" method="post">
+                                            <button type="submit" class="btn btn-danger">Remove Dish</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
