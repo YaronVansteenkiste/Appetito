@@ -96,26 +96,11 @@
 
                 <div class="row justify-content-center">
                     <div class="col-sm-4 d-grid p-2 m-2">
-                        <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">Volgende</button>
                     </div>
                     <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{|/dishdetails/${dish.id}|}" role="button">Cancel</a>
+                        <a class="btn btn-outline-primary btn-block" th:href="@{|/dishdetails/${dish.id}|}" role="button">Annuleren</a>
                     </div>
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{|/modify/editingredients/${dish.id}|}" role="button">ingrediënten aanpassen</a>
-                    </div>
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{|/modify/editnutritions/${dish.id}|}" role="button">voedingswaarden aanpassen</a>
-                    </div>
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{|/modify/editsteps/${dish.id}|}" role="button">bereiding aanpassen</a>
-                    </div>
-
-                    <div class="col-sm-4 d-grid p-2 m-2">
-                        <a class="btn btn-outline-primary btn-block" th:href="@{|/modify/editbeverage/${dish.id}|}" role="button">drank(en) aanpassen</a>
-                    </div>
-
-
                 </div>
 
             </form>
@@ -123,12 +108,9 @@
     </div>
 
 </div>
-<<<<<<< HEAD
 <script th:src="@{/scripts/addcategory.js}"></script>
-=======
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
->>>>>>> 150c56549034284e1024b4eed7f6ef24a330a2a9
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
