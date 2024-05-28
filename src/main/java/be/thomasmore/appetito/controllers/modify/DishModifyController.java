@@ -117,8 +117,6 @@ public class DishModifyController {
                                @RequestParam(required = false) MultipartFile image,
                                @PathVariable int id, Model model) {
 
-        logger.debug("posting data for id {}", id);
-
         if (result.hasErrors()) {
             logger.error("validation errors: {}", result.getAllErrors());
 
@@ -215,7 +213,7 @@ public class DishModifyController {
                 model.addAttribute("dishDto", dishDto);
                 model.addAttribute("dish", dish);
 
-                return "modify/dishedit";
+                return "modify/adddish";
             }
         }
         DishDto dishDto = new DishDto();
@@ -223,20 +221,31 @@ public class DishModifyController {
         return "modify/adddish";
     }
 
-    @PostMapping("/adddish")
+    @PostMapping({"/adddish", "/adddish/{id}"})
     public String createDish(Model model,
+                             @PathVariable(required = false) Integer id,
                              @Valid @ModelAttribute DishDto dishDto,
                              BindingResult bindingResult,
                              @RequestParam("beverageNames[]") List<String> beverageNames,
                              @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
-
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishDto", dishDto);
             return "modify/adddish";
         }
 
-        Dish dish = new Dish();
+        Dish dish;
+        if (id != null) {
+            Optional<Dish> optionalDish = dishRepository.findById(id);
+            if (optionalDish.isPresent()) {
+                dish = optionalDish.get();
+            } else {
+                return "redirect:/error";
+            }
+        } else {
+            dish = new Dish();
+        }
+
         dish.setName(dishDto.getName());
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
