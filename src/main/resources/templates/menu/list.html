@@ -47,11 +47,11 @@
                                 </button>
                             </form>
                             <div class="row h-100">
-                                <div th:each="dish, stat : ${menu.getDishes()}" th:if="${stat.count <= 4}"
-                                     th:class="${#lists.size(menu.getDishes()) == 1} ? 'col-12' : ((${#lists.size(menu.getDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">
-                                    <img alt="dish image" class="card-img-top img-fluid object-fit-cover"
-                                         th:src="${dish.getImgFileName()}">
-                                </div>
+<!--                                <div th:each="dish, stat : ${}" th:if="${stat.count <= 4}"-->
+<!--                                     th:class="${#lists.size(menu.getMenuDishes()) == 1} ? 'col-12' : ((${#lists.size(menu.getMenuDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">-->
+<!--                                    <img alt="dish image" class="card-img-top img-fluid h-100 object-fit-cover"-->
+<!--                                         th:src="${dish.getDish().getImgFileName()}">-->
+<!--                                </div>-->
                             </div>
                             <div class="card-body">
                                 <h5 th:text="${menu.getName()}" class="card-title"></h5>
@@ -60,6 +60,7 @@
                                 <div class="d-grid">
                                     <p class="card-text">Samengesteld door: <span
                                             th:text="${menu.getChef().getName()}"></span></p>
+                                    <p class="card-text">Gemaakt voor: <span></span></p>
                                     <a class="btn btn-primary" th:href="@{|/menu/details/${menu.getId()}|}"
                                        role="button">Ontdek</a>
                                 </div>

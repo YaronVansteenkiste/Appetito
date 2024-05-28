@@ -768,12 +768,7 @@ INSERT INTO MENU (NAME, ACTIVE, chef_id)
 VALUES ('Kerstmenu',TRUE, 2),
        ('Paasmenu',TRUE, 2);
 
-INSERT INTO MENU_DISHES (menu_id, dishes_id)
-VALUES (1, 2),
-       (1, 3),
-       (1, 4),
-       (2, 4),
-       (2, 5);
+
 
 INSERT INTO RATING (rating, dish_id)
 VALUES (5, 3),
