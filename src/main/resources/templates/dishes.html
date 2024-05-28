@@ -130,9 +130,12 @@
                     </div>
                     <div class="form-check">
                         <label for="dietPreferencesOther"></label>
-                        <input class="form-check-input" name="dietPreferencesStr" type="checkbox"
+                        <input th:checked="${dietPreferences != null && !dietPreferences.contains('keto')
+                        && !dietPreferences.contains('vegan') && !dietPreferences.contains('vegetarisch')
+                        && !dietPreferences.contains('glutenvrij') && !dietPreferences.contains('paleo')}"
+                               class="form-check-input" name="dietPreferencesStr" type="checkbox"
                                value="other" id="dietPreferencesOther">
-                        <label class="form-check-label" for="dietPreferencesKeto">Andere
+                        <label class="form-check-label" for="dietPreferencesOther">Andere
                         </label>
                     </div>
                     <hr>

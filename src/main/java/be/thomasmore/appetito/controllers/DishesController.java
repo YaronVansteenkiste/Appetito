@@ -12,7 +12,6 @@ import jakarta.validation.Valid;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -175,19 +174,11 @@ public class DishesController {
         Pageable pageable = PageRequest.of(page, pageSize);
         logger.info("pageable: " + pageable);
 
-        Page<Dish> allDishes;
-        if ("Andere".equals(dietPreferencesStr)) {
-            List<Dish> filteredDishes = dishRepository.findAll().stream()
-                    .filter(dish -> !Arrays.asList("keto", "paleo", "glutenvrij", "vegan", "veganistisch").contains(dish.getDietPreferences()))
-                    .collect(Collectors.toList());
-            allDishes = new PageImpl<>(filteredDishes, pageable, filteredDishes.size());
-        } else {
-            allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
-                    occasion, minCarbs, maxCarbs, minFiber,
-                    maxFiber, minSalt, maxSalt, minSugar, maxSugar,
-                    minSaturatedFat, maxSaturatedFat, minFat, maxFat,
-                    minProteins, maxProteins,ratings,pageable);
-        }
+        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
+                occasion, minCarbs, maxCarbs, minFiber,
+                maxFiber, minSalt, maxSalt, minSugar, maxSugar,
+                minSaturatedFat, maxSaturatedFat, minFat, maxFat,
+                minProteins, maxProteins,ratings,pageable);
 
 
         boolean filterEnabled = true;
