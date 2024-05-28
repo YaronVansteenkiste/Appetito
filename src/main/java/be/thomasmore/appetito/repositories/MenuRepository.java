@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface MenuRepository extends CrudRepository<Menu, Integer> {
 
     Iterable<Menu> findByChef(Chef chef);
+    Iterable<Menu> findAllByActiveTrue();
 }

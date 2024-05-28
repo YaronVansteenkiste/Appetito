@@ -19,6 +19,8 @@ public class Menu {
     @ManyToOne
     private Chef chef;
 
+    private Boolean active = true;
+
     public Menu() {
     }
 
@@ -52,5 +54,13 @@ public class Menu {
 
     public void setChef(Chef chef) {
         this.chef = chef;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

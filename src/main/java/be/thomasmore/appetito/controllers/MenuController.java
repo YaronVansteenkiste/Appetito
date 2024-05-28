@@ -66,23 +66,22 @@ public class MenuController {
         return "redirect:/menu/select/" + dishId;
     }
 
-    @PostMapping("/menu/delete/{menuId}")
-    public String deleteMenu(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+   @PostMapping("/menu/delete/{menuId}")
+public String deactivateMenu(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
 
-        menu.getDishes().clear();
-        menuRepository.save(menu);
+    menu.setActive(false);
+    menuRepository.save(menu);
 
-        menuRepository.delete(menu);
-        redirectAttributes.addFlashAttribute("success", "Menu is successfully deleted");
+    redirectAttributes.addFlashAttribute("success", "Menu is successfully deactivated");
 
-        return "redirect:/menu/list";
-    }
+    return "redirect:/menu/list";
+}
 
     @GetMapping("/menu/list")
     public String listMenus(Model model, Principal principal) {
-        Iterable<Menu> menus = menuRepository.findAll();
+        Iterable<Menu> menus = menuRepository.findAllByActiveTrue();
         model.addAttribute("menus", menus);
         return "menu/list";
 
