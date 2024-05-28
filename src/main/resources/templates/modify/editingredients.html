@@ -23,69 +23,80 @@
 <div class="container">
     <div class="col-md-8 mx-auto rounded border p-4 m-4">
         <h2 class="text-center mb-5">Aanpassen Ingrediënten</h2>
-    <form method="post" th:action="@{/modify/editingredients/{id}(id=${dish.id})}" th:object="${dish}">
-        <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
-        <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1" th:value="${dish.numberOfPeople}"/>
-        <div th:if="*{ingredients.size() > 0}">
-            <div class="container-fluid">
-                <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row">
-                    <input type="hidden" th:field="*{ingredients[__${iterStat.index}__].id}"/>
-                    <div class="row mb-3 m-2 ingredient-row">
-                        <div class="col-sm-3">
-                            <label class="col-form-label">Naam</label>
-                            <input class="form-control" type="text" th:field="*{ingredients[__${iterStat.index}__].name}"/>
-                        </div>
-                        <div class="col-sm-3">
-                            <label class="col-form-label">Hoeveelheid</label>
-                            <input class="form-control" type="number" th:field="*{ingredients[__${iterStat.index}__].quantity}"/>
-                        </div>
-                        <div class="col-sm-3">
-                            <label class="col-form-label">Eenheid(gr,ml,..)</label>
-                            <input class="form-control" type="text" th:field="*{ingredients[__${iterStat.index}__].unit}"/>
-                        </div>
-                        <div class="col-sm-3">
-                            <button type="button" class="btn btn-danger" th:onclick="|deleteIngredientDb(this, ${ingredient.id})|">Delete</button>
+        <form method="post" th:action="@{/modify/editingredients/{id}(id=${dish.id})}" th:object="${dish}">
+            <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
+            <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1"
+                   th:value="${dish.numberOfPeople}"/>
+            <div th:if="*{ingredients.size() > 0}">
+                <div class="container-fluid">
+                    <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row">
+                        <input type="hidden" th:field="*{ingredients[__${iterStat.index}__].id}"/>
+                        <div class="row mb-3 m-2 ingredient-row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Naam</label>
+                                <input class="form-control" type="text"
+                                       th:field="*{ingredients[__${iterStat.index}__].name}"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Hoeveelheid</label>
+                                <input class="form-control" type="number"
+                                       th:field="*{ingredients[__${iterStat.index}__].quantity}"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Eenheid(gr,ml,..)</label>
+                                <input class="form-control" type="text"
+                                       th:field="*{ingredients[__${iterStat.index}__].unit}"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-danger"
+                                        th:onclick="|deleteIngredientDb(this, ${ingredient.id})|">Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div th:if="*{ingredients.size() == 0}">
-            <p>Geen ingredienten besckibaar . Voeg deze toe.</p>
-            <div class="container-fluid">
-                <div class="ingredient-row">
-                    <input type="hidden" name="ingredients[0].id" value=""/>
-                    <div class="row mb-3 m-2">
-                        <div class="col-sm-3">
-                            <label class="col-form-label">Naam</label>
-                            <input class="form-control" type="text" name="ingredients[0].name"/>
-                        </div>
-                        <div class="col-sm-3">
-                            <label class="col-form-label">Hoeveelheid</label>
-                            <input class="form-control" type="number" name="ingredients[0].quantity"/>
-                        </div>
-                        <div class="col-sm-3">
-                            <label class="col-form-label">Eenheid(gr,ml,..)</label>
-                            <input class="form-control" type="text" name="ingredients[0].unit"/>
-                        </div>
+            <div th:if="*{ingredients.size() == 0}">
+                <p>Geen ingredienten besckibaar . Voeg deze toe.</p>
+                <div class="container-fluid">
+                    <div class="ingredient-row">
+                        <input type="hidden" name="ingredients[0].id" value=""/>
+                        <div class="row mb-3 m-2">
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Naam</label>
+                                <input class="form-control" type="text" name="ingredients[0].name"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Hoeveelheid</label>
+                                <input class="form-control" type="number" name="ingredients[0].quantity"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="col-form-label">Eenheid(gr,ml,..)</label>
+                                <input class="form-control" type="text" name="ingredients[0].unit"/>
+                            </div>
 
-                        <div class="col-sm-3">
-                            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete</button>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Step</button>
-        <a th:href="@{|/modify/editsteps/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
-        <button type="submit" class="btn btn-primary">Volgende</button>
-    </form>
-        </div>
+            <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Step</button>
+            <a th:href="@{|/modify/editsteps/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
+            <button type="submit" class="btn btn-primary">Volgende</button>
+        </form>
+    </div>
 </div>
 
 <script src="/scripts/editingredients.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>

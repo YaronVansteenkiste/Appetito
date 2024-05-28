@@ -27,7 +27,7 @@
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <p th:text="${error}"></p>
             </div>
-            <form th:action="@{|/modify/editsteps/${dish.getId()}|}" th:object="${stepListWrapper}" method="post"
+            <form th:action="@{|/modify/addsteps/${dish.getId()}|}" th:object="${stepListWrapper}" method="post"
                   enctype="multipart/form-data">
                 <table class="table">
                     <tr th:id="|step${step.id}|" th:each="step, stat : *{steps}">

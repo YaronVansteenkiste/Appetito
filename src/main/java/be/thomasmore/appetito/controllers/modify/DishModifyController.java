@@ -153,17 +153,20 @@ public class DishModifyController {
 
     @GetMapping("/addsteps/{dishId}")
     public String showAddStepsForm(@PathVariable("dishId") Integer dishId, Model model, RedirectAttributes redirectAttributes) {
-        if (dishId == null || dishId <= 0) {
-            redirectAttributes.addFlashAttribute("error", "Invalid dish Id!");
-            return "redirect:/";
-        }
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
 
-        Dish dish = dishRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
-        StepListWrapper wrapper = new StepListWrapper();
-        model.addAttribute("dish", dish);
-        model.addAttribute("stepListWrapper", wrapper);
-        return "modify/addsteps";
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            Iterable<Step> steps = stepRepository.findByDishId(dishId);
+            StepListWrapper wrapper = new StepListWrapper();
+            wrapper.setSteps((List<Step>) steps);
+
+            model.addAttribute("dish", dish);
+            model.addAttribute("stepListWrapper", wrapper);
+            return "modify/addsteps";
+        } else {
+            return "redirect:/modify/adddish/" + dishId;
+        }
     }
 
 

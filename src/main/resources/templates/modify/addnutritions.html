@@ -20,8 +20,8 @@
 </h6>
 
 <div class="container">
-  <h3>Toevoegen voedingswaarden</h3>
-
+  <div class="col-md-8 mx-auto rounded border p-4 m-4">
+    <h2 class="text-center mb-5">Toevoegen Voedingswaarden</h2>
   <form method="post" th:action="@{/modify/addnutritions/{id}(id=${dish.id})}" th:object="${nutritionsListWrapper}">
     <div th:each="ingredient, iterStat : *{nutritions}">
       <input type="hidden" th:field="*{nutritions[__${iterStat.index}__].id}" />
@@ -99,10 +99,8 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-sm-4 d-grid p-2 m-2">
-        <button type="submit" class="btn btn-success btn-block">Confirm</button>
-      </div>
+    <a th:href="@{|/modify/addingredients/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
+    <button type="submit" class="btn btn-primary">Toevoegen</button>
     </div>
   </form>
 </div>
