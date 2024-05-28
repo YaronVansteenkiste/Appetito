@@ -19,6 +19,8 @@ public class Dish {
     private String name;
 
     private String dietPreferences;
+
+    private String customDietPreferences;
     private String videoUrl;
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
@@ -200,5 +202,13 @@ public class Dish {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getCustomDietPreferences() {
+        return customDietPreferences;
+    }
+
+    public void setCustomDietPreferences(String customDietPreferences) {
+        this.customDietPreferences = customDietPreferences;
     }
 }

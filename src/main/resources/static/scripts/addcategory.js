@@ -1,19 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let selectField = document.getElementById('dietPreferencesSelect');
-    let otherField = document.getElementById('otherField');
-
-    let storedValue = "your_stored_value";
-
-    for (let i = 0; i < selectField.options.length; i++) {
-        if (selectField.options[i].value === storedValue) {
-            selectField.selectedIndex = i;
-            break;
-        }
+document.getElementById('categorySelect').addEventListener('change', function() {
+    if (this.value === 'Andere') {
+        document.getElementById('newCategoryInput').style.display = 'block';
+    } else {
+        document.getElementById('newCategoryInput').style.display = 'none';
     }
-
-    selectField.addEventListener('change', function() {
-        otherField.disabled = this.value !== 'Andere';
-    });
 });
-
-

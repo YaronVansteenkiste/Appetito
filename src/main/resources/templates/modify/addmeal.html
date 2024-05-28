@@ -37,7 +37,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Categorie</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="dietPreferencesSelect" th:field="${dishDto.dietPreferences}">
+                        <select class="form-control" id="categorySelect" th:field="${dishDto.dietPreferences}">
 
                             <option value="" disabled>Select category</option>
                             <option value="paleo">Paleo</option>
@@ -46,17 +46,12 @@
                             <option value="keto">Keto</option>
                             <option value="glutenvrij">Glutenvrij</option>
                             <option value="Andere">Andere</option>
-
                         </select>
-
                         <p th:if="${#fields.hasErrors('dietPreferences')}" th:errorclass="text-danger"
                            th:errors="${dishDto.dietPreferences}"></p>
                     </div>
-
-                    <label class="col-sm-4 col-form-label">Andere</label>
-                    <div class="col-sm-8 mt-3">
-                            <input class="form-control" type="text" disabled th:field="${dishDto.dietPreferences}" id="otherField">
-                    </div>
+                    <label for="newCategoryInput">Nieuwe Categorie</label>
+                    <input type="text" id="newCategoryInput" style="display: none;">
 
                 </div>
 

@@ -8,6 +8,7 @@ import be.thomasmore.appetito.services.GoogleService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jdk.jfr.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
 
 import javax.naming.Binding;
 import java.io.File;
@@ -208,6 +210,7 @@ public class DishModifyController {
     public String createDish(Model model,
                              @Valid @ModelAttribute DishDto dishDto,
                              BindingResult bindingResult,
+                             @RequestParam(required = false) String newDietPreference,
                              @RequestParam("beverageNames[]") List<String> beverageNames,
                              @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
 
