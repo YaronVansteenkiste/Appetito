@@ -9,15 +9,15 @@ function addIngredient() {
     <div class="row mb-3 m-2">
         <input type="hidden" name="ingredients[${index}].id" value=""/>
         <div class="col-sm-3">
-            <label class="col-form-label">Name</label>
+            <label class="col-form-label">Naam</label>
             <input class="form-control" type="text" name="ingredients[${index}].name"/>
         </div>
         <div class="col-sm-3">
-            <label class="col-form-label">Quantity</label>
+            <label class="col-form-label">hoeveelheid</label>
             <input class="form-control" type="number" name="ingredients[${index}].quantity"/>
         </div>
         <div class="col-sm-3">
-            <label class="col-form-label">Unit</label>
+            <label class="col-form-label">Eenheid(gr,ml,...)</label>
             <input class="form-control" type="text" name="ingredients[${index}].unit"/>
         </div>
          <div class="col-sm-3" id="ingredientImageContainer">
