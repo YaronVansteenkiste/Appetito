@@ -10,7 +10,7 @@ document.getElementById('categorySelect').addEventListener('change', function() 
 });
 
 
-document.getElementById('categorySelect').addEventListener('submit', function(event) {
+document.getElementById('newCategoryInput').addEventListener('submit', function(event) {
     let newCategory = document.getElementById('newCategoryInput').value;
     let existingCategories = Array.from(document.getElementById('categorySelect').options).map(option => option.value);
 

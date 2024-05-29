@@ -39,7 +39,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" id="categorySelect" th:field="${dishDto.dietPreferences}">
 
-                            <option value="" disabled>Select category</option>
+                            <option value="" disabled>Selecteer Categorie</option>
                             <option value="paleo">Paleo</option>
                             <option value="vegetarisch">Vegetarisch</option>
                             <option value="vegan">Vegan</option>
@@ -50,9 +50,12 @@
                         <p th:if="${#fields.hasErrors('dietPreferences')}" th:errorclass="text-danger"
                            th:errors="${dishDto.dietPreferences}"></p>
                     </div>
-                    <label for="newCategoryInput">Nieuwe Categorie</label>
-                    <input type="text" id="newCategoryInput" style="display: none;">
-
+                    <div class="row mb-3 mt-3">
+                        <label for="newCategoryInput" class="col-sm-4 col-form-label">Nieuwe Categorie</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="newCategoryInput" class="form-control" style="display: none;">
+                        </div>
+                    </div>
                 </div>
 
 
