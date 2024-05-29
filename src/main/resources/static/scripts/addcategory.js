@@ -1,6 +1,7 @@
 document.getElementById('categorySelect').addEventListener('change', function() {
     let newCategoryInput = document.getElementById('newCategoryInput');
     let newCategoryLabel = document.querySelector('label[for="newCategoryInput"]');
+
     if (this.value === 'Andere') {
         newCategoryInput.style.display = 'block';
         newCategoryLabel.style.display = 'block';
@@ -12,5 +13,9 @@ document.getElementById('categorySelect').addEventListener('change', function() 
     }
 
 });
+
+
+
+
 
 
