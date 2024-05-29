@@ -9,19 +9,23 @@ function addIngredient() {
     <div class="row mb-3 m-2">
         <input type="hidden" name="ingredients[${index}].id" value=""/>
         <div class="col-sm-3">
-            <label class="col-form-label">Name</label>
+            <label class="col-form-label">Naam</label>
             <input class="form-control" type="text" name="ingredients[${index}].name"/>
         </div>
         <div class="col-sm-3">
-            <label class="col-form-label">Quantity</label>
+            <label class="col-form-label">hoeveelheid</label>
             <input class="form-control" type="number" name="ingredients[${index}].quantity"/>
         </div>
         <div class="col-sm-3">
-            <label class="col-form-label">Unit</label>
+            <label class="col-form-label">Eenheid(gr,ml,...)</label>
             <input class="form-control" type="text" name="ingredients[${index}].unit"/>
         </div>
+         <div class="col-sm-3" id="ingredientImageContainer">
+                            <label class="col-form-label">Foto</label>
+                            <input class="form-control" type="file" id="image" accept="image/*" name="imageFiles">
+                        </div>
         <div class="col-sm-3">
-            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete</button>
+            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Verwijder</button>
         </div>
     </div>
     `;
@@ -39,15 +43,15 @@ function deleteIngredientDb(button, ingredientId) {
     fetch(`/modify/editingredients/delete/${ingredientId}`, {
         method: 'DELETE',
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const row = button.closest('.ingredient-row');
-        row.remove();
-        window.location.reload();
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const row = button.closest('.ingredient-row');
+            row.remove();
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
 }

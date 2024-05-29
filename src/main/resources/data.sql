@@ -9,15 +9,15 @@ VALUES ('pasta alfredo met kip',
         '/img/pasta_alfredo.jpg',
         'https://www.youtube.com/embed/CTTsN3QggDc?si=H38FL0DlVetOONCS');
 
-INSERT INTO Ingredient (name, quantity, unit, dish_id)
-VALUES ('fettuccine', 75, 'gr', 1),
-       ('roomboter', 22.5, 'gr', 1),
-       ('Parmezaanse kaas (geraspt)', 31.25, 'gr', 1),
-       ('zwarte peper', 0, NULL, 1),
-       ('kipstukjes (vega) (Garden Gourmet)', 62.5, 'gr', 1),
-       ('knoflook (fijngehakt)', 0.25, 'gr', 1),
-       ('peterselie (gehakt voor garnering)', 0, NULL, 1),
-       ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, 1);
+INSERT INTO Ingredient (name, quantity, unit, img_file_name, dish_id)
+VALUES ('fettuccine', 75, 'gr', '/img/fettucine.jpg', 1),
+       ('roomboter', 22.5, 'gr', '/img/boter.png', 1),
+       ('Parmezaanse kaas (geraspt)', 31.25, 'gr', '/img/parmesaan.png', 1),
+       ('zwarte peper', 0, NULL, '/img/pepper.jpg', 1),
+       ('kipstukjes (vega) (Garden Gourmet)', 62.5, 'gr', '/img/kip.jpg', 1),
+       ('knoflook (fijngehakt)', 0.25, 'gr', '/img/knoflook.jpg', 1),
+       ('peterselie (gehakt voor garnering)', 0, NULL, '/img/peterselie.jpg', 1),
+       ('Kookvocht van de pasta (bewaar een scheut)', 0, NULL, '/img/kookvocht.jpg', 1);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '500 mg', '1 g', '15 g', '30 g', '400 gr', '20 g', 1);
@@ -196,12 +196,12 @@ VALUES ('Pompoensoep',
         'https://www.youtube.com/embed/-s9sdXVV5cg?si=fOLi8ftAIkIctD7Q');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Pompoen', 500, 'gr', 1),
-       ('Ui', 100, 'gr', 1),
-       ('Knoflook', 2, 'tenen', 1),
-       ('Groentebouillon', 500, 'ml', 1),
-       ('Kokosmelk', 200, 'ml', 1),
-       ('Nootmuskaat', 1, 'snufje', 1);
+VALUES ('Pompoen', 500, 'gr', 10),
+       ('Ui', 100, 'gr', 10),
+       ('Knoflook', 2, 'tenen', 10),
+       ('Groentebouillon', 500, 'ml', 10),
+       ('Kokosmelk', 200, 'ml', 10),
+       ('Nootmuskaat', 1, 'snufje', 10);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '500 mg', '5 g', '2 g', '6 g', '30 g', '4 g', 10);
@@ -215,11 +215,11 @@ VALUES ('Kip Caesar Salade',
         'https://www.youtube.com/embed/DPio7tGzOgU?si=GApY0fmuN2W1g5xd');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Kipfilet', 200, 'gr', 2),
-       ('Romeinse sla', 150, 'gr', 2),
-       ('Caesar dressing', 50, 'ml', 2),
-       ('Parmezaanse kaas', 30, 'gr', 2),
-       ('Glutenvrije croutons', 30, 'gr', 2);
+VALUES ('Kipfilet', 200, 'gr', 11),
+       ('Romeinse sla', 150, 'gr', 11),
+       ('Caesar dressing', 50, 'ml', 11),
+       ('Parmezaanse kaas', 30, 'gr', 11),
+       ('Glutenvrije croutons', 30, 'gr', 11);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '600 mg', '3 g', '5 g', '15 g', '18 g', '25 g', 11);
@@ -233,14 +233,14 @@ VALUES ('Linzensalade met Geitenkaas',
         'https://www.youtube.com/embed/cArBwqq6ALs?si=r67f2tsyUWg0TCJu');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Groene linzen', 200, 'gr', 3),
-       ('Tomaten', 150, 'gr', 3),
-       ('Komkommer', 100, 'gr', 3),
-       ('Rode ui', 50, 'gr', 3),
-       ('Verse peterselie', 10, 'gr', 3),
-       ('Geitenkaas', 50, 'gr', 3),
-       ('Olijfolie', 20, 'ml', 3),
-       ('Citroensap', 10, 'ml', 3);
+VALUES ('Groene linzen', 200, 'gr', 12),
+       ('Tomaten', 150, 'gr', 12),
+       ('Komkommer', 100, 'gr', 12),
+       ('Rode ui', 50, 'gr', 12),
+       ('Verse peterselie', 10, 'gr', 12),
+       ('Geitenkaas', 50, 'gr', 12),
+       ('Olijfolie', 20, 'ml', 12),
+       ('Citroensap', 10, 'ml', 12);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('7 g', '320 mg', '4 g', '6 g', '10 g', '40 g', '18 g', 12);
@@ -254,10 +254,10 @@ VALUES ('Gegrilde Zalm met Asperges',
         'https://www.youtube.com/embed/5oBOsumL8Uo?si=xiqoZz7gLzzITKJi');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zalmfilets', 200, 'gr', 4),
-       ('Asperges', 200, 'gr', 4),
-       ('Olijfolie', 10, 'ml', 4),
-       ('Citroen', 0.5, 'stuks', 4);
+VALUES ('Zalmfilets', 200, 'gr', 13),
+       ('Asperges', 200, 'gr', 13),
+       ('Olijfolie', 10, 'ml', 13),
+       ('Citroen', 0.5, 'stuks', 13);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '75 mg', '2 g', '3 g', '10 g', '5 g', '23 g', 13);
@@ -271,13 +271,13 @@ VALUES ('Veganistische Burger',
         'https://www.youtube.com/embed/IXqseoFJBg0?si=aECQVzH7fzJeQYaM');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zwarte bonen', 150, 'gr', 5),
-       ('Quinoa', 100, 'gr', 5),
-       ('Specerijen', 5, 'gr', 5),
-       ('Volkoren broodje', 1, 'stuks', 5),
-       ('Sla', 30, 'gr', 5),
-       ('Tomaat', 50, 'gr', 5),
-       ('Veganistische mayonaise', 20, 'ml', 5);
+VALUES ('Zwarte bonen', 150, 'gr', 14),
+       ('Quinoa', 100, 'gr', 14),
+       ('Specerijen', 5, 'gr', 14),
+       ('Volkoren broodje', 1, 'stuks', 14),
+       ('Sla', 30, 'gr', 14),
+       ('Tomaat', 50, 'gr', 14),
+       ('Veganistische mayonaise', 20, 'ml', 14);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '460 mg', '5 g', '1 g', '8 g', '35 g', '10 g', 14);
@@ -291,13 +291,13 @@ VALUES ('Zoete Aardappel Curry',
         'https://www.youtube.com/embed/aRL-v5pOlPg?si=wBNxvZtw_Eoue2Ux');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zoete aardappel', 300, 'gr', 6),
-       ('Currypasta', 30, 'gr', 6),
-       ('Kokosmelk', 200, 'ml', 6),
-       ('Kikkererwten', 150, 'gr', 6),
-       ('Spinazie', 100, 'gr', 6),
-       ('Basmatirijst', 150, 'gr', 6),
-       ('Koriander', 10, 'gr', 6);
+VALUES ('Zoete aardappel', 300, 'gr', 15),
+       ('Currypasta', 30, 'gr', 15),
+       ('Kokosmelk', 200, 'ml', 15),
+       ('Kikkererwten', 150, 'gr', 15),
+       ('Spinazie', 100, 'gr', 15),
+       ('Basmatirijst', 150, 'gr', 15),
+       ('Koriander', 10, 'gr', 15);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('5 g', '380 mg', '6 g', '5 g', '10 g', '50 g', '12 g', 15);
@@ -311,11 +311,11 @@ VALUES ('Ontbijt Burrito',
         'https://www.youtube.com/embed/yNp5PHHgMS0?si=mVY92RCeTUG3L9PH');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Eieren', 2, 'stuks', 7),
-       ('Zwarte bonen', 50, 'gr', 7),
-       ('Kaas', 30, 'gr', 7),
-       ('Paprika', 50, 'gr', 7),
-       ('Volkoren tortilla', 1, 'stuks', 7);
+VALUES ('Eieren', 2, 'stuks', 16),
+       ('Zwarte bonen', 50, 'gr', 16),
+       ('Kaas', 30, 'gr', 16),
+       ('Paprika', 50, 'gr', 16),
+       ('Volkoren tortilla', 1, 'stuks', 16);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '550 mg', '2 g', '6 g', '15 g', '45 g', '22 g', 16);
@@ -329,14 +329,14 @@ VALUES ('Quinoa Salade met Avocado',
         'https://www.youtube.com/embed/OQ9mU_zAtEs?si=XWlWDdHHeMLLjChx');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Quinoa', 150, 'gr', 8),
-       ('Avocado', 1, 'stuks', 8),
-       ('Komkommer', 100, 'gr', 8),
-       ('Tomaat', 100, 'gr', 8),
-       ('Rode ui', 50, 'gr', 8),
-       ('Verse koriander', 10, 'gr', 8),
-       ('Limoen', 1, 'stuks', 8),
-       ('Olijfolie', 20, 'ml', 8);
+VALUES ('Quinoa', 150, 'gr', 17),
+       ('Avocado', 1, 'stuks', 17),
+       ('Komkommer', 100, 'gr', 17),
+       ('Tomaat', 100, 'gr', 17),
+       ('Rode ui', 50, 'gr', 17),
+       ('Verse koriander', 10, 'gr', 17),
+       ('Limoen', 1, 'stuks', 17),
+       ('Olijfolie', 20, 'ml', 17);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('7 g', '100 mg', '3 g', '2 g', '12 g', '45 g', '8 g', 17);
@@ -350,14 +350,14 @@ VALUES ('Mediterrane Pasta',
         'https://www.youtube.com/embed/EUu90_qILH4?si=fVVTqAt6fVcZe_y0');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Volkorenpasta', 200, 'gr', 9),
-       ('Olijven', 50, 'gr', 9),
-       ('Zongedroogde tomaten', 50, 'gr', 9),
-       ('Artisjokharten', 100, 'gr', 9),
-       ('Feta', 50, 'gr', 9),
-       ('Olijfolie', 20, 'ml', 9),
-       ('Knoflook', 2, 'tenen', 9),
-       ('Basilicum', 5, 'gr', 9);
+VALUES ('Volkorenpasta', 200, 'gr', 18),
+       ('Olijven', 50, 'gr', 18),
+       ('Zongedroogde tomaten', 50, 'gr', 18),
+       ('Artisjokharten', 100, 'gr', 18),
+       ('Feta', 50, 'gr', 18),
+       ('Olijfolie', 20, 'ml', 18),
+       ('Knoflook', 2, 'tenen', 18),
+       ('Basilicum', 5, 'gr', 18);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '80 mg', '20 g', '4 g', '5 g', '200 g', '30 g', 18);
@@ -371,10 +371,10 @@ VALUES ('Garnalencocktail',
         'https://www.youtube.com/embed/fcyxWiHAfW8?si=QGT0SyZS44al8TZO');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Gekookte garnalen', 150, 'gr', 10),
-       ('Cocktailsaus', 50, 'ml', 10),
-       ('Sla', 50, 'gr', 10),
-       ('Citroen', 0.5, 'stuks', 10);
+VALUES ('Gekookte garnalen', 150, 'gr', 19),
+       ('Cocktailsaus', 50, 'ml', 19),
+       ('Sla', 50, 'gr', 19),
+       ('Citroen', 0.5, 'stuks', 19);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('1 g', '850 mg', '4 g', '0 g', '2 g', '6 g', '20 g', 19);
@@ -388,73 +388,73 @@ VALUES ('Fruitsalade met Munt',
         'https://www.youtube.com/embed/Qw498kjEeTE?si=RqTawGtZHvYiecmJ');
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Meloen', 200, 'gr', 11),
-       ('Bessen', 100, 'gr', 11),
-       ('Druiven', 100, 'gr', 11),
-       ('Munt', 10, 'gr', 11),
-       ('Honing of agavesiroop', 20, 'ml', 11);
-
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Groene linzen', 200, 'gr', 12),
-       ('Tomaten', 150, 'gr', 12),
-       ('Komkommer', 100, 'gr', 12),
-       ('Rode ui', 50, 'gr', 12),
-       ('Verse peterselie', 10, 'gr', 12);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zalmfilets', 200, 'gr', 13),
-       ('Asperges', 200, 'gr', 13),
-       ('Olijfolie', 10, 'ml', 13),
-       ('Citroen', 0.5, 'stuks', 13);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zwarte bonen', 150, 'gr', 14),
-       ('Quinoa', 100, 'gr', 14),
-       ('Specerijen', 5, 'gr', 14),
-       ('Volkoren broodje', 1, 'stuks', 14),
-       ('Sla', 30, 'gr', 14);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zoete aardappel', 300, 'gr', 15),
-       ('Currypasta', 30, 'gr', 15),
-       ('Kokosmelk', 200, 'ml', 15),
-       ('Kikkererwten', 150, 'gr', 15),
-       ('Spinazie', 100, 'gr', 15);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Eieren', 2, 'stuks', 16),
-       ('Zwarte bonen', 50, 'gr', 16),
-       ('Kaas', 30, 'gr', 16),
-       ('Paprika', 50, 'gr', 16),
-       ('Volkoren tortilla', 1, 'stuks', 16);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Quinoa', 150, 'gr', 17),
-       ('Avocado', 1, 'stuks', 17),
-       ('Komkommer', 100, 'gr', 17),
-       ('Tomaat', 100, 'gr', 17),
-       ('Rode ui', 50, 'gr', 17);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Volkorenpasta', 200, 'gr', 18),
-       ('Olijven', 50, 'gr', 18),
-       ('Zongedroogde tomaten', 50, 'gr', 18),
-       ('Artisjokharten', 100, 'gr', 18),
-       ('Feta', 50, 'gr', 18);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Gekookte garnalen', 150, 'gr', 19),
-       ('Cocktailsaus', 50, 'ml', 19),
-       ('Sla', 50, 'gr', 19),
-       ('Citroen', 0.5, 'stuks', 19);
-
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Meloen', 200, 'gr', 20),
        ('Bessen', 100, 'gr', 20),
        ('Druiven', 100, 'gr', 20),
        ('Munt', 10, 'gr', 20),
        ('Honing of agavesiroop', 20, 'ml', 20);
+--
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Groene linzen', 200, 'gr', 12),
+--        ('Tomaten', 150, 'gr', 12),
+--        ('Komkommer', 100, 'gr', 12),
+--        ('Rode ui', 50, 'gr', 12),
+--        ('Verse peterselie', 10, 'gr', 12);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Zalmfilets', 200, 'gr', 13),
+--        ('Asperges', 200, 'gr', 13),
+--        ('Olijfolie', 10, 'ml', 13),
+--        ('Citroen', 0.5, 'stuks', 13);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Zwarte bonen', 150, 'gr', 14),
+--        ('Quinoa', 100, 'gr', 14),
+--        ('Specerijen', 5, 'gr', 14),
+--        ('Volkoren broodje', 1, 'stuks', 14),
+--        ('Sla', 30, 'gr', 14);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Zoete aardappel', 300, 'gr', 15),
+--        ('Currypasta', 30, 'gr', 15),
+--        ('Kokosmelk', 200, 'ml', 15),
+--        ('Kikkererwten', 150, 'gr', 15),
+--        ('Spinazie', 100, 'gr', 15);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Eieren', 2, 'stuks', 16),
+--        ('Zwarte bonen', 50, 'gr', 16),
+--        ('Kaas', 30, 'gr', 16),
+--        ('Paprika', 50, 'gr', 16),
+--        ('Volkoren tortilla', 1, 'stuks', 16);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Quinoa', 150, 'gr', 17),
+--        ('Avocado', 1, 'stuks', 17),
+--        ('Komkommer', 100, 'gr', 17),
+--        ('Tomaat', 100, 'gr', 17),
+--        ('Rode ui', 50, 'gr', 17);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Volkorenpasta', 200, 'gr', 18),
+--        ('Olijven', 50, 'gr', 18),
+--        ('Zongedroogde tomaten', 50, 'gr', 18),
+--        ('Artisjokharten', 100, 'gr', 18),
+--        ('Feta', 50, 'gr', 18);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Gekookte garnalen', 150, 'gr', 19),
+--        ('Cocktailsaus', 50, 'ml', 19),
+--        ('Sla', 50, 'gr', 19),
+--        ('Citroen', 0.5, 'stuks', 19);
+--
+-- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+-- VALUES ('Meloen', 200, 'gr', 20),
+--        ('Bessen', 100, 'gr', 20),
+--        ('Druiven', 100, 'gr', 20),
+--        ('Munt', 10, 'gr', 20),
+--        ('Honing of agavesiroop', 20, 'ml', 20);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '10 mg', '24 g', '0 g', '1 g', '55 g', '2 g', 20);
@@ -783,8 +783,8 @@ VALUES (5, 3),
        (5, 5),
        (5, 6),
        (5, 4),
-       (4,7),
-       (4,8),
+       (4, 7),
+       (4, 8),
        (5, 9),
        (1, 10),
        (3, 11),
