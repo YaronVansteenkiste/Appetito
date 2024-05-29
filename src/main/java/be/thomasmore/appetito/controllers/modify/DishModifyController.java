@@ -63,28 +63,33 @@ public class DishModifyController {
     }
 
     @GetMapping("/addnutritions/{dishId}")
-    public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model, nutritionListWrapper nutritionListWrapper) {
+    public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model) {
         Dish dish = dishRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+        nutritionListWrapper wrapper = new nutritionListWrapper();
+        wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
+
         model.addAttribute("dish", dish);
-        model.addAttribute("nutritionsListWrapper", nutritionListWrapper);
+        model.addAttribute("nutritionsListWrapper", wrapper);
         return "modify/addnutritions";
     }
 
     @PostMapping("/addnutritions/{dishId}")
-    public String addNutritions(@PathVariable("dishId") Integer dishId, @ModelAttribute nutritionListWrapper nutritionsListWrapper, Model model) {
-        Optional<Dish> optionalDish = dishRepository.findById(dishId);
-        if (optionalDish.isPresent()) {
-            Dish dish = optionalDish.get();
-            nutritionListWrapper wrapper = new nutritionListWrapper();
-            wrapper.setNutritions(new ArrayList<>(dish.getNutritions()));
+    @Transactional
+    public String addNutritions(@PathVariable("dishId") Integer dishId, @ModelAttribute("nutritionsListWrapper") nutritionListWrapper wrapper) {
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
-            model.addAttribute("dish", dish);
-            model.addAttribute("nutritionsListWrapper", wrapper);
-            return "redirect:/dishdetails/" + dishId;
-        } else {
-            return "redirect:/dishdetails/" + dishId;
+        List<Nutrition> newNutritions = wrapper.getNutritions();
+
+        for (Nutrition nutrition : newNutritions) {
+            nutrition.setDish(dish);
+            dish.getNutritions().add(nutrition);
         }
+
+        dishRepository.save(dish);
+
+        return "redirect:/dishdetails/" + dishId;
     }
 
 
@@ -174,28 +179,57 @@ public class DishModifyController {
     public String showAddIngredientsForm(@PathVariable("dishId") Integer dishId, Model model) {
         Dish dish = dishRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+        IngredientListWrapper wrapper = new IngredientListWrapper();
+        wrapper.setIngredients(new ArrayList<>());
+
         model.addAttribute("dish", dish);
+        model.addAttribute("ingredientListWrapper", wrapper);
         return "modify/addingredients";
     }
 
+
     @PostMapping("/addingredients/{dishId}")
-    public String addIngredients(@PathVariable("dishId") Integer dishId, @ModelAttribute IngredientListWrapper ingredientListWrapper,
-                                 BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("dish", dishRepository.findById(dishId)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId)));
-            model.addAttribute("error", "Er moet minimaal één ingrediënt worden toegevoegd");
-            return "modify/addingredients";
+    @Transactional
+    public String addIngredients(@PathVariable("dishId") Integer dishId,
+                                 @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                                 @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
+                                 Model model) {
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        if (!optionalDish.isPresent()) {
+            model.addAttribute("error", "Maaltijd niet gevonden: " + dishId);
+            return "error";
         }
 
-        Dish dish = dishRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
-        for (Ingredient ingredient : ingredientListWrapper.getIngredients()) {
-            ingredient.setDish(dish);
-            ingredientRepository.save(ingredient);
+        Dish currentDish = optionalDish.get();
+        List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
+
+        for (int i = 0; i < ingredientsFromWrapper.size(); i++) {
+            Ingredient ingredientFromWrapper = ingredientsFromWrapper.get(i);
+            ingredientFromWrapper.setDish(currentDish);
+
+            if (i < imageFiles.size()) {
+                MultipartFile imageFile = imageFiles.get(i);
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    try {
+                        String fileName = uploadImage(imageFile);
+                        ingredientFromWrapper.setImgFileName(fileName);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        model.addAttribute("error", "Fout bij laden van foto: " + ingredientFromWrapper.getName());
+                    }
+                }
+            }
+
+            currentDish.getIngredients().add(ingredientFromWrapper);
+            ingredientRepository.save(ingredientFromWrapper);
         }
+
+        dishRepository.save(currentDish);
+
         return "redirect:/modify/addnutritions/" + dishId;
     }
+
 
     @GetMapping({"/adddish", "/adddish/{id}"})
     public String showCreateDish(Model model, @RequestParam(value = "id", required = false) Integer id) {
