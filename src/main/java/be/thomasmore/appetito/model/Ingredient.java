@@ -11,7 +11,6 @@ import java.util.List;
 public class Ingredient {
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,7 +21,7 @@ public class Ingredient {
     private String name;
 
     private Double quantity;
-
+    private String imgFileName;
     private String unit;
     private Boolean deleted = false;
 
@@ -81,5 +80,13 @@ public class Ingredient {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getImgFileName() {
+        return imgFileName;
+    }
+
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
     }
 }

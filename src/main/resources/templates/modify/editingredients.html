@@ -21,73 +21,75 @@
     <a th:text="|Edit Ingredients ${dish.name}|"></a>
 </h6>
 <div class="container">
-    <div class="col-md-8 mx-auto rounded border p-4 m-4">
-        <h2 class="text-center mb-5">Aanpassen Ingrediënten</h2>
-        <form method="post" th:action="@{/modify/editingredients/{id}(id=${dish.id})}" th:object="${dish}">
-            <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
-            <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1"
-                   th:value="${dish.numberOfPeople}"/>
-            <div th:if="*{ingredients.size() > 0}">
-                <div class="container-fluid">
-                    <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row">
-                        <input type="hidden" th:field="*{ingredients[__${iterStat.index}__].id}"/>
-                        <div class="row mb-3 m-2 ingredient-row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Naam</label>
-                                <input class="form-control" type="text"
-                                       th:field="*{ingredients[__${iterStat.index}__].name}"/>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Hoeveelheid</label>
-                                <input class="form-control" type="number"
-                                       th:field="*{ingredients[__${iterStat.index}__].quantity}"/>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Eenheid(gr,ml,..)</label>
-                                <input class="form-control" type="text"
-                                       th:field="*{ingredients[__${iterStat.index}__].unit}"/>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-danger"
-                                        th:onclick="|deleteIngredientDb(this, ${ingredient.id})|">Delete
-                                </button>
-                            </div>
+    <form method="post" th:action="@{/modify/editingredients/{id}(id=${dish.id})}" enctype="multipart/form-data" th:object="${ingredientListWrapper}">
+        <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
+        <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1" th:value="${dish.numberOfPeople}"/>
+        <div th:if="*{ingredients.size() > 0}">
+            <div class="container-fluid">
+                <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row">
+                    <input type="hidden" th:field="*{ingredients[__${iterStat.index}__].id}"/>
+                    <div class="row mb-3 m-2 ingredient-row">
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Naam</label>
+                            <input class="form-control" type="text" th:field="*{ingredients[__${iterStat.index}__].name}"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Hoeveelheid</label>
+                            <input class="form-control" type="number" th:field="*{ingredients[__${iterStat.index}__].quantity}"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Eenheid(gr,ml,..)</label>
+                            <input class="form-control" type="text" th:field="*{ingredients[__${iterStat.index}__].unit}"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="ingredientImage" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="ingredientImage" name="imageFiles" accept="image/*"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-danger" th:onclick="|deleteIngredientDb(this, ${ingredient.id})|">Verwijder</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div th:if="*{ingredients.size() == 0}">
-                <p>Geen ingredienten besckibaar . Voeg deze toe.</p>
-                <div class="container-fluid">
-                    <div class="ingredient-row">
-                        <input type="hidden" name="ingredients[0].id" value=""/>
-                        <div class="row mb-3 m-2">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Naam</label>
-                                <input class="form-control" type="text" name="ingredients[0].name"/>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Hoeveelheid</label>
-                                <input class="form-control" type="number" name="ingredients[0].quantity"/>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Eenheid(gr,ml,..)</label>
-                                <input class="form-control" type="text" name="ingredients[0].unit"/>
-                            </div>
-
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Delete
-                                </button>
-                            </div>
+        </div>
+        <div th:if="*{ingredients.size() == 0}">
+            <p>Geen ingredienten beschikbaar.</p>
+            <div class="container-fluid">
+                <div class="ingredient-row">
+                    <input type="hidden" name="ingredients[0].id" value=""/>
+                    <div class="row mb-3 m-2">
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Naam</label>
+                            <input class="form-control" type="text" name="ingredients[0].name"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Hoeveelheid</label>
+                            <input class="form-control" type="number" name="ingredients[0].quantity"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="col-form-label">Eenheid(gr,ml,..)</label>
+                            <input class="form-control" type="text" name="ingredients[0].unit"/>
+                        </div>
+                        <div class="col-sm-3" id="ingredientImageContainer">
+                            <label class="col-form-label">Foto</label>
+                            <input class="form-control" type="file" id="image" accept="image/*" name="imageFiles">
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-danger" onclick="deleteIngredient(this)">Verwijder</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Step</button>
-            <a th:href="@{|/modify/editsteps/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
-            <button type="submit" class="btn btn-primary">Volgende</button>
-        </form>
-    </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-4 d-grid p-2 m-2">
+                <button type="button" class="btn btn-primary" onclick="addIngredient()">Voeg toe</button>
+            </div>
+            <div class="col-sm-4 d-grid p-2 m-2">
+                <button type="submit" class="btn btn-success btn-block">Confirm</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script src="/scripts/editingredients.js" defer></script>

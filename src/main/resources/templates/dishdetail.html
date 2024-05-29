@@ -104,6 +104,7 @@
                     <span th:data-quantity="${ingredient.quantity}" class="quantity" th:id="|quantity${stat.index}|"
                           th:text="${ingredient.quantity > 0 ? ingredient.quantity : ''}"></span>
                     <span th:text="${ingredient.getUnit()}"></span>
+                    <img th:if="${ingredient.getImgFileName()!=null}" th:src="@{${ingredient.getImgFileName()}}" alt="Ingredient Image" style="width: 50px; height: 50px;">
                 </li>
             </ul>
             <div th:if="${dish.getIngredients() == null && !dish.getNutritions().isEmpty()}">
