@@ -1,21 +1,16 @@
 document.getElementById('categorySelect').addEventListener('change', function() {
     let newCategoryInput = document.getElementById('newCategoryInput');
+    let newCategoryLabel = document.querySelector('label[for="newCategoryInput"]');
     if (this.value === 'Andere') {
         newCategoryInput.style.display = 'block';
+        newCategoryLabel.style.display = 'block';
         newCategoryInput.required = true;
     } else {
         newCategoryInput.style.display = 'none';
+        newCategoryLabel.style.display = 'none';
         newCategoryInput.required = false;
     }
+
 });
 
 
-document.getElementById('newCategoryInput').addEventListener('submit', function(event) {
-    let newCategory = document.getElementById('newCategoryInput').value;
-    let existingCategories = Array.from(document.getElementById('categorySelect').options).map(option => option.value);
-
-    if (existingCategories.includes(newCategory)) {
-        alert('This category already exists.');
-        event.preventDefault();
-    }
-});
