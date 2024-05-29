@@ -91,18 +91,15 @@
               <label class="col-form-label">Proteinen</label>
               <input class="form-control" type="text" name="nutritions[0].proteins"/>
             </div>
-
-            <div class="col-sm-3 align-content-center">
-              <button type="button" class="btn btn-danger align-content-center" onclick="deleteIngredient(this)">Delete</button>
-            </div>
           </div>
         </div>
       </div>
     </div>
     <a th:href="@{|/modify/addingredients/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
     <button type="submit" class="btn btn-primary">Toevoegen</button>
-    </div>
+
   </form>
+  </div>
 </div>
 
 <footer th:replace="~{fragments/footer :: footer}">Footer Component</footer>
