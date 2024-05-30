@@ -214,13 +214,6 @@ VALUES ('Kip Caesar Salade',
         '/img/kipcaesarsalade.jpg',
         'https://www.youtube.com/embed/DPio7tGzOgU?si=GApY0fmuN2W1g5xd');
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Kipfilet', 200, 'gr', 2),
-       ('Romeinse sla', 150, 'gr', 2),
-       ('Caesar dressing', 50, 'ml', 2),
-       ('Parmezaanse kaas', 30, 'gr', 2),
-       ('Glutenvrije croutons', 30, 'gr', 2);
-
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '600 mg', '3 g', '5 g', '15 g', '18 g', '25 g', 11);
 
@@ -290,14 +283,6 @@ VALUES ('Zoete Aardappel Curry',
         '/img/zoete_aardappel_curry.jpg',
         'https://www.youtube.com/embed/aRL-v5pOlPg?si=wBNxvZtw_Eoue2Ux');
 
-INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES ('Zoete aardappel', 300, 'gr', 6),
-       ('Currypasta', 30, 'gr', 6),
-       ('Kokosmelk', 200, 'ml', 6),
-       ('Kikkererwten', 150, 'gr', 6),
-       ('Spinazie', 100, 'gr', 6),
-       ('Basmatirijst', 150, 'gr', 6),
-       ('Koriander', 10, 'gr', 6);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('5 g', '380 mg', '6 g', '5 g', '10 g', '50 g', '12 g', 15);

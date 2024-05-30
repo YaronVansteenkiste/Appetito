@@ -1,10 +1,9 @@
 package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.*;
-import be.thomasmore.appetito.repositories.ChefRepository;
-import be.thomasmore.appetito.repositories.DishRepository;
-import be.thomasmore.appetito.repositories.MenuDayRepository;
-import be.thomasmore.appetito.repositories.MenuRepository;
+import be.thomasmore.appetito.repositories.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -28,6 +28,10 @@ public class MenuController {
     @Autowired
     private MenuDayRepository menuDayRepository;
 
+    @Autowired
+    private GroceryRepository groceryRepository;
+
+    private Logger logger = LoggerFactory.getLogger(MenuController.class);
 
     @GetMapping("/menu/details/{menuId}/ingredients")
     public String getMenuIngredients(@PathVariable Integer menuId, Model model) {
@@ -46,6 +50,50 @@ public class MenuController {
         model.addAttribute("menu", menu);
         return "menu/ingredients";
     }
+
+
+    @PostMapping("/menu/{menuId}/addToGrocery")
+public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/user/login";
+        }
+
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+    List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
+
+    List<Ingredient> ingredients = new ArrayList<>();
+    for (MenuDay menuDay : menuDays) {
+        for (Dish dish : menuDay.getDishes()) {
+            ingredients.addAll(dish.getIngredients());
+        }
+    }
+
+        Chef chef = chefRepository.findByUsername(principal.getName());
+        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
+
+        if (groceryFromDB.isPresent()) {
+            Grocery grocery = groceryFromDB.get();
+            Collection<Ingredient> groceryIngredients = grocery.getIngredients();
+            if (groceryIngredients == null) {
+                groceryIngredients = new ArrayList<>();
+            }
+            logger.info("Grocery ingredients before addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+            for (Ingredient ingredient : ingredients) {
+                if (!groceryIngredients.contains(ingredient)) {
+                    groceryIngredients.add(ingredient);
+                }
+            }
+            grocery.setIngredients(groceryIngredients);
+            groceryRepository.save(grocery);
+            logger.info("Grocery ingredients after addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+
+            Grocery savedGrocery = groceryRepository.findById(grocery.getId()).get();
+            logger.info("Saved grocery ingredients: " + savedGrocery.getIngredients().stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+        }
+
+    return "redirect:/groceries";
+}
 
     @PostMapping("/menu/select/{menuId}/addDay/{dishId}")
     public String addSelectDay(@PathVariable Integer menuId,
