@@ -16,3 +16,12 @@ function addBev() {
     textContainer.appendChild(textInput);
     imageContainer.appendChild(imageInput);
 }
+function toggleCustomDietPreference() {
+    var categorySelect = document.getElementById("categorySelect");
+    var customDietPreferenceRow = document.getElementById("customDietPreferenceRow");
+    if (categorySelect.value === "Andere") {
+        customDietPreferenceRow.style.display = "";
+    } else {
+        customDietPreferenceRow.style.display = "none";
+    }
+}

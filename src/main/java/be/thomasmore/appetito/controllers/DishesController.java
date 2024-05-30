@@ -113,6 +113,7 @@ public class DishesController {
     @GetMapping("/dishes/filter")
     public String dishesFilter(Model model,
                                @RequestParam(required = false) String dietPreferencesStr,
+                               @RequestParam(required = false) String customDietPreferences,
                                @RequestParam(required = false) String minPreparationTimeStr,
                                @RequestParam(required = false) String maxPreparationTimeStr,
                                @RequestParam(required = false) String occasionStr,
@@ -150,12 +151,12 @@ public class DishesController {
             }
         }
 
-
         if (maxPreparationTimeStr != null) {
             if (!maxPreparationTimeStr.isEmpty()) {
                 maxPreparationTime = Time.valueOf(maxPreparationTimeStr);
             }
         }
+        List<String> customDietPreferencesList = dishRepository.findDistinctCustomDietPreferences();
 
         List<Integer> ratings = null;
         if (ratingStr != null && !ratingStr.isEmpty()) {
@@ -173,16 +174,15 @@ public class DishesController {
         int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         logger.info("pageable: " + pageable);
-
-        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, minPreparationTime, maxPreparationTime,
+        Page<Dish> allDishes = dishRepository.findFilteredDishes(dietPreferences, customDietPreferences, minPreparationTime, maxPreparationTime,
                 occasion, minCarbs, maxCarbs, minFiber,
                 maxFiber, minSalt, maxSalt, minSugar, maxSugar,
                 minSaturatedFat, maxSaturatedFat, minFat, maxFat,
-                minProteins, maxProteins,ratings,pageable);
-
+                minProteins, maxProteins, ratings, pageable);
 
         boolean filterEnabled = true;
         model.addAttribute("dietPreferences", dietPreferences);
+        model.addAttribute("customDietPreferences", customDietPreferences);
         model.addAttribute("minPreparationTime", minPreparationTimeStr);
         model.addAttribute("maxPreparationTime", maxPreparationTimeStr);
         model.addAttribute("occasion", occasion);
@@ -202,9 +202,10 @@ public class DishesController {
         model.addAttribute("maxProteins", maxProteins);
         model.addAttribute("ratings", ratings);
         model.addAttribute("count", allDishes.getTotalElements());
-        model.addAttribute("alldishes", allDishes);
+        model.addAttribute("alldishes", allDishes.getContent());
         model.addAttribute("allIngredients", ingredientRepository.findAll());
         model.addAttribute("filterEnabled", filterEnabled);
+        model.addAttribute("customDietPreferencesList", customDietPreferencesList);
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", allDishes.getTotalPages());
@@ -213,7 +214,6 @@ public class DishesController {
 
         return "dishes";
     }
-
 
     @PostMapping("/add-favorite")
     public String addFavorite(@RequestBody Map<String, String> body) {

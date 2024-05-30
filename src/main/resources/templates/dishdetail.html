@@ -48,7 +48,8 @@
                 <p th:text="${dish.occasion}"></p>
 
                 <h4>Dieet</h4>
-                <p th:text="${dish.dietPreferences}"></p>
+                <p th:text="${dish.dietPreferences != 'Andere' ? dish.dietPreferences : dish.customDietPreferences}"></p>
+
 
                 <h4>Bereidingstijd</h4>
                 <p th:text="${dish.preparationTime}"></p>

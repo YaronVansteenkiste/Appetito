@@ -96,12 +96,9 @@ public class DishModifyController {
 
     @GetMapping("/dishedit/{id}")
     public String dishEdit(Model model, @PathVariable(required = false) Integer id) {
-
         Optional<Dish> dishOptional = dishRepository.findById(id);
 
-
         if (dishOptional.isPresent()) {
-
             Dish dish = dishOptional.get();
 
             DishDto dishDto = new DishDto();
@@ -111,15 +108,16 @@ public class DishModifyController {
             dishDto.setOccasion(dish.getOccasion());
             dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
 
-            System.out.println("custom diet preferences: " + dish.getCustomDietPreferences());
+            List<String> customDietPreferences = dishRepository.findDistinctCustomDietPreferences();
+
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("dish", dish);
+            model.addAttribute("customDietPreferences", customDietPreferences);
 
             return "modify/dishedit";
         } else {
             return "redirect:/dishdetail";
         }
-
     }
 
     @PostMapping("/dishedit/{id}")
@@ -140,11 +138,12 @@ public class DishModifyController {
             if (optionalDish.isPresent()) {
                 Dish dish = optionalDish.get();
 
-
                 dish.setName(dishDto.getName());
                 dish.setDietPreferences(dishDto.getDietPreferences());
                 dish.setPreparationTime(dishDto.getPreparationTime());
                 dish.setOccasion(dishDto.getOccasion());
+                dish.setCustomDietPreferences(dishDto.getCustomDietPreferences());
+
                 if (image != null && !image.isEmpty()) {
                     dish.setImgFileName(uploadImage(image));
                 }
@@ -195,9 +194,14 @@ public class DishModifyController {
     @PostMapping("/addingredients/{dishId}")
     @Transactional
     public String addIngredients(@PathVariable("dishId") Integer dishId,
-                                 @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                                 @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper ,
                                  @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
                                  Model model) {
+        if(wrapper.getIngredients().isEmpty()){
+
+            model.addAttribute("error", "Er moeten minimaal 1 ingredient worden toegevoegd.");
+            return "modify/addingredients";
+        }
         Optional<Dish> optionalDish = dishRepository.findById(dishId);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Maaltijd niet gevonden: " + dishId);
@@ -248,6 +252,7 @@ public class DishModifyController {
                 dishDto.setDietPreferences(dish.getDietPreferences());
                 dishDto.setPreparationTime(dish.getPreparationTime());
                 dishDto.setOccasion(dish.getOccasion());
+                dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
 
                 model.addAttribute("dishDto", dishDto);
                 model.addAttribute("dish", dish);
@@ -265,7 +270,6 @@ public class DishModifyController {
                              @PathVariable(required = false) Integer id,
                              @Valid @ModelAttribute DishDto dishDto,
                              BindingResult bindingResult,
-                             @RequestParam(required = false) String newDietPreference,
                              @RequestParam("beverageNames[]") List<String> beverageNames,
                              @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
 
@@ -273,13 +277,6 @@ public class DishModifyController {
             model.addAttribute("dishDto", dishDto);
             return "modify/adddish";
         }
-
-        if(!StringUtils.isEmpty(newDietPreference)){
-            dishDto.setCustomDietPreferences(newDietPreference);
-            Dish dish = new Dish();
-            dishRepository.save(dish);
-        }
-
 
         Dish dish;
         if (id != null) {
@@ -294,7 +291,14 @@ public class DishModifyController {
         }
 
         dish.setName(dishDto.getName());
-        dish.setDietPreferences(dishDto.getDietPreferences());
+        if ("Andere".equals(dishDto.getDietPreferences())) {
+            dish.setDietPreferences("Andere");
+            dish.setCustomDietPreferences(dishDto.getCustomDietPreferences());
+        } else {
+            dish.setDietPreferences(dishDto.getDietPreferences());
+            dish.setCustomDietPreferences(null);
+        }
+
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparationTime(dishDto.getPreparationTime());
 
@@ -303,7 +307,6 @@ public class DishModifyController {
         }
 
         List<Beverage> beverages = new ArrayList<>();
-
         for (int i = 0; i < beverageNames.size(); i++) {
             String beverageName = beverageNames.get(i);
             MultipartFile beverageImage = beverageImages.get(i);
@@ -318,13 +321,14 @@ public class DishModifyController {
             beverages.add(beverage);
         }
 
-
         beverageRepository.saveAll(beverages);
         dish.setBeverages(beverages);
         dishRepository.save(dish);
 
         return "redirect:/modify/addsteps/" + dish.getId();
     }
+
+
 
 
     @DeleteMapping("/editingredients/delete/{id}")
