@@ -284,6 +284,7 @@ public class DishModifyController {
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparationTime(dishDto.getPreparationTime());
+        dish.setNumberOfPeople(dishDto.getNumberOfPeople());
 
         if (dishDto.getImage() != null && !dishDto.getImage().isEmpty()) {
             dish.setImgFileName(uploadImage(dishDto.getImage()));
@@ -353,21 +354,25 @@ public class DishModifyController {
         }
     }
 
-
     @PostMapping("/editingredients/{id}")
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
                                   @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
-                                  @RequestParam(value = "imageFiles",required = false) List<MultipartFile> imageFiles,
+                                  Dish dish,
                                   Model model) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
         if (!optionalDish.isPresent()) {
-            model.addAttribute("error", "Maaltijd niet gevonden: " + id);
+            model.addAttribute("error", "Dish not found with id: " + id);
             return "error";
         }
-
         Dish currentDish = optionalDish.get();
         List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
+        currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
+        ingredientsFromWrapper.forEach(ingredient -> {
+            ingredient.setDish(currentDish);
+            currentDish.getIngredients().add(ingredient);
+            ingredientRepository.save(ingredient);
+        });
         List<Ingredient> existingIngredients = currentDish.getIngredients();
 
         for (int i = 0; i < ingredientsFromWrapper.size(); i++) {
@@ -423,7 +428,6 @@ public class DishModifyController {
         }
 
         dishRepository.save(currentDish);
-
         return "redirect:/modify/editnutritions/" + id;
     }
 

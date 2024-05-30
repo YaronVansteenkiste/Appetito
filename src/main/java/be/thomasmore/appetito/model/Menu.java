@@ -3,6 +3,7 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,11 +14,18 @@ public class Menu {
 
     private String name;
 
-    @ManyToMany
-    private List<Dish> dishes;
+    @OneToMany (mappedBy = "menu")
+    private List<MenuDay> MenuDay = new ArrayList<>();
+
 
     @ManyToOne
     private Chef chef;
+
+    private Boolean active = true;
+
+    private Integer numberOfPeople;
+
+    private String description;
 
     public Menu() {
     }
@@ -38,19 +46,44 @@ public class Menu {
         this.name = name;
     }
 
-    public List<Dish> getDishes() {
-        return dishes;
+
+    public void setChef(Chef chef) {
+        this.chef = chef;
     }
 
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Chef getChef() {
         return chef;
     }
 
-    public void setChef(Chef chef) {
-        this.chef = chef;
+    public List<be.thomasmore.appetito.model.MenuDay> getMenuDay() {
+        return MenuDay;
+    }
+
+    public void setMenuDay(List<be.thomasmore.appetito.model.MenuDay> menuDay) {
+        MenuDay = menuDay;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
