@@ -80,6 +80,9 @@ public class DishDto {
     public void setNumberOfPeople(Integer numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
+
+    public void setCustomDietPreferences(String customDietPreferences) {
+    }
 }
 
 
