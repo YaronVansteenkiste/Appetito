@@ -31,20 +31,23 @@
 
   </div>
 
-  <div th:if="${techniques != null}">
-    <h2>Techniques</h2>
-    <ul class="text-decoration-none">
-      <li th:each="technique : ${techniques}">
-        <h4 th:text="${technique.name}"></h4>
-        <p th:text="${technique.techniqueDescription}"></p>
-        <div>
-        <img th:src="@{${technique.image}}" th:alt="${technique.name}" style="max-width: 100%;">
-        </div>
-      </li>
-    </ul>
-  </div>
+
 
 </main>
+<div th:if="${techniques != null}" class="col-md-8">
+  <h2>Techniques</h2>
+  <ul class="list-unstyled">
+    <li th:each="technique : ${techniques}">
+      <div>
+      <h4 th:text="${technique.name}"></h4>
+      <p th:text="${technique.techniqueDescription}"></p>
+      </div>
+      <div class="col-md-4 margin-left: auto">
+        <img th:src="@{${technique.image}}" th:alt="${technique.name}" style="max-width: 100%;">
+      </div>
+    </li>
+  </ul>
+</div>
 
 </body>
 </html>
