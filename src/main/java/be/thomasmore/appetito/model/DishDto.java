@@ -26,9 +26,10 @@ public class DishDto {
 
     private MultipartFile image;
 
+    private Integer numberOfPeople;
+
     public DishDto() {
     }
-
 
 
     public String getName() {
@@ -70,6 +71,14 @@ public class DishDto {
 
     public void setImage(MultipartFile image) {
         this.image = image;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }
 

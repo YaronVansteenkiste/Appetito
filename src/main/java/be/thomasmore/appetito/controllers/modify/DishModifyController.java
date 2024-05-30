@@ -192,6 +192,7 @@ public class DishModifyController {
             ingredient.setDish(dish);
             ingredientRepository.save(ingredient);
         }
+
         return "redirect:/modify/addnutritions/" + dishId;
     }
 
@@ -250,6 +251,7 @@ public class DishModifyController {
         dish.setDietPreferences(dishDto.getDietPreferences());
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparationTime(dishDto.getPreparationTime());
+        dish.setNumberOfPeople(dishDto.getNumberOfPeople());
 
         if (dishDto.getImage() != null && !dishDto.getImage().isEmpty()) {
             dish.setImgFileName(uploadImage(dishDto.getImage()));
@@ -319,7 +321,6 @@ public class DishModifyController {
         }
     }
 
-
     @PostMapping("/editingredients/{id}")
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
@@ -331,20 +332,15 @@ public class DishModifyController {
             model.addAttribute("error", "Dish not found with id: " + id);
             return "error";
         }
-
         Dish currentDish = optionalDish.get();
         List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
-
         currentDish.getIngredients().removeIf(ingredient -> !ingredientsFromWrapper.contains(ingredient));
-
         ingredientsFromWrapper.forEach(ingredient -> {
             ingredient.setDish(currentDish);
             currentDish.getIngredients().add(ingredient);
             ingredientRepository.save(ingredient);
         });
-
         dishRepository.save(currentDish);
-
         return "redirect:/modify/editnutritions/" + id;
     }
 

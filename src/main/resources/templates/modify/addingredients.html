@@ -24,9 +24,6 @@
             <p th:text="${error}"></p>
         </div>
         <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}" th:object="${dish}">
-            <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
-            <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1"
-                   th:value="${dish.numberOfPeople}"/>
             <div th:if="*{ingredients.size() > 0}">
                 <div class="container-fluid">
                     <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row">
