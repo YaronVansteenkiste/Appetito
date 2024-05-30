@@ -760,3 +760,29 @@ VALUES (5, 3),
        (1, 19),
        (3, 20);
 
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Snijden','hoe moet je snijden?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Bakken','hoe moet je bakken?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Koken','hoe moet je koken?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Stomen','hoe moet je stomen?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Blancheren','hoe moet je blancheren?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Grillen','hoe moet je grillen?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Roosteren','hoe moet je roosteren?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Marineren','hoe moet je marineren?');
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES (null,'Binden','hoe moet je binden?');
