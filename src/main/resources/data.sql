@@ -751,8 +751,54 @@ VALUES (1, 'Koning Albertstraat 1', 'Antwerpen', 'België', '2000', '+32 3 123 4
 
 INSERT INTO MENU (NAME, ACTIVE, chef_id)
 VALUES ('Kerstmenu',TRUE, 2),
-       ('Paasmenu',TRUE, 2);
+       ('Paasmenu',TRUE, 2),
+         ('Zomerse gerechten',TRUE, 2),
+         ('Herfstmenu',TRUE, 2),
+         ('Winterse gerechten',TRUE, 2);
 
+INSERT INTO MENU_DAY (DAY_NUMBER, MENU_ID)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (4, 2),
+         (5, 2),
+         (6, 2),
+         (7, 3),
+         (8, 3),
+         (9, 3),
+         (10, 4),
+         (11, 4),
+         (12, 4),
+         (13, 5),
+         (14, 5),
+         (15, 5);
+
+INSERT INTO MENU_DAY_DISHES (MENU_DAY_ID, DISHES_ID)
+VALUES (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (1, 5),
+       (2, 6),
+       (2, 7),
+       (2, 8),
+       (2, 9),
+       (2, 10),
+       (3, 11),
+       (3, 12),
+       (3, 13),
+       (3, 14),
+       (3, 15),
+       (4, 16),
+       (4, 17),
+       (4, 18),
+       (4, 19),
+       (4, 20),
+       (5, 1),
+       (5, 2),
+       (5, 3),
+       (5, 4),
+       (5, 5);
 
 
 INSERT INTO RATING (rating, dish_id)

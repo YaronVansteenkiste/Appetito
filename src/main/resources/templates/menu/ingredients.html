@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="ingredient, stat : ${ingredients}">
+            <tr th:each="ingredient, stat : ${ingredients.content}">
                 <th scope="row" th:text="${stat.count}"></th>
                 <td th:text="${ingredient.getName()}"></td>
                 <td th:text="${ingredient.getQuantity()}"></td>
@@ -41,8 +41,28 @@
         </tbody>
     </table>
 
-    <form th:action="@{|/menu/${menu.getId()}/addToGrocery|}" method="post">
-    <button type="submit" class="btn btn-primary">Add All Ingredients to Grocery</button>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${!ingredients.hasPrevious()} ? disabled">
+                <a class="page-link" th:href="@{|/menu/details/${menu.getId()}/ingredients?page=${ingredients.number-1}|}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(0, ingredients.totalPages-1)}" th:classappend="${pageNumber == ingredients.number} ? active">
+                <a class="page-link" th:href="@{|/menu/details/${menu.getId()}/ingredients?page=${pageNumber}|}" th:text="${pageNumber + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!ingredients.hasNext()} ? disabled">
+                <a class="page-link" th:href="@{|/menu/details/${menu.getId()}/ingredients?page=${ingredients.number+1}|}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="d-flex justify-content-left">
+        <a th:href="@{|/menu/details/${menu.getId()}|}" class="btn btn-primary">Ga Terug</a>
+        <form th:action="@{|/menu/${menu.getId()}/addToGrocery|}" method="post">
+            <button type="submit" class="ms-2 btn btn-primary">Toevoegen aan boodschappenlijst</button>
+    </div>
 </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

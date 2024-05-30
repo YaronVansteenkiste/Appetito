@@ -74,19 +74,18 @@ public class GroceriesController {
     }
 
 
-
     @PostMapping("/groceries/clear")
-public ResponseEntity<?> clearAllGroceries(Principal principal) {
-    if (principal == null) {
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<?> clearAllGroceries(Principal principal) {
+        if (principal == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        Chef chef = chefRepository.findByUsername(principal.getName());
+        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
+        if (groceryFromDB.isPresent()) {
+            Grocery grocery = groceryFromDB.get();
+            grocery.getIngredients().clear();
+            groceryRepository.save(grocery);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-    Chef chef = chefRepository.findByUsername(principal.getName());
-    Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
-    if (groceryFromDB.isPresent()) {
-        Grocery grocery = groceryFromDB.get();
-        grocery.getIngredients().clear();
-        groceryRepository.save(grocery);
-    }
-    return new ResponseEntity<>(HttpStatus.OK);
-}
 }

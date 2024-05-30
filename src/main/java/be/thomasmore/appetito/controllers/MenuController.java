@@ -5,6 +5,10 @@ import be.thomasmore.appetito.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +38,7 @@ public class MenuController {
     private Logger logger = LoggerFactory.getLogger(MenuController.class);
 
     @GetMapping("/menu/details/{menuId}/ingredients")
-    public String getMenuIngredients(@PathVariable Integer menuId, Model model) {
+    public String getMenuIngredients(@PathVariable Integer menuId, Model model, @PageableDefault(size = 10) Pageable pageable) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
         List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
@@ -46,7 +50,12 @@ public class MenuController {
             }
         }
 
-        model.addAttribute("ingredients", ingredients);
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), ingredients.size());
+        Page<Ingredient> ingredientsPage = new PageImpl<>(ingredients.subList(start, end), pageable, ingredients.size());
+
+
+        model.addAttribute("ingredients", ingredientsPage);
         model.addAttribute("menu", menu);
         return "menu/ingredients";
     }
