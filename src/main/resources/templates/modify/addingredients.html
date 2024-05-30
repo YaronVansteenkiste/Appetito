@@ -23,7 +23,12 @@
         <div th:if="${error}" class="alert alert-danger" role="alert">
             <p th:text="${error}"></p>
         </div>
-        <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}" th:object="${dish}">
+
+        <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}"
+              enctype="multipart/form-data" th:object="${ingredientListWrapper}">
+            <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
+            <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1"
+                   th:value="${dish.numberOfPeople}"/>
             <div th:if="*{ingredients.size() > 0}">
                 <div class="container-fluid">
                     <div th:each="ingredient, iterStat : *{ingredients}" class="ingredient-row mb-3">
@@ -84,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="addIngredient()">Add Step</button>
+            <button type="button" class="btn btn-primary" onclick="addIngredient()">Voeg toe</button>
             <a th:href="@{|/modify/addsteps/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
             <button type="submit" class="btn btn-primary">Volgende</button>
         </form>
@@ -102,4 +107,3 @@
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 </body>
 </html>
-

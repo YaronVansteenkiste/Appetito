@@ -380,11 +380,13 @@ public class DishModifyController {
             Ingredient ingredientFromWrapper = ingredientsFromWrapper.get(i);
             boolean ingredientExists = false;
 
+
             for (Ingredient existingIngredient : existingIngredients) {
                 if (existingIngredient.getId().equals(ingredientFromWrapper.getId())) {
                     existingIngredient.setName(ingredientFromWrapper.getName());
                     existingIngredient.setQuantity(ingredientFromWrapper.getQuantity());
                     existingIngredient.setUnit(ingredientFromWrapper.getUnit());
+
 
                     if (imageFiles != null && i < imageFiles.size()) {
                         MultipartFile imageFile = imageFiles.get(i);
@@ -404,10 +406,12 @@ public class DishModifyController {
                 }
             }
 
+
             if (!ingredientExists) {
                 ingredientFromWrapper.setDish(currentDish);
 
-                if (imageFiles != null && i < imageFiles.size()) {
+
+                if (i < imageFiles.size()) {
                     MultipartFile imageFile = imageFiles.get(i);
                     if (imageFile != null && !imageFile.isEmpty()) {
                         try {
