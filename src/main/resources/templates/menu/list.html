@@ -21,15 +21,24 @@
     <a>Menu's</a>
 </h6>
 <div class="container">
-    <div class="row">
+    <h1 class="text-center">Menu's</h1>
+    <div sec:authorize="isAuthenticated()" class="row">
         <div class="col-6">
             <h2>Maak een nieuw menu aan:</h2>
         </div>
         <div class="col-6">
-            <form sec:authorize="isAuthenticated()" action="/menu/create" method="post">
+            <form action="/menu/create" method="post">
                 <div class="mb-3">
                     <label for="menuName" class="form-label">Menu naam</label>
                     <input type="text" class="form-control" id="menuName" name="menuName">
+                </div>
+                <div class="mb-3">
+                    <label for="numberOfPeople" class="form-label">Number of People</label>
+                    <input type="number" class="form-control" id="numberOfPeople" name="numberOfPeople">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Maak menu</button>
             </form>
@@ -51,18 +60,19 @@
                                 <div class="row" th:each="day, stat : ${menu.getMenuDay()}" th:if="${stat.count <= 1}">
                                     <div th:each="dish, stat : ${day.getDishes()}" th:if="${stat.count <= 4}"
                                          th:class="${#lists.size(day.getDishes()) == 1} ? 'col-12' : ((${#lists.size(day.getDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">
-                                        <img class="img-fluid" th:src="${dish.getImgFileName()}"></img>
+                                        <img class="card-img" th:src="${dish.getImgFileName()}"></img>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <h5 th:text="${menu.getName()}" class="card-title"></h5>
+                                <p th:text="${menu.getDescription()}" class="card-text"></p>
                             </div>
                             <div class="card-footer">
                                 <div class="d-grid">
                                     <p class="card-text">Samengesteld door: <span
                                             th:text="${menu.getChef().getName()}"></span></p>
-                                    <p class="card-text">Gemaakt voor: <span></span></p>
+                                    <p class="card-text">Gemaakt voor: <span th:text="|${menu.getNumberOfPeople()} personen|">personen</span></p>
                                     <a class="btn btn-primary" th:href="@{|/menu/details/${menu.getId()}|}"
                                        role="button">Ontdek</a>
                                 </div>

@@ -23,6 +23,10 @@ public class Menu {
 
     private Boolean active = true;
 
+    private Integer numberOfPeople;
+
+    private String description;
+
     public Menu() {
     }
 
@@ -65,5 +69,21 @@ public class Menu {
 
     public void setMenuDay(List<be.thomasmore.appetito.model.MenuDay> menuDay) {
         MenuDay = menuDay;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -254,12 +254,17 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
 
 
     @PostMapping("/menu/create")
-    public String createMenu(@RequestParam String menuName, Principal principal) {
+    public String createMenu(@RequestParam String menuName,
+                             @RequestParam Integer numberOfPeople,
+                                @RequestParam String description,
+                             Principal principal) {
         if (!principal.getName().isEmpty()) {
             Chef chef = chefRepository.findByUsername(principal.getName());
             if (chef != null) {
                 Menu newMenu = new Menu();
                 newMenu.setName(menuName);
+                newMenu.setNumberOfPeople(numberOfPeople);
+                newMenu.setDescription(description);
                 newMenu.setChef(chef);
                 menuRepository.save(newMenu);
                 return "redirect:/menu/list";

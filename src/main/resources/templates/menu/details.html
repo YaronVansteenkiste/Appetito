@@ -31,6 +31,11 @@
             <div th:if="${error}" class="alert alert-danger" role="alert">
                 <p th:text="${error}"></p>
             </div>
+            <div class="card-header">
+                <h1 class="card-title text-center" th:text="${menu.getName()}"></h1>
+                <h5 class="card-title text-center" th:text="|Gemaakt voor ${menu.getNumberOfPeople()} personen|"></h5>
+                <h5 class="card-title my-3" th:text="${menu.getDescription()}"></h5>
+            </div>
             <div th:each="menuDay : ${menuDays}">
                 <div class="card">
                     <div class="card-header">

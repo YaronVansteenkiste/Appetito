@@ -749,56 +749,37 @@ INSERT INTO Footer (id, street, city, country, postal_code, phone, email)
 VALUES (1, 'Koning Albertstraat 1', 'Antwerpen', 'België', '2000', '+32 3 123 45 67', 'admin@appetito.com');
 
 
-INSERT INTO MENU (NAME, ACTIVE, chef_id)
-VALUES ('Kerstmenu',TRUE, 2),
-       ('Paasmenu',TRUE, 2),
-         ('Zomerse gerechten',TRUE, 2),
-         ('Herfstmenu',TRUE, 2),
-         ('Winterse gerechten',TRUE, 2);
+INSERT INTO MENU (NAME, ACTIVE, NUMBER_OF_PEOPLE, chef_id, description)
+VALUES
+    ('Kerstmenu', TRUE, 6, 2, 'Een feestelijk kerstmenu met klassieke gerechten zoals spinaziesoep, Snicker bliss balls en  cranberry compote, perfect voor een gezellige avond met familie en vrienden.'),
+    ('Paasmenu', TRUE, 4, 2, 'Geniet van een heerlijk Paasmenu met gerechten zoals burrito, zoete aardappel Curry en een frisse lente salade. Perfect om samen Pasen te vieren.'),
+    ('Zomerse gerechten', TRUE, 1, 2, 'Verfrissende en lichte zomerse gerechten. Ideaal voor warme dagen.'),
+    ('Gezonde maaltijden', TRUE, 1, 2, 'Gezonde en voedzame maaltijden met verse ingrediënten!');
+
 
 INSERT INTO MENU_DAY (DAY_NUMBER, MENU_ID)
 VALUES (1, 1),
        (2, 1),
-       (3, 1),
-       (4, 2),
-         (5, 2),
-         (6, 2),
-         (7, 3),
-         (8, 3),
-         (9, 3),
-         (10, 4),
-         (11, 4),
-         (12, 4),
-         (13, 5),
-         (14, 5),
-         (15, 5);
+       (1, 2),
+         (2, 2),
+         (5, 3),
+         (6, 3),
+         (7, 4);
 
 INSERT INTO MENU_DAY_DISHES (MENU_DAY_ID, DISHES_ID)
-VALUES (1, 1),
-       (1, 2),
-       (1, 3),
-       (1, 4),
-       (1, 5),
-       (2, 6),
-       (2, 7),
-       (2, 8),
-       (2, 9),
-       (2, 10),
-       (3, 11),
-       (3, 12),
-       (3, 13),
-       (3, 14),
+VALUES (1, 3),
+       (1, 7),
+       (1, 8),
+       (1, 6),
+       (2, 5),
+       (3, 17),
+       (5, 11),
+       (7, 9),
+       (7, 11),
+       (3, 16),
        (3, 15),
-       (4, 16),
-       (4, 17),
-       (4, 18),
-       (4, 19),
-       (4, 20),
-       (5, 1),
-       (5, 2),
-       (5, 3),
-       (5, 4),
-       (5, 5);
+       (4, 11),
+       (6, 9);
 
 
 INSERT INTO RATING (rating, dish_id)
