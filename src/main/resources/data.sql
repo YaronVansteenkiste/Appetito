@@ -761,28 +761,26 @@ VALUES (5, 3),
        (3, 20);
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Snijden','hoe moet je snijden?');
+VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Bakken','hoe moet je bakken?');
+VALUES ('/img/bakken.jpg','Bakken','hoe moet je bakken?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Koken','hoe moet je koken?');
+VALUES ('/img/koken.jpg','Koken','hoe moet je koken?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Stomen','hoe moet je stomen?');
+VALUES ('/img/stomen.jpg','Stomen','hoe moet je stomen?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Blancheren','hoe moet je blancheren?');
+VALUES ('/img/blancheren.jpg','Blancheren','hoe moet je blancheren?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Grillen','hoe moet je grillen?');
+VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Roosteren','hoe moet je roosteren?');
+VALUES ('/img/roosteren.jpg','Roosteren','hoe moet je roosteren?');
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Marineren','hoe moet je marineren?');
+VALUES ('/img/marineren.jpg','Marineren','hoe moet je marineren?');
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES (null,'Binden','hoe moet je binden?');
