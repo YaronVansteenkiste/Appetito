@@ -28,6 +28,8 @@ public class DishDto {
 
     private MultipartFile image;
 
+    private Integer numberOfPeople;
+
     public DishDto() {
     }
 
@@ -80,6 +82,14 @@ public class DishDto {
 
     public void setCustomDietPreferences(String customDietPreferences) {
         this.customDietPreferences = customDietPreferences;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }
 
