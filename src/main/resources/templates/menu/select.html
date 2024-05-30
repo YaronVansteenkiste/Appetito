@@ -38,21 +38,29 @@
     <div class="row">
         <div class="col-4" th:if="${!menus.isEmpty()}" th:each="menu : ${menus}">
             <div class="card h-100">
-                <div class="row h-100">
-                    <div th:each="dish, stat : ${menu.getDishes()}" th:if="${stat.count <= 4}"
-                         th:class="${#lists.size(menu.getDishes()) == 1} ? 'col-12' : ((${#lists.size(menu.getDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">
-                        <img alt="dish image" class="card-img-top object-fit-cover"
-                             th:src="${dish.getImgFileName()}">
-                    </div>
-                </div>
                 <div class="card-body">
-                    <h5 th:text="${menu.getName()}" class="card-title"></h5>
+                    <h3 th:text="${menu.getName()}" class="card-title"></h3>
+                </div>
+                <div class="row h-100">
+                    <div th:each="day : ${menu.getMenuDay()}">
+                        <h5 th:text="|Dag ${day.getDayNumber()}|"></h5>
+                        <div th:each="dish : ${day.getDishes()}">
+                            <p th:text="${dish.getName()}"></p>
+                            <form th:action="@{'/menu/' + ${menu.getId()} + '/selectDay/' + ${day.getId()} + '/removeDish/'+ ${dish.getId()}}" method="post">
+    <button type="submit" class="btn btn-danger">Remove Dish</button>
+</form>
+                        </div>
+                        <form th:action="@{'/menu/' + ${menu.getId()} + '/selectDay/' + ${day.getId()} + '/addDish/'+ ${dishId}}" method="post">
+                            <button type="submit" class="btn btn-outline-primary">Maaltijd toevoegen</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="d-grid">
-                        <form th:action="@{'/menu/' + ${menu.getId()} + '/addDish/'+ ${dishId}}" method="post">
-                            <button type="submit" class="btn btn-primary">Toevoegen</button>
+                        <form th:action="@{'/menu/select/' + ${menu.getId()} + '/addDay/' + ${dish.getId()}}" method="post">
+                            <button type="submit" class="btn btn-primary">Voeg Dag Toe</button>
                         </form>
+                        <a th:href="@{|/menu/details/${menu.getId()}|}" class="btn btn-outline-primary">Ga naar menu</a>
                     </div>
                 </div>
             </div>

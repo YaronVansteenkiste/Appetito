@@ -21,7 +21,7 @@
     <a th:text="|Edit Ingredients ${dish.name}|"></a>
 </h6>
 <div class="container">
-    <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}" enctype="multipart/form-data" th:object="${ingredientListWrapper}">
+    <form method="post" th:action="@{/modify/editingredients/{id}(id=${dish.id})}" enctype="multipart/form-data" th:object="${ingredientListWrapper}">
         <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
         <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1" th:value="${dish.numberOfPeople}"/>
         <div th:if="*{ingredients.size() > 0}">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-sm-3">
                             <label for="ingredientImage" class="form-label">Foto</label>
-                            <input type="file" class="form-control" id="ingredientImage" name="imageFiles[]" accept="image/*"/>
+                            <input type="file" class="form-control" id="ingredientImage" name="imageFiles" accept="image/*"/>
                         </div>
                         <div class="col-sm-3 m-1">
                             <button type="button" class="btn btn-danger" th:onclick="|deleteIngredientDb(this, ${ingredient.id})|">Verwijder</button>

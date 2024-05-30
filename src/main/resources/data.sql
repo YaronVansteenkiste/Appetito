@@ -393,68 +393,6 @@ VALUES ('Meloen', 200, 'gr', 20),
        ('Druiven', 100, 'gr', 20),
        ('Munt', 10, 'gr', 20),
        ('Honing of agavesiroop', 20, 'ml', 20);
---
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Groene linzen', 200, 'gr', 12),
---        ('Tomaten', 150, 'gr', 12),
---        ('Komkommer', 100, 'gr', 12),
---        ('Rode ui', 50, 'gr', 12),
---        ('Verse peterselie', 10, 'gr', 12);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Zalmfilets', 200, 'gr', 13),
---        ('Asperges', 200, 'gr', 13),
---        ('Olijfolie', 10, 'ml', 13),
---        ('Citroen', 0.5, 'stuks', 13);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Zwarte bonen', 150, 'gr', 14),
---        ('Quinoa', 100, 'gr', 14),
---        ('Specerijen', 5, 'gr', 14),
---        ('Volkoren broodje', 1, 'stuks', 14),
---        ('Sla', 30, 'gr', 14);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Zoete aardappel', 300, 'gr', 15),
---        ('Currypasta', 30, 'gr', 15),
---        ('Kokosmelk', 200, 'ml', 15),
---        ('Kikkererwten', 150, 'gr', 15),
---        ('Spinazie', 100, 'gr', 15);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Eieren', 2, 'stuks', 16),
---        ('Zwarte bonen', 50, 'gr', 16),
---        ('Kaas', 30, 'gr', 16),
---        ('Paprika', 50, 'gr', 16),
---        ('Volkoren tortilla', 1, 'stuks', 16);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Quinoa', 150, 'gr', 17),
---        ('Avocado', 1, 'stuks', 17),
---        ('Komkommer', 100, 'gr', 17),
---        ('Tomaat', 100, 'gr', 17),
---        ('Rode ui', 50, 'gr', 17);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Volkorenpasta', 200, 'gr', 18),
---        ('Olijven', 50, 'gr', 18),
---        ('Zongedroogde tomaten', 50, 'gr', 18),
---        ('Artisjokharten', 100, 'gr', 18),
---        ('Feta', 50, 'gr', 18);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Gekookte garnalen', 150, 'gr', 19),
---        ('Cocktailsaus', 50, 'ml', 19),
---        ('Sla', 50, 'gr', 19),
---        ('Citroen', 0.5, 'stuks', 19);
---
--- INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
--- VALUES ('Meloen', 200, 'gr', 20),
---        ('Bessen', 100, 'gr', 20),
---        ('Druiven', 100, 'gr', 20),
---        ('Munt', 10, 'gr', 20),
---        ('Honing of agavesiroop', 20, 'ml', 20);
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '10 mg', '24 g', '0 g', '1 g', '55 g', '2 g', 20);
@@ -764,16 +702,38 @@ INSERT INTO Footer (id, street, city, country, postal_code, phone, email)
 VALUES (1, 'Koning Albertstraat 1', 'Antwerpen', 'België', '2000', '+32 3 123 45 67', 'admin@appetito.com');
 
 
-INSERT INTO MENU (NAME, chef_id)
-VALUES ('Kerstmenu', 2),
-       ('Paasmenu', 2);
+INSERT INTO MENU (NAME, ACTIVE, NUMBER_OF_PEOPLE, chef_id, description)
+VALUES
+    ('Kerstmenu', TRUE, 6, 2, 'Een feestelijk kerstmenu met klassieke gerechten zoals spinaziesoep, Snicker bliss balls en  cranberry compote, perfect voor een gezellige avond met familie en vrienden.'),
+    ('Paasmenu', TRUE, 4, 2, 'Geniet van een heerlijk Paasmenu met gerechten zoals burrito, zoete aardappel Curry en een frisse lente salade. Perfect om samen Pasen te vieren.'),
+    ('Zomerse gerechten', TRUE, 1, 2, 'Verfrissende en lichte zomerse gerechten. Ideaal voor warme dagen.'),
+    ('Gezonde maaltijden', TRUE, 1, 2, 'Gezonde en voedzame maaltijden met verse ingrediënten!');
 
-INSERT INTO MENU_DISHES (menu_id, dishes_id)
-VALUES (1, 2),
-       (1, 3),
-       (1, 4),
-       (2, 4),
-       (2, 5);
+
+INSERT INTO MENU_DAY (DAY_NUMBER, MENU_ID)
+VALUES (1, 1),
+       (2, 1),
+       (1, 2),
+         (2, 2),
+         (5, 3),
+         (6, 3),
+         (7, 4);
+
+INSERT INTO MENU_DAY_DISHES (MENU_DAY_ID, DISHES_ID)
+VALUES (1, 3),
+       (1, 7),
+       (1, 8),
+       (1, 6),
+       (2, 5),
+       (3, 17),
+       (5, 11),
+       (7, 9),
+       (7, 11),
+       (3, 16),
+       (3, 15),
+       (4, 11),
+       (6, 9);
+
 
 INSERT INTO RATING (rating, dish_id)
 VALUES (5, 3),
