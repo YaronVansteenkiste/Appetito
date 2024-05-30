@@ -764,13 +764,13 @@ INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','img/julienne.jpg',1),
-    ('Brunoise (Blokvormig)','Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.','img/brunoise.jpg',1),
+VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','/img/julienne.jpg',1),
+    ('Brunoise (Blokvormig)','Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.','/img/brunoise.jpg',1),
     ('Chiffonade (Fijne reepjes)','Deze snijtechniek is ideaal voor bladgroenten en kruiden. ' ||
     'De bladeren worden opgestapeld, opgerold en dan in zeer dunne reepjes gesneden. ' ||
     'Dit wordt vaak gebruikt om soepen, salades en andere gerechten te garneren.','/img/chiffonade.jpg',1),
-    ('Diceren (in blokjes snijden','Groter dan brunoise, meestal 1 cm x 1 cm, deze snede is goed voor stoofschotels, salades, en wanneer grotere stukjes gewenst zijn.','img/diceren.jpg',1),
-    ('Mincen (fijnhakken','Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.','img/mincen.jpg',1);
+    ('Diceren (in blokjes snijden','Groter dan brunoise, meestal 1 cm x 1 cm, deze snede is goed voor stoofschotels, salades, en wanneer grotere stukjes gewenst zijn.','/img/diceren.jpg',1),
+    ('Mincen (fijnhakken','Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.','/img/mincen.jpg',1);
 
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
@@ -781,16 +781,16 @@ VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief
                    'hoge temperatuur met een kleine hoeveelheid vet (olie of boter).' ||
                    ' Het doel is om de ingrediënten bruin en knapperig te krijgen aan de ' ||
                    'buitenkant terwijl ze binnenin sappig blijven. Groenten blijven helder en' ||
-                   ' enigszins knapperig, en vlees wordt mooi bruin en sappig.','img/sauteren.jpg',2),
+                   ' enigszins knapperig, en vlees wordt mooi bruin en sappig.','/img/sauteren.jpg',2),
     ('Pan-frying (panbakken)','Deze techniek is vergelijkbaar met sauteren, maar gebruikt meer vet en een iets lagere temperatuur, ' ||
                               'waardoor de ingrediënten meer tijd hebben om te garen. ' ||
-                              'Het is ideaal voor iets dikkere stukken vlees of groenten.','img/panfrying.jpg',2),
+                              'Het is ideaal voor iets dikkere stukken vlees of groenten.','/img/panfrying.jpg',2),
     ('Roerbakken','Roerbakken is een techniek die snel koken op hoge temperatuur combineert, ' ||
                   'meestal in een wok, waarbij de ingrediënten constant worden bewogen. ' ||
-                  'Dit zorgt ervoor dat alles gelijkmatig kookt en hun crunch behoudt.','img/roerbakken.jpg',2),
+                  'Dit zorgt ervoor dat alles gelijkmatig kookt en hun crunch behoudt.','/img/roerbakken.jpg',2),
     ('Deep-frying (frituren)','Bij diep frituren worden de ingrediënten volledig ondergedompeld in hete olie. ' ||
                               'Dit zorgt voor een snel en gelijkmatig gaar proces, wat resulteert ' ||
-                              'in een krokant buitenlaagje terwijl de binnenkant zacht en sappig blijft.','img/deepfrying.jpg',2),
+                              'in een krokant buitenlaagje terwijl de binnenkant zacht en sappig blijft.','/img/deepfrying.jpg',2),
     ('Stir-frying','Dit is een snelle kookmethode waarbij ingrediënten in een zeer hete pan worden gebakken met een klein beetje olie. ' ||
                    'Ingrediënten worden snel en continu bewogen, vergelijkbaar met roerbakken ' ||
                    'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.','/img/stirfrying.jpg',2);
@@ -859,14 +859,14 @@ VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water s
     ('Blancheren voor invriezen','Blancheren is een belangrijke stap bij het invriezen van groenten. ' ||
                                   'Door groenten kort te blancheren voordat je ze invriest, ' ||
                                   'blijven ze langer vers en behouden ze hun smaak en voedingsstoffen. ' ||
-                                  'Na het blancheren, laat je de groenten uitlekken en drogen voordat je ze invriest.',null,5),
+                                  'Na het blancheren, laat je de groenten uitlekken en drogen voordat je ze invriest.','/img/invriezen.jpg',5),
     ('Blancheren voor het koken','Sommige recepten vereisen dat je groenten eerst blancheert voordat je ze ' ||
                                   'verder kookt. Dit helpt om de groenten voor te bereiden en ' ||
-                                  'hun kleur en textuur te behouden tijdens het koken.','/img/invriezen.jpg',5),
+                                  'hun kleur en textuur te behouden tijdens het koken.','/img/blancherenvoorkoken.jpg',5),
     ('Blancheren voor het schillen','Blancheren is een handige techniek om de schil van sommige groenten ' ||
                                     'zoals tomaten, paprika''s, of amandelen gemakkelijker te verwijderen. ' ||
                                     'Door de groenten kort te blancheren, wordt de schil losser en ' ||
-                                    'kun je deze gemakkelijk verwijderen.','img/schillen.jpg',5);
+                                    'kun je deze gemakkelijk verwijderen.','/img/schillen.jpg',5);
 
 
 
@@ -874,9 +874,9 @@ INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.','img/grillen2.jpg',6),
+VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.','/img/grillen2.jpg',6),
     ('Indirect grillen','Bij indirect grillen wordt het voedsel niet direct boven de warmtebron geplaatst, maar aan de zijkant van de grill. Dit is ideaal voor het langzaam garen van grotere stukken vlees, gevogelte, of vis, waarbij de warmte gelijkmatig wordt verdeeld en het voedsel langzaam gaart zonder te verbranden.','/img/indirectgrillen.jpg',6),
-    ('Grillen met rook','Grillen met rook voegt een extra smaakdimensie toe aan het voedsel door het te roken met houtsnippers of houtskool. Dit is ideaal voor het geven van een rokerige smaak aan vlees, vis, of groenten. Het voedsel wordt langzaam gegaard en krijgt een heerlijke rokerige smaak.','img/rook.jpg',6),
+    ('Grillen met rook','Grillen met rook voegt een extra smaakdimensie toe aan het voedsel door het te roken met houtsnippers of houtskool. Dit is ideaal voor het geven van een rokerige smaak aan vlees, vis, of groenten. Het voedsel wordt langzaam gegaard en krijgt een heerlijke rokerige smaak.','/img/rook.jpg',6),
     ('Sear-grilling','Deze methode combineert hoge directe hitte aanvankelijk om het voedsel snel dicht ' ||
                  'te schroeien en vervolgens een lagere, indirecte hitte om' ||
                  ' het gaarproces te voltooien. Dit is geweldig voor dikke steaks of' ||
@@ -925,7 +925,7 @@ VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals a
           'of wijn die helpen om de eiwitten in het voedsel af te breken, ' ||
           'wat resulteert in malser vlees. Het is belangrijk niet te lang te marineren, ' ||
           'vooral bij zachter vlees of vis, omdat het zuur het voedsel kan "koken" ' ||
-          'of te papperig kan maken.','/img/zuurmarineren',8),
+          'of te papperig kan maken.','/img/zuurmarineren.jpg',8),
 
 
 ('Yoghurt of zuivelgebaseerd marineren','Deze marinades gebruiken de milde zuren in yoghurt of andere zuivelproducten' ||

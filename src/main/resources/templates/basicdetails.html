@@ -19,6 +19,12 @@
 
 <body>
 
+<h6 class="mt-3 ms-2 text-decoration-none">
+  <a href="/" class="text-decoration-none">Home</a> >
+  <a href="/basic" class="text-decoration-none">Basishandelingen</a> >
+  <a th:text="${basic.action}"></a>
+</h6>
+
 <h1 class="text-center mt-5" th:text="${basic.action}"></h1>
 
 <main class="container">
