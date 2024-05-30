@@ -41,11 +41,12 @@ public class Dish {
     private Collection<Beverage> beverages;
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Rating>ratings;
+    private List<Rating> ratings;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chef_id")
     private Chef chef;
+
 
     @ManyToMany(mappedBy = "favoriteDishes")
     private Collection<Chef> favoritedByChefs;
@@ -54,7 +55,7 @@ public class Dish {
     private Integer numberOfPeople;
 
     public Dish() {
-        this.active=true;
+        this.active = true;
         this.beverages = new ArrayList<>();
     }
 
@@ -139,6 +140,7 @@ public class Dish {
     public void setActive(boolean active) {
         this.active = active;
     }
+
     public Chef getChef() {
         return chef;
     }
@@ -179,7 +181,7 @@ public class Dish {
         this.ratings = ratings;
     }
 
-    public double getAverageRating(){
+    public double getAverageRating() {
         if (ratings.isEmpty()) return 0;
         double sum = 0;
         for (Rating rating : ratings) {

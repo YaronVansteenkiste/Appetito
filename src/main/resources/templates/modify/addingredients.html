@@ -23,7 +23,9 @@
         <div th:if="${error}" class="alert alert-danger" role="alert">
             <p th:text="${error}"></p>
         </div>
-        <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}" enctype="multipart/form-data" th:object="${dish}">
+
+        <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}"
+              enctype="multipart/form-data" th:object="${ingredientListWrapper}">
             <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
             <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1"
                    th:value="${dish.numberOfPeople}"/>
