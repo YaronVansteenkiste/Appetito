@@ -358,6 +358,7 @@ public class DishModifyController {
     @Transactional
     public String editIngredients(@PathVariable("id") Integer id,
                                   @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
+                                    @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
                                   Dish dish,
                                   Model model) {
         Optional<Dish> optionalDish = dishRepository.findById(id);
@@ -387,7 +388,7 @@ public class DishModifyController {
                     existingIngredient.setUnit(ingredientFromWrapper.getUnit());
 
 
-                    if (i < imageFiles.size()) {
+                    if (imageFiles != null && i < imageFiles.size()) {
                         MultipartFile imageFile = imageFiles.get(i);
                         if (imageFile != null && !imageFile.isEmpty()) {
                             try {
