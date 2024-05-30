@@ -1,10 +1,9 @@
 package be.thomasmore.appetito.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jdk.jfr.Enabled;
+
+import java.util.Collection;
 
 @Entity
 public class Basic {
@@ -18,6 +17,9 @@ public class Basic {
     private String description;
 
     private String image;
+
+    @OneToMany(mappedBy = "basic")
+    Collection<Technique> techniques;
 
     public Basic() {
     }
@@ -52,5 +54,14 @@ public class Basic {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+
+    public Collection<Technique> getTechniques() {
+        return techniques;
+    }
+
+    public void setTechniques(Collection<Technique> techniques) {
+        this.techniques = techniques;
     }
 }

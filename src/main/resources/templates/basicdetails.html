@@ -19,5 +19,32 @@
 
 <body>
 
+<h1 class="text-center mt-5" th:text="${basic.action}"></h1>
+
+<main class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="recipeImage">
+        <img th:src="@{${basic.image}}" th:alt="${basic.action}" style="max-width: 100%;">
+      </div>
+    </div>
+
+  </div>
+
+  <div th:if="${techniques != null}">
+    <h2>Techniques</h2>
+    <ul class="text-decoration-none">
+      <li th:each="technique : ${techniques}">
+        <h4 th:text="${technique.name}"></h4>
+        <p th:text="${technique.techniqueDescription}"></p>
+        <div>
+        <img th:src="@{${technique.image}}" th:alt="${technique.name}" style="max-width: 100%;">
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</main>
+
 </body>
 </html>
