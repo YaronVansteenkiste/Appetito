@@ -2,10 +2,8 @@ package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Dish;
 
-import be.thomasmore.appetito.model.Rating;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -27,9 +25,12 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     Optional<Dish> findFirstByIdLessThanAndActiveOrderByIdDesc(Integer id, Boolean active);
 
+    @Query("SELECT DISTINCT d.customDietPreferences FROM Dish d WHERE d.customDietPreferences IS NOT NULL")
+    List<String> findDistinctCustomDietPreferences();
 
     @Query("select d from Dish d left join d.nutritions n where " +
             "(coalesce(:dietPreferences, '') = '' or d.dietPreferences IN :dietPreferences) and " +
+            "(coalesce(:customDietPreferences, '') = '' or d.customDietPreferences IN :customDietPreferences) and " +
             "(coalesce(:minPreparationTime, '00:00:00') = '00:00:00' or d.preparationTime >= :minPreparationTime) and " +
             "(coalesce(:maxPreparationTime, '00:00:00') = '00:00:00' or d.preparationTime <= :maxPreparationTime) and " +
             "(coalesce(:occasion, '') = '' or d.occasion IN :occasion) and " +
@@ -47,9 +48,10 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
             "(coalesce(:maxFat, 0) = 0 or n.fat <= :maxFat) and " +
             "(coalesce(:minProteins, 0) = 0 or n.proteins >= :minProteins) and " +
             "(coalesce(:maxProteins, 0) = 0 or n.proteins <= :maxProteins) and " +
-            "(coalesce(:ratings,'') = '' or (select avg(r.rating) from Rating r where r.dish = d) IN (:ratings)) and " +
+            "(coalesce(:ratings, '') = '' or (select avg(r.rating) from Rating r where r.dish = d) in (:ratings)) and " +
             "d.active = true")
     Page<Dish> findFilteredDishes(@Param("dietPreferences") List<String> dietPreferences,
+                                  @Param("customDietPreferences") String customDietPreferences,
                                   @Param("minPreparationTime") Time minPreparationTime,
                                   @Param("maxPreparationTime") Time maxPreparationTime,
                                   @Param("occasion") List<String> occasion,
@@ -69,6 +71,7 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
                                   @Param("maxProteins") Integer maxProteins,
                                   @Param("ratings") List<Integer> ratings,
                                   Pageable pageable);
+
 
     @Query("SELECT d FROM Dish d LEFT JOIN d.ingredients i WHERE d.name LIKE %:keyword% OR i.name LIKE %:keyword%")
 Iterable<Dish> findByNameOrIngredients(@Param("keyword") String keyword);
@@ -112,4 +115,6 @@ Iterable<Dish> findByNameOrIngredients(@Param("keyword") String keyword);
     @Query("SELECT d FROM Dish d JOIN Rating r ON d.id = r.dish.id GROUP BY d.id ORDER BY AVG(r.rating) DESC limit 3")
     List<Dish> findTopDishes();
 
+
+    List<Dish> findByCustomDietPreferencesIsNotNull();
 }

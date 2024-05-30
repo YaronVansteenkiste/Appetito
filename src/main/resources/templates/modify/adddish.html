@@ -45,9 +45,8 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Categorie</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="categorySelect" th:field="${dishDto.dietPreferences}">
-
-                            <option value="" disabled>Select category</option>
+                        <select class="form-control" id="categorySelect" th:field="${dishDto.dietPreferences}" onchange="toggleCustomDietPreference()">
+                            <option value="" disabled>Selecteer Categorie</option>
                             <option value="paleo">Paleo</option>
                             <option value="vegetarisch">Vegetarisch</option>
                             <option value="vegan">Vegan</option>
@@ -58,11 +57,14 @@
                         <p th:if="${#fields.hasErrors('dietPreferences')}" th:errorclass="text-danger"
                            th:errors="${dishDto.dietPreferences}"></p>
                     </div>
-                    <label for="newCategoryInput">Nieuwe Categorie</label>
-                    <input type="text" id="newCategoryInput" style="display: none;">
-
                 </div>
 
+                <div class="row mb-3" id="customDietPreferenceRow" style="display: none;">
+                    <label for="customDietPreferenceInput" class="col-sm-4 col-form-label">Nieuwe Categorie</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="customDietPreferenceInput" th:field="${dishDto.customDietPreferences}" class="form-control">
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Bereidingstijd</label>
@@ -71,18 +73,15 @@
                     </div>
                 </div>
 
-
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Gelegenheid</label>
                     <div class="col-sm-8">
                         <select class="form-control" th:field="${dishDto.occasion}">
-
                             <option value="ontbijt">Ontbijt</option>
                             <option value="middagmaal">Middagmaal</option>
                             <option value="snacks">Snacks</option>
                             <option value="Avondmaal">Avondmaal</option>
                             <option value="Dessert">Dessert</option>
-
                         </select>
                         <p th:if="${#fields.hasErrors('occasion')}" th:errorclass="text-danger"
                            th:errors="${dishDto.occasion}"></p>

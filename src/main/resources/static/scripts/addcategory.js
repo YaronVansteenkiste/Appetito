@@ -1,7 +1,30 @@
 document.getElementById('categorySelect').addEventListener('change', function() {
+    let newCategoryInput = document.getElementById('newCategoryInput');
+    let newCategoryLabel = document.querySelector('label[for="newCategoryInput"]');
+
     if (this.value === 'Andere') {
-        document.getElementById('newCategoryInput').style.display = 'block';
+        newCategoryInput.style.display = 'block';
+        newCategoryLabel.style.display = 'block';
+        newCategoryInput.required = true;
     } else {
-        document.getElementById('newCategoryInput').style.display = 'none';
+        newCategoryInput.style.display = 'none';
+        newCategoryLabel.style.display = 'none';
+        newCategoryInput.required = false;
     }
+
 });
+function toggleCustomDietPreference() {
+    var categorySelect = document.getElementById("categorySelect");
+    var customDietPreferenceRow = document.getElementById("customDietPreferenceRow");
+    if (categorySelect.value === "Andere") {
+        customDietPreferenceRow.style.display = "";
+    } else {
+        customDietPreferenceRow.style.display = "none";
+    }
+}
+
+
+
+
+
+
