@@ -11,6 +11,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{|/css/bootstrap.min.css|}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <meta charset="UTF-8">
     <title>Menu Build</title>
@@ -35,23 +36,27 @@
                     <div class="card-header">
                         <h5 class="card-title d-inline-block" th:text="|Dag ${menuDay.getDayNumber()}|"></h5>
                         <form th:action="@{|/menu/${menu.getId()}/removeDay/${menuDay.getId()}|}" method="post">
-                            <button type="submit" class="btn btn-danger">Remove Day</button>
+                            <button sec:authorize="hasAuthority('ADMIN')" type="submit" class="bi bi-trash3-fill btn btn-danger"> Dag Verwijderen</button>
                         </form>
                     </div>
-                    <div class="card-body">
-                        <div class="row" th:each="dish : ${menuDay.getDishes()}">
-                            <div class="col-4">
-                                <div class="card">
-                                    <img class="card-img-top img-fluid object-fit-cover"
-                                         th:src="${dish.getImgFileName()}"
-                                         alt="dish image">
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center"
-                                            th:text="${dish.getName()}"></h5>
-                                        <form th:action="@{|/menu/${menu.getId()}/selectDay/${menuDay.getId()}/removeDish/${dish.getId()}|}" method="post">
-                                            <button type="submit" class="btn btn-danger">Remove Dish</button>
-                                        </form>
-                                    </div>
+                    <div class="card-body row g-3">
+                        <div class="col-sm-4" th:each="dish, stat : ${menuDay.getDishes()}">
+                            <div class="card">
+                                <img class="card-img-top img-fluid object-fit-cover"
+                                     th:src="${dish.getImgFileName()}"
+                                     alt="dish image">
+                                <div class="card-body">
+                                    <h3 class="card-title text-center"
+                                        th:text="|Maaltijd ${stat.index+1}|"></h3>
+                                    <h5 class="card-title text-center"
+                                        th:text="${dish.getName()}"></h5>
+                                    <form th:action="@{|/menu/${menu.getId()}/selectDay/${menuDay.getId()}/removeDish/${dish.getId()}|}"
+                                          method="post">
+                                        <button sec:authorize="hasAuthority('ADMIN')" type="submit" class="bi bi-trash3-fill btn btn-danger"> Maaltijd Verwijderen</button>
+                                    </form>
+                                </div>
+                                <div class="card-footer">
+                                    <a th:href="@{|/dishdetails/${dish.getId()}|}" class="btn btn-primary">Bekijk</a>
                                 </div>
                             </div>
                         </div>
@@ -60,12 +65,12 @@
             </div>
         </div>
 
-        <div class="card">
+        <div sec:authorize="hasAuthority('ADMIN')" class="card">
             <div class="card-header">
                 <h5 class="card-title">Voeg een dag toe</h5>
             </div>
-            <div class="card-body">
-                <form th:action="@{|/menu/${menu.getId()}/addDay|}" method="post">
+            <div  class="card-body">
+                <form  th:action="@{|/menu/${menu.getId()}/addDay|}" method="post">
                     <button type="submit" class="btn btn-primary">Voeg dag toe</button>
                 </form>
             </div>
