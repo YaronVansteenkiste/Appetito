@@ -895,25 +895,25 @@ INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
 VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel in een voorverwarmde oven ' ||
 'geplaatst, vaak op een rooster boven een bakplaat om luchtstroom rondom het voedsel ' ||
 'mogelijk te maken. Dit is ideaal voor het gelijkmatig garen van grote stukken vlees, ' ||
-'hele kippen, of grote groenten zoals pompoenen.',null,7),
+'hele kippen, of grote groenten zoals pompoenen.','/img/roosteren2.jpg',7),
 
     ('High heat roasting (Roosteren op hoge temperatuur','Deze methode gebruikt een hoge oventemperatuur (220°C of hoger) ' ||
 'om het voedsel snel een knapperige korst te geven terwijl de binnenkant ' ||
 'sappig blijft. Het is uitstekend geschikt voor groenten en dunner vlees ' ||
-'dat baat heeft bij een kortere kooktijd.',null,7),
+'dat baat heeft bij een kortere kooktijd.','/img/highheatroasting.jpg',7),
 
     ('Low and slow roasting','Dit houdt in dat voedsel op een lagere temperatuur voor een langere periode wordt geroosterd, ' ||
 'wat ideaal is voor zeer grote of taaie stukken vlees die tijd nodig hebben' ||
 ' om mals te worden. Deze methode zorgt voor een zeer gelijkmatige ' ||
-'garing en is perfect voor brisket of varkensschouder.',null,7),
+'garing en is perfect voor brisket of varkensschouder.','/img/lowandslowroasting.jpg',7),
 
 ('Conventioneel roosteren','Soms begin je met het voedsel op een hogere temperatuur om een mooie korst ' ||
 'te krijgen en verlaag je dan de temperatuur om het garen te voltooien. ' ||
-'Deze techniek is geweldig voor vlees zoals rosbief of een hele kalkoen.',null,7),
+'Deze techniek is geweldig voor vlees zoals rosbief of een hele kalkoen.','/img/conventioneelroosten.jpg',7),
 
 ('Roosteren met bedruipen','Bij deze techniek bedruip je het roosterende voedsel regelmatig met zijn eigen sappen of met een marinade. ' ||
 'Dit helpt om het voedsel vochtig te houden en voegt extra smaak toe ' ||
-'tijdens het kookproces. Het is vooral nuttig voor droger vlees zoals kalkoen.',null,7);
+'tijdens het kookproces. Het is vooral nuttig voor droger vlees zoals kalkoen.','/img/bedruipen.jpg',7);
 
 
 
@@ -925,24 +925,24 @@ VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals a
           'of wijn die helpen om de eiwitten in het voedsel af te breken, ' ||
           'wat resulteert in malser vlees. Het is belangrijk niet te lang te marineren, ' ||
           'vooral bij zachter vlees of vis, omdat het zuur het voedsel kan "koken" ' ||
-          'of te papperig kan maken.',null,8),
+          'of te papperig kan maken.','/img/zuurmarineren',8),
 
 
 ('Yoghurt of zuivelgebaseerd marineren','Deze marinades gebruiken de milde zuren in yoghurt of andere zuivelproducten' ||
  ' om het vlees zacht te maken zonder de structuur te beschadigen. ' ||
-'Zuivel werkt ook als een geweldige drager voor smaakstoffen en helpt bij het bruinen van het voedsel tijdens het koken.',null,8),
+'Zuivel werkt ook als een geweldige drager voor smaakstoffen en helpt bij het bruinen van het voedsel tijdens het koken.','/img/zuivel.jpg',8),
 
 ('Droog marineren','Droge marinades, ook bekend als rubs, ' ||
 'bestaan uit droge kruiden en specerijen die rechtstreeks op het ' ||
 'voedsel worden gewreven. Dit helpt om een rijke korst te vormen ' ||
-'tijdens het koken, vooral bij grillen of roosteren.',null,8),
+'tijdens het koken, vooral bij grillen of roosteren.','/img/droog.jpg',8),
 
 ('Emzyn gebaseerd marineren','Sommige marinades bevatten enzymen die natuurlijk voorkomen in ' ||
 'bepaalde vruchten zoals ananas, kiwi en papaja. Deze enzymen helpen de eiwitstructuren in het vlees af te breken, ' ||
 'waardoor het malser wordt. Net als bij zuur-gebaseerde marinades is het belangrijk om voorzichtig te zijn met de ' ||
-'markeertijd om te voorkomen dat het voedsel te zacht wordt.',null,8),
+'markeertijd om te voorkomen dat het voedsel te zacht wordt.','/img/emzyn.jpg',8),
 
 ('Zoete Marinades','Marinades die ingrediënten met suiker bevatten, zoals honing, ahornsiroop, of melasse, ' ||
 'kunnen helpen om een gecarameliseerde glazuur te vormen op het oppervlak van het voedsel wanneer het wordt gekookt. ' ||
-'Deze zijn uitstekend voor het grillen, omdat de suiker helpt om mooie grillmarkeringen en een diepe, rijke smaak te ontwikkelen.',null,8);
+'Deze zijn uitstekend voor het grillen, omdat de suiker helpt om mooie grillmarkeringen en een diepe, rijke smaak te ontwikkelen.','/img/zoet.jpg',8);
 
