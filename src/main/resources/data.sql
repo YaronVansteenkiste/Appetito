@@ -763,17 +763,88 @@ VALUES (5, 3),
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?');
 
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.',null,1),
+    ('Brunoise (Blokvormig)','Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.',null,1),
+    ('Chiffonade (Fijne reepjes)','Deze snijtechniek is ideaal voor bladgroenten en kruiden. ' ||
+    'De bladeren worden opgestapeld, opgerold en dan in zeer dunne reepjes gesneden. ' ||
+    'Dit wordt vaak gebruikt om soepen, salades en andere gerechten te garneren.',null,1),
+    ('Diceren (in blokjes snijden','Groter dan brunoise, meestal 1 cm x 1 cm, deze snede is goed voor stoofschotels, salades, en wanneer grotere stukjes gewenst zijn.',null,1),
+    ('Mincen (fijnhakken','Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.',null,1);
+
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/bakken.jpg','Bakken','hoe moet je bakken?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief ' ||
+                   'hoge temperatuur met een kleine hoeveelheid vet (olie of boter).' ||
+                   ' Het doel is om de ingrediënten bruin en knapperig te krijgen aan de ' ||
+                   'buitenkant terwijl ze binnenin sappig blijven. Groenten blijven helder en' ||
+                   ' enigszins knapperig, en vlees wordt mooi bruin en sappig.',null,2),
+    ('Pan-frying (panbakken)','Deze techniek is vergelijkbaar met sauteren, maar gebruikt meer vet en een iets lagere temperatuur, ' ||
+                              'waardoor de ingrediënten meer tijd hebben om te garen. ' ||
+                              'Het is ideaal voor iets dikkere stukken vlees of groenten.',null,2),
+    ('Roerbakken','Roerbakken is een techniek die snel koken op hoge temperatuur combineert, ' ||
+                  'meestal in een wok, waarbij de ingrediënten constant worden bewogen. ' ||
+                  'Dit zorgt ervoor dat alles gelijkmatig kookt en hun crunch behoudt.',null,2),
+    ('Deep-frying (frituren)','Bij diep frituren worden de ingrediënten volledig ondergedompeld in hete olie. ' ||
+                              'Dit zorgt voor een snel en gelijkmatig gaar proces, wat resulteert ' ||
+                              'in een krokant buitenlaagje terwijl de binnenkant zacht en sappig blijft.',null,2),
+    ('Stir-frying','Dit is een snelle kookmethode waarbij ingrediënten in een zeer hete pan worden gebakken met een klein beetje olie. ' ||
+                   'Ingrediënten worden snel en continu bewogen, vergelijkbaar met roerbakken ' ||
+                   'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.',null,2);
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/koken.jpg','Koken','hoe moet je koken?');
 
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
+                  'Je brengt een pot met water (of een andere vloeistof) ' ||
+                  'aan de kook en voegt voedsel toe, zoals pasta, granen, of groenten. ' ||
+                  'Het koken is effectief voor het gaar maken van voedsel door het te onderdompelen ' ||
+                  'in kokend water.',null,3),
+    ('Simmering','Stoven is vergelijkbaar met koken, maar gebeurt op een veel lagere temperatuur, ' ||
+                 'net onder het kookpunt. Deze methode is ideaal voor het langzaam garen van voedsel,' ||
+                 ' wat helpt om de smaken te ontwikkelen zonder het voedsel te overgaren. ',null,3),
+    ('Poaching','Bij pocheren worden ingrediënten gegaard in een zacht kokende vloeistof die net niet het kookpunt bereikt. ' ||
+                'Deze methode is bijzonder goed voor delicate voedingsmiddelen zoals eieren, ' ||
+                'vis, of fruit, omdat het zachtjes gaart zonder de structuur te beschadigen.' ||,null,3),
+    ('Blanching','Blancheren is een kooktechniek waarbij voedsel kort wordt gekookt in kokend water en vervolgens ' ||
+                 'onmiddellijk wordt afgekoeld in ijswater. Het wordt vaak gebruikt om groenten te koken ' ||
+                 'voordat ze worden ingevroren of om de huid van fruit te verwijderen.',null,3),
+    ('Steaming','Stomen gebruikt de stoom van kokend water om voedsel te garen. Dit is een zeer gezonde kookmethode omdat er geen vet nodig is ' ||
+                'en de meeste voedingsstoffen in het voedsel behouden blijven. ' ||
+                'Het is ideaal voor groenten, vis en zelfs sommige desserts.',null,3);
+
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/stomen.jpg','Stomen','hoe moet je stomen?');
 
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voedsel in een stoommandje ' ||
+                              'boven kokend water in een pot of wok. De deksel wordt op de pot ' ||
+                              'geplaatst om de stoom binnen te houden. Dit is ideaal voor groenten, ' ||
+                              'vis, en zelfs voor het koken van rijst.',null,4),
+    ('Stomen met aromas','Deze techniek voegt extra smaak toe aan het voedsel door kruiden, specerijen, ' ||
+                         'of aromatische vloeistoffen zoals wijn of kokosmelk aan ' ||
+                         'het kookwater toe te voegen. De stoom draagt de aroma''s ' ||
+                         'naar het voedsel terwijl het gaart.',null,4),
+    ('Stomen in bananenblad','Deze traditionele methode wordt vaak gebruikt in de Aziatische keuken. ' ||
+                              'Voedsel wordt gewikkeld in bananenbladeren en gestoomd, wat een ' ||
+                              'unieke smaak en textuur aan het gerecht geeft.',null,4),
+    ('Stomen in papillot','Bij deze methode wordt het voedsel samen met smaakmakers zoals kruiden, boter, en specerijen in bakpapier of aluminiumfolie verpakt. ' ||
+                          'Het pakketje wordt dan in de oven geplaatst, waar de inhoud ' ||
+                          'door de eigen sappen en de toegevoegde vloeistoffen gaart.',null,4),
+    ('Stomen in een stoomoven','Stoomovens zijn speciale apparaten die voedsel garen met behulp van stoom. ' ||
+                               'Deze ovens zijn ideaal voor het behouden van voedingsstoffen en smaak in het voedsel, ' ||
+                               'en zijn vaak uitgerust met verschillende stoomniveaus voor verschillende soorten voedsel.',null,4);
+
+
+
+
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/blancheren.jpg','Blancheren','hoe moet je blancheren?');
+
+
 
 INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
 VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');

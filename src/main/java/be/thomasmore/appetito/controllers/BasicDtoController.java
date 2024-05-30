@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Optional;
+
 @Controller
 public class BasicDtoController {
 
@@ -18,6 +20,13 @@ public class BasicDtoController {
     @GetMapping({"/basicdetails/{id}", "/basicdetails"})
     private String basicDetails(Model model, @PathVariable(required = false) Integer id) {
         final Iterable<Basic> allBasics = basicRepository.findAll();
+        Optional<Basic> optionalBasic = basicRepository.findById(id);
+        if (optionalBasic.isPresent()) {
+            Basic basic = optionalBasic.get();
+            model.addAttribute("basic", basic);
+        } else {
+            return "error";
+        }
         model.addAttribute("basics", allBasics);
         return "basicdetails";
     }
