@@ -35,14 +35,12 @@ import java.util.Optional;
             if (optionalBasic.isPresent()) {
                 Basic basic = optionalBasic.get();
                 model.addAttribute("basic", basic);
-
                 Collection<Technique> techniques = basic.getTechniques();
                 model.addAttribute("techniques", techniques);
+                return "basicdetails";
             } else {
                 return "error";
             }
-
-            return "basicdetails";
         }
     }
 
