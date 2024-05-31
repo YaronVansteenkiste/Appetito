@@ -109,7 +109,9 @@ public class DishModifyController {
             dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
 
             List<String> customDietPreferences = dishRepository.findDistinctCustomDietPreferences();
+            dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
 
+            System.out.println("custom diet preferences: " + dish.getCustomDietPreferences());
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("dish", dish);
             model.addAttribute("customDietPreferences", customDietPreferences);

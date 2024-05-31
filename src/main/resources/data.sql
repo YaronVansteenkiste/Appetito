@@ -760,3 +760,189 @@ VALUES (5, 3),
        (1, 19),
        (3, 20);
 
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','/img/julienne.jpg',1),
+    ('Brunoise (Blokvormig)','Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.','/img/brunoise.jpg',1),
+    ('Chiffonade (Fijne reepjes)','Deze snijtechniek is ideaal voor bladgroenten en kruiden. ' ||
+    'De bladeren worden opgestapeld, opgerold en dan in zeer dunne reepjes gesneden. ' ||
+    'Dit wordt vaak gebruikt om soepen, salades en andere gerechten te garneren.','/img/chiffonade.jpg',1),
+    ('Diceren (in blokjes snijden','Groter dan brunoise, meestal 1 cm x 1 cm, deze snede is goed voor stoofschotels, salades, en wanneer grotere stukjes gewenst zijn.','/img/diceren.jpg',1),
+    ('Mincen (fijnhakken','Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.','/img/mincen.jpg',1);
+
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/bakken.jpg','Bakken','hoe moet je bakken?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief ' ||
+                   'hoge temperatuur met een kleine hoeveelheid vet (olie of boter).' ||
+                   ' Het doel is om de ingrediënten bruin en knapperig te krijgen aan de ' ||
+                   'buitenkant terwijl ze binnenin sappig blijven. Groenten blijven helder en' ||
+                   ' enigszins knapperig, en vlees wordt mooi bruin en sappig.','/img/sauteren.jpg',2),
+    ('Pan-frying (panbakken)','Deze techniek is vergelijkbaar met sauteren, maar gebruikt meer vet en een iets lagere temperatuur, ' ||
+                              'waardoor de ingrediënten meer tijd hebben om te garen. ' ||
+                              'Het is ideaal voor iets dikkere stukken vlees of groenten.','/img/panfrying.jpg',2),
+    ('Roerbakken','Roerbakken is een techniek die snel koken op hoge temperatuur combineert, ' ||
+                  'meestal in een wok, waarbij de ingrediënten constant worden bewogen. ' ||
+                  'Dit zorgt ervoor dat alles gelijkmatig kookt en hun crunch behoudt.','/img/roerbakken.jpg',2),
+    ('Deep-frying (frituren)','Bij diep frituren worden de ingrediënten volledig ondergedompeld in hete olie. ' ||
+                              'Dit zorgt voor een snel en gelijkmatig gaar proces, wat resulteert ' ||
+                              'in een krokant buitenlaagje terwijl de binnenkant zacht en sappig blijft.','/img/deepfrying.jpg',2),
+    ('Stir-frying','Dit is een snelle kookmethode waarbij ingrediënten in een zeer hete pan worden gebakken met een klein beetje olie. ' ||
+                   'Ingrediënten worden snel en continu bewogen, vergelijkbaar met roerbakken ' ||
+                   'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.','/img/stirfrying.jpg',2);
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/koken.jpg','Koken','hoe moet je koken?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
+                  'Je brengt een pot met water (of een andere vloeistof) ' ||
+                  'aan de kook en voegt voedsel toe, zoals pasta, granen, of groenten. ' ||
+                  'Het koken is effectief voor het gaar maken van voedsel door het te onderdompelen ' ||
+                  'in kokend water.','/img/boiling.jpg',3),
+    ('Simmering','Stoven is vergelijkbaar met koken, maar gebeurt op een veel lagere temperatuur, ' ||
+                 'net onder het kookpunt. Deze methode is ideaal voor het langzaam garen van voedsel,' ||
+                 ' wat helpt om de smaken te ontwikkelen zonder het voedsel te overgaren. ','/img/simmering.jpg',3),
+    ('Poaching','Bij pocheren worden ingrediënten gegaard in een zacht kokende vloeistof die net niet het kookpunt bereikt. ' ||
+                'Deze methode is bijzonder goed voor delicate voedingsmiddelen zoals eieren, ' ||
+                'vis, of fruit, omdat het zachtjes gaart zonder de structuur te beschadigen.','/img/poaching.jpg',3),
+    ('Blanching','Blancheren is een kooktechniek waarbij voedsel kort wordt gekookt in kokend water en vervolgens ' ||
+                 'onmiddellijk wordt afgekoeld in ijswater. Het wordt vaak gebruikt om groenten te koken ' ||
+                 'voordat ze worden ingevroren of om de huid van fruit te verwijderen.','/img/blanching.jpg',3),
+    ('Steaming','Stomen gebruikt de stoom van kokend water om voedsel te garen. Dit is een zeer gezonde kookmethode omdat er geen vet nodig is ' ||
+                'en de meeste voedingsstoffen in het voedsel behouden blijven. ' ||
+                'Het is ideaal voor groenten, vis en zelfs sommige desserts.','/img/steaming.jpg',3);
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/stomen.jpg','Stomen','hoe moet je stomen?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voedsel in een stoommandje ' ||
+                              'boven kokend water in een pot of wok. De deksel wordt op de pot ' ||
+                              'geplaatst om de stoom binnen te houden. Dit is ideaal voor groenten, ' ||
+                              'vis, en zelfs voor het koken van rijst.','/img/stomentraditioneel.jpg',4),
+    ('Stomen met aromas','Deze techniek voegt extra smaak toe aan het voedsel door kruiden, specerijen, ' ||
+                         'of aromatische vloeistoffen zoals wijn of kokosmelk aan ' ||
+                         'het kookwater toe te voegen. De stoom draagt de aroma''s ' ||
+                         'naar het voedsel terwijl het gaart.','/img/aroma.jpg',4),
+    ('Stomen in bananenblad','Deze traditionele methode wordt vaak gebruikt in de Aziatische keuken. ' ||
+                              'Voedsel wordt gewikkeld in bananenbladeren en gestoomd, wat een ' ||
+                              'unieke smaak en textuur aan het gerecht geeft.','/img/bananenblad.jpg',4),
+    ('Stomen in papillot','Bij deze methode wordt het voedsel samen met smaakmakers zoals kruiden, boter, en specerijen in bakpapier of aluminiumfolie verpakt. ' ||
+                          'Het pakketje wordt dan in de oven geplaatst, waar de inhoud ' ||
+                          'door de eigen sappen en de toegevoegde vloeistoffen gaart.','/img/papillot.jpg',4),
+    ('Stomen in een stoomoven','Stoomovens zijn speciale apparaten die voedsel garen met behulp van stoom. ' ||
+                               'Deze ovens zijn ideaal voor het behouden van voedingsstoffen en smaak in het voedsel, ' ||
+                               'en zijn vaak uitgerust met verschillende stoomniveaus voor verschillende soorten voedsel.','/img/stoomoven.jpg',4);
+
+
+
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/blancheren.jpg','Blancheren','hoe moet je blancheren?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water snel aan de kook, ' ||
+                    'voegt zout toe en dompelt dan de voedselitems kort onder in het ' ||
+                    'kokende water. De tijd varieert afhankelijk van het soort voedsel, ' ||
+                    'maar meestal gaat het om enkele minuten voor groenten. ' ||
+                    'Daarna haal je het voedsel snel uit het kokende water en ' ||
+                    'dompel je het onder in ijswater om het kookproces te stoppen.','/img/blancheren2.jpg',5),
+    ('Blancheren met soda','Een snufje bakingsoda toevoegen aan het kokende water kan helpen ' ||
+                           'de heldere kleur van sommige groenten, zoals groene bonen en erwten, ' ||
+                           'te behouden. Wees echter voorzichtig met deze methode, want te veel ' ||
+                           'soda kan de structuur van de groente verzachten en de smaak beïnvloeden.','/img/soda.jpg',5),
+    ('Blancheren voor invriezen','Blancheren is een belangrijke stap bij het invriezen van groenten. ' ||
+                                  'Door groenten kort te blancheren voordat je ze invriest, ' ||
+                                  'blijven ze langer vers en behouden ze hun smaak en voedingsstoffen. ' ||
+                                  'Na het blancheren, laat je de groenten uitlekken en drogen voordat je ze invriest.','/img/invriezen.jpg',5),
+    ('Blancheren voor het koken','Sommige recepten vereisen dat je groenten eerst blancheert voordat je ze ' ||
+                                  'verder kookt. Dit helpt om de groenten voor te bereiden en ' ||
+                                  'hun kleur en textuur te behouden tijdens het koken.','/img/blancherenvoorkoken.jpg',5),
+    ('Blancheren voor het schillen','Blancheren is een handige techniek om de schil van sommige groenten ' ||
+                                    'zoals tomaten, paprika''s, of amandelen gemakkelijker te verwijderen. ' ||
+                                    'Door de groenten kort te blancheren, wordt de schil losser en ' ||
+                                    'kun je deze gemakkelijk verwijderen.','/img/schillen.jpg',5);
+
+
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.','/img/grillen2.jpg',6),
+    ('Indirect grillen','Bij indirect grillen wordt het voedsel niet direct boven de warmtebron geplaatst, maar aan de zijkant van de grill. Dit is ideaal voor het langzaam garen van grotere stukken vlees, gevogelte, of vis, waarbij de warmte gelijkmatig wordt verdeeld en het voedsel langzaam gaart zonder te verbranden.','/img/indirectgrillen.jpg',6),
+    ('Grillen met rook','Grillen met rook voegt een extra smaakdimensie toe aan het voedsel door het te roken met houtsnippers of houtskool. Dit is ideaal voor het geven van een rokerige smaak aan vlees, vis, of groenten. Het voedsel wordt langzaam gegaard en krijgt een heerlijke rokerige smaak.','/img/rook.jpg',6),
+    ('Sear-grilling','Deze methode combineert hoge directe hitte aanvankelijk om het voedsel snel dicht ' ||
+                 'te schroeien en vervolgens een lagere, indirecte hitte om' ||
+                 ' het gaarproces te voltooien. Dit is geweldig voor dikke steaks of' ||
+                 ' grotere stukken vlees waarbij je een knapperige buitenkant en een' ||
+                 ' sappige, gelijkmatig gegaarde binnenkant wilt.','/img/seargrilling.jpg',6),
+    ('Plankgrillen','Bij plankgrillen wordt het voedsel op een houten plank geplaatst en boven de warmtebron gegrild. ' ||
+                  'Dit is ideaal voor het grillen van vis, gevogelte, of groenten, waarbij de plank ' ||
+                  'een extra smaakdimensie toevoegt aan het voedsel en voorkomt dat het aanbrandt.','/img/grilmetplank.jpg',6);
+
+
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/roosteren.jpg','Roosteren','hoe moet je roosteren?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel in een voorverwarmde oven ' ||
+'geplaatst, vaak op een rooster boven een bakplaat om luchtstroom rondom het voedsel ' ||
+'mogelijk te maken. Dit is ideaal voor het gelijkmatig garen van grote stukken vlees, ' ||
+'hele kippen, of grote groenten zoals pompoenen.','/img/roosteren2.jpg',7),
+
+    ('High heat roasting (Roosteren op hoge temperatuur','Deze methode gebruikt een hoge oventemperatuur (220°C of hoger) ' ||
+'om het voedsel snel een knapperige korst te geven terwijl de binnenkant ' ||
+'sappig blijft. Het is uitstekend geschikt voor groenten en dunner vlees ' ||
+'dat baat heeft bij een kortere kooktijd.','/img/highheatroasting.jpg',7),
+
+    ('Low and slow roasting','Dit houdt in dat voedsel op een lagere temperatuur voor een langere periode wordt geroosterd, ' ||
+'wat ideaal is voor zeer grote of taaie stukken vlees die tijd nodig hebben' ||
+' om mals te worden. Deze methode zorgt voor een zeer gelijkmatige ' ||
+'garing en is perfect voor brisket of varkensschouder.','/img/lowandslowroasting.jpg',7),
+
+('Conventioneel roosteren','Soms begin je met het voedsel op een hogere temperatuur om een mooie korst ' ||
+'te krijgen en verlaag je dan de temperatuur om het garen te voltooien. ' ||
+'Deze techniek is geweldig voor vlees zoals rosbief of een hele kalkoen.','/img/conventioneelroosten.jpg',7),
+
+('Roosteren met bedruipen','Bij deze techniek bedruip je het roosterende voedsel regelmatig met zijn eigen sappen of met een marinade. ' ||
+'Dit helpt om het voedsel vochtig te houden en voegt extra smaak toe ' ||
+'tijdens het kookproces. Het is vooral nuttig voor droger vlees zoals kalkoen.','/img/bedruipen.jpg',7);
+
+
+
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+VALUES ('/img/marineren.jpg','Marineren','hoe moet je marineren?');
+
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals azijn, citroensap, ' ||
+          'of wijn die helpen om de eiwitten in het voedsel af te breken, ' ||
+          'wat resulteert in malser vlees. Het is belangrijk niet te lang te marineren, ' ||
+          'vooral bij zachter vlees of vis, omdat het zuur het voedsel kan "koken" ' ||
+          'of te papperig kan maken.','/img/zuurmarineren.jpg',8),
+
+
+('Yoghurt of zuivelgebaseerd marineren','Deze marinades gebruiken de milde zuren in yoghurt of andere zuivelproducten' ||
+ ' om het vlees zacht te maken zonder de structuur te beschadigen. ' ||
+'Zuivel werkt ook als een geweldige drager voor smaakstoffen en helpt bij het bruinen van het voedsel tijdens het koken.','/img/zuivel.jpg',8),
+
+('Droog marineren','Droge marinades, ook bekend als rubs, ' ||
+'bestaan uit droge kruiden en specerijen die rechtstreeks op het ' ||
+'voedsel worden gewreven. Dit helpt om een rijke korst te vormen ' ||
+'tijdens het koken, vooral bij grillen of roosteren.','/img/droog.jpg',8),
+
+('Emzyn gebaseerd marineren','Sommige marinades bevatten enzymen die natuurlijk voorkomen in ' ||
+'bepaalde vruchten zoals ananas, kiwi en papaja. Deze enzymen helpen de eiwitstructuren in het vlees af te breken, ' ||
+'waardoor het malser wordt. Net als bij zuur-gebaseerde marinades is het belangrijk om voorzichtig te zijn met de ' ||
+'markeertijd om te voorkomen dat het voedsel te zacht wordt.','/img/emzyn.jpg',8),
+
+('Zoete Marinades','Marinades die ingrediënten met suiker bevatten, zoals honing, ahornsiroop, of melasse, ' ||
+'kunnen helpen om een gecarameliseerde glazuur te vormen op het oppervlak van het voedsel wanneer het wordt gekookt. ' ||
+'Deze zijn uitstekend voor het grillen, omdat de suiker helpt om mooie grillmarkeringen en een diepe, rijke smaak te ontwikkelen.','/img/zoet.jpg',8);
+
