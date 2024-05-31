@@ -18,7 +18,7 @@
     <a th:text="${dish.name}"></a>
 </h6>
 <div class="container">
-    <div class="col-md-10 mx-auto rounded border p-4 m-4">
+    <div class="col-md-12 mx-auto rounded border p-4 m-4">
         <h2 class="text-center mb-5">Toevoegen Ingrediënten</h2>
         <div th:if="${error}" class="alert alert-danger" role="alert">
             <p th:text="${error}"></p>
@@ -68,15 +68,15 @@
                         <div class="row mb-3">
                             <div class="col-sm-3">
                                 <label class="col-form-label">Naam</label>
-                                <input class="form-control" type="text" name="ingredients[0].name"/>
+                                <input class="form-control" type="text" name="ingredients[0].name" value=" "/>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-form-label">Hoeveelheid</label>
-                                <input class="form-control" type="number" name="ingredients[0].quantity"/>
+                                <input class="form-control" type="number" name="ingredients[0].quantity" value="0.0"/>
                             </div>
                             <div class="col-sm-2">
                                 <label class="col-form-label">Eenheid (gr, ml,...)</label>
-                                <input class="form-control" type="text" name="ingredients[0].unit"/>
+                                <input class="form-control" type="text" name="ingredients[0].unit" />
                             </div>
                             <div class="col-sm-4">
                                 <label for="ingredientImage" class="form-label">Foto</label>

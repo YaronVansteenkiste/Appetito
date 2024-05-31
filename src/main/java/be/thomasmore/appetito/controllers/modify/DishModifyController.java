@@ -194,14 +194,14 @@ public class DishModifyController {
     @PostMapping("/addingredients/{dishId}")
     @Transactional
     public String addIngredients(@PathVariable("dishId") Integer dishId,
-                                 @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper ,
+                                 @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
                                  @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
                                  Model model) {
-        if(wrapper.getIngredients().isEmpty()){
-
+        if (wrapper.getIngredients().isEmpty()) {
             model.addAttribute("error", "Er moeten minimaal 1 ingredient worden toegevoegd.");
             return "modify/addingredients";
         }
+
         Optional<Dish> optionalDish = dishRepository.findById(dishId);
         if (!optionalDish.isPresent()) {
             model.addAttribute("error", "Maaltijd niet gevonden: " + dishId);
@@ -212,24 +212,26 @@ public class DishModifyController {
         List<Ingredient> ingredientsFromWrapper = wrapper.getIngredients();
 
         for (int i = 0; i < ingredientsFromWrapper.size(); i++) {
-            Ingredient ingredientFromWrapper = ingredientsFromWrapper.get(i);
-            ingredientFromWrapper.setDish(currentDish);
+            Ingredient ingredient = ingredientsFromWrapper.get(i);
+            
+
+            ingredient.setDish(currentDish);
 
             if (i < imageFiles.size()) {
                 MultipartFile imageFile = imageFiles.get(i);
                 if (imageFile != null && !imageFile.isEmpty()) {
                     try {
                         String fileName = uploadImage(imageFile);
-                        ingredientFromWrapper.setImgFileName(fileName);
+                        ingredient.setImgFileName(fileName);
                     } catch (IOException e) {
                         e.printStackTrace();
-                        model.addAttribute("error", "Fout bij laden van foto: " + ingredientFromWrapper.getName());
+                        model.addAttribute("error", "Fout bij laden van foto: " + ingredient.getName());
                     }
                 }
             }
 
-            currentDish.getIngredients().add(ingredientFromWrapper);
-            ingredientRepository.save(ingredientFromWrapper);
+            currentDish.getIngredients().add(ingredient);
+            ingredientRepository.save(ingredient);
         }
 
         dishRepository.save(currentDish);

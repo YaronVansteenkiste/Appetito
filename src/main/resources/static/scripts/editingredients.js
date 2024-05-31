@@ -14,11 +14,11 @@ function addIngredient() {
         </div>
         <div class="col-sm-2">
             <label class="col-form-label">Hoeveelheid</label>
-            <input class="form-control" type="number" name="ingredients[${index}].quantity"/>
+            <input class="form-control" type="number" name="ingredients[${index}].quantity" value="0.0"/>
         </div>
         <div class="col-sm-2">
             <label class="col-form-label">Eenheid (gr, ml,...)</label>
-            <input class="form-control" type="text" name="ingredients[${index}].unit"/>
+            <input class="form-control" type="text" name="ingredients[${index}].unit" />
         </div>
         <div class="col-sm-4">
             <label class="form-label">Foto</label>

@@ -16,8 +16,6 @@ public class Ingredient {
     private Integer id;
 
 
-    @NotNull(message = "Naam mag niet leeg zijn")
-    @Size(min = 1, message = "Naam mag niet leeg zijn")
     private String name;
 
     private Double quantity;
