@@ -15,32 +15,46 @@ import java.util.Collection;
 import java.util.Optional;
 
 
+@Controller
+public class BasicDtoController {
 
-    @Controller
-    public class BasicDtoController {
+    @Autowired
+    BasicRepository basicRepository;
 
-        @Autowired
-        BasicRepository basicRepository;
+    @Autowired
+    TechniqueRepository techniqueRepository;
 
-        @Autowired
-        TechniqueRepository techniqueRepository;
+    @GetMapping({"/basicdetails/{id}", "/basicdetails"})
+    public String basicDetails(Model model, @PathVariable(required = false) Integer id) {
+        if (id == null) {
+            return "error";
+        }
 
-        @GetMapping({"/basicdetails/{id}", "/basicdetails"})
-        public String basicDetails(Model model, @PathVariable(required = false) Integer id) {
-            if (id == null) {
-                return "error";
-            }
+        Optional<Basic> optionalBasic = basicRepository.findById(id);
+        if (optionalBasic.isPresent()) {
+            Basic basic = optionalBasic.get();
+            model.addAttribute("basic", basic);
+            Collection<Technique> techniques = basic.getTechniques();
+            model.addAttribute("techniques", techniques);
 
-            Optional<Basic> optionalBasic = basicRepository.findById(id);
-            if (optionalBasic.isPresent()) {
-                Basic basic = optionalBasic.get();
-                model.addAttribute("basic", basic);
-                Collection<Technique> techniques = basic.getTechniques();
-                model.addAttribute("techniques", techniques);
-                return "basicdetails";
-            } else {
-                return "error";
-            }
+            Optional<Basic> firstTechnique = basicRepository.findFirstByOrderByIdAsc();
+            Optional<Basic> lastTechnique = basicRepository.findFirstByOrderByIdDesc();
+            Optional<Basic> previousTechnique = basicRepository.findFirstByIdLessThanOrderByIdDesc(id);
+            Optional<Basic> nextTechnique = basicRepository.findFirstByIdGreaterThanOrderByIdAsc(id);
+            model.addAttribute("currentTechnique", basic.getId());
+
+            previousTechnique = previousTechnique.or(() -> basicRepository.findFirstByOrderByIdDesc());
+            nextTechnique = nextTechnique.or(() -> basicRepository.findFirstByOrderByIdAsc());
+
+            firstTechnique.ifPresent(d -> model.addAttribute("firstTechnique", d.getId()));
+            lastTechnique.ifPresent(d -> model.addAttribute("lastTechnique", d.getId()));
+            previousTechnique.ifPresent(d -> model.addAttribute("previousTechnique", d.getId()));
+            nextTechnique.ifPresent(d -> model.addAttribute("nextTechnique", d.getId()));
+
+            return "basicdetails";
+        } else {
+            return "error";
         }
     }
+}
 

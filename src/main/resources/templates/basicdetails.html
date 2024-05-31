@@ -27,7 +27,7 @@
 
 <h1 class="text-center mt-5" th:text="${basic.action}"></h1>
 
-<main class="container">
+<div class="container">
   <div class="row">
     <div class="col-md-6">
       <div class="recipeImage">
@@ -37,23 +37,47 @@
 
   </div>
 
+  <div th:if="${techniques != null}" class="col-md-8">
+    <h2>Techniques</h2>
+    <ul class="list-unstyled">
+      <li th:each="technique : ${techniques}">
+        <div>
+          <h4 th:text="${technique.name}"></h4>
+          <p th:text="${technique.techniqueDescription}"></p>
+        </div>
+        <div class="col-md-4 margin-left: auto">
+          <img th:src="@{${technique.image}}" th:alt="${technique.name}" style="max-width: 100%;">
+        </div>
+      </li>
+    </ul>
+  </div>
 
-
-</main>
-<div th:if="${techniques != null}" class="col-md-8">
-  <h2>Techniques</h2>
-  <ul class="list-unstyled">
-    <li th:each="technique : ${techniques}">
-      <div>
-      <h4 th:text="${technique.name}"></h4>
-      <p th:text="${technique.techniqueDescription}"></p>
-      </div>
-      <div class="col-md-4 margin-left: auto">
-        <img th:src="@{${technique.image}}" th:alt="${technique.name}" style="max-width: 100%;">
-      </div>
-    </li>
-  </ul>
 </div>
+
+
+  <div class="text-center mt-5">
+    <a class="btn btn-primary mt-3" th:href="@{|/basicdetails/${firstTechnique}|}"
+       th:classappend="${currentTechnique == firstTechnique ? 'disabled' : ''}">First</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/basicdetails/${previousTechnique}|}"
+       th:classappend="${currentTechnique == firstTechnique ? 'disabled' : ''}">← Prev</a>
+
+    <th:block th:each="basic : ${basic}">
+      <th:block th:if="${basic.id == currentTechnique - 1 or basic.id == currentTechnique or basic.id == currentTechnique + 1}">
+        <a class="btn btn-primary mt-3" th:href="@{|/basicdetails/${basic.id}|}"
+           th:classappend="${basic.id == currentTechnique ? 'btn-warning active' : ''}"
+           th:text="${basic.id}"></a>
+      </th:block>
+    </th:block>
+
+    <a class="btn btn-primary mt-3" th:href="@{|/basicdetails/${nextTechnique}|}"
+       th:classappend="${currentTechnique == lastTechnique ? 'disabled' : ''}">Next →</a>
+    <a class="btn btn-primary mt-3" th:href="@{|/basicdetails/${lastTechnique}|}"
+       th:classappend="${currentTechnique == lastTechnique ? 'disabled' : ''}">Last</a>
+  </div>
+
+
+
+
 
 </body>
 </html>

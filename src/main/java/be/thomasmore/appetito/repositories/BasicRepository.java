@@ -1,11 +1,15 @@
 package be.thomasmore.appetito.repositories;
 
 import be.thomasmore.appetito.model.Basic;
+import be.thomasmore.appetito.model.Dish;
+import be.thomasmore.appetito.model.Technique;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface BasicRepository extends CrudRepository<Basic, Integer> {
 
@@ -15,4 +19,12 @@ public interface BasicRepository extends CrudRepository<Basic, Integer> {
 
     Page<Basic> findAll(Pageable pageable);
 
+
+    Optional<Basic> findFirstByOrderByIdAsc();
+
+    Optional<Basic> findFirstByOrderByIdDesc();
+
+    Optional<Basic> findFirstByIdLessThanOrderByIdDesc(Integer id);
+
+    Optional<Basic> findFirstByIdGreaterThanOrderByIdAsc(Integer id);
 }
