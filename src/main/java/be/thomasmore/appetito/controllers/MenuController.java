@@ -2,6 +2,7 @@ package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.*;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -253,18 +255,17 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
     }
 
 
-    @PostMapping("/menu/create")
-    public String createMenu(@RequestParam String menuName,
-                             @RequestParam Integer numberOfPeople,
-                                @RequestParam String description,
-                             Principal principal) {
+    @PostMapping("/menu/list")
+    public String createMenu(@Valid Menu newMenu, BindingResult result, Model model, Principal principal) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
+            model.addAttribute("menu", newMenu);
+            return "menu/list";
+        }
+
         if (!principal.getName().isEmpty()) {
             Chef chef = chefRepository.findByUsername(principal.getName());
             if (chef != null) {
-                Menu newMenu = new Menu();
-                newMenu.setName(menuName);
-                newMenu.setNumberOfPeople(numberOfPeople);
-                newMenu.setDescription(description);
                 newMenu.setChef(chef);
                 menuRepository.save(newMenu);
                 return "redirect:/menu/list";
@@ -272,6 +273,7 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
         }
         return "redirect:/login";
     }
+
 
     @GetMapping("/menu/details/{id}")
     public String getMenuDetails(@PathVariable("id") Integer id, Model model) {

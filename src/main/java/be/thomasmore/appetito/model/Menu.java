@@ -2,6 +2,10 @@ package be.thomasmore.appetito.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,10 @@ public class Menu {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int id;
 
+
+
+    @NotEmpty(message = "Naam mag niet leeg zijn")
+    @NotNull(message = "Naam is vereist")
     private String name;
 
     @OneToMany (mappedBy = "menu")
@@ -23,6 +31,9 @@ public class Menu {
 
     private Boolean active = true;
 
+    @Min(value = 1, message = "Aantal personen moet minimaal 1 zijn")
+    @Max(value = 100, message = "Het aantal personen mag maximaal 100 zijn")
+    @NotNull(message = "Aantal personen is vereist")
     private Integer numberOfPeople;
 
     private String description;
