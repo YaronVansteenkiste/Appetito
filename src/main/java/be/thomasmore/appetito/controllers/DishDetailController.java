@@ -64,9 +64,6 @@ public class DishDetailController<ToggleRequest> {
                         }
                     }
                 }
-
-                model.addAttribute("canEdit", canEdit);
-                model.addAttribute("chef", chef);
             }
 
             if (chefOptional.isPresent()) {
@@ -87,6 +84,7 @@ public class DishDetailController<ToggleRequest> {
         model.addAttribute("dishes", allDishes);
         model.addAttribute("allDishes", allTheDishes);
         model.addAttribute("isActive", allTheDishes.get(id - 1).isActive());
+        model.addAttribute("canEdit", canEdit);
 
 
         if (id == null) {

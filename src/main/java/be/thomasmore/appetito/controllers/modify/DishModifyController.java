@@ -346,7 +346,8 @@ public class DishModifyController {
                              @Valid @ModelAttribute DishDto dishDto,
                              BindingResult bindingResult,
                              @RequestParam("beverageNames[]") List<String> beverageNames,
-                             @RequestParam("beverageImages[]") List<MultipartFile> beverageImages) throws IOException {
+                             @RequestParam("beverageImages[]") List<MultipartFile> beverageImages,
+                             Principal principal) throws IOException {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("dishDto", dishDto);
@@ -377,6 +378,7 @@ public class DishModifyController {
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparationTime(dishDto.getPreparationTime());
         dish.setNumberOfPeople(dishDto.getNumberOfPeople());
+        dish.setChef(chefRepository.findByUsername(principal.getName()));
 
         if (dishDto.getImage() != null && !dishDto.getImage().isEmpty()) {
             dish.setImgFileName(uploadImage(dishDto.getImage()));

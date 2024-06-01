@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-6 ">
             <div th:if="${dish}">
-                <a th:if="${canEdit}" sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
+                <a th:if="${canEdit}" th:href="@{|/modify/dishedit/${dish.id}|}"
                    class="btn btn-primary mb-1">Edit</a>
                 <form th:if="${canEdit}" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
                       method="post">
