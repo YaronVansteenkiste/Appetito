@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -44,7 +47,7 @@ public class DishDetailController<ToggleRequest> {
     private BeverageRepository beverageRepository;
 
     @GetMapping({"/dishdetails/{id}", "/dishdetails"})
-    public String dishDetail(Model model, @PathVariable(required = false) Integer id, Authentication authentication) {
+    public String dishDetail(Model model, @PathVariable(required = false) Integer id, Authentication authentication,Principal principal) {
         final Iterable<Dish> allDishes = dishRepository.findAll();
         List<Dish> allTheDishes = dishRepository.findAllByOrderByIdAsc();
         model.addAttribute("dishes", allDishes);
@@ -82,8 +85,25 @@ public class DishDetailController<ToggleRequest> {
             model.addAttribute("dish",dish);
 
         }
+        boolean isChef = false;
+        if (principal != null) {
+            String username = principal.getName();
+            System.out.println("Principal username: " + username);
+            Dish dish = dishFromDB.get();
+            if (dish.getChef() != null) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                Chef chef = dish.getChef();
+                isChef = chef.getUsername().equals(username);
+                System.out.println("Chef username: " + chef.getUsername());
+            } else {
+                System.out.println("Dish has no chef associated.");
+            }
+        } else {
+            System.out.println("Principal is null.");
+        }
+        model.addAttribute("isChef", isChef);
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean isAdmin = auth != null && auth.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ADMIN"));
 
@@ -123,21 +143,51 @@ public class DishDetailController<ToggleRequest> {
         } else {
             return "error";
         }
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            Chef chef =chefRepository.findByUsername(username);
-             model.addAttribute("chef", chef);
-        }
+
+
         return "dishdetail";
     }
 
+
     @PostMapping("/toggle/dish/{id}")
-    public String updateDishToggleState(@PathVariable("id") int id, @RequestParam boolean active) {
-        Dish dish = dishRepository.findById(id).orElseThrow(() -> new IllegalStateException("Dish not found"));
-        dish.setActive(active);
-        dishRepository.save(dish);
-        return "redirect:/dishdetails/" + id;
+    public String updateDishToggleState(@PathVariable("id") int id, @RequestParam boolean active,
+                                        Principal principal, Authentication authentication) {
+        if (principal == null) {
+            return "redirect:/user/login";
+        }
+
+        Optional<Dish> dishOpt = dishRepository.findById(id);
+        if (!dishOpt.isPresent()) {
+            return "redirect:/error";
+        }
+
+        Dish dish = dishOpt.get();
+
+
+        Chef chef = dish.getChef();
+        if (chef == null) {
+            return "redirect:/error";
+        }
+
+
+        Chef currentChef = chefRepository.findByUsername(principal.getName());
+
+
+        boolean isAdmin = authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ADMIN"));
+
+
+        boolean isChef = currentChef != null && currentChef.equals(chef);
+
+        if (isAdmin || isChef) {
+            dish.setActive(active);
+            dishRepository.save(dish);
+            return "redirect:/dishdetails/" + id;
+        }
+
+        return "redirect:/error";
     }
+
 
 
     @PostMapping("/dishdetails/addingredients/{id}")
