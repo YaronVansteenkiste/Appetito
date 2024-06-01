@@ -1,34 +1,28 @@
 package be.thomasmore.appetito.model;
 
-
 import jakarta.persistence.*;
-
 import java.util.Collection;
 import java.util.List;
-
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-
 public class Chef {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-
     private String surname;
-
     private String username;
-
     private String email;
+  private String password;
     @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Dish> dishes ;
+    private List<Dish> dishes;
 
+    @OneToMany(mappedBy = "conceptChef", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Dish> conceptDishes;
 
     @OneToMany(mappedBy = "chef")
     private Collection<Grocery> groceries;
-
 
     @ManyToMany
     @JoinTable(
@@ -40,9 +34,10 @@ public class Chef {
     @OneToMany(mappedBy = "chef", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Collection<Beverage> beverage;
 
-
     public Chef() {
     }
+
+    // Getters and Setters
 
     public int getId() {
         return id;
@@ -91,14 +86,6 @@ public class Chef {
     public void setGroceries(Collection<Grocery> groceries) {
         this.groceries = groceries;
     }
-    public void addDish(Dish dish) {
-        dishes.add(dish);
-        dish.setChef(this);
-    }
-    public void removeDish(Dish dish) {
-        dishes.remove(dish);
-        dish.setChef(null);
-    }
 
     public List<Dish> getDishes() {
         return dishes;
@@ -108,7 +95,6 @@ public class Chef {
         this.dishes = dishes;
     }
 
-
     public Collection<Dish> getFavoriteDishes() {
         return favoriteDishes;
     }
@@ -116,11 +102,38 @@ public class Chef {
     public void setFavoriteDishes(Collection<Dish> favoriteDishes) {
         this.favoriteDishes = favoriteDishes;
     }
+
     public Collection<Beverage> getBeverage() {
         return beverage;
     }
 
     public void setBeverage(Collection<Beverage> beverage) {
         this.beverage = beverage;
+    }
+
+    public List<Dish> getConceptDishes() {
+        return conceptDishes;
+    }
+
+    public void setConceptDishes(List<Dish> conceptDishes) {
+        this.conceptDishes = conceptDishes;
+    }
+
+    public void addDish(Dish dish) {
+        dishes.add(dish);
+        dish.setChef(this);
+    }
+
+    public void removeDish(Dish dish) {
+        dishes.remove(dish);
+        dish.setChef(null);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

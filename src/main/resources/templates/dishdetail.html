@@ -27,7 +27,6 @@
                 <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" style="max-width: 100%;">
             </div>
         </div>
-
         <div class="col-md-6 ">
             <div th:if="${dish}">
                 <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
@@ -42,8 +41,13 @@
                     <strong th:text="${dish.name}">Dish Name</strong>
 
                 </h2>
-                <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}"
-                   class="btn btn-primary">Toevoegen aan menu</a>
+                <div class="d-flex">
+                    <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}"
+                       class="btn btn-primary">Toevoegen aan menu</a>
+                    <form th:if="${chef != null}" th:action="@{/modify/saveAsConcept/{dishId}(dishId=${dish.id})}" method="post">
+                        <button sec:authorize="hasAuthority('USER')"  type="submit" class="btn btn-warning ms-2">Opslaan als concept</button>
+                    </form>
+                </div>
                 <h4>Gelegenheid</h4>
                 <p th:text="${dish.occasion}"></p>
 

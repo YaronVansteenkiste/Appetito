@@ -123,6 +123,11 @@ public class DishDetailController<ToggleRequest> {
         } else {
             return "error";
         }
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Chef chef =chefRepository.findByUsername(username);
+             model.addAttribute("chef", chef);
+        }
         return "dishdetail";
     }
 

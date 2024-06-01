@@ -76,13 +76,6 @@ public class DishDto {
         this.image = image;
     }
 
-    public String getCustomDietPreferences() {
-        return customDietPreferences;
-    }
-
-    public void setCustomDietPreferences(String customDietPreferences) {
-        this.customDietPreferences = customDietPreferences;
-    }
 
     public Integer getNumberOfPeople() {
         return numberOfPeople;
@@ -92,7 +85,13 @@ public class DishDto {
         this.numberOfPeople = numberOfPeople;
     }
 
+
+    public String getCustomDietPreferences() {
+        return customDietPreferences;
+    }
+
     public void setCustomDietPreferences(String customDietPreferences) {
+        this.customDietPreferences = customDietPreferences;
     }
 }
 

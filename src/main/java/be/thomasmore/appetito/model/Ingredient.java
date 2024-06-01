@@ -16,6 +16,7 @@ public class Ingredient {
     private Integer id;
 
 
+
     private String name;
 
     private Double quantity;

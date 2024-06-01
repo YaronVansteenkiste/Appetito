@@ -17,15 +17,16 @@ public class Dish {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-
     private String dietPreferences;
-
+    private boolean conceptDish = false;
     private String customDietPreferences;
     private String videoUrl;
+
     @Temporal(TemporalType.TIME)
     private Time preparationTime;
     private String occasion;
     private String imgFileName;
+
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
 
@@ -33,6 +34,10 @@ public class Dish {
 
     @ManyToMany
     private Collection<Chef> chefs;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "concept_chef_id")
+    private Chef conceptChef;
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
@@ -47,10 +52,8 @@ public class Dish {
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
-
     @ManyToMany(mappedBy = "favoriteDishes")
     private Collection<Chef> favoritedByChefs;
-
 
     private Integer numberOfPeople;
 
@@ -59,6 +62,7 @@ public class Dish {
         this.beverages = new ArrayList<>();
     }
 
+    // Getters and Setters
 
     public Integer getId() {
         return id;
@@ -108,7 +112,6 @@ public class Dish {
         this.ingredients = ingredients;
     }
 
-
     public Time getPreparationTime() {
         return preparationTime;
     }
@@ -129,6 +132,10 @@ public class Dish {
         return active;
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public Collection<Beverage> getBeverages() {
         return beverages;
     }
@@ -137,24 +144,12 @@ public class Dish {
         this.beverages = beverages;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     public Chef getChef() {
         return chef;
     }
 
     public void setChef(Chef chef) {
         this.chef = chef;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 
     public Collection<Chef> getChefs() {
@@ -212,5 +207,21 @@ public class Dish {
 
     public void setCustomDietPreferences(String customDietPreferences) {
         this.customDietPreferences = customDietPreferences;
+    }
+
+    public boolean isConceptDish() {
+        return conceptDish;
+    }
+
+    public void setConceptDish(boolean conceptDish) {
+        this.conceptDish = conceptDish;
+    }
+
+    public Chef getConceptChef() {
+        return conceptChef;
+    }
+
+    public void setConceptChef(Chef conceptChef) {
+        this.conceptChef = conceptChef;
     }
 }

@@ -6,6 +6,7 @@ import be.thomasmore.appetito.repositories.*;
 import be.thomasmore.appetito.services.GoogleService;
 
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jdk.jfr.Category;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -52,7 +54,8 @@ public class DishModifyController {
 
     @Autowired
     GroceryRepository groceryRepository;
-
+    @Autowired
+    ChefRepository chefRepository;
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
         if (id != null) {
@@ -62,6 +65,33 @@ public class DishModifyController {
             return new Dish();
         }
     }
+    @PostMapping("/saveAsConcept/{dishId}")
+    @Transactional
+    public String saveAsConcept(@PathVariable("dishId") Integer dishId, Principal principal){
+        String userName = principal.getName();
+        Chef chef = chefRepository.findByUsername(userName);
+
+
+        if (chef == null) {
+            return "redirect:/user/login";
+        }
+
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            dish.setConceptDish(true);
+            dish.setConceptChef(chef);
+            dishRepository.save(dish);
+
+            return "redirect:/user/profile";
+        }
+
+        return "error";
+    }
+
+
+
+
 
     @GetMapping("/addnutritions/{dishId}")
     public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model) {
@@ -215,7 +245,7 @@ public class DishModifyController {
 
         for (int i = 0; i < ingredientsFromWrapper.size(); i++) {
             Ingredient ingredient = ingredientsFromWrapper.get(i);
-            
+
 
             ingredient.setDish(currentDish);
 

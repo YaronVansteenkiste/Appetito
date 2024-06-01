@@ -6,6 +6,7 @@ import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,6 +44,7 @@ public class UserController {
         if (principal != null) return "redirect:/";
         return "user/login";
     }
+
 
     @GetMapping("/register")
     public String register(Principal principal) {
