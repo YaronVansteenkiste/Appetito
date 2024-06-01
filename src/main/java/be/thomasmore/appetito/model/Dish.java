@@ -1,6 +1,7 @@
 package be.thomasmore.appetito.model;
 
 import com.google.api.client.util.Value;
+import com.google.firebase.remoteconfig.User;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,6 @@ public class Dish {
     private List<Ingredient> ingredients;
 
     private Boolean active = true;
-
     @ManyToMany
     private Collection<Chef> chefs;
 

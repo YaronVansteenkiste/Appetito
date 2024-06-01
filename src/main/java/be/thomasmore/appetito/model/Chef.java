@@ -24,6 +24,7 @@ public class Chef {
     @OneToMany(mappedBy = "chef")
     private Collection<Grocery> groceries;
 
+
     @ManyToMany
     @JoinTable(
             name = "favorite_dishes",
