@@ -15,10 +15,7 @@ import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class DishDetailController<ToggleRequest> {
@@ -44,7 +41,47 @@ public class DishDetailController<ToggleRequest> {
     private BeverageRepository beverageRepository;
 
     @GetMapping({"/dishdetails/{id}", "/dishdetails"})
-    public String dishDetail(Model model, @PathVariable(required = false) Integer id, Authentication authentication) {
+    public String dishDetail(Model model, @PathVariable(required = false) Integer id, Authentication authentication, Principal principal) {
+        boolean canEdit = false;
+
+        if (principal != null) {
+            Optional<Chef> chefOptional = chefRepository.findAllByUsername(principal.getName());
+            if (chefOptional.isPresent()) {
+                Chef chef = chefOptional.get();
+                String chefName = chef.getUsername();
+                Optional<Dish> dishFromDB = dishRepository.findById(id);
+                if (dishFromDB.get().getChef() != null ) {
+                    if (dishFromDB.get().getChef().getName().equals(chefName)) {
+                        canEdit = true;
+                    }
+                }
+
+                if (dishFromDB.get().getChef() == null ) {
+                    Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                    for (GrantedAuthority authority : authorities) {
+                        if (authority.getAuthority().equals("ADMIN")) {
+                            canEdit = true;
+                        }
+                    }
+                }
+
+                model.addAttribute("canEdit", canEdit);
+                model.addAttribute("chef", chef);
+            }
+
+            if (chefOptional.isPresent()) {
+                Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                for (GrantedAuthority authority : authorities) {
+                    if (authority.getAuthority().equals("ADMIN")) {
+                        canEdit = true;
+                    }
+                }
+            }
+        }
+
+        Optional<Dish> dishFromDB = dishRepository.findById(id);
+
+
         final Iterable<Dish> allDishes = dishRepository.findAll();
         List<Dish> allTheDishes = dishRepository.findAllByOrderByIdAsc();
         model.addAttribute("dishes", allDishes);
@@ -60,7 +97,7 @@ public class DishDetailController<ToggleRequest> {
 
         model.addAttribute("steps", steps);
 
-        Optional<Dish> dishFromDB = dishRepository.findById(id);
+
         Collection<Beverage> beverages = dishFromDB.get().getBeverages();
         model.addAttribute("beverages", beverages);
 
@@ -72,6 +109,8 @@ public class DishDetailController<ToggleRequest> {
 
         {
             Dish dish = dishFromDB.get();
+
+
             boolean isAuthenticated = authentication != null && authentication.isAuthenticated();
             boolean isAdmin = isAuthenticated && authentication.getAuthorities().stream()
                     .anyMatch(r -> r.getAuthority().equals("ADMIN"));
@@ -79,7 +118,7 @@ public class DishDetailController<ToggleRequest> {
             if (!dish.isActive() && !isAdmin) {
                 return "redirect:/error";
             }
-            model.addAttribute("dish",dish);
+            model.addAttribute("dish", dish);
 
         }
 
@@ -125,8 +164,7 @@ public class DishDetailController<ToggleRequest> {
         }
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-            Chef chef =chefRepository.findByUsername(username);
-             model.addAttribute("chef", chef);
+
         }
         return "dishdetail";
     }

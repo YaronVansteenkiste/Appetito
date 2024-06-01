@@ -10,10 +10,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface ChefRepository extends CrudRepository<Chef, Integer>{
 
     Chef findByUsername(String name);
+
+    Optional<Chef> findAllByUsername (String name);
 
     @Query("SELECT d FROM Dish d JOIN d.chefs c WHERE c.id = :chefId")
     List<Dish> getFavoriteDishesByChefId(int chefId);

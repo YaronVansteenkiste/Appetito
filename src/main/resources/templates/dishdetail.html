@@ -29,9 +29,9 @@
         </div>
         <div class="col-md-6 ">
             <div th:if="${dish}">
-                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
+                <a th:if="${canEdit}" sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/dishedit/${dish.id}|}"
                    class="btn btn-primary mb-1">Edit</a>
-                <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
+                <form th:if="${canEdit}" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
                       method="post">
                     <input type="hidden" name="active" th:value="${!dish.isActive}">
                     <button type="submit" th:class="${dish.isActive ? ' bi bi-trash3-fill btn btn-danger' : 'bi bi-power btn btn-success'}" th:text="${dish.isActive ? ' Verwijderen' : ' Toevoegen'}">
