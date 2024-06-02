@@ -1,11 +1,9 @@
 package be.thomasmore.appetito.controllers.modify;
 
 
-import be.thomasmore.appetito.model.Dish;
+import be.thomasmore.appetito.model.Basic;
 import be.thomasmore.appetito.model.Technique;
 import be.thomasmore.appetito.repositories.BasicRepository;
-import be.thomasmore.appetito.repositories.DishRepository;
-import be.thomasmore.appetito.repositories.StepRepository;
 import be.thomasmore.appetito.repositories.TechniqueRepository;
 import be.thomasmore.appetito.services.GoogleService;
 import org.slf4j.Logger;
@@ -44,17 +42,22 @@ public class TechniqueModifyController {
 
 
 
-        @GetMapping("/addtechnique")
-        public String showAddTechniqueForm(Model model) {
-            model.addAttribute("technique", new Technique());
-
-            return "modify/addtechnique";
+        @GetMapping("/addbasicaction")
+        public String showAddBasicForm(@ModelAttribute Basic basic, Model model) {
+            model.addAttribute("basic", new Basic());
+            return "/modify/addbasicaction";
         }
 
-        @PostMapping("/addtechnique")
-        public String addTechnique(@ModelAttribute Technique technique) {
-            techniqueRepository.save(technique);
-            return "redirect:/basic";
+        @PostMapping("/addbasicaction")
+        public String addBasic(@ModelAttribute Basic basic, @RequestParam(required = false) Integer id,
+                                   @RequestParam(required = false) String action,
+                                   @RequestParam(required = false) String description,
+                                   @RequestParam(required = false) String image) {
+        basic.setAction(action);
+        basic.setDescription(description);
+        basic.setImage(image);
+        basicRepository.save(basic);
+        return "redirect:/basic";
         }
     }
 
