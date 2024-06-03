@@ -6,9 +6,10 @@ import be.thomasmore.appetito.repositories.*;
 import be.thomasmore.appetito.services.GoogleService;
 
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-
+import jdk.jfr.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.thymeleaf.util.StringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.security.Principal;
+import java.sql.Time;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @RequestMapping("/modify")
@@ -54,7 +57,6 @@ public class DishModifyController {
     GroceryRepository groceryRepository;
     @Autowired
     ChefRepository chefRepository;
-
     @ModelAttribute("dish")
     public Dish findDish(@PathVariable(required = false) Integer id) {
         if (id != null) {
@@ -64,10 +66,9 @@ public class DishModifyController {
             return new Dish();
         }
     }
-
     @PostMapping("/saveAsConcept/{dishId}")
     @Transactional
-    public String saveAsConcept(@PathVariable("dishId") Integer dishId, Principal principal) {
+    public String saveAsConcept(@PathVariable("dishId") Integer dishId, Principal principal){
         String userName = principal.getName();
         Chef chef = chefRepository.findByUsername(userName);
 
@@ -81,7 +82,6 @@ public class DishModifyController {
             Dish dish = optionalDish.get();
             dish.setConceptDish(true);
             dish.setConceptChef(chef);
-            dish.setActive(false);
             dishRepository.save(dish);
 
             return "redirect:/user/profile";
@@ -89,46 +89,13 @@ public class DishModifyController {
 
         return "error";
     }
-    @PostMapping("/activatedish/{dishId}")
-    @Transactional
-    public String activateDish(@PathVariable("dishId") Integer dishId, Principal principal) {
-        String userName = principal.getName();
-        logger.debug("Principal name: {}", userName);
-        logger.debug("Principal name: {}", userName);
-        logger.debug("Principal name: {}", userName);
-        logger.debug("Principal name: {}", userName);
 
-        Chef chef = chefRepository.findByUsername(userName);
-
-
-        if (chef == null) {
-            logger.warn("Chef not found for username: {}", userName);
-            return "redirect:/user/login";
-        }
-
-        logger.debug("Chef found: {}", chef.getUsername());
-
-        Optional<Dish> optionalDish = dishRepository.findById(dishId);
-        if (optionalDish.isPresent()) {
-            Dish dish = optionalDish.get();
-            logger.debug("Dish found: {}", dish.getName());
-
-            dish.setActive(true);
-            dishRepository.save(dish);
-            logger.debug("Dish activated: {}", dish.getName());
-
-            return "redirect:/dishdetails/" + dishId;
-        }
-
-        logger.warn("Dish not found for ID: {}", dishId);
-        return "error";
-    }
 
 
 
 
     @GetMapping("/addnutritions/{dishId}")
-    public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model, Principal principal) {
+    public String showAddNutritionsForm(@PathVariable("dishId") Integer dishId, Model model,Principal principal) {
         Dish dish = dishRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
         nutritionListWrapper wrapper = new nutritionListWrapper();
@@ -136,7 +103,7 @@ public class DishModifyController {
 
         model.addAttribute("dish", dish);
         model.addAttribute("nutritionsListWrapper", wrapper);
-        if (principal != null && principal.getName() != null) {
+        if (principal != null && principal.getName() != null){
             String username = principal.getName();
             Chef chef = chefRepository.findByUsername(username);
             model.addAttribute("chef", chef);
@@ -153,7 +120,7 @@ public class DishModifyController {
     @Transactional
     public String addNutritions(@PathVariable("dishId") Integer dishId,
                                 @ModelAttribute("nutritionsListWrapper") nutritionListWrapper wrapper,
-                                Principal principal, Model model) {
+                                Principal principal,Model model) {
         Dish dish = dishRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
@@ -167,9 +134,10 @@ public class DishModifyController {
 
         dishRepository.save(dish);
 
-        String userName = principal.getName();
-        Chef chef = chefRepository.findByUsername(userName);
-        model.addAttribute("chef", chef);
+            String userName = principal.getName();
+            Chef chef = chefRepository.findByUsername(userName);
+            model.addAttribute("chef", chef);
+
 
 
         return "redirect:/dishdetails/" + dishId;
@@ -253,7 +221,7 @@ public class DishModifyController {
 
             model.addAttribute("dish", dish);
             model.addAttribute("stepListWrapper", wrapper);
-            if (principal != null && principal.getName() != null) {
+            if (principal != null && principal.getName() != null){
                 String username = principal.getName();
                 Chef chef = chefRepository.findByUsername(username);
                 model.addAttribute("chef", chef);
@@ -271,7 +239,7 @@ public class DishModifyController {
 
 
     @GetMapping("/addingredients/{dishId}")
-    public String showAddIngredientsForm(@PathVariable("dishId") Integer dishId, Model model, Principal principal) {
+    public String showAddIngredientsForm(@PathVariable("dishId") Integer dishId, Model model,Principal principal) {
         Dish dish = dishRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
 
@@ -280,7 +248,7 @@ public class DishModifyController {
 
         model.addAttribute("dish", dish);
         model.addAttribute("ingredientListWrapper", wrapper);
-        if (principal != null && principal.getName() != null) {
+        if (principal != null && principal.getName() != null){
             String username = principal.getName();
             Chef chef = chefRepository.findByUsername(username);
             model.addAttribute("chef", chef);
@@ -299,7 +267,7 @@ public class DishModifyController {
     public String addIngredients(@PathVariable("dishId") Integer dishId,
                                  @ModelAttribute("ingredientListWrapper") IngredientListWrapper wrapper,
                                  @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
-                                 Model model, Principal principal) {
+                                 Model model,Principal principal) {
         if (wrapper.getIngredients().isEmpty()) {
             model.addAttribute("error", "Er moeten minimaal 1 ingredient worden toegevoegd.");
             return "modify/addingredients";
@@ -370,6 +338,7 @@ public class DishModifyController {
             }
         }
         DishDto dishDto = new DishDto();
+        dishDto.setPreparationTime(Time.valueOf("00:00:00"));
         model.addAttribute("dishDto", dishDto);
         return "modify/adddish";
     }
@@ -439,6 +408,8 @@ public class DishModifyController {
 
         return "redirect:/modify/addsteps/" + dish.getId();
     }
+
+
 
 
     @DeleteMapping("/editingredients/delete/{id}")
@@ -667,7 +638,7 @@ public class DishModifyController {
     @PostMapping("/addsteps/{id}")
     @Transactional
     public String addSteps(@PathVariable("id") Integer id,
-                           @ModelAttribute("stepListWrapper") StepListWrapper wrapper, Principal principal,
+                           @ModelAttribute("stepListWrapper") StepListWrapper wrapper,Principal principal,
                            Model model) throws IOException {
         List<Step> currentSteps = wrapper.getSteps();
 
