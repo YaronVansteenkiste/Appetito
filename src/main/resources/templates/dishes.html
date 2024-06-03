@@ -48,7 +48,7 @@
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <div th:each="dish : ${alldishes}" th:if="${dish.isActive()}" class="col">
                             <div class="card" style="height: 400px;">
-                                <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                                <img th:src="${dish.getImgFileName() != null} ? @{${dish.getImgFileName()}} : '/img/Empty_plate.png'" class="card-img-top"
                                      alt="dish Image" style="height: 200px; object-fit: cover;">
                                 <div class="card-body">
                                     <h5 th:text="${dish.name}" class="card-title"></h5>

@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="recipeImage">
-                <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" style="max-width: 100%;">
+                <img th:src="${dish.getImgFileName() != null} ? @{${dish.getImgFileName()}} : '/img/Empty_plate.png'" th:alt="${dish.name}" class="img-fluid w-75">
             </div>
         </div>
         <div class="col-md-6 ">
