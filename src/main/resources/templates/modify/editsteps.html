@@ -19,10 +19,33 @@
     <a href="/dishes" class="text-decoration-none">Recepten</a> >
     <a th:href="@{|/dishdetails/${dish.id}|}" class="text-decoration-none" th:text="${dish.name}"></a> >
     <a th:href="@{|/modify/dishedit/${dish.id}|}" th:text="|Edit ${dish.name}|"></a> >
-    <a th:text="|Edit Steps ${dish.name}|"></a>
 </h6>
 
 <div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/dishedit/${dish.id}|}" th:text="|Edit ${dish.name}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{|/modify/editsteps/${dish.id}|}" th:text="|Edit Steps ${dish.name}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/editingredients/${dish.id}|}" th:text="|Edit Ingredients ${dish.name}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/editnutritions/${dish.id}|}" th:text="|Edit Nutritions ${dish.name}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:text="|Edit Beverage ${dish.name}|"></a>
+                </li>
+            </ul>
+            <div class="progress mt-3">
+                <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
             <h2 class="text-center mb-5">Aanpassen Bereiding</h2>
