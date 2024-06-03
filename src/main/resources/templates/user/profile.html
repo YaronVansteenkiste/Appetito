@@ -68,8 +68,13 @@
                         </div>
                         <div class="card-footer">
                             <div class="d-grid">
-                                <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                                <a th:if="${dish.isActive()}" class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
                                    role="button">Ontdek</a>
+                                <form th:action="@{/modify/activatedish/{dishId}(dishId=${dish.id})}" method="post" class="mt-2">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <button type="submit" class="btn btn-success">Toevoegen aan maaltijden</button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
