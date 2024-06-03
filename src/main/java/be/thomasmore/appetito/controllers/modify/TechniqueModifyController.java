@@ -47,18 +47,18 @@ public class TechniqueModifyController {
     }
 
 
+    @GetMapping({"/addbasicaction", "/addbasicaction/{id}"})
+    public String showAddBasicForm(@ModelAttribute Basic basic, Model model, @PathVariable(required = false) Integer id) {
+        model.addAttribute("basic", new Basic());
+        model.addAttribute("id", id);
+        return "/modify/addbasicaction";
+    }
 
-        @GetMapping({"/addbasicaction", "/addbasicaction/{id}"})
-        public String showAddBasicForm(@ModelAttribute Basic basic, Model model) {
-            model.addAttribute("basic", new Basic());
-            return "/modify/addbasicaction";
-        }
-
-        @PostMapping({"/addbasicaction", "/addbasicaction/{id}"})
-        public String addBasic(@ModelAttribute Basic basic, @PathVariable(required = false) Integer id,
-                                   @RequestParam(required = false) String action,
-                                   @RequestParam(required = false) String description,
-                                   @RequestParam(required = false) List<MultipartFile> image) throws IOException {
+    @PostMapping({"/addbasicaction", "/addbasicaction/{id}"})
+    public String addBasic(@ModelAttribute Basic basic, @PathVariable(required = false) Integer id,
+                           @RequestParam(required = false) String action,
+                           @RequestParam(required = false) String description,
+                           @RequestParam(required = false) List<MultipartFile> image) throws IOException {
         basic.setAction(action);
         basic.setDescription(description);
         if (image != null && !image.isEmpty()) {
@@ -66,25 +66,46 @@ public class TechniqueModifyController {
         }
         basicRepository.save(basic);
         return "redirect:/modify/addtechnique/" + id;
-        }
+    }
 
-    @GetMapping({"/addtechnique","addtechnique/{techniqueId}"})
-    public String showAddTechniqueForm(@PathVariable("techniqueId") Integer techniqueId, Model model) {
-        Optional<Technique> optionalTechnique = techniqueRepository.findById(techniqueId);
+    @GetMapping({"/addtechnique", "addtechnique/{id}"})
+    public String showAddTechniqueForm(@PathVariable() Integer id, Model model) {
+        Optional<Technique> optionalTechnique = techniqueRepository.findById(id);
         if (optionalTechnique.isPresent()) {
             Technique technique = optionalTechnique.get();
-            Iterable<Technique> techniques = techniqueRepository.findByTechniqueId(techniqueId);
+            Iterable<Technique> techniques = techniqueRepository.findByTechniqueId(id);
             TechniqueListWrapper wrapper = new TechniqueListWrapper();
             wrapper.setTechniques((List<Technique>) techniques);
 
             model.addAttribute("technique", technique);
             model.addAttribute("techniqueListWrapper", wrapper);
 
-            return "modify/addtechnique";
+            return "modify/addtechnique" + id;
         } else {
             return "redirect:/basic";
         }
     }
+
+
+
+
+    @GetMapping("/editbasicaction/{id}")
+    public String basicEdit(Model model, @PathVariable(required = false) Integer id) {
+        Optional<Basic> basicOptional = basicRepository.findById(id);
+
+        if (basicOptional.isPresent()) {
+            Basic basic = basicOptional.get();
+            basic.setAction(basic.getAction());
+            basic.setDescription(basic.getDescription());
+            basic.setImage(basic.getImage());
+            basic.setTechniques(basic.getTechniques());
+            model.addAttribute("basic", basic);
+            return "modify/editbasicaction";
+        } else {
+            return "redirect:/basic";
+        }
+    }
+
 
 
 
