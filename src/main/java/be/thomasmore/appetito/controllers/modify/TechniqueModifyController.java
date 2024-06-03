@@ -55,7 +55,7 @@ public class TechniqueModifyController {
         }
 
         @PostMapping({"/addbasicaction", "/addbasicaction/{id}"})
-        public String addBasic(@ModelAttribute Basic basic, @RequestParam(required = false) Integer id,
+        public String addBasic(@ModelAttribute Basic basic, @PathVariable(required = false) Integer id,
                                    @RequestParam(required = false) String action,
                                    @RequestParam(required = false) String description,
                                    @RequestParam(required = false) List<MultipartFile> image) throws IOException {
@@ -65,7 +65,7 @@ public class TechniqueModifyController {
             basic.setImage(uploadImage((MultipartFile) image));
         }
         basicRepository.save(basic);
-        return "redirect:/modify/addtechnique";
+        return "redirect:/modify/addtechnique/" + id;
         }
 
     @GetMapping({"/addtechnique","addtechnique/{techniqueId}"})

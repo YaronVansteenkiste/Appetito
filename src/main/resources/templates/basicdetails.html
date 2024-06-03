@@ -27,14 +27,6 @@
 <h2 class="text-center mt-5" th:text="'Handige technieken tijdens het ' +${basic.action} "></h2>
 
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="recipeImage">
-        <img th:src="@{${basic.image}}" th:alt="${basic.action}" style="max-width: 100%;">
-      </div>
-    </div>
-  </div>
 
   <div th:if="${techniques != null}" class="col-md-8">
     <div class="row">
