@@ -50,6 +50,7 @@ public class DishDetailController<ToggleRequest> {
                 Chef chef = chefOptional.get();
                 String chefName = chef.getUsername();
                 Optional<Dish> dishFromDB = dishRepository.findById(id);
+                model.addAttribute("chef", chef);
                 if (dishFromDB.get().getChef() != null ) {
                     if (dishFromDB.get().getChef().getName().equals(chefName)) {
                         canEdit = true;
@@ -85,6 +86,7 @@ public class DishDetailController<ToggleRequest> {
         model.addAttribute("allDishes", allTheDishes);
         model.addAttribute("isActive", allTheDishes.get(id - 1).isActive());
         model.addAttribute("canEdit", canEdit);
+
 
 
         if (id == null) {

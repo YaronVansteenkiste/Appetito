@@ -44,7 +44,7 @@
                 <div class="d-flex">
                     <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}"
                        class="btn btn-primary">Toevoegen aan menu</a>
-                    <form th:if="${chef != null}" th:action="@{/modify/saveAsConcept/{dishId}(dishId=${dish.id})}" method="post">
+                    <form th:if="${ chef!= null}" th:action="@{/modify/saveAsConcept/{dishId}(dishId=${dish.id})}" method="post">
                         <button sec:authorize="hasAuthority('USER')"  type="submit" class="btn btn-warning ms-2">Opslaan als concept</button>
                     </form>
                 </div>
