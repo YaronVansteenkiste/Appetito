@@ -1,0 +1,21 @@
+@media print {
+    .btn-outline-danger {
+        display: none !important;
+    }
+
+    .btn-primary {
+        display: none !important;
+    }
+
+    .btn-danger {
+        display: none !important;
+    }
+
+    .delete-section {
+        display: none !important;
+    }
+
+    .footer {
+        display: none !important;
+    }
+}
