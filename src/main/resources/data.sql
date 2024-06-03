@@ -418,12 +418,21 @@ INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('admin', 'ADMIN');
 INSERT INTO USERS (USERNAME, PASSWORD, ENABLED)
 VALUES ('stefferke', '$2a$10$a3/jTRNSkn0Rt/vENxt8.u2pxbJtWV8f1li3QmrIGt/C5RQ2R1wpG', true);
+INSERT INTO "PUBLIC"."USERS" VALUES
+    ('owentje', '$2a$10$zwEAW83Ufx4amlDcrogyJ.jlNLfT4l9Eo.DBKPltqfWLLLhXQJNjG', TRUE);
+
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
+INSERT INTO "PUBLIC"."AUTHORITIES" VALUES
+    ('owentje', 'ROLE_USER');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL)
 VALUES ('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL)
 VALUES ('admin', 'admin', '', 'admin@appetito.com');
+
+INSERT INTO "PUBLIC"."CHEF" VALUES
+    (3, 'owen@appetito.be', 'owentje', NULL, 'owen', 'owentje');
+
 
 ALTER TABLE Beverage
     ALTER COLUMN ACTIVE SET DEFAULT TRUE;

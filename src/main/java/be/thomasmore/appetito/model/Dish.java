@@ -62,7 +62,6 @@ public class Dish {
         this.beverages = new ArrayList<>();
     }
 
-    // Getters and Setters
 
     public Integer getId() {
         return id;
