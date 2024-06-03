@@ -62,4 +62,7 @@ public class Technique {
     public void setBasic(Basic basic) {
         this.basic = basic;
     }
+
+    public void setBasicActionId(Integer basicActionId) {
+    }
 }
