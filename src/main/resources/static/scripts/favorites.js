@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
             heart.classList.remove('text-dark');
             heart.classList.add('text-danger');
             heart.innerHTML = '&#x2764;&#xFE0F;';
-            heart.nextElementSibling.textContent = 'Verwijderen';
         }
 
         heart.addEventListener('click', function() {
@@ -36,13 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         heart.classList.remove('text-dark');
                         heart.classList.add('text-danger');
                         heart.innerHTML = '&#x2764;&#xFE0F;';
-                        statusText.textContent = 'Verwijderen';
                         favorites[dishId] = 'added';
                     } else {
                         heart.classList.remove('text-danger');
                         heart.classList.add('text-dark');
                         heart.innerHTML = '&#x1F5A4;';
-                        statusText.textContent = 'Toevoegen';
                         delete favorites[dishId];
                     }
                     sessionStorage.setItem('favorites', JSON.stringify(favorites));
