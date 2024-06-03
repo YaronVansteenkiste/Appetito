@@ -24,19 +24,19 @@
         <div class="col">
             <ul class="nav nav-pills nav-fill">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{|/modify/adddish/${dish.id}|}" th:text="|Aanpassen ${dish.getName()}|"></a>
+                    <a class="nav-link" th:href="@{|/modify/dishedit/${dish.id}|}" th:text="|Aanpassen ${dish.getName()}|"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:text="|Aanpassen Stappen|"></a>
+                    <a class="nav-link" th:href="@{|/modify/editsteps/${dish.id}|}" th:text="|Aanpassen Stappen|"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:text="|Aanpassen Ingredienten|"></a>
+                    <a class="nav-link" th:href="@{|/modify/editingredients/${dish.id}|}" th:text="|Aanpassen Ingredienten|"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active"  th:text="|Aanpassen Voedingswaarde|"></a>
+                    <a class="nav-link active" th:href="@{|/modify/editnutritions/${dish.id}|}" th:text="|Aanpassen Voedingswaarde|"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  th:text="|Aanpassen Drankjes|"></a>
+                    <a class="nav-link" th:href="@{|/modify/editbeverage/${dish.id}|}" th:text="|Aanpassen Drankjes|"></a>
                 </li>
             </ul>
             <div class="progress mt-3">
