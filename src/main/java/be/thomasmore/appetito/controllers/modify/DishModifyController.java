@@ -82,9 +82,31 @@ public class DishModifyController {
             Dish dish = optionalDish.get();
             dish.setConceptDish(true);
             dish.setConceptChef(chef);
+            dish.setActive(false);
             dishRepository.save(dish);
 
             return "redirect:/user/profile";
+        }
+
+        return "error";
+    }
+    @PostMapping("/activatedish/{dishId}")
+    @Transactional
+    public String activateDish(@PathVariable("dishId") Integer dishId, Principal principal) {
+        String userName = principal.getName();
+        Chef chef = chefRepository.findByUsername(userName);
+
+        if (chef == null) {
+            return "redirect:/user/login";
+        }
+
+        Optional<Dish> optionalDish = dishRepository.findById(dishId);
+        if (optionalDish.isPresent()) {
+            Dish dish = optionalDish.get();
+            dish.setActive(true);
+            dishRepository.save(dish);
+
+            return "redirect:/dishdetails/" + dishId;
         }
 
         return "error";
