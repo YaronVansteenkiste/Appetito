@@ -90,7 +90,7 @@ public class DishModifyController {
 
         return "error";
     }
-    @PostMapping("/activateDish/{dishId}")
+    @PostMapping("/activatedish/{dishId}")
     @Transactional
     public String activateDish(@PathVariable("dishId") Integer dishId, Principal principal) {
         String userName = principal.getName();
