@@ -16,14 +16,34 @@
     <a href="/" class="text-decoration-none">Home</a> >
     <a href="/dishes" class="text-decoration-none">Recepten</a> >
     <a th:href="@{|/dishdetails/${dish.id}|}" class="text-decoration-none" th:text="${dish.name}"></a> >
-    <a th:href="@{|/modify/dishedit/${dish.id}|}" th:text="|Edit ${dish.name}|"></a> >
-    <a th:href="@{|/modify/editsteps/${dish.id}|}" th:text="|Edit Steps ${dish.name}|"></a> >
-    <a th:href="@{|/modify/editingredients/${dish.id}|}" th:text="|Edit Ingredients ${dish.name}|"></a> >
-    <a th:href="@{|/modify/editnutritions/${dish.id}|}" th:text="|Edit Nutritions ${dish.name}|"></a> >
-    <a th:text="|Edit Beverage ${dish.name}|"></a>
+    <a th:text="|Edit ${dish.name}|"></a> >
 </h6>
 
 <main class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/adddish/${dish.id}|}" th:text="|Aanpassen ${dish.getName()}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:text="|Aanpassen Stappen|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:text="|Aanpassen Ingredienten|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  th:text="|Aanpassen Voedingswaarde|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"  th:text="|Aanpassen Drankjes|"></a>
+                </li>
+            </ul>
+            <div class="progress mt-3">
+                <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-8 mx-auto rounded border p-4 m-4">
         <h2 class="text-center mb-5">Aanpassen Dranken</h2>
 
@@ -69,12 +89,8 @@
                     <input class="form-control" type="text" name="beverageNames">
                 </div>
             </div>
-            <div class="row mt-3 justify-content-center">
-                <div class="col-lg-4 text-center">
-                    <a th:href="@{|/modify/editnutritions/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
-                    <button type="submit" class="btn btn-primary">Opslaan</button>
-                </div>
-            </div>
+            <a th:href="@{|/modify/editnutritions/${dish.id}|}" class="btn btn-outline-primary">Vorige</a>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
     </div>
     </div>
