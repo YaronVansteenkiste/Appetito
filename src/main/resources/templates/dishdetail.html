@@ -24,7 +24,8 @@
     <div class="row">
         <div class="col-md-6">
             <div class="recipeImage">
-                                    <img th:src="${dish.getImgFileName() != null} ? @{${dish.getImgFileName()}} : '/img/Empty_plate.png'" th:alt="${dish.name}" class="img-fluid w-75">
+                <img th:src="${dish.getImgFileName() != null} ? @{${dish.getImgFileName()}} : '/img/Empty_plate.png'"
+                     th:alt="${dish.name}" class="img-fluid w-75">
             </div>
         </div>
         <div class="col-md-6 ">
@@ -102,7 +103,7 @@
                     <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
                 </div>
             </div>
-            <form th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
+            <form th:data="${dish.getId()}" id="groceryForm" th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
                 <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary mt-3">Toevoegen aan
                     boodschappenlijst
                 </button>
@@ -301,6 +302,7 @@
 <script th:src="@{/scripts/print.js}"></script>
 <script th:src="@{/scripts/ingredient.js}"></script>
 <script th:src="@{/scripts/rating.js}"></script>
+<script th:src="@{/scripts/addGroceryForm.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
