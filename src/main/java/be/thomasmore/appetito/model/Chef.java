@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Chef {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private String surname;
     private String username;
@@ -40,7 +40,7 @@ public class Chef {
 
     // Getters and Setters
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 public class Menu {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
 
 

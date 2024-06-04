@@ -33,7 +33,7 @@ function removeTag(tagId) {
 }
 
 
-window.onload = function() {
+window.addEventListener('load', function() {
     const keywordParam = new URLSearchParams(window.location.search).get('keyword');
     if (keywordParam) {
         const keywords = keywordParam.split(',');
@@ -50,7 +50,7 @@ window.onload = function() {
             });
         });
     }
-}
+});
 
 searchForm.addEventListener('submit', function(event) {
     event.preventDefault();

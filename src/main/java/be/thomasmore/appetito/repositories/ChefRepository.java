@@ -18,6 +18,7 @@ public interface ChefRepository extends CrudRepository<Chef, Integer>{
 
     Optional<Chef> findAllByUsername (String name);
 
+
     @Query("SELECT d FROM Dish d JOIN d.chefs c WHERE c.id = :chefId")
     List<Dish> getFavoriteDishesByChefId(int chefId);
 

@@ -23,6 +23,30 @@
 
 <div class="container">
     <div class="row">
+        <div class="col">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{|/modify/dishedit/${dish.id}|}" th:text="|Aanpassen ${dish.getName()}|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/editsteps/${dish.id}|}" th:text="|Aanpassen Stappen|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/editingredients/${dish.id}|}" th:text="|Aanpassen Ingredienten|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/editnutritions/${dish.id}|}" th:text="|Aanpassen Voedingswaarde|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{|/modify/editbeverage/${dish.id}|}" th:text="|Aanpassen Drankjes|"></a>
+                </li>
+            </ul>
+            <div class="progress mt-3">
+                <div class="progress-bar" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
             <h2 class="text-center mb-5">Aanpassen Maaltijd</h2>
             <form method="post" enctype="multipart/form-data" th:object="${dishDto}">
@@ -90,11 +114,8 @@
                              th:alt="${dish.name}" width="200" height="130" style="margin: 10px;">
                     </div>
                 </div>
-
-                <div class="d-flex justify-content-center">
-                    <a class="btn btn-outline-primary btn-block" th:href="@{|/dishdetails/${dish.id}|}" role="button">Annuleren</a>
-                    <button type="submit" class="btn btn-primary btn-block ms-2">Opslaan</button>
-                </div>
+                <a class="btn btn-outline-primary btn-block" th:href="@{|/dishdetails/${dish.id}|}" role="button">Annuleren</a>
+                <button type="submit" class="btn btn-primary btn-block ms-2">Volgende</button>
             </form>
         </div>
     </div>

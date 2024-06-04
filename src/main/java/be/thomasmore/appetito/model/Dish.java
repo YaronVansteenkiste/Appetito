@@ -4,11 +4,13 @@ import com.google.api.client.util.Value;
 import com.google.firebase.remoteconfig.User;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,13 +33,16 @@ public class Dish {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
+
     private Boolean active = true;
     @ManyToMany
     private Collection<Chef> chefs;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concept_chef_id")
     private Chef conceptChef;
+
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
@@ -57,12 +62,19 @@ public class Dish {
 
     private Integer numberOfPeople;
 
+    @OneToMany(mappedBy = "dish")
+    private Collection<Step> step;
+
+
     public Dish() {
         this.active = true;
         this.beverages = new ArrayList<>();
     }
+    @PrePersist
+    protected void onCreate() {
+        creationDate = new Date();
+    }
 
-    // Getters and Setters
 
     public Integer getId() {
         return id;
@@ -223,5 +235,20 @@ public class Dish {
 
     public void setConceptChef(Chef conceptChef) {
         this.conceptChef = conceptChef;
+    }
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Collection<Step> getStep() {
+        return step;
+    }
+
+    public void setStep(Collection<Step> step) {
+        this.step = step;
     }
 }
