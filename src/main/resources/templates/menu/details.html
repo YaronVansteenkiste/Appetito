@@ -52,8 +52,8 @@
                     </div>
                     <div class="card-body row g-3">
                         <div class="col-sm-4" th:each="dish, stat : ${menuDay.getDishes()}">
-                            <div class="card">
-                                <img class="card-img-top img-fluid object-fit-cover"
+                            <div class="card" style="height: 700px;">
+                                <img class="card-img-top img-fluid object-fit-cover h-100"
                                      th:src="${dish.getImgFileName()}"
                                      alt="dish image">
                                 <div class="card-body">
