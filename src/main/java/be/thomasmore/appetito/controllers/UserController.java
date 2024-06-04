@@ -4,6 +4,7 @@ package be.thomasmore.appetito.controllers;
 import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
 import be.thomasmore.appetito.repositories.ChefRepository;
+import be.thomasmore.appetito.repositories.DishRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -38,6 +39,8 @@ public class UserController {
 
     @Autowired
     private JdbcUserDetailsManager jdbcUserDetailsManager;
+    @Autowired
+    DishRepository dishRepository;
 
     @GetMapping("/login")
     public String login(Model model, Principal principal) {
@@ -72,9 +75,10 @@ public class UserController {
         if (chef == null) {
             return "redirect:/";
         }
-
+        List<Dish> allDishes = chef.getDishes();
         List<Dish> favoriteDishes = chefRepository.getFavoriteDishesByChefId(chef.getId());
         model.addAttribute("chef", chef);
+        model.addAttribute("allDishes", allDishes);
         model.addAttribute("favoriteDishes", favoriteDishes);
 
         return "user/profile";

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,6 +32,9 @@ public class Dish {
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ingredient> ingredients;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
     private Boolean active = true;
     @ManyToMany
@@ -61,6 +65,10 @@ public class Dish {
     public Dish() {
         this.active = true;
         this.beverages = new ArrayList<>();
+    }
+    @PrePersist
+    protected void onCreate() {
+        creationDate = new Date();
     }
 
 
@@ -223,5 +231,12 @@ public class Dish {
 
     public void setConceptChef(Chef conceptChef) {
         this.conceptChef = conceptChef;
+    }
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

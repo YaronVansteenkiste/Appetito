@@ -956,3 +956,59 @@ VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals a
 'kunnen helpen om een gecarameliseerde glazuur te vormen op het oppervlak van het voedsel wanneer het wordt gekookt. ' ||
 'Deze zijn uitstekend voor het grillen, omdat de suiker helpt om mooie grillmarkeringen en een diepe, rijke smaak te ontwikkelen.','/img/zoet.jpg',8);
 
+
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH, chef_id)
+VALUES
+    ('Caprese Salad', 'vegetarian', '00:10:00', 'lunch', '/img/caprese_salad.jpg', 'https://www.youtube.com/embed/gOcfUgd4ekA?si=kPYmeQBlOVF9dT6g', false, 1),
+    ('Beef Stroganoff', 'non-vegetarian', '01:00:00', 'dinner', '/img/beef_stroganoff.jpg', 'https://www.youtube.com/embed/RtFJmmLLuZk?si=EI1y2aIQqIpYErvq', false, 1),
+    ('Avocado Toast', 'vegan', '00:05:00', 'breakfast', '/img/avocado_toast.jpg', 'https://www.youtube.com/embed/li-pPc6KNho?si=T_nrAuLE3USbRZOp', false, 1);
+
+
+INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
+VALUES
+    ('Tomatoes', 200, 'gr', 21),
+    ('Mozzarella', 150, 'gr', 21),
+    ('Basil', 20, 'gr', 21),
+    ('Olive Oil', 30, 'ml', 21),
+    ('Beef', 500, 'gr', 22),
+    ('Mushrooms', 200, 'gr', 22),
+    ('Onion', 100, 'gr', 22),
+    ('Sour Cream', 150, 'ml', 22),
+    ('Bread', 2, 'slices', 23),
+    ('Avocado', 1, 'whole', 23),
+    ('Lemon Juice', 10, 'ml', 23);
+
+
+INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
+VALUES
+    ('2 g', '300 mg', '3 g', '5 g', '10 g', '20 g', '12 g', 21),
+    ('1 g', '500 mg', '2 g', '10 g', '25 g', '15 g', '35 g', 22),
+    ('4 g', '150 mg', '1 g', '2 g', '15 g', '30 g', '5 g', 23);
+
+
+
+
+
+INSERT INTO STEP (DESCRIPTION, DISH_ID)
+VALUES
+
+    ('Snijd de tomaten en mozzarella in plakjes en leg ze op een bord met basilicumblaadjes. Besprenkel met olijfolie en breng op smaak met zout en peper.', 21),
+    ('Voeg een scheutje balsamicoazijn toe voor extra smaak.', 21),
+    ('Garneer met pijnboompitten en serveer direct.', 21),
+
+
+    ('Bak het gehakt en de uien in een pan tot het bruin is.', 22),
+    ('Voeg de champignons toe en bak ze mee tot ze zacht zijn.', 22),
+    ('Voeg de zure room toe en roer goed door. Laat het geheel even sudderen.', 22),
+    ('Serveer de stroganoff over noedels of rijst.', 22),
+
+
+    ('Toast het brood lichtbruin.', 23),
+    ('Prak de avocado met citroensap en breng op smaak met zout en peper.', 23),
+    ('Smeer de geprakte avocado op het geroosterde brood.', 23),
+    ('Voeg optionele toppings toe zoals cherrytomaten of radijsjes.', 23);
+
+
+
+
+
