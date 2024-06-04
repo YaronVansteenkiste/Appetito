@@ -1,5 +1,6 @@
 package be.thomasmore.appetito.repositories;
 
+import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
 
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +26,9 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     Optional<Dish> findFirstByIdLessThanAndActiveOrderByIdDesc(Integer id, Boolean active);
 
+
+    @Query("SELECT d FROM Dish d WHERE d.chef = :chef AND d.conceptDish = false ORDER BY d.creationDate DESC")
+    List<Dish> findByChefAndConceptDishFalse(Chef chef, Pageable pageable);
     @Query("SELECT DISTINCT d.customDietPreferences FROM Dish d WHERE d.customDietPreferences IS NOT NULL")
     List<String> findDistinctCustomDietPreferences();
 

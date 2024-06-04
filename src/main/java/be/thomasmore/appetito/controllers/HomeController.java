@@ -31,6 +31,8 @@ public class HomeController {
     private RatingRepository ratingRepository;
     @Autowired
     private DishRepository dishRepository;
+    @Autowired
+    private ChefRepository chefRepository;
 
     @GetMapping("/")
     public String Home(Model model, Principal principal, @RequestParam(name = "occasion", required = false) String occasion) {
@@ -70,6 +72,18 @@ public class HomeController {
         } else {
             message += "";
         }
+        Chef chef = chefRepository.findByUsername(loginName);
+
+        if (chef != null) {
+            PageRequest pageRequest = PageRequest.of(0, 6);
+            List<Dish> dishes = dishRepository.findByChefAndConceptDishFalse(chef, pageRequest);
+
+
+            model.addAttribute("allDishes",dishes);
+
+        } else {
+            model.addAttribute("allDishes", List.of());
+        }
 
         List <Dish> dishes = dishRepository.findRandomDishesByOccasion(occasion);
 
@@ -78,6 +92,8 @@ public class HomeController {
         model.addAttribute("suggestion",suggestion);
         model.addAttribute("loginName", loginName);
         model.addAttribute("topRatedDishes", topRatedDishes);
+
+
         return "home";
     }
 
