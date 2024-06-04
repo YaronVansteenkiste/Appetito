@@ -75,11 +75,13 @@ public class UserController {
         if (chef == null) {
             return "redirect:/";
         }
-        List<Dish> allDishes = chef.getDishes();
+        long nonConceptDishesCount = chef.getDishes().stream().filter(dish -> !dish.isConceptDish()).count();
+        List<Dish> allDishes = dishRepository.findByChefAndConceptDish(chef);
         List<Dish> favoriteDishes = chefRepository.getFavoriteDishesByChefId(chef.getId());
         model.addAttribute("chef", chef);
         model.addAttribute("allDishes", allDishes);
         model.addAttribute("favoriteDishes", favoriteDishes);
+        model.addAttribute("nonConceptDishesCount", nonConceptDishesCount);
 
         return "user/profile";
     }

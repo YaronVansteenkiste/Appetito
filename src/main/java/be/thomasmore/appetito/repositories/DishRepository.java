@@ -25,7 +25,8 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
     Optional<Dish> findFirstByIdGreaterThanAndActiveOrderByIdAsc(Integer id, Boolean active);
 
     Optional<Dish> findFirstByIdLessThanAndActiveOrderByIdDesc(Integer id, Boolean active);
-
+    @Query("SELECT d FROM Dish d WHERE d.chef = :chef AND d.conceptDish = false")
+    List<Dish> findByChefAndConceptDish(Chef chef);
 
     @Query("SELECT d FROM Dish d WHERE d.chef = :chef AND d.conceptDish = false ORDER BY d.creationDate DESC")
     List<Dish> findByChefAndConceptDishFalse(Chef chef, Pageable pageable);
