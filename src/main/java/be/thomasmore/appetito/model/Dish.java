@@ -39,10 +39,10 @@ public class Dish {
     private Boolean active = true;
     @ManyToMany
     private Collection<Chef> chefs;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concept_chef_id")
     private Chef conceptChef;
+
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Nutrition> nutritions;
@@ -61,6 +61,10 @@ public class Dish {
     private Collection<Chef> favoritedByChefs;
 
     private Integer numberOfPeople;
+
+    @OneToMany(mappedBy = "dish")
+    private Collection<Step> step;
+
 
     public Dish() {
         this.active = true;
@@ -238,5 +242,13 @@ public class Dish {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Collection<Step> getStep() {
+        return step;
+    }
+
+    public void setStep(Collection<Step> step) {
+        this.step = step;
     }
 }

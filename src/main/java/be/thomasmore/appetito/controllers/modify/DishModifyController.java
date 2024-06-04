@@ -100,18 +100,29 @@ public class DishModifyController {
             return "redirect:/user/login";
         }
 
-        Optional<Dish> optionalDish = dishRepository.findById(dishId);
-        if (optionalDish.isPresent()) {
-            Dish dish = optionalDish.get();
-            dish.setActive(true);
-            dishRepository.save(dish);
+        List<Dish> conceptDishes = dishRepository.findByConceptChef(chef);
+        for (Dish dish : conceptDishes) {
+            if (dish.getId().equals(dishId)) {
+                dish.setConceptDish(false);
+                dish.setActive(true);
+                dishRepository.save(dish);
 
-            return "redirect:/dishdetails/" + dishId;
+                if (dish.getStep().isEmpty()) {
+                    return "redirect:/modify/editsteps/" + dishId;
+                } else if (dish.getIngredients().isEmpty()) {
+                    return "redirect:/modify/editingredients/" + dishId;
+                } else if (dish.getNutritions().isEmpty()) {
+                    return "redirect:/modify/editnutritions/" + dishId;
+                } else if (dish.getBeverages().isEmpty()) {
+                    return "redirect:/modify/editbeverage/" + dishId;
+                }
+
+
+            }
         }
 
-        return "error";
+        return "redirect:/dishdetails/" + dishId;
     }
-
 
 
 
@@ -820,6 +831,8 @@ public String showCreateDish(Model model, @PathVariable(value = "id", required =
                     beverageRepository.save(newBeverage);
                 }
             }
+            dish.setConceptDish(false);
+            dish.setActive(true);
 
             dish.setBeverages(beverages);
             dishRepository.save(dish);

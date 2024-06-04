@@ -1011,4 +1011,14 @@ VALUES
 
 
 
-
+INSERT INTO DISH_BEVERAGES (DISHES_ID, BEVERAGES_ID)
+VALUES (21, 1),
+       (21, 2),
+       (21, 3),
+       (22, 8),
+       (22, 11),
+       (22, 1),
+       (23, 2),
+       (23, 3),
+       (23, 11),
+       (23, 1);
