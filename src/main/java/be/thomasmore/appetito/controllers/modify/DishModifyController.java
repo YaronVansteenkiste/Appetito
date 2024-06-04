@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.security.Principal;
+import java.sql.Time;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -81,6 +82,7 @@ public class DishModifyController {
             Dish dish = optionalDish.get();
             dish.setConceptDish(true);
             dish.setConceptChef(chef);
+            dish.setActive(false);
             dishRepository.save(dish);
 
             return "redirect:/user/profile";
@@ -88,7 +90,39 @@ public class DishModifyController {
 
         return "error";
     }
+    @PostMapping("/activatedish/{dishId}")
+    @Transactional
+    public String activateDish(@PathVariable("dishId") Integer dishId, Principal principal) {
+        String userName = principal.getName();
+        Chef chef = chefRepository.findByUsername(userName);
 
+        if (chef == null) {
+            return "redirect:/user/login";
+        }
+
+        List<Dish> conceptDishes = dishRepository.findByConceptChef(chef);
+        for (Dish dish : conceptDishes) {
+            if (dish.getId().equals(dishId)) {
+                dish.setConceptDish(false);
+                dish.setActive(true);
+                dishRepository.save(dish);
+
+                if (dish.getStep().isEmpty()) {
+                    return "redirect:/modify/editsteps/" + dishId;
+                } else if (dish.getIngredients().isEmpty()) {
+                    return "redirect:/modify/editingredients/" + dishId;
+                } else if (dish.getNutritions().isEmpty()) {
+                    return "redirect:/modify/editnutritions/" + dishId;
+                } else if (dish.getBeverages().isEmpty()) {
+                    return "redirect:/modify/editbeverage/" + dishId;
+                }
+
+
+            }
+        }
+
+        return "redirect:/dishdetails/" + dishId;
+    }
 
 
 
@@ -313,32 +347,36 @@ public class DishModifyController {
     }
 
 
-    @GetMapping({"/adddish", "/adddish/{id}"})
-    public String showCreateDish(Model model, @RequestParam(value = "id", required = false) Integer id) {
-        if (id != null) {
-            Optional<Dish> dishOptional = dishRepository.findById(id);
+   @GetMapping({"/adddish", "/adddish/{id}"})
+public String showCreateDish(Model model, @PathVariable(value = "id", required = false) Integer id) {
 
-            if (dishOptional.isPresent()) {
+    if (id != null) {
+        Optional<Dish> dishOptional = dishRepository.findById(id);
 
-                Dish dish = dishOptional.get();
+        if (dishOptional.isPresent()) {
 
-                DishDto dishDto = new DishDto();
-                dishDto.setName(dish.getName());
-                dishDto.setDietPreferences(dish.getDietPreferences());
-                dishDto.setPreparationTime(dish.getPreparationTime());
-                dishDto.setOccasion(dish.getOccasion());
-                dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
+            Dish dish = dishOptional.get();
 
-                model.addAttribute("dishDto", dishDto);
-                model.addAttribute("dish", dish);
+            DishDto dishDto = new DishDto();
+            dishDto.setName(dish.getName());
+            dishDto.setDietPreferences(dish.getDietPreferences());
+            dishDto.setPreparationTime(dish.getPreparationTime());
+            dishDto.setOccasion(dish.getOccasion());
+            dishDto.setNumberOfPeople(dish.getNumberOfPeople());
+            dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
+            dishDto.setImgFileName(dish.getImgFileName());
 
-                return "modify/adddish";
-            }
+            model.addAttribute("dishDto", dishDto);
+            model.addAttribute("dish", dish);
+
+            return "modify/adddish";
         }
-        DishDto dishDto = new DishDto();
-        model.addAttribute("dishDto", dishDto);
-        return "modify/adddish";
     }
+    DishDto dishDto = new DishDto();
+    dishDto.setPreparationTime(Time.valueOf("00:00:00"));
+    model.addAttribute("dishDto", dishDto);
+    return "modify/adddish";
+}
 
     @PostMapping({"/adddish", "/adddish/{id}"})
     public String createDish(Model model,
@@ -793,6 +831,8 @@ public class DishModifyController {
                     beverageRepository.save(newBeverage);
                 }
             }
+            dish.setConceptDish(false);
+            dish.setActive(true);
 
             dish.setBeverages(beverages);
             dishRepository.save(dish);

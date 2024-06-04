@@ -24,7 +24,8 @@
     <div class="row">
         <div class="col-md-6">
             <div class="recipeImage">
-                <img th:src="@{${dish.getImgFileName()}}" th:alt="${dish.name}" style="max-width: 100%;">
+                <img th:src="${dish.getImgFileName() != null} ? @{${dish.getImgFileName()}} : '/img/Empty_plate.png'"
+                     th:alt="${dish.name}" class="img-fluid w-75">
             </div>
         </div>
         <div class="col-md-6 ">
@@ -34,7 +35,9 @@
                 <form th:if="${canEdit}" th:action="@{/toggle/dish/{id}(id=${dish.id})}"
                       method="post">
                     <input type="hidden" name="active" th:value="${!dish.isActive}">
-                    <button type="submit" th:class="${dish.isActive ? ' bi bi-trash3-fill btn btn-danger' : 'bi bi-power btn btn-success'}" th:text="${dish.isActive ? ' Verwijderen' : ' Toevoegen'}">
+                    <button type="submit"
+                            th:class="${dish.isActive ? ' bi bi-trash3-fill btn btn-danger' : 'bi bi-power btn btn-success'}"
+                            th:text="${dish.isActive ? ' Verwijderen' : ' Toevoegen'}">
                     </button>
                 </form>
                 <h2>
@@ -44,9 +47,6 @@
                 <div class="d-flex">
                     <a sec:authorize="isAuthenticated()" th:href="@{|/menu/select/${dish.getId()}|}"
                        class="btn btn-primary">Toevoegen aan menu</a>
-                    <form th:if="${chef != null}" th:action="@{/modify/saveAsConcept/{dishId}(dishId=${dish.id})}" method="post">
-                        <button sec:authorize="hasAuthority('USER')"  type="submit" class="btn btn-warning ms-2">Opslaan als concept</button>
-                    </form>
                 </div>
                 <h4>Gelegenheid</h4>
                 <p th:text="${dish.occasion}"></p>
@@ -97,7 +97,7 @@
                     <button onclick="addPersons()" class="btn btn-outline-primary rounded-circle">+</button>
                 </div>
             </div>
-            <form th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
+            <form th:data="${dish.getId()}" id="groceryForm" th:action="@{/dishdetails/addingredients/__${dish.id}__}" method="post">
                 <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary mt-3">Toevoegen aan
                     boodschappenlijst
                 </button>
@@ -109,7 +109,8 @@
                     <span th:data-quantity="${ingredient.quantity}" class="quantity" th:id="|quantity${stat.index}|"
                           th:text="${ingredient.quantity > 0 ? ingredient.quantity : ''}"></span>
                     <span th:text="${ingredient.getUnit()}"></span>
-                    <img th:if="${ingredient.getImgFileName()!=null}" th:src="@{${ingredient.getImgFileName()}}" alt="Ingredient Image" style="width: 50px; height: 50px;">
+                    <img th:if="${ingredient.getImgFileName()!=null}" th:src="@{${ingredient.getImgFileName()}}"
+                         alt="Ingredient Image" style="width: 50px; height: 50px;">
                 </li>
             </ul>
             <div th:if="${dish.getIngredients() == null && !dish.getNutritions().isEmpty()}">
@@ -295,6 +296,7 @@
 <script th:src="@{/scripts/print.js}"></script>
 <script th:src="@{/scripts/ingredient.js}"></script>
 <script th:src="@{/scripts/rating.js}"></script>
+<script th:src="@{/scripts/addGroceryForm.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

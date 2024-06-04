@@ -66,6 +66,7 @@ public class SecurityConfiguration {
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/**"));
         http.csrf(csfr -> csfr.ignoringRequestMatchers("/menu/select/**"));
 
+
         //to enable h2-console:
         if (h2ConsoleNeeded) {
             //h2ConsoleNeeded has to be false when deploying on google cloud, otherwise the login does not work

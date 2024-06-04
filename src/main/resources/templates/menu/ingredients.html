@@ -36,7 +36,7 @@
             <tr th:each="ingredient, stat : ${ingredients.content}">
                 <th scope="row" th:text="${stat.count}"></th>
                 <td th:text="${ingredient.getName()}"></td>
-                <td th:text="${ingredient.getQuantity()}"></td>
+                <td th:text="|${ingredient.getQuantity()} ${ingredient.getUnit() == null ? '' : ingredient.getUnit()}|"></td>
             </tr>
         </tbody>
     </table>

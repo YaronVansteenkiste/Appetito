@@ -14,6 +14,7 @@ import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.*;
 
@@ -50,6 +51,7 @@ public class DishDetailController<ToggleRequest> {
                 Chef chef = chefOptional.get();
                 String chefName = chef.getUsername();
                 Optional<Dish> dishFromDB = dishRepository.findById(id);
+                model.addAttribute("chef", chef);
                 if (dishFromDB.get().getChef() != null ) {
                     if (dishFromDB.get().getChef().getName().equals(chefName)) {
                         canEdit = true;
@@ -85,6 +87,7 @@ public class DishDetailController<ToggleRequest> {
         model.addAttribute("allDishes", allTheDishes);
         model.addAttribute("isActive", allTheDishes.get(id - 1).isActive());
         model.addAttribute("canEdit", canEdit);
+
 
 
         if (id == null) {
@@ -177,37 +180,49 @@ public class DishDetailController<ToggleRequest> {
 
 
     @PostMapping("/dishdetails/addingredients/{id}")
-    public String addIngredientsToGrocery(@PathVariable(required = true) Integer id, Principal principal) {
-        if (principal == null) {
-            return "redirect:/user/login";
-        }
-        Optional<Dish> dishFromDB = dishRepository.findById(id);
-        Dish dish = dishFromDB.get();
-
-        Collection<Ingredient> ingredients = dish.getIngredients();
-
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
-        if (groceryFromDB.isPresent()) {
-            Grocery grocery = groceryFromDB.get();
-            Collection<Ingredient> groceryIngredients = grocery.getIngredients();
-            for (Ingredient ingredient : ingredients) {
-                if (!groceryIngredients.contains(ingredient)) {
-                    groceryIngredients.add(ingredient);
-                }
-            }
-            grocery.setIngredients(groceryIngredients);
-            groceryRepository.save(grocery);
-
-        } else {
-            Grocery grocery = new Grocery();
-            grocery.setChef(chef);
-            Collection<Ingredient> newIngredients = new ArrayList<>(ingredients);
-            grocery.setIngredients(newIngredients);
-            groceryRepository.save(grocery);
-        }
-        return "redirect:/groceries/";
+public String addIngredientsToGrocery(@PathVariable(required = true) Integer id, @RequestParam Integer persons, Principal principal) {
+    if (principal == null) {
+        return "redirect:/user/login";
     }
+    Optional<Dish> dishFromDB = dishRepository.findById(id);
+    Dish dish = dishFromDB.get();
+
+    Collection<Ingredient> ingredients = dish.getIngredients();
+
+    int numberOfPeople = 1;
+
+
+    if (dish.getNumberOfPeople() != null) {
+        numberOfPeople = dish.getNumberOfPeople();
+    }
+
+    Chef chef = chefRepository.findByUsername(principal.getName());
+    Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
+    if (groceryFromDB.isPresent()) {
+        Grocery grocery = groceryFromDB.get();
+        Collection<Ingredient> groceryIngredients = grocery.getIngredients();
+        for (Ingredient ingredient : ingredients) {
+            Ingredient newIngredient = new Ingredient();
+            newIngredient.setName(ingredient.getName());
+            newIngredient.setUnit(ingredient.getUnit());
+            newIngredient.setQuantity(ingredient.getQuantity() / numberOfPeople * persons);
+            if (!groceryIngredients.contains(newIngredient)) {
+                newIngredient = ingredientRepository.save(newIngredient);
+                groceryIngredients.add(newIngredient);
+            }
+        }
+        grocery.setIngredients(groceryIngredients);
+        groceryRepository.save(grocery);
+
+    } else {
+        Grocery grocery = new Grocery();
+        grocery.setChef(chef);
+        Collection<Ingredient> newIngredients = new ArrayList<>(ingredients);
+        grocery.setIngredients(newIngredients);
+        groceryRepository.save(grocery);
+    }
+    return "redirect:/groceries/";
+}
 
     @PostMapping("/toggle/beverage/{id}")
     public String updateBeverageToggleState(@PathVariable("id") int id, @RequestParam boolean active) {

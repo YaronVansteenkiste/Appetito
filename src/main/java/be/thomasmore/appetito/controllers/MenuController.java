@@ -2,6 +2,8 @@ package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +27,7 @@ import java.util.stream.Collectors;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/menu")
 @Controller
 public class MenuController {
     @Autowired
@@ -33,41 +38,49 @@ public class MenuController {
     private MenuRepository menuRepository;
     @Autowired
     private MenuDayRepository menuDayRepository;
-
     @Autowired
     private GroceryRepository groceryRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     private Logger logger = LoggerFactory.getLogger(MenuController.class);
 
-    @GetMapping("/menu/details/{menuId}/ingredients")
-    public String getMenuIngredients(@PathVariable Integer menuId, Model model, @PageableDefault(size = 10) Pageable pageable) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
-        List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
+   @GetMapping("/details/{menuId}/ingredients")
+public String getMenuIngredients(@PathVariable Integer menuId, Model model, @PageableDefault(size = 10) Pageable pageable) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+    List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
 
-        List<Ingredient> ingredients = new ArrayList<>();
-        for (MenuDay menuDay : menuDays) {
-            for (Dish dish : menuDay.getDishes()) {
-                ingredients.addAll(dish.getIngredients());
+    List<Ingredient> ingredients = new ArrayList<>();
+    for (MenuDay menuDay : menuDays) {
+        for (Dish dish : menuDay.getDishes()) {
+            for (Ingredient ingredient : dish.getIngredients()) {
+                Ingredient newIngredient = new Ingredient();
+                newIngredient.setName(ingredient.getName());
+                newIngredient.setUnit(ingredient.getUnit());
+                if (dish.getNumberOfPeople() == null) dish.setNumberOfPeople(1);
+                if (menu.getNumberOfPeople() == null) menu.setNumberOfPeople(1);
+                newIngredient.setQuantity(ingredient.getQuantity() / dish.getNumberOfPeople() * menu.getNumberOfPeople());
+                ingredients.add(newIngredient);
             }
         }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), ingredients.size());
-        Page<Ingredient> ingredientsPage = new PageImpl<>(ingredients.subList(start, end), pageable, ingredients.size());
-
-
-        model.addAttribute("ingredients", ingredientsPage);
-        model.addAttribute("menu", menu);
-        return "menu/ingredients";
     }
 
+    int start = (int) pageable.getOffset();
+    int end = Math.min((start + pageable.getPageSize()), ingredients.size());
+    Page<Ingredient> ingredientsPage = new PageImpl<>(ingredients.subList(start, end), pageable, ingredients.size());
 
-    @PostMapping("/menu/{menuId}/addToGrocery")
+    model.addAttribute("ingredients", ingredientsPage);
+    model.addAttribute("menu", menu);
+    return "menu/ingredients";
+}
+
+
+   @PostMapping("/{menuId}/addToGrocery")
 public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/user/login";
-        }
+    if (principal == null) {
+        return "redirect:/user/login";
+    }
 
     Menu menu = menuRepository.findById(menuId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
@@ -76,40 +89,55 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
     List<Ingredient> ingredients = new ArrayList<>();
     for (MenuDay menuDay : menuDays) {
         for (Dish dish : menuDay.getDishes()) {
-            ingredients.addAll(dish.getIngredients());
+            Collection<Ingredient> dishIngredients = dish.getIngredients();
+            for (Ingredient ingredient : dishIngredients) {
+                Ingredient newIngredient = new Ingredient();
+                newIngredient.setName(ingredient.getName());
+                newIngredient.setUnit(ingredient.getUnit());
+                if (dish.getNumberOfPeople() == null) dish.setNumberOfPeople(1);
+                if (menu.getNumberOfPeople() == null) menu.setNumberOfPeople(1);
+                newIngredient.setQuantity(ingredient.getQuantity() / dish.getNumberOfPeople().intValue() * menu.getNumberOfPeople().intValue());
+
+                if (!ingredients.contains(newIngredient)) {
+                    newIngredient = ingredientRepository.save(newIngredient);
+                    ingredients.add(newIngredient);
+                }
+            }
+            ingredients.addAll(dishIngredients);
         }
     }
 
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
+    Chef chef = chefRepository.findByUsername(principal.getName());
+    Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
 
-        if (groceryFromDB.isPresent()) {
-            Grocery grocery = groceryFromDB.get();
-            Collection<Ingredient> groceryIngredients = grocery.getIngredients();
-            if (groceryIngredients == null) {
-                groceryIngredients = new ArrayList<>();
-            }
-            logger.info("Grocery ingredients before addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
-            for (Ingredient ingredient : ingredients) {
-                if (!groceryIngredients.contains(ingredient)) {
-                    groceryIngredients.add(ingredient);
-                }
-            }
-            grocery.setIngredients(groceryIngredients);
-            groceryRepository.save(grocery);
-            logger.info("Grocery ingredients after addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
-
-            Grocery savedGrocery = groceryRepository.findById(grocery.getId()).get();
-            logger.info("Saved grocery ingredients: " + savedGrocery.getIngredients().stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+    if (groceryFromDB.isPresent()) {
+        Grocery grocery = groceryFromDB.get();
+        Collection<Ingredient> groceryIngredients = grocery.getIngredients();
+        if (groceryIngredients == null) {
+            groceryIngredients = new ArrayList<>();
         }
+        logger.info("Grocery ingredients before addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+        for (Ingredient ingredient : ingredients) {
+            if (!groceryIngredients.contains(ingredient)) {
+                groceryIngredients.add(ingredient);
+            }
+        }
+        grocery.setIngredients(groceryIngredients);
+        groceryRepository.save(grocery);
+        logger.info("Grocery ingredients after addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+
+        Grocery savedGrocery = groceryRepository.findById(grocery.getId()).get();
+        logger.info("Saved grocery ingredients: " + savedGrocery.getIngredients().stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+    }
 
     return "redirect:/groceries";
 }
 
-    @PostMapping("/menu/select/{menuId}/addDay/{dishId}")
+    @PostMapping("/select/{menuId}/addDay/{dishId}")
     public String addSelectDay(@PathVariable Integer menuId,
                                @PathVariable Integer dishId,
-                               RedirectAttributes redirectAttributes) {
+                               RedirectAttributes redirectAttributes,
+                               HttpServletRequest request) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
 
@@ -117,7 +145,8 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
 
         if (menuDays.size() >= 7) {
             redirectAttributes.addFlashAttribute("error", "Er kunnen niet meer dan 7 dagen aan een menu worden toegevoegd.");
-            return "redirect:/menu/details/" + menuId;
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
         }
 
         int nextDayNumber = menuDays.size() + 1;
@@ -130,12 +159,13 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
 
         redirectAttributes.addFlashAttribute("success", "Day added to menu successfully");
 
-        return "redirect:/menu/select/" + dishId;
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
 
-    @PostMapping("/menu/{menuId}/removeDay/{dayId}")
-    public String removeDayFromMenu(@PathVariable Integer menuId, @PathVariable Integer dayId, RedirectAttributes redirectAttributes) {
+    @PostMapping("/{menuId}/removeDay/{dayId}")
+    public String removeDayFromMenu(@PathVariable Integer menuId, @PathVariable Integer dayId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
         MenuDay menuDay = menuDayRepository.findById(dayId)
@@ -157,10 +187,11 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
 
         redirectAttributes.addFlashAttribute("success", "Day " + menuDay.getDayNumber() + " removed from menu");
 
-        return "redirect:/menu/details/" + menuId;
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
-    @PostMapping("/menu/{menuId}/addDay")
+    @PostMapping("/{menuId}/addDay")
     public String addDay(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
@@ -186,55 +217,7 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
     }
 
 
-    @PostMapping("/menu/{menuId}/selectDay/{dayId}/removeDish/{dishId}")
-    public String removeDishFromDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
-        MenuDay menuDay = menuDayRepository.findById(dayId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid day Id:" + dayId));
-        Dish dish = dishRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
-
-        if (!menuDay.getMenu().equals(menu)) {
-            throw new IllegalArgumentException("The selected day does not belong to the selected menu");
-        }
-
-        menuDay.getDishes().remove(dish);
-        menuDayRepository.save(menuDay);
-
-        redirectAttributes.addFlashAttribute("success", dish.getName() + " removed from day " + menuDay.getDayNumber());
-
-        return "redirect:/menu/details/" + menuId;
-    }
-
-
-    @PostMapping("/menu/{menuId}/selectDay/{dayId}/addDish/{dishId}")
-    public String addDishToDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
-        MenuDay menuDay = menuDayRepository.findById(dayId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid day Id:" + dayId));
-        Dish dish = dishRepository.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
-
-        if (!menuDay.getMenu().equals(menu)) {
-            throw new IllegalArgumentException("De geselecteerde dag behoort niet tot het geselecteerde menu");
-        }
-
-        if (menuDay.getDishes().size() >= 5) {
-            redirectAttributes.addFlashAttribute("error", "Niet meer dan 5 maaltijden per dag toegestaan.");
-            return "redirect:/menu/select/" + dishId;
-        }
-
-        menuDay.getDishes().add(dish);
-        menuDayRepository.save(menuDay);
-
-        redirectAttributes.addFlashAttribute("success", dish.getName() + " toegevoegd aan dag " + menuDay.getDayNumber());
-
-        return "redirect:/menu/select/" + dishId;
-    }
-
-    @PostMapping("/menu/delete/{menuId}")
+    @PostMapping("/delete/{menuId}")
     public String deactivateMenu(@PathVariable Integer menuId, RedirectAttributes redirectAttributes) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
@@ -247,7 +230,7 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
         return "redirect:/menu/list";
     }
 
-    @GetMapping("/menu/list")
+    @GetMapping("/list")
     public String listMenus(Model model, Principal principal) {
         Iterable<Menu> menus = menuRepository.findAllByActiveTrue();
         model.addAttribute("menus", menus);
@@ -255,7 +238,7 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
     }
 
 
-    @PostMapping("/menu/list")
+    @PostMapping("/list")
     public String createMenu(@Valid Menu newMenu, BindingResult result, Model model, Principal principal) {
         if (result.hasErrors()) {
             model.addAttribute("error", result.getAllErrors().get(0).getDefaultMessage());
@@ -275,16 +258,40 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
     }
 
 
-    @GetMapping("/menu/details/{id}")
-    public String getMenuDetails(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/details/{id}")
+    public String getMenuDetails(@PathVariable("id") Integer id, Model model, Authentication authentication, Principal principal) {
+        Chef chef = chefRepository.findByUsername(principal.getName());
         Optional<Menu> menu = menuRepository.findById(id);
         List<MenuDay> menuDays = menuDayRepository.findByMenu(menu);
+
+        if (!menu.isPresent()) {
+            return "redirect:/menu/list";
+        }
+
+        boolean canEdit = false;
+
+        if (chef != null && menu.get().getChef().getId().equals(chef.getId())) {
+            canEdit = true;
+        }
+
+        if (menu.get().getChef() == null ) {
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            for (GrantedAuthority authority : authorities) {
+                if (authority.getAuthority().equals("ADMIN")) {
+                    canEdit = true;
+                }
+            }
+        }
+
+        model.addAttribute("isEditable", canEdit);
+
+
         model.addAttribute("menu", menu.get());
         model.addAttribute("menuDays", menuDays);
         return "menu/details";
     }
 
-    @GetMapping("/menu/select/{id}")
+    @GetMapping("/select/{id}")
     public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal) {
 
         Chef chef = chefRepository.findByUsername(principal.getName());
@@ -292,7 +299,7 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
                 .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + id));
         Iterable<Menu> menusOfChef = menuRepository.findByChef(chef);
 
-        if (chef == null) {
+        if (chef == null || dish == null) {
             return "redirect:/login";
         }
 
@@ -300,7 +307,99 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
         model.addAttribute("menus", menusOfChef);
         model.addAttribute("dish", dish);
 
-
         return "menu/select";
+    }
+
+  @PostMapping("/select/{menuId}/addDish/{dishId}")
+public String selectMenu(@PathVariable("menuId") Integer menuId, @PathVariable("dishId") Integer dishId) {
+    return "redirect:/menu/addRemoveDishes/" + menuId + "/addDish/" + dishId;
+}
+
+
+    @GetMapping("/addRemoveDishes/{menuId}/addDish/{dishId}")
+    public String addRemoveDishes(@PathVariable Integer menuId, @PathVariable Integer dishId, Model model) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+        model.addAttribute("menu", menu);
+        model.addAttribute("dish", dish);
+        return "menu/addRemoveDishes";
+    }
+
+
+@PostMapping("/{menuId}/selectDay/{dayId}/removeDish/{dishId}")
+public String removeDishFromDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+    MenuDay menuDay = menuDayRepository.findById(dayId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid day Id:" + dayId));
+    Dish dish = dishRepository.findById(dishId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+    if (!menuDay.getMenu().equals(menu)) {
+        throw new IllegalArgumentException("The selected day does not belong to the selected menu");
+    }
+
+    menuDay.getDishes().remove(dish);
+    menuDayRepository.save(menuDay);
+
+    redirectAttributes.addFlashAttribute("success", dish.getName() + " removed from day " + menuDay.getDayNumber());
+
+    String referer = request.getHeader("Referer");
+    return "redirect:" + referer;
+}
+
+
+    @PostMapping("/{menuId}/selectDay/{dayId}/addDish/{dishId}")
+    public String addDishToDay(@PathVariable Integer menuId, @PathVariable Integer dayId, @PathVariable Integer dishId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        Menu menu = menuRepository.findById(menuId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+        MenuDay menuDay = menuDayRepository.findById(dayId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid day Id:" + dayId));
+        Dish dish = dishRepository.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + dishId));
+
+        if (!menuDay.getMenu().equals(menu)) {
+            throw new IllegalArgumentException("De geselecteerde dag behoort niet tot het geselecteerde menu");
+        }
+
+        if (menuDay.getDishes().size() >= 5) {
+            redirectAttributes.addFlashAttribute("error", "Niet meer dan 5 maaltijden per dag toegestaan.");
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
+        }
+
+        menuDay.getDishes().add(dish);
+        menuDayRepository.save(menuDay);
+
+        redirectAttributes.addFlashAttribute("success", dish.getName() + " toegevoegd aan dag " + menuDay.getDayNumber());
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
+
+
+    @GetMapping("/edit/{id}")
+    public String showEditPage(@PathVariable("id") Integer id, Model model) {
+        Optional<Menu> menu = menuRepository.getMenuById(id);
+        model.addAttribute("menu", menu.get());
+        return "menu/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateMenu(@PathVariable("id") Integer id, @RequestParam("name") String name,
+                             @RequestParam("numberOfPeople") int numberOfPeople, @RequestParam("description") String description) {
+        Optional<Menu> menuFromDb = menuRepository.getMenuById(id);
+        if (!menuFromDb.isPresent()) {
+            return "redirect:/menu/list";
+        }
+        Menu menu = menuFromDb.get();
+        menu.setNumberOfPeople(numberOfPeople);
+        menu.setDescription(description);
+        menu.setName(name);
+        menuRepository.save(menu);
+        return "redirect:/menu/details/" + id;
     }
 }
