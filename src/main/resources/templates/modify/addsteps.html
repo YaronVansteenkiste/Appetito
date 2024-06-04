@@ -72,8 +72,9 @@
                 <button type="submit" class="btn btn-primary">Volgende</button>
             </form>
             <form th:if="${chef != null}" th:action="@{/modify/saveAsConcept/{dishId}(dishId=${dish.id})}" method="post">
-                <button sec:authorize="hasAuthority('USER')" type="submit" class="btn btn-warning mt-3 mr-3">Opslaan als concept</button>
+                <button sec:authorize="hasAuthority('USER') or hasAuthority('ADMIN')" type="submit" class="btn btn-warning mt-3 mr-3">Opslaan als concept</button>
             </form>
+
         </div>
     </div>
 </div>
