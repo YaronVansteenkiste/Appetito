@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -257,9 +259,33 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
 
 
     @GetMapping("/details/{id}")
-    public String getMenuDetails(@PathVariable("id") Integer id, Model model) {
+    public String getMenuDetails(@PathVariable("id") Integer id, Model model, Authentication authentication, Principal principal) {
+        Chef chef = chefRepository.findByUsername(principal.getName());
         Optional<Menu> menu = menuRepository.findById(id);
         List<MenuDay> menuDays = menuDayRepository.findByMenu(menu);
+
+        if (!menu.isPresent()) {
+            return "redirect:/menu/list";
+        }
+
+        boolean canEdit = false;
+
+        if (chef != null && menu.get().getChef().getId().equals(chef.getId())) {
+            canEdit = true;
+        }
+
+        if (menu.get().getChef() == null ) {
+            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+            for (GrantedAuthority authority : authorities) {
+                if (authority.getAuthority().equals("ADMIN")) {
+                    canEdit = true;
+                }
+            }
+        }
+
+        model.addAttribute("isEditable", canEdit);
+
+
         model.addAttribute("menu", menu.get());
         model.addAttribute("menuDays", menuDays);
         return "menu/details";
