@@ -336,34 +336,36 @@ public class DishModifyController {
     }
 
 
-    @GetMapping({"/adddish", "/adddish/{id}"})
-    public String showCreateDish(Model model, @RequestParam(value = "id", required = false) Integer id) {
+   @GetMapping({"/adddish", "/adddish/{id}"})
+public String showCreateDish(Model model, @PathVariable(value = "id", required = false) Integer id) {
 
-        if (id != null) {
-            Optional<Dish> dishOptional = dishRepository.findById(id);
+    if (id != null) {
+        Optional<Dish> dishOptional = dishRepository.findById(id);
 
-            if (dishOptional.isPresent()) {
+        if (dishOptional.isPresent()) {
 
-                Dish dish = dishOptional.get();
+            Dish dish = dishOptional.get();
 
-                DishDto dishDto = new DishDto();
-                dishDto.setName(dish.getName());
-                dishDto.setDietPreferences(dish.getDietPreferences());
-                dishDto.setPreparationTime(dish.getPreparationTime());
-                dishDto.setOccasion(dish.getOccasion());
-                dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
+            DishDto dishDto = new DishDto();
+            dishDto.setName(dish.getName());
+            dishDto.setDietPreferences(dish.getDietPreferences());
+            dishDto.setPreparationTime(dish.getPreparationTime());
+            dishDto.setOccasion(dish.getOccasion());
+            dishDto.setNumberOfPeople(dish.getNumberOfPeople());
+            dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
+            dishDto.setImgFileName(dish.getImgFileName());
 
-                model.addAttribute("dishDto", dishDto);
-                model.addAttribute("dish", dish);
+            model.addAttribute("dishDto", dishDto);
+            model.addAttribute("dish", dish);
 
-                return "modify/adddish";
-            }
+            return "modify/adddish";
         }
-        DishDto dishDto = new DishDto();
-        dishDto.setPreparationTime(Time.valueOf("00:00:00"));
-        model.addAttribute("dishDto", dishDto);
-        return "modify/adddish";
     }
+    DishDto dishDto = new DishDto();
+    dishDto.setPreparationTime(Time.valueOf("00:00:00"));
+    model.addAttribute("dishDto", dishDto);
+    return "modify/adddish";
+}
 
     @PostMapping({"/adddish", "/adddish/{id}"})
     public String createDish(Model model,

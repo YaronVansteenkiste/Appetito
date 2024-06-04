@@ -31,10 +31,19 @@ public class DishDto {
 
     private Integer numberOfPeople;
 
+    private String imgFileName;
+
     public DishDto() {
     }
 
 
+    public String getImgFileName() {
+        return imgFileName;
+    }
+
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
+    }
 
     public String getName() {
         return name;
