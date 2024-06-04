@@ -2,6 +2,9 @@ package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Entity
 public class Technique {
@@ -19,6 +22,7 @@ public class Technique {
 
     @ManyToOne
     private Basic basic;
+
 
     public Technique() {
     }
@@ -64,5 +68,10 @@ public class Technique {
     }
 
     public void setBasicActionId(Integer basicActionId) {
+    }
+
+    public MultipartFile getImageFile() {
+
+        return null;
     }
 }

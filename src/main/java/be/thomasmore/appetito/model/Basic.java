@@ -64,4 +64,7 @@ public class Basic {
     public void setTechniques(Collection<Technique> techniques) {
         this.techniques = techniques;
     }
+
+    public void setImgFileName(String uploadImage) {
+    }
 }

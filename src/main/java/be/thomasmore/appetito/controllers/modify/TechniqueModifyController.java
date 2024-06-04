@@ -3,13 +3,18 @@ package be.thomasmore.appetito.controllers.modify;
 
 import be.thomasmore.appetito.model.*;
 import be.thomasmore.appetito.repositories.BasicRepository;
+import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.TechniqueRepository;
 import be.thomasmore.appetito.services.GoogleService;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -37,6 +42,9 @@ public class TechniqueModifyController {
 
     @Autowired
     TechniqueRepository techniqueRepository;
+
+    @Autowired
+    ChefRepository chefRepository;
 
     @ModelAttribute("technique")
     public Technique findTechnique(@PathVariable(required = false) Integer id) {
@@ -75,69 +83,78 @@ public class TechniqueModifyController {
     }
 
 
-//    @GetMapping({"/addtechnique", "/addtechnique/{id}"})
-//    public String showAddTechniqueForm(@PathVariable(required = false) Integer id, Model model) {
-//        Technique technique;
-//        if (id != null) {
-//            // Fetching an existing technique if ID is provided
-//            Optional<Technique> optionalTechnique = techniqueRepository.findById(id);
-//            if (optionalTechnique.isPresent()) {
-//                technique = optionalTechnique.get();
-//                Iterable<Technique> techniques = techniqueRepository.findByTechniqueId(id);
-//                TechniqueListWrapper wrapper = new TechniqueListWrapper();
-//                wrapper.setTechniques((List<Technique>) techniques);
-//
-//                model.addAttribute("technique", technique);
-//                model.addAttribute("techniqueListWrapper", wrapper);
-//                return "modify/addtechnique";
-//            } else {
-//                // Redirect or handle the case where the technique is not found
-//                return "redirect:/basic";
-//            }
-//        } else {
-//            // Initialize a new Technique for adding
-//            technique = new Technique();
-//            model.addAttribute("technique", technique);
-//            return "modify/addtechnique";
-//        }
-//    }
-
-//    @GetMapping("/addtechnique/{id}")
-//    public String showAddTechniquesForm(@PathVariable("id") Integer techniqueId, Model model, Principal principal, RedirectAttributes redirectAttributes) {
-//        Optional<Basic> optionalBasic = basicRepository.findById(techniqueId);
-//        if (optionalBasic.isPresent()) {
-//            Basic basic = optionalBasic.get();
-//            Iterable<Technique> techniques = techniqueRepository.findByTechniqueId(techniqueId);
-//            TechniqueListWrapper wrapper = new TechniqueListWrapper();
-//            wrapper.setTechniques((List<Technique>) techniques);
-//
-//            model.addAttribute("basic", basic);
-//            model.addAttribute("techniqueListWrapper", wrapper);
-//            return "modify/addtechnique" + techniqueId;
-//        } else {
-//            return "redirect:/basic";
-//        }
-//    }
-
     @GetMapping("/addtechnique/{basicActionId}")
     public String showAddTechniquesForm(@PathVariable("basicActionId") Integer basicActionId, Model model) {
-        Technique technique = new Technique();  // Create a new, empty Technique instance
-        technique.setBasicActionId(basicActionId);  // Assuming there's a field to link Technique to BasicAction
-
-        model.addAttribute("technique", technique);  // Add to model for form binding
-
-        TechniqueListWrapper wrapper = new TechniqueListWrapper();  // Optional: Only if needed to manage lists of techniques
-        wrapper.setTechniques(new ArrayList<>());  // Initialize with an empty list if necessary
-        model.addAttribute("techniqueListWrapper", wrapper);  // Optional: Add wrapper to the model if list management is needed
-
-        model.addAttribute("basicActionId", basicActionId);  // Pass the ID to the view for reference
-
-        return "modify/addtechnique";  // Return the view for adding a new technique
+        Technique technique = new Technique();
+        technique.setBasicActionId(basicActionId);
+        model.addAttribute("technique", technique);
+        TechniqueListWrapper wrapper = new TechniqueListWrapper();
+        wrapper.setTechniques(new ArrayList<>());
+        model.addAttribute("techniqueListWrapper", wrapper);
+        model.addAttribute("basicActionId", basicActionId);
+        return "modify/addtechnique";
     }
 
 
 
 
+
+
+
+
+    @PostMapping("/addtechnique/{id}")
+    @Transactional
+    public String addTechnique(@PathVariable("id") Integer id,
+                           @ModelAttribute("techniqueListWrapper") TechniqueListWrapper wrapper,Principal principal,
+                           Model model) throws IOException {
+        List<Technique> currentTechniques = wrapper.getTechniques();
+
+        if (currentTechniques == null || currentTechniques.isEmpty()) {
+            String userName = principal.getName();
+            Chef chef = chefRepository.findByUsername(userName);
+            model.addAttribute("chef", chef);
+            model.addAttribute("error", "Er moet minimaal één stap worden toegevoegd.");
+            return "modify/addtechnique" + id;
+        }
+
+        for (Technique technique : currentTechniques) {
+            MultipartFile imageFile = technique.getImageFile();
+
+            if ( id == null) {
+                Technique newTechnique = new Technique();
+                newTechnique.setBasic(basicRepository.findById(id).get());
+                newTechnique.setTechniqueDescription(technique.getTechniqueDescription());
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    newTechnique.setImage(uploadImage(imageFile));
+                }
+                techniqueRepository.save(newTechnique);
+            } else {
+                Optional<Technique> optionalTechnique = techniqueRepository.findById(technique.getId());
+                if (optionalTechnique.isPresent()) {
+                    Technique existingTechnique = optionalTechnique.get();
+                    existingTechnique.setBasic(basicRepository.findById(id).get());
+                    existingTechnique.setTechniqueDescription(technique.getTechniqueDescription());
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        existingTechnique.setImage(uploadImage(imageFile));
+                    }
+                    techniqueRepository.save(existingTechnique);
+                }
+            }
+        }
+        return "redirect:/basic";
+    }
+
+
+    @DeleteMapping("/technique/{id}")
+    public ResponseEntity<Void> deleteTechnique(@PathVariable Integer id) {
+        Optional<Technique> optionalTechnique = techniqueRepository.findById(id);
+        if (optionalTechnique.isPresent()) {
+            techniqueRepository.delete(optionalTechnique.get());
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
     @GetMapping("/editbasicaction/{id}")
@@ -157,8 +174,41 @@ public class TechniqueModifyController {
         }
     }
 
+    @PostMapping("/editbasicaction/{id}")
+    public String dishEditPost(@Valid @ModelAttribute Basic basic, BindingResult result,
+                               @RequestParam(required = false) MultipartFile image,
+                               @PathVariable int id, Model model) {
 
+        if (result.hasErrors()) {
+            logger.error("validation errors: {}", result.getAllErrors());
 
+            model.addAttribute("Basic", basic);
+            return "modify/editbasicaction";
+        }
+
+        try {
+            Optional<Basic> optionalBasic = basicRepository.findById(id);
+
+            if (optionalBasic.isPresent()) {
+                Basic basicFromDB = optionalBasic.get();
+                basicFromDB.setAction(basic.getAction());
+                basicFromDB.setDescription(basic.getDescription());
+                if (image != null && !image.isEmpty()) {
+                    basicFromDB.setImage(uploadImage(image));
+                }
+
+                if (image != null && !image.isEmpty()) {
+                    basic.setImgFileName(uploadImage(image));
+                }
+                basicRepository.save(basicFromDB);
+
+                return "redirect:/modify/edittechnique/" + id;
+            }
+        } catch (Exception ex) {
+            logger.error("Error: {}", ex.getMessage());
+        }
+        return "redirect:/modify/edittechnique/" + id;
+    }
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
         final String filename = multipartFile.getOriginalFilename();
