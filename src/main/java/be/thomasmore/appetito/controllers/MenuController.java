@@ -38,38 +38,47 @@ public class MenuController {
     private MenuDayRepository menuDayRepository;
     @Autowired
     private GroceryRepository groceryRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     private Logger logger = LoggerFactory.getLogger(MenuController.class);
 
-    @GetMapping("/details/{menuId}/ingredients")
-    public String getMenuIngredients(@PathVariable Integer menuId, Model model, @PageableDefault(size = 10) Pageable pageable) {
-        Menu menu = menuRepository.findById(menuId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
-        List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
+   @GetMapping("/details/{menuId}/ingredients")
+public String getMenuIngredients(@PathVariable Integer menuId, Model model, @PageableDefault(size = 10) Pageable pageable) {
+    Menu menu = menuRepository.findById(menuId)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
+    List<MenuDay> menuDays = menuDayRepository.findByMenu(Optional.ofNullable(menu));
 
-        List<Ingredient> ingredients = new ArrayList<>();
-        for (MenuDay menuDay : menuDays) {
-            for (Dish dish : menuDay.getDishes()) {
-                ingredients.addAll(dish.getIngredients());
+    List<Ingredient> ingredients = new ArrayList<>();
+    for (MenuDay menuDay : menuDays) {
+        for (Dish dish : menuDay.getDishes()) {
+            for (Ingredient ingredient : dish.getIngredients()) {
+                Ingredient newIngredient = new Ingredient();
+                newIngredient.setName(ingredient.getName());
+                newIngredient.setUnit(ingredient.getUnit());
+                if (dish.getNumberOfPeople() == null) dish.setNumberOfPeople(1);
+                if (menu.getNumberOfPeople() == null) menu.setNumberOfPeople(1);
+                newIngredient.setQuantity(ingredient.getQuantity() / dish.getNumberOfPeople() * menu.getNumberOfPeople());
+                ingredients.add(newIngredient);
             }
         }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), ingredients.size());
-        Page<Ingredient> ingredientsPage = new PageImpl<>(ingredients.subList(start, end), pageable, ingredients.size());
-
-
-        model.addAttribute("ingredients", ingredientsPage);
-        model.addAttribute("menu", menu);
-        return "menu/ingredients";
     }
 
+    int start = (int) pageable.getOffset();
+    int end = Math.min((start + pageable.getPageSize()), ingredients.size());
+    Page<Ingredient> ingredientsPage = new PageImpl<>(ingredients.subList(start, end), pageable, ingredients.size());
 
-    @PostMapping("/{menuId}/addToGrocery")
+    model.addAttribute("ingredients", ingredientsPage);
+    model.addAttribute("menu", menu);
+    return "menu/ingredients";
+}
+
+
+   @PostMapping("/{menuId}/addToGrocery")
 public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model model, Principal principal) {
-        if (principal == null) {
-            return "redirect:/user/login";
-        }
+    if (principal == null) {
+        return "redirect:/user/login";
+    }
 
     Menu menu = menuRepository.findById(menuId)
             .orElseThrow(() -> new IllegalArgumentException("Invalid menu Id:" + menuId));
@@ -78,32 +87,46 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
     List<Ingredient> ingredients = new ArrayList<>();
     for (MenuDay menuDay : menuDays) {
         for (Dish dish : menuDay.getDishes()) {
-            ingredients.addAll(dish.getIngredients());
+            Collection<Ingredient> dishIngredients = dish.getIngredients();
+            for (Ingredient ingredient : dishIngredients) {
+                Ingredient newIngredient = new Ingredient();
+                newIngredient.setName(ingredient.getName());
+                newIngredient.setUnit(ingredient.getUnit());
+                if (dish.getNumberOfPeople() == null) dish.setNumberOfPeople(1);
+                if (menu.getNumberOfPeople() == null) menu.setNumberOfPeople(1);
+                newIngredient.setQuantity(ingredient.getQuantity() / dish.getNumberOfPeople().intValue() * menu.getNumberOfPeople().intValue());
+
+                if (!ingredients.contains(newIngredient)) {
+                    newIngredient = ingredientRepository.save(newIngredient);
+                    ingredients.add(newIngredient);
+                }
+            }
+            ingredients.addAll(dishIngredients);
         }
     }
 
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
+    Chef chef = chefRepository.findByUsername(principal.getName());
+    Optional<Grocery> groceryFromDB = groceryRepository.findById(chefRepository.findByUsername(principal.getName()).getId());
 
-        if (groceryFromDB.isPresent()) {
-            Grocery grocery = groceryFromDB.get();
-            Collection<Ingredient> groceryIngredients = grocery.getIngredients();
-            if (groceryIngredients == null) {
-                groceryIngredients = new ArrayList<>();
-            }
-            logger.info("Grocery ingredients before addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
-            for (Ingredient ingredient : ingredients) {
-                if (!groceryIngredients.contains(ingredient)) {
-                    groceryIngredients.add(ingredient);
-                }
-            }
-            grocery.setIngredients(groceryIngredients);
-            groceryRepository.save(grocery);
-            logger.info("Grocery ingredients after addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
-
-            Grocery savedGrocery = groceryRepository.findById(grocery.getId()).get();
-            logger.info("Saved grocery ingredients: " + savedGrocery.getIngredients().stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+    if (groceryFromDB.isPresent()) {
+        Grocery grocery = groceryFromDB.get();
+        Collection<Ingredient> groceryIngredients = grocery.getIngredients();
+        if (groceryIngredients == null) {
+            groceryIngredients = new ArrayList<>();
         }
+        logger.info("Grocery ingredients before addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+        for (Ingredient ingredient : ingredients) {
+            if (!groceryIngredients.contains(ingredient)) {
+                groceryIngredients.add(ingredient);
+            }
+        }
+        grocery.setIngredients(groceryIngredients);
+        groceryRepository.save(grocery);
+        logger.info("Grocery ingredients after addition: " + groceryIngredients.stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+
+        Grocery savedGrocery = groceryRepository.findById(grocery.getId()).get();
+        logger.info("Saved grocery ingredients: " + savedGrocery.getIngredients().stream().map(i -> i.getName()).collect(Collectors.joining(", ")));
+    }
 
     return "redirect:/groceries";
 }

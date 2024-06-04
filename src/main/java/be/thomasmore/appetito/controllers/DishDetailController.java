@@ -202,9 +202,13 @@ public String addIngredientsToGrocery(@PathVariable(required = true) Integer id,
         Grocery grocery = groceryFromDB.get();
         Collection<Ingredient> groceryIngredients = grocery.getIngredients();
         for (Ingredient ingredient : ingredients) {
-            ingredient.setQuantity(ingredient.getQuantity() / numberOfPeople * persons);
-            if (!groceryIngredients.contains(ingredient)) {
-                groceryIngredients.add(ingredient);
+            Ingredient newIngredient = new Ingredient();
+            newIngredient.setName(ingredient.getName());
+            newIngredient.setUnit(ingredient.getUnit());
+            newIngredient.setQuantity(ingredient.getQuantity() / numberOfPeople * persons);
+            if (!groceryIngredients.contains(newIngredient)) {
+                newIngredient = ingredientRepository.save(newIngredient);
+                groceryIngredients.add(newIngredient);
             }
         }
         grocery.setIngredients(groceryIngredients);
