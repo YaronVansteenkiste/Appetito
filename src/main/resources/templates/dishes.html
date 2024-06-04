@@ -301,7 +301,7 @@
     </div>
 </div>
 
-<div class="col-md-12">
+<div class="col-md-12" th:if="${currentPage != null}">
     <div th:unless="${filterEnabled}">
         <div class="pagination">
             <a th:if="${hasPrevious}" th:href="@{/dishes(page=${currentPage - 1})}" class="btn btn-primary">← Prev</a>
