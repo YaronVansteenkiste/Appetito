@@ -1,7 +1,8 @@
 package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 
@@ -12,11 +13,16 @@ public class Basic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     private String action;
-
+    @NotNull
     private String description;
 
-    private String image;
+    @Transient
+    @Column(name = "IMAGE")
+    private MultipartFile image;
+
+    private String imgFileName;
 
     @OneToMany(mappedBy = "basic")
     Collection<Technique> techniques;
@@ -48,13 +54,19 @@ public class Basic {
         this.description = description;
     }
 
-    public String getImage() {
+
+    public MultipartFile getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(MultipartFile image) {
         this.image = image;
     }
+
+    public String getImgFileName() {
+        return imgFileName;
+    }
+
 
 
     public Collection<Technique> getTechniques() {

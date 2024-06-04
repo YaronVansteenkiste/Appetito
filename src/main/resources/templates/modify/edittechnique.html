@@ -18,47 +18,47 @@
 
 <h1 th:replace="~{fragments/header :: header}"></h1>
 
-<h6 class="mt-3 ms-2">
-    <a href="/" class="text-decoration-none">Home</a> >
-    <a href="/basic" class="text-decoration-none"></a> Basishandelingen >
-    <a href="/basicdetails" class="text-decoration-none"> Basishandelingen details ></a>
-    <a th:href="@{/modify/editbasicaction}" th:text="'Basishandeling ' + ${basic.action} + ' bewerken'"></a></h6>
+<!--<h6 class="mt-3 ms-2">-->
+<!--    <a href="/" class="text-decoration-none">Home</a> >-->
+<!--    <a href="/basic" class="text-decoration-none"></a> Basishandelingen >-->
+<!--    <a href="/basicdetails" class="text-decoration-none"> Basishandelingen details ></a>-->
+<!--    <a th:href="@{/modify/editbasicaction}" th:text="'Basishandeling ' + ${basic.action} + ' bewerken'"></a></h6>-->
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mx-auto rounded border p-4 m-4">
-            <h2 class="text-center mb-5">Nieuwe Technieken</h2>
-            <form method="post" th:action="@{/modify/edittechnique/${id}" th:object="${technique}">
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-8 mx-auto rounded border p-4 m-4">-->
+<!--            <h2 class="text-center mb-5">Nieuwe Technieken</h2>-->
+<!--            <form method="post" th:action="@{/modify/edittechnique/${id}" th:object="${technique}">-->
 
-                <form th:action="@{|/modify/addtechnique/${technique.getId()}|}" th:object="${techniqueListWrapper}" method="post"
-                      enctype="multipart/form-data">
-                    <table class="table">
-                        <tr th:id="|technique${technique.id}|" th:each="technique, stat : *{techniques}">
-                            <td>
-                                <input type="hidden" th:field="*{techniques[__${stat.index}__].id}"/>
-                                <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].techniqueDescription}"/>
-                                <input type="file" class="techniqueImageInput form-control"
-                                       th:field="*{techniques[__${stat.index}__].image}"/>
-                                <img class="techniqueImagePreview img-fluid w-25" th:src="${technique.getImage()}"/>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-outline-danger"
-                                        th:onclick="'deleteTechnique('+*{techniques[__${stat.index}__].id}+')'">Delete
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                    <button type="button" class="btn btn-primary" onclick="addTechnique()">Add Technique</button>
-                    <a th:href="@{|/modify/addbasicaction/${technique.id}|}" class="btn btn-outline-primary">Vorige</a>
-                    <button type="submit" class="btn btn-primary">Opslaan</button>
-                </form>
-                <form th:if="${technique != null}" th:action="@{/modify/saveAsConcept/{techniqueId}(techniqueId=${technique.id})}" method="post">
-                    <button sec:authorize="hasAuthority('USER')" type="submit" class="btn btn-warning mt-3 mr-3">Opslaan als concept</button>
-                </form>
-            </form>
-        </div>
-    </div>
-</div>
+<!--                <form th:action="@{|/modify/addtechnique/${technique.getId()}|}" th:object="${techniqueListWrapper}" method="post"-->
+<!--                      enctype="multipart/form-data">-->
+<!--                    <table class="table">-->
+<!--                        <tr th:id="|technique${technique.id}|" th:each="technique, stat : *{techniques}">-->
+<!--                            <td>-->
+<!--                                <input type="hidden" th:field="*{techniques[__${stat.index}__].id}"/>-->
+<!--                                <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].techniqueDescription}"/>-->
+<!--                                <input type="file" class="techniqueImageInput form-control"-->
+<!--                                       th:field="*{techniques[__${stat.index}__].image}"/>-->
+<!--                                <img class="techniqueImagePreview img-fluid w-25" th:src="${technique.getImage()}"/>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <button type="button" class="btn btn-outline-danger"-->
+<!--                                        th:onclick="'deleteTechnique('+*{techniques[__${stat.index}__].id}+')'">Delete-->
+<!--                                </button>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                    <button type="button" class="btn btn-primary" onclick="addTechnique()">Add Technique</button>-->
+<!--                    <a th:href="@{|/modify/addbasicaction/${technique.id}|}" class="btn btn-outline-primary">Vorige</a>-->
+<!--                    <button type="submit" class="btn btn-primary">Opslaan</button>-->
+<!--                </form>-->
+<!--                <form th:if="${technique != null}" th:action="@{/modify/saveAsConcept/{techniqueId}(techniqueId=${technique.id})}" method="post">-->
+<!--                    <button sec:authorize="hasAuthority('USER')" type="submit" class="btn btn-warning mt-3 mr-3">Opslaan als concept</button>-->
+<!--                </form>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <script src="/scripts/edittechniques.js"></script>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

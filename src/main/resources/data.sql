@@ -761,8 +761,8 @@ VALUES (5, 3),
        (1, 19),
        (3, 20);
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?');
+INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION,IMG_FILE_NAME)
+VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?','snijden.jpg');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
 VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','/img/julienne.jpg',1),

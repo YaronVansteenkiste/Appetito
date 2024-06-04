@@ -68,13 +68,12 @@ public class TechniqueModifyController {
     @PostMapping({"/addbasicaction", "/addbasicaction/{id}"})
     public String addBasic(@ModelAttribute Basic basic, @PathVariable(required = false) Integer id,
                            @RequestParam(required = false) String action, @RequestParam(required = false) String description,
-                           @RequestParam(required = false) List<MultipartFile> images) {
+                           @RequestParam(required = false) List <MultipartFile> images) throws IOException {
         basic.setAction(action);
         basic.setDescription(description);
-//        if (images != null && !images.isEmpty()) {
-//            String uploadedImages = images.stream().map(uploadImage(images)).collect(Collectors.toList());
-//            basic.setImage(uploadedImages);
-//        }
+        if (basic.getImage() != null && !basic.getImage().isEmpty()) {
+            basic.setImgFileName(uploadImage(basic.getImage()));
+        }
         if (id != null) {
             basic.setId(id);
         }
@@ -84,12 +83,13 @@ public class TechniqueModifyController {
 
 
     @GetMapping("/addtechnique/{basicActionId}")
-    public String showAddTechniquesForm(@PathVariable("basicActionId") Integer basicActionId, Model model) {
+    public String showAddTechniquesForm(@PathVariable("basicActionId") Integer basicActionId, Model model) throws IOException {
         Technique technique = new Technique();
         technique.setBasicActionId(basicActionId);
         model.addAttribute("technique", technique);
         TechniqueListWrapper wrapper = new TechniqueListWrapper();
         wrapper.setTechniques(new ArrayList<>());
+        technique.setImage(uploadImage(technique.getImageFile()));
         model.addAttribute("techniqueListWrapper", wrapper);
         model.addAttribute("basicActionId", basicActionId);
         return "modify/addtechnique";
@@ -187,15 +187,13 @@ public class TechniqueModifyController {
         }
 
         try {
-            Optional<Basic> optionalBasic = basicRepository.findById(id);
+             Optional<Basic> optionalBasic = basicRepository.findById(id);
 
             if (optionalBasic.isPresent()) {
                 Basic basicFromDB = optionalBasic.get();
                 basicFromDB.setAction(basic.getAction());
                 basicFromDB.setDescription(basic.getDescription());
-                if (image != null && !image.isEmpty()) {
-                    basicFromDB.setImage(uploadImage(image));
-                }
+
 
                 if (image != null && !image.isEmpty()) {
                     basic.setImgFileName(uploadImage(image));
