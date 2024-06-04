@@ -725,9 +725,9 @@ VALUES (1, 1),
        (2, 1),
        (1, 2),
          (2, 2),
-         (5, 3),
-         (6, 3),
-         (7, 4);
+         (1, 3),
+         (2, 3),
+         (1, 4);
 
 INSERT INTO MENU_DAY_DISHES (MENU_DAY_ID, DISHES_ID)
 VALUES (1, 3),
