@@ -70,7 +70,6 @@ public class UserController {
         int totalPages = dishesPage.getTotalPages();
 
 
-
         Chef chef = chefRepository.findByUsernameWithDishes(userDetails.getUsername());
         if (chef == null) {
             return "redirect:/";

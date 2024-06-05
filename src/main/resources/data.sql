@@ -3,13 +3,13 @@ ALTER TABLE Dish
 
 
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('pasta alfredo met kip',
         'paleo',
         '00:20:00',
         'avondmaal',
         '/img/pasta_alfredo.jpg',
-        'https://www.youtube.com/embed/CTTsN3QggDc?si=H38FL0DlVetOONCS',false);
+        'https://www.youtube.com/embed/CTTsN3QggDc?si=H38FL0DlVetOONCS', false);
 
 INSERT INTO Ingredient (name, quantity, unit, img_file_name, dish_id)
 VALUES ('fettuccine', 75, 'gr', '/img/fettucine.jpg', 1),
@@ -24,13 +24,13 @@ VALUES ('fettuccine', 75, 'gr', '/img/fettucine.jpg', 1),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '500 mg', '1 g', '15 g', '30 g', '400 gr', '20 g', 1);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Pasta met zalm en spinazie',
         'paleo',
         '00:30:00',
         'avondmaal',
         '/img/pasta_zalm.jpg',
-        'https://www.youtube.com/embed/ezNR7bSgPDU?si=3v6LV09oVqGV2Cem',false);
+        'https://www.youtube.com/embed/ezNR7bSgPDU?si=3v6LV09oVqGV2Cem', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('tagliatelle', 350, 'gr', 2),
@@ -47,13 +47,13 @@ VALUES ('tagliatelle', 350, 'gr', 2),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '500 mg', '1 g', '8 g', '20 g', '400 gr', '30 g', 2);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Spinaziesoep',
         'vegetarisch',
         '00:20:00',
         'avondmaal',
         '/img/spinaziesoep.jpg',
-        'https://www.youtube.com/embed/MmJtCXhJTYI?si=QfbKbYg9zpoHv6HM',false);
+        'https://www.youtube.com/embed/MmJtCXhJTYI?si=QfbKbYg9zpoHv6HM', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('gehakte spinazie (ontdooid)', 450, 'gr', 3),
@@ -67,13 +67,13 @@ VALUES ('gehakte spinazie (ontdooid)', 450, 'gr', 3),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('4 g', '600 mg', '1 g', '3 g', '5 g', '100 gr', '10 g', 3);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Spinazie feta bladerdeegrolletjes',
         'vegetarisch',
         '00:25:00',
         'snacks',
         '/img/spinaziebladerdeeg.jpg',
-        'https://www.youtube.com/embed/4zJ_ynJ2aRk?si=rTqBHfdBB9l_K4bF',false);
+        'https://www.youtube.com/embed/4zJ_ynJ2aRk?si=rTqBHfdBB9l_K4bF', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('vers bladerdeeg', 0, NULL, 4),
@@ -86,13 +86,13 @@ VALUES ('vers bladerdeeg', 0, NULL, 4),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '200 mg', '1 g', '5 g', '6 g', '150 gr', '15 g', 4);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Glutenvrije pizza',
         'glutenvrij',
         '00:10:00',
         'middagmaal',
         '/img/glutenvrije_pizza.jpg',
-        'https://www.youtube.com/embed/SRf0t-RCr98?si=8EoQidsl6g2hhEkL',false);
+        'https://www.youtube.com/embed/SRf0t-RCr98?si=8EoQidsl6g2hhEkL', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5),
@@ -110,13 +110,13 @@ VALUES ('glutenvrije zelfrijzende bakmix (Albert Heijn)', 100, 'gram', 5),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '200 mg', '3 g', '5 g', '10 g', '250 gr', '30 g', 5);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Snelle cranberry compote',
         'vegan',
         '00:20:00',
         'dessert',
         '/img/cranberry_compote.jpg',
-        'https://www.youtube.com/embed/JZLaUvia708?si=nKd_FFJfUT359YkT',false);
+        'https://www.youtube.com/embed/JZLaUvia708?si=nKd_FFJfUT359YkT', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('verse cranberries', 250, 'gr', 6),
@@ -128,13 +128,13 @@ VALUES ('verse cranberries', 250, 'gr', 6),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '50 mg', '8 g', '0.1 g', '0.5 g', '40 gr', '10 g', 6);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Snicker bliss balls',
         'dessert',
         '00:10:00',
         'snacks',
         '/img/snicker_balls.jpg',
-        'https://www.youtube.com/embed/ytABtqsUo2g?si=fW8cxH_rCkrqQRwl',false);
+        'https://www.youtube.com/embed/ytABtqsUo2g?si=fW8cxH_rCkrqQRwl', false);
 
 INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('pindakaas', 2, 'eetlepels', 7),
@@ -147,13 +147,13 @@ VALUES ('pindakaas', 2, 'eetlepels', 7),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '50 mg', '10 g', '4 g', '6 g', '150 gr', '15 g', 7);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Babi ketjap spiezen',
         'keto',
         '00:50:00',
         'avondmaal',
         '/img/babi_ketjap_spiezen.jpg',
-        'https://www.youtube.com/embed/YlZn5YRGLG4?si=hmsLVY-IX_v4l2eL',false);
+        'https://www.youtube.com/embed/YlZn5YRGLG4?si=hmsLVY-IX_v4l2eL', false);
 
 INSERT INTO INGREDIENT(NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('varkenslappen', 400, 'gr', 8),
@@ -170,13 +170,13 @@ VALUES ('varkenslappen', 400, 'gr', 8),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '800 mg', '15 g', '10 g', '20 g', '300 gr', '20 g', 8);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Yoghurt met fruit ontbijt',
         'vegetarisch',
         '00:05:00',
         'ontbijt',
         '/img/yoghurt_granola_ontbijt.jpg',
-        'https://www.youtube.com/embed/3TgqMjiwFhE?si=7gK1ki3gtySHu0bO',false);
+        'https://www.youtube.com/embed/3TgqMjiwFhE?si=7gK1ki3gtySHu0bO', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9),
@@ -189,13 +189,13 @@ VALUES ('Griekse yoghurt (of plantaardige yoghurt)', 500, 'gr', 9),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '80 mg', '20 g', '4 g', '5 g', '200 gr', '30 g', 9);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Pompoensoep',
         'veganistisch',
         '00:30:00',
         'avondmaal',
         '/img/pompoensoep.jpg',
-        'https://www.youtube.com/embed/-s9sdXVV5cg?si=fOLi8ftAIkIctD7Q',false);
+        'https://www.youtube.com/embed/-s9sdXVV5cg?si=fOLi8ftAIkIctD7Q', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Pompoen', 500, 'gr', 10),
@@ -208,13 +208,13 @@ VALUES ('Pompoen', 500, 'gr', 10),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '500 mg', '5 g', '2 g', '6 g', '30 g', '4 g', 10);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Kip Caesar Salade',
         'glutenvrij',
         '00:20:00',
         'middagmaal',
         '/img/kipcaesarsalade.jpg',
-        'https://www.youtube.com/embed/DPio7tGzOgU?si=GApY0fmuN2W1g5xd',false);
+        'https://www.youtube.com/embed/DPio7tGzOgU?si=GApY0fmuN2W1g5xd', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Kipfilet', 200, 'gr', 11),
@@ -226,13 +226,13 @@ VALUES ('Kipfilet', 200, 'gr', 11),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '600 mg', '3 g', '5 g', '15 g', '18 g', '25 g', 11);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Linzensalade met Geitenkaas',
         'vegetarisch',
         '00:25:00',
         'middagmaal',
         '/img/linzen_salade_met_geitenkaas.jpg',
-        'https://www.youtube.com/embed/cArBwqq6ALs?si=r67f2tsyUWg0TCJu',false);
+        'https://www.youtube.com/embed/cArBwqq6ALs?si=r67f2tsyUWg0TCJu', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Groene linzen', 200, 'gr', 12),
@@ -247,13 +247,13 @@ VALUES ('Groene linzen', 200, 'gr', 12),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('7 g', '320 mg', '4 g', '6 g', '10 g', '40 g', '18 g', 12);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Gegrilde Zalm met Asperges',
         'pescotarisch',
         '00:20:00',
         'avondmaal',
         '/img/gegrildezalmasperges.jpg',
-        'https://www.youtube.com/embed/5oBOsumL8Uo?si=xiqoZz7gLzzITKJi',false);
+        'https://www.youtube.com/embed/5oBOsumL8Uo?si=xiqoZz7gLzzITKJi', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zalmfilets', 200, 'gr', 13),
@@ -264,13 +264,13 @@ VALUES ('Zalmfilets', 200, 'gr', 13),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('3 g', '75 mg', '2 g', '3 g', '10 g', '5 g', '23 g', 13);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Veganistische Burger',
         'vegan',
         '00:15:00',
         'avondmaal',
         '/img/veganburger.jpg',
-        'https://www.youtube.com/embed/IXqseoFJBg0?si=aECQVzH7fzJeQYaM',false);
+        'https://www.youtube.com/embed/IXqseoFJBg0?si=aECQVzH7fzJeQYaM', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zwarte bonen', 150, 'gr', 14),
@@ -283,13 +283,13 @@ VALUES ('Zwarte bonen', 150, 'gr', 14),
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '460 mg', '5 g', '1 g', '8 g', '35 g', '10 g', 14);
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Zoete Aardappel Curry',
         'vegan',
         '00:35:00',
         'avondmaal',
         '/img/zoete_aardappel_curry.jpg',
-        'https://www.youtube.com/embed/aRL-v5pOlPg?si=wBNxvZtw_Eoue2Ux',false);
+        'https://www.youtube.com/embed/aRL-v5pOlPg?si=wBNxvZtw_Eoue2Ux', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Zoete aardappel', 300, 'gr', 15),
@@ -303,13 +303,13 @@ VALUES ('Zoete aardappel', 300, 'gr', 15),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('5 g', '380 mg', '6 g', '5 g', '10 g', '50 g', '12 g', 15);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Ontbijt Burrito',
         'vegetarisch',
         '00:15:00',
         'ontbijt',
         '/img/ontbijt_burrito.jpg',
-        'https://www.youtube.com/embed/yNp5PHHgMS0?si=mVY92RCeTUG3L9PH',false);
+        'https://www.youtube.com/embed/yNp5PHHgMS0?si=mVY92RCeTUG3L9PH', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Eieren', 2, 'stuks', 16),
@@ -321,13 +321,13 @@ VALUES ('Eieren', 2, 'stuks', 16),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('6 g', '550 mg', '2 g', '6 g', '15 g', '45 g', '22 g', 16);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Quinoa Salade met Avocado',
         'vegan',
         '00:20:00',
         'middagmaal',
         '/img/quinoa_salade_avocado.jpg',
-        'https://www.youtube.com/embed/OQ9mU_zAtEs?si=XWlWDdHHeMLLjChx',false);
+        'https://www.youtube.com/embed/OQ9mU_zAtEs?si=XWlWDdHHeMLLjChx', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Quinoa', 150, 'gr', 17),
@@ -342,13 +342,13 @@ VALUES ('Quinoa', 150, 'gr', 17),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('7 g', '100 mg', '3 g', '2 g', '12 g', '45 g', '8 g', 17);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Mediterrane Pasta',
         'vegetarisch',
         '00:25:00',
         'avondmaal',
         '/img/mediterrane_pasta.jpg',
-        'https://www.youtube.com/embed/EUu90_qILH4?si=fVVTqAt6fVcZe_y0',false);
+        'https://www.youtube.com/embed/EUu90_qILH4?si=fVVTqAt6fVcZe_y0', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Volkorenpasta', 200, 'gr', 18),
@@ -363,13 +363,13 @@ VALUES ('Volkorenpasta', 200, 'gr', 18),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('2 g', '80 mg', '20 g', '4 g', '5 g', '200 g', '30 g', 18);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Garnalencocktail',
         'pescotarisch',
         '00:10:00',
         'snacks',
         '/img/garnalencocktail.jpg',
-        'https://www.youtube.com/embed/fcyxWiHAfW8?si=QGT0SyZS44al8TZO',false);
+        'https://www.youtube.com/embed/fcyxWiHAfW8?si=QGT0SyZS44al8TZO', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Gekookte garnalen', 150, 'gr', 19),
@@ -380,13 +380,13 @@ VALUES ('Gekookte garnalen', 150, 'gr', 19),
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
 VALUES ('1 g', '850 mg', '4 g', '0 g', '2 g', '6 g', '20 g', 19);
 
-INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL,CONCEPT_DISH)
+INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH)
 VALUES ('Fruitsalade met Munt',
         'vegan',
         '00:10:00',
         'dessert',
         '/img/fruitsalade_munt.jpg',
-        'https://www.youtube.com/embed/Qw498kjEeTE?si=RqTawGtZHvYiecmJ',false);
+        'https://www.youtube.com/embed/Qw498kjEeTE?si=RqTawGtZHvYiecmJ', false);
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
 VALUES ('Meloen', 200, 'gr', 20),
@@ -418,20 +418,20 @@ INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('admin', 'ADMIN');
 INSERT INTO USERS (USERNAME, PASSWORD, ENABLED)
 VALUES ('stefferke', '$2a$10$a3/jTRNSkn0Rt/vENxt8.u2pxbJtWV8f1li3QmrIGt/C5RQ2R1wpG', true);
-INSERT INTO "PUBLIC"."USERS" VALUES
-    ('owentje', '$2a$10$zwEAW83Ufx4amlDcrogyJ.jlNLfT4l9Eo.DBKPltqfWLLLhXQJNjG', TRUE);
+INSERT INTO "PUBLIC"."USERS"
+VALUES ('owentje', '$2a$10$zwEAW83Ufx4amlDcrogyJ.jlNLfT4l9Eo.DBKPltqfWLLLhXQJNjG', TRUE);
 
 INSERT INTO AUTHORITIES (USERNAME, AUTHORITY)
 VALUES ('stefferke', 'USER');
-INSERT INTO "PUBLIC"."AUTHORITIES" VALUES
-    ('owentje', 'ROLE_USER');
+INSERT INTO "PUBLIC"."AUTHORITIES"
+VALUES ('owentje', 'ROLE_USER');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL)
 VALUES ('stefferke', 'stefferke', 'coulson', 'stefferke@stefferke.com');
 INSERT INTO "PUBLIC"."CHEF" (USERNAME, NAME, SURNAME, EMAIL)
 VALUES ('admin', 'admin', '', 'admin@appetito.com');
 
-INSERT INTO "PUBLIC"."CHEF" VALUES
-    (3, 'owen@appetito.be', 'owentje', NULL, 'owen', 'owentje');
+INSERT INTO "PUBLIC"."CHEF"
+VALUES (3, 'owen@appetito.be', 'owentje', NULL, 'owen', 'owentje');
 
 
 ALTER TABLE Beverage
@@ -713,21 +713,22 @@ VALUES (1, 'Koning Albertstraat 1', 'Antwerpen', 'België', '2000', '+32 3 123 4
 
 
 INSERT INTO MENU (NAME, ACTIVE, NUMBER_OF_PEOPLE, chef_id, description)
-VALUES
-    ('Kerstmenu', TRUE, 6, 2, 'Een feestelijk kerstmenu met klassieke gerechten zoals spinaziesoep, Snicker bliss balls en  cranberry compote, perfect voor een gezellige avond met familie en vrienden.'),
-    ('Paasmenu', TRUE, 4, 2, 'Geniet van een heerlijk Paasmenu met gerechten zoals burrito, zoete aardappel Curry en een frisse lente salade. Perfect om samen Pasen te vieren.'),
-    ('Zomerse gerechten', TRUE, 1, 2, 'Verfrissende en lichte zomerse gerechten. Ideaal voor warme dagen.'),
-    ('Gezonde maaltijden', TRUE, 1, 2, 'Gezonde en voedzame maaltijden met verse ingrediënten!');
+VALUES ('Kerstmenu', TRUE, 6, 2,
+        'Een feestelijk kerstmenu met klassieke gerechten zoals spinaziesoep, Snicker bliss balls en  cranberry compote, perfect voor een gezellige avond met familie en vrienden.'),
+       ('Paasmenu', TRUE, 4, 2,
+        'Geniet van een heerlijk Paasmenu met gerechten zoals burrito, zoete aardappel Curry en een frisse lente salade. Perfect om samen Pasen te vieren.'),
+       ('Zomerse gerechten', TRUE, 1, 2, 'Verfrissende en lichte zomerse gerechten. Ideaal voor warme dagen.'),
+       ('Gezonde maaltijden', TRUE, 1, 2, 'Gezonde en voedzame maaltijden met verse ingrediënten!');
 
 
 INSERT INTO MENU_DAY (DAY_NUMBER, MENU_ID)
 VALUES (1, 1),
        (2, 1),
        (1, 2),
-         (2, 2),
-         (1, 3),
-         (2, 3),
-         (1, 4);
+       (2, 2),
+       (1, 3),
+       (2, 3),
+       (1, 4);
 
 INSERT INTO MENU_DAY_DISHES (MENU_DAY_ID, DISHES_ID)
 VALUES (1, 3),
@@ -770,255 +771,285 @@ VALUES (5, 3),
        (1, 19),
        (3, 20);
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?');
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/snijden.jpg', 'Snijden', 'hoe moet je snijden?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','/img/julienne.jpg',1),
-    ('Brunoise (Blokvormig)','Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.','/img/brunoise.jpg',1),
-    ('Chiffonade (Fijne reepjes)','Deze snijtechniek is ideaal voor bladgroenten en kruiden. ' ||
-    'De bladeren worden opgestapeld, opgerold en dan in zeer dunne reepjes gesneden. ' ||
-    'Dit wordt vaak gebruikt om soepen, salades en andere gerechten te garneren.','/img/chiffonade.jpg',1),
-    ('Diceren (in blokjes snijden','Groter dan brunoise, meestal 1 cm x 1 cm, deze snede is goed voor stoofschotels, salades, en wanneer grotere stukjes gewenst zijn.','/img/diceren.jpg',1),
-    ('Mincen (fijnhakken','Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.','/img/mincen.jpg',1);
-
-
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/bakken.jpg','Bakken','hoe moet je bakken?');
-
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief ' ||
-                   'hoge temperatuur met een kleine hoeveelheid vet (olie of boter).' ||
-                   ' Het doel is om de ingrediënten bruin en knapperig te krijgen aan de ' ||
-                   'buitenkant terwijl ze binnenin sappig blijven. Groenten blijven helder en' ||
-                   ' enigszins knapperig, en vlees wordt mooi bruin en sappig.','/img/sauteren.jpg',2),
-    ('Pan-frying (panbakken)','Deze techniek is vergelijkbaar met sauteren, maar gebruikt meer vet en een iets lagere temperatuur, ' ||
-                              'waardoor de ingrediënten meer tijd hebben om te garen. ' ||
-                              'Het is ideaal voor iets dikkere stukken vlees of groenten.','/img/panfrying.jpg',2),
-    ('Roerbakken','Roerbakken is een techniek die snel koken op hoge temperatuur combineert, ' ||
-                  'meestal in een wok, waarbij de ingrediënten constant worden bewogen. ' ||
-                  'Dit zorgt ervoor dat alles gelijkmatig kookt en hun crunch behoudt.','/img/roerbakken.jpg',2),
-    ('Deep-frying (frituren)','Bij diep frituren worden de ingrediënten volledig ondergedompeld in hete olie. ' ||
-                              'Dit zorgt voor een snel en gelijkmatig gaar proces, wat resulteert ' ||
-                              'in een krokant buitenlaagje terwijl de binnenkant zacht en sappig blijft.','/img/deepfrying.jpg',2),
-    ('Stir-frying','Dit is een snelle kookmethode waarbij ingrediënten in een zeer hete pan worden gebakken met een klein beetje olie. ' ||
-                   'Ingrediënten worden snel en continu bewogen, vergelijkbaar met roerbakken ' ||
-                   'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.','/img/stirfrying.jpg',2);
-
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/koken.jpg','Koken','hoe moet je koken?');
-
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
-                  'Je brengt een pot met water (of een andere vloeistof) ' ||
-                  'aan de kook en voegt voedsel toe, zoals pasta, granen, of groenten. ' ||
-                  'Het koken is effectief voor het gaar maken van voedsel door het te onderdompelen ' ||
-                  'in kokend water.','/img/boiling.jpg',3),
-    ('Simmering','Stoven is vergelijkbaar met koken, maar gebeurt op een veel lagere temperatuur, ' ||
-                 'net onder het kookpunt. Deze methode is ideaal voor het langzaam garen van voedsel,' ||
-                 ' wat helpt om de smaken te ontwikkelen zonder het voedsel te overgaren. ','/img/simmering.jpg',3),
-    ('Poaching','Bij pocheren worden ingrediënten gegaard in een zacht kokende vloeistof die net niet het kookpunt bereikt. ' ||
-                'Deze methode is bijzonder goed voor delicate voedingsmiddelen zoals eieren, ' ||
-                'vis, of fruit, omdat het zachtjes gaart zonder de structuur te beschadigen.','/img/poaching.jpg',3),
-    ('Blanching','Blancheren is een kooktechniek waarbij voedsel kort wordt gekookt in kokend water en vervolgens ' ||
-                 'onmiddellijk wordt afgekoeld in ijswater. Het wordt vaak gebruikt om groenten te koken ' ||
-                 'voordat ze worden ingevroren of om de huid van fruit te verwijderen.','/img/blanching.jpg',3),
-    ('Steaming','Stomen gebruikt de stoom van kokend water om voedsel te garen. Dit is een zeer gezonde kookmethode omdat er geen vet nodig is ' ||
-                'en de meeste voedingsstoffen in het voedsel behouden blijven. ' ||
-                'Het is ideaal voor groenten, vis en zelfs sommige desserts.','/img/steaming.jpg',3);
-
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/stomen.jpg','Stomen','hoe moet je stomen?');
-
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voedsel in een stoommandje ' ||
-                              'boven kokend water in een pot of wok. De deksel wordt op de pot ' ||
-                              'geplaatst om de stoom binnen te houden. Dit is ideaal voor groenten, ' ||
-                              'vis, en zelfs voor het koken van rijst.','/img/stomentraditioneel.jpg',4),
-    ('Stomen met aromas','Deze techniek voegt extra smaak toe aan het voedsel door kruiden, specerijen, ' ||
-                         'of aromatische vloeistoffen zoals wijn of kokosmelk aan ' ||
-                         'het kookwater toe te voegen. De stoom draagt de aroma''s ' ||
-                         'naar het voedsel terwijl het gaart.','/img/aroma.jpg',4),
-    ('Stomen in bananenblad','Deze traditionele methode wordt vaak gebruikt in de Aziatische keuken. ' ||
-                              'Voedsel wordt gewikkeld in bananenbladeren en gestoomd, wat een ' ||
-                              'unieke smaak en textuur aan het gerecht geeft.','/img/bananenblad.jpg',4),
-    ('Stomen in papillot','Bij deze methode wordt het voedsel samen met smaakmakers zoals kruiden, boter, en specerijen in bakpapier of aluminiumfolie verpakt. ' ||
-                          'Het pakketje wordt dan in de oven geplaatst, waar de inhoud ' ||
-                          'door de eigen sappen en de toegevoegde vloeistoffen gaart.','/img/papillot.jpg',4),
-    ('Stomen in een stoomoven','Stoomovens zijn speciale apparaten die voedsel garen met behulp van stoom. ' ||
-                               'Deze ovens zijn ideaal voor het behouden van voedingsstoffen en smaak in het voedsel, ' ||
-                               'en zijn vaak uitgerust met verschillende stoomniveaus voor verschillende soorten voedsel.','/img/stoomoven.jpg',4);
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Julienne (Luciferhoutjes',
+        'Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.',
+        '/img/julienne.jpg', 1),
+       ('Brunoise (Blokvormig)',
+        'Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.',
+        '/img/brunoise.jpg', 1),
+       ('Chiffonade (Fijne reepjes)', 'Deze snijtechniek is ideaal voor bladgroenten en kruiden. ' ||
+                                      'De bladeren worden opgestapeld, opgerold en dan in zeer dunne reepjes gesneden. ' ||
+                                      'Dit wordt vaak gebruikt om soepen, salades en andere gerechten te garneren.',
+        '/img/chiffonade.jpg', 1),
+       ('Diceren (in blokjes snijden',
+        'Groter dan brunoise, meestal 1 cm x 1 cm, deze snede is goed voor stoofschotels, salades, en wanneer grotere stukjes gewenst zijn.',
+        '/img/diceren.jpg', 1),
+       ('Mincen (fijnhakken',
+        'Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.',
+        '/img/mincen.jpg', 1);
 
 
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/bakken.jpg', 'Bakken', 'hoe moet je bakken?');
 
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Sauteren', 'Sauteren houdt in dat je ingrediënten snel bakt op relatief ' ||
+                    'hoge temperatuur met een kleine hoeveelheid vet (olie of boter).' ||
+                    ' Het doel is om de ingrediënten bruin en knapperig te krijgen aan de ' ||
+                    'buitenkant terwijl ze binnenin sappig blijven. Groenten blijven helder en' ||
+                    ' enigszins knapperig, en vlees wordt mooi bruin en sappig.', '/img/sauteren.jpg', 2),
+       ('Pan-frying (panbakken)',
+        'Deze techniek is vergelijkbaar met sauteren, maar gebruikt meer vet en een iets lagere temperatuur, ' ||
+        'waardoor de ingrediënten meer tijd hebben om te garen. ' ||
+        'Het is ideaal voor iets dikkere stukken vlees of groenten.', '/img/panfrying.jpg', 2),
+       ('Roerbakken', 'Roerbakken is een techniek die snel koken op hoge temperatuur combineert, ' ||
+                      'meestal in een wok, waarbij de ingrediënten constant worden bewogen. ' ||
+                      'Dit zorgt ervoor dat alles gelijkmatig kookt en hun crunch behoudt.', '/img/roerbakken.jpg', 2),
+       ('Deep-frying (frituren)', 'Bij diep frituren worden de ingrediënten volledig ondergedompeld in hete olie. ' ||
+                                  'Dit zorgt voor een snel en gelijkmatig gaar proces, wat resulteert ' ||
+                                  'in een krokant buitenlaagje terwijl de binnenkant zacht en sappig blijft.',
+        '/img/deepfrying.jpg', 2),
+       ('Stir-frying',
+        'Dit is een snelle kookmethode waarbij ingrediënten in een zeer hete pan worden gebakken met een klein beetje olie. ' ||
+        'Ingrediënten worden snel en continu bewogen, vergelijkbaar met roerbakken ' ||
+        'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.', '/img/stirfrying.jpg', 2);
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/blancheren.jpg','Blancheren','hoe moet je blancheren?');
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/koken.jpg', 'Koken', 'hoe moet je koken?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water snel aan de kook, ' ||
-                    'voegt zout toe en dompelt dan de voedselitems kort onder in het ' ||
-                    'kokende water. De tijd varieert afhankelijk van het soort voedsel, ' ||
-                    'maar meestal gaat het om enkele minuten voor groenten. ' ||
-                    'Daarna haal je het voedsel snel uit het kokende water en ' ||
-                    'dompel je het onder in ijswater om het kookproces te stoppen.','/img/blancheren2.jpg',5),
-    ('Blancheren met soda','Een snufje bakingsoda toevoegen aan het kokende water kan helpen ' ||
-                           'de heldere kleur van sommige groenten, zoals groene bonen en erwten, ' ||
-                           'te behouden. Wees echter voorzichtig met deze methode, want te veel ' ||
-                           'soda kan de structuur van de groente verzachten en de smaak beïnvloeden.','/img/soda.jpg',5),
-    ('Blancheren voor invriezen','Blancheren is een belangrijke stap bij het invriezen van groenten. ' ||
-                                  'Door groenten kort te blancheren voordat je ze invriest, ' ||
-                                  'blijven ze langer vers en behouden ze hun smaak en voedingsstoffen. ' ||
-                                  'Na het blancheren, laat je de groenten uitlekken en drogen voordat je ze invriest.','/img/invriezen.jpg',5),
-    ('Blancheren voor het koken','Sommige recepten vereisen dat je groenten eerst blancheert voordat je ze ' ||
-                                  'verder kookt. Dit helpt om de groenten voor te bereiden en ' ||
-                                  'hun kleur en textuur te behouden tijdens het koken.','/img/blancherenvoorkoken.jpg',5),
-    ('Blancheren voor het schillen','Blancheren is een handige techniek om de schil van sommige groenten ' ||
-                                    'zoals tomaten, paprika''s, of amandelen gemakkelijker te verwijderen. ' ||
-                                    'Door de groenten kort te blancheren, wordt de schil losser en ' ||
-                                    'kun je deze gemakkelijk verwijderen.','/img/schillen.jpg',5);
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Boiling', 'Dit is waarschijnlijk de meest basale vorm van koken. ' ||
+                   'Je brengt een pot met water (of een andere vloeistof) ' ||
+                   'aan de kook en voegt voedsel toe, zoals pasta, granen, of groenten. ' ||
+                   'Het koken is effectief voor het gaar maken van voedsel door het te onderdompelen ' ||
+                   'in kokend water.', '/img/boiling.jpg', 3),
+       ('Simmering', 'Stoven is vergelijkbaar met koken, maar gebeurt op een veel lagere temperatuur, ' ||
+                     'net onder het kookpunt. Deze methode is ideaal voor het langzaam garen van voedsel,' ||
+                     ' wat helpt om de smaken te ontwikkelen zonder het voedsel te overgaren. ', '/img/simmering.jpg',
+        3),
+       ('Poaching',
+        'Bij pocheren worden ingrediënten gegaard in een zacht kokende vloeistof die net niet het kookpunt bereikt. ' ||
+        'Deze methode is bijzonder goed voor delicate voedingsmiddelen zoals eieren, ' ||
+        'vis, of fruit, omdat het zachtjes gaart zonder de structuur te beschadigen.', '/img/poaching.jpg', 3),
+       ('Blanching',
+        'Blancheren is een kooktechniek waarbij voedsel kort wordt gekookt in kokend water en vervolgens ' ||
+        'onmiddellijk wordt afgekoeld in ijswater. Het wordt vaak gebruikt om groenten te koken ' ||
+        'voordat ze worden ingevroren of om de huid van fruit te verwijderen.', '/img/blanching.jpg', 3),
+       ('Steaming',
+        'Stomen gebruikt de stoom van kokend water om voedsel te garen. Dit is een zeer gezonde kookmethode omdat er geen vet nodig is ' ||
+        'en de meeste voedingsstoffen in het voedsel behouden blijven. ' ||
+        'Het is ideaal voor groenten, vis en zelfs sommige desserts.', '/img/steaming.jpg', 3);
+
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/stomen.jpg', 'Stomen', 'hoe moet je stomen?');
+
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Traditioneel stomen', 'Bij deze basisvorm van stomen plaats je het voedsel in een stoommandje ' ||
+                               'boven kokend water in een pot of wok. De deksel wordt op de pot ' ||
+                               'geplaatst om de stoom binnen te houden. Dit is ideaal voor groenten, ' ||
+                               'vis, en zelfs voor het koken van rijst.', '/img/stomentraditioneel.jpg', 4),
+       ('Stomen met aromas', 'Deze techniek voegt extra smaak toe aan het voedsel door kruiden, specerijen, ' ||
+                             'of aromatische vloeistoffen zoals wijn of kokosmelk aan ' ||
+                             'het kookwater toe te voegen. De stoom draagt de aroma''s ' ||
+                             'naar het voedsel terwijl het gaart.', '/img/aroma.jpg', 4),
+       ('Stomen in bananenblad', 'Deze traditionele methode wordt vaak gebruikt in de Aziatische keuken. ' ||
+                                 'Voedsel wordt gewikkeld in bananenbladeren en gestoomd, wat een ' ||
+                                 'unieke smaak en textuur aan het gerecht geeft.', '/img/bananenblad.jpg', 4),
+       ('Stomen in papillot',
+        'Bij deze methode wordt het voedsel samen met smaakmakers zoals kruiden, boter, en specerijen in bakpapier of aluminiumfolie verpakt. ' ||
+        'Het pakketje wordt dan in de oven geplaatst, waar de inhoud ' ||
+        'door de eigen sappen en de toegevoegde vloeistoffen gaart.', '/img/papillot.jpg', 4),
+       ('Stomen in een stoomoven', 'Stoomovens zijn speciale apparaten die voedsel garen met behulp van stoom. ' ||
+                                   'Deze ovens zijn ideaal voor het behouden van voedingsstoffen en smaak in het voedsel, ' ||
+                                   'en zijn vaak uitgerust met verschillende stoomniveaus voor verschillende soorten voedsel.',
+        '/img/stoomoven.jpg', 4);
 
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/blancheren.jpg', 'Blancheren', 'hoe moet je blancheren?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.','/img/grillen2.jpg',6),
-    ('Indirect grillen','Bij indirect grillen wordt het voedsel niet direct boven de warmtebron geplaatst, maar aan de zijkant van de grill. Dit is ideaal voor het langzaam garen van grotere stukken vlees, gevogelte, of vis, waarbij de warmte gelijkmatig wordt verdeeld en het voedsel langzaam gaart zonder te verbranden.','/img/indirectgrillen.jpg',6),
-    ('Grillen met rook','Grillen met rook voegt een extra smaakdimensie toe aan het voedsel door het te roken met houtsnippers of houtskool. Dit is ideaal voor het geven van een rokerige smaak aan vlees, vis, of groenten. Het voedsel wordt langzaam gegaard en krijgt een heerlijke rokerige smaak.','/img/rook.jpg',6),
-    ('Sear-grilling','Deze methode combineert hoge directe hitte aanvankelijk om het voedsel snel dicht ' ||
-                 'te schroeien en vervolgens een lagere, indirecte hitte om' ||
-                 ' het gaarproces te voltooien. Dit is geweldig voor dikke steaks of' ||
-                 ' grotere stukken vlees waarbij je een knapperige buitenkant en een' ||
-                 ' sappige, gelijkmatig gegaarde binnenkant wilt.','/img/seargrilling.jpg',6),
-    ('Plankgrillen','Bij plankgrillen wordt het voedsel op een houten plank geplaatst en boven de warmtebron gegrild. ' ||
-                  'Dit is ideaal voor het grillen van vis, gevogelte, of groenten, waarbij de plank ' ||
-                  'een extra smaakdimensie toevoegt aan het voedsel en voorkomt dat het aanbrandt.','/img/grilmetplank.jpg',6);
-
-
-
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/roosteren.jpg','Roosteren','hoe moet je roosteren?');
-
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel in een voorverwarmde oven ' ||
-'geplaatst, vaak op een rooster boven een bakplaat om luchtstroom rondom het voedsel ' ||
-'mogelijk te maken. Dit is ideaal voor het gelijkmatig garen van grote stukken vlees, ' ||
-'hele kippen, of grote groenten zoals pompoenen.','/img/roosteren2.jpg',7),
-
-    ('High heat roasting (Roosteren op hoge temperatuur','Deze methode gebruikt een hoge oventemperatuur (220°C of hoger) ' ||
-'om het voedsel snel een knapperige korst te geven terwijl de binnenkant ' ||
-'sappig blijft. Het is uitstekend geschikt voor groenten en dunner vlees ' ||
-'dat baat heeft bij een kortere kooktijd.','/img/highheatroasting.jpg',7),
-
-    ('Low and slow roasting','Dit houdt in dat voedsel op een lagere temperatuur voor een langere periode wordt geroosterd, ' ||
-'wat ideaal is voor zeer grote of taaie stukken vlees die tijd nodig hebben' ||
-' om mals te worden. Deze methode zorgt voor een zeer gelijkmatige ' ||
-'garing en is perfect voor brisket of varkensschouder.','/img/lowandslowroasting.jpg',7),
-
-('Conventioneel roosteren','Soms begin je met het voedsel op een hogere temperatuur om een mooie korst ' ||
-'te krijgen en verlaag je dan de temperatuur om het garen te voltooien. ' ||
-'Deze techniek is geweldig voor vlees zoals rosbief of een hele kalkoen.','/img/conventioneelroosten.jpg',7),
-
-('Roosteren met bedruipen','Bij deze techniek bedruip je het roosterende voedsel regelmatig met zijn eigen sappen of met een marinade. ' ||
-'Dit helpt om het voedsel vochtig te houden en voegt extra smaak toe ' ||
-'tijdens het kookproces. Het is vooral nuttig voor droger vlees zoals kalkoen.','/img/bedruipen.jpg',7);
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Standaard Blancheren', 'Bij deze techniek breng je een grote pot water snel aan de kook, ' ||
+                                'voegt zout toe en dompelt dan de voedselitems kort onder in het ' ||
+                                'kokende water. De tijd varieert afhankelijk van het soort voedsel, ' ||
+                                'maar meestal gaat het om enkele minuten voor groenten. ' ||
+                                'Daarna haal je het voedsel snel uit het kokende water en ' ||
+                                'dompel je het onder in ijswater om het kookproces te stoppen.', '/img/blancheren2.jpg',
+        5),
+       ('Blancheren met soda', 'Een snufje bakingsoda toevoegen aan het kokende water kan helpen ' ||
+                               'de heldere kleur van sommige groenten, zoals groene bonen en erwten, ' ||
+                               'te behouden. Wees echter voorzichtig met deze methode, want te veel ' ||
+                               'soda kan de structuur van de groente verzachten en de smaak beïnvloeden.',
+        '/img/soda.jpg', 5),
+       ('Blancheren voor invriezen', 'Blancheren is een belangrijke stap bij het invriezen van groenten. ' ||
+                                     'Door groenten kort te blancheren voordat je ze invriest, ' ||
+                                     'blijven ze langer vers en behouden ze hun smaak en voedingsstoffen. ' ||
+                                     'Na het blancheren, laat je de groenten uitlekken en drogen voordat je ze invriest.',
+        '/img/invriezen.jpg', 5),
+       ('Blancheren voor het koken', 'Sommige recepten vereisen dat je groenten eerst blancheert voordat je ze ' ||
+                                     'verder kookt. Dit helpt om de groenten voor te bereiden en ' ||
+                                     'hun kleur en textuur te behouden tijdens het koken.',
+        '/img/blancherenvoorkoken.jpg', 5),
+       ('Blancheren voor het schillen', 'Blancheren is een handige techniek om de schil van sommige groenten ' ||
+                                        'zoals tomaten, paprika''s, of amandelen gemakkelijker te verwijderen. ' ||
+                                        'Door de groenten kort te blancheren, wordt de schil losser en ' ||
+                                        'kun je deze gemakkelijk verwijderen.', '/img/schillen.jpg', 5);
 
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
-VALUES ('/img/marineren.jpg','Marineren','hoe moet je marineren?');
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/grillen.jpg', 'Grillen', 'hoe moet je grillen?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
-VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals azijn, citroensap, ' ||
-          'of wijn die helpen om de eiwitten in het voedsel af te breken, ' ||
-          'wat resulteert in malser vlees. Het is belangrijk niet te lang te marineren, ' ||
-          'vooral bij zachter vlees of vis, omdat het zuur het voedsel kan "koken" ' ||
-          'of te papperig kan maken.','/img/zuurmarineren.jpg',8),
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Direct grillen',
+        'Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.',
+        '/img/grillen2.jpg', 6),
+       ('Indirect grillen',
+        'Bij indirect grillen wordt het voedsel niet direct boven de warmtebron geplaatst, maar aan de zijkant van de grill. Dit is ideaal voor het langzaam garen van grotere stukken vlees, gevogelte, of vis, waarbij de warmte gelijkmatig wordt verdeeld en het voedsel langzaam gaart zonder te verbranden.',
+        '/img/indirectgrillen.jpg', 6),
+       ('Grillen met rook',
+        'Grillen met rook voegt een extra smaakdimensie toe aan het voedsel door het te roken met houtsnippers of houtskool. Dit is ideaal voor het geven van een rokerige smaak aan vlees, vis, of groenten. Het voedsel wordt langzaam gegaard en krijgt een heerlijke rokerige smaak.',
+        '/img/rook.jpg', 6),
+       ('Sear-grilling', 'Deze methode combineert hoge directe hitte aanvankelijk om het voedsel snel dicht ' ||
+                         'te schroeien en vervolgens een lagere, indirecte hitte om' ||
+                         ' het gaarproces te voltooien. Dit is geweldig voor dikke steaks of' ||
+                         ' grotere stukken vlees waarbij je een knapperige buitenkant en een' ||
+                         ' sappige, gelijkmatig gegaarde binnenkant wilt.', '/img/seargrilling.jpg', 6),
+       ('Plankgrillen',
+        'Bij plankgrillen wordt het voedsel op een houten plank geplaatst en boven de warmtebron gegrild. ' ||
+        'Dit is ideaal voor het grillen van vis, gevogelte, of groenten, waarbij de plank ' ||
+        'een extra smaakdimensie toevoegt aan het voedsel en voorkomt dat het aanbrandt.', '/img/grilmetplank.jpg', 6);
 
 
-('Yoghurt of zuivelgebaseerd marineren','Deze marinades gebruiken de milde zuren in yoghurt of andere zuivelproducten' ||
- ' om het vlees zacht te maken zonder de structuur te beschadigen. ' ||
-'Zuivel werkt ook als een geweldige drager voor smaakstoffen en helpt bij het bruinen van het voedsel tijdens het koken.','/img/zuivel.jpg',8),
 
-('Droog marineren','Droge marinades, ook bekend als rubs, ' ||
-'bestaan uit droge kruiden en specerijen die rechtstreeks op het ' ||
-'voedsel worden gewreven. Dit helpt om een rijke korst te vormen ' ||
-'tijdens het koken, vooral bij grillen of roosteren.','/img/droog.jpg',8),
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/roosteren.jpg', 'Roosteren', 'hoe moet je roosteren?');
 
-('Emzyn gebaseerd marineren','Sommige marinades bevatten enzymen die natuurlijk voorkomen in ' ||
-'bepaalde vruchten zoals ananas, kiwi en papaja. Deze enzymen helpen de eiwitstructuren in het vlees af te breken, ' ||
-'waardoor het malser wordt. Net als bij zuur-gebaseerde marinades is het belangrijk om voorzichtig te zijn met de ' ||
-'markeertijd om te voorkomen dat het voedsel te zacht wordt.','/img/emzyn.jpg',8),
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Traditioneel roosteren', 'Bij traditioneel roosteren wordt het voedsel in een voorverwarmde oven ' ||
+                                  'geplaatst, vaak op een rooster boven een bakplaat om luchtstroom rondom het voedsel ' ||
+                                  'mogelijk te maken. Dit is ideaal voor het gelijkmatig garen van grote stukken vlees, ' ||
+                                  'hele kippen, of grote groenten zoals pompoenen.', '/img/roosteren2.jpg', 7),
 
-('Zoete Marinades','Marinades die ingrediënten met suiker bevatten, zoals honing, ahornsiroop, of melasse, ' ||
-'kunnen helpen om een gecarameliseerde glazuur te vormen op het oppervlak van het voedsel wanneer het wordt gekookt. ' ||
-'Deze zijn uitstekend voor het grillen, omdat de suiker helpt om mooie grillmarkeringen en een diepe, rijke smaak te ontwikkelen.','/img/zoet.jpg',8);
+       ('High heat roasting (Roosteren op hoge temperatuur',
+        'Deze methode gebruikt een hoge oventemperatuur (220°C of hoger) ' ||
+        'om het voedsel snel een knapperige korst te geven terwijl de binnenkant ' ||
+        'sappig blijft. Het is uitstekend geschikt voor groenten en dunner vlees ' ||
+        'dat baat heeft bij een kortere kooktijd.', '/img/highheatroasting.jpg', 7),
+
+       ('Low and slow roasting',
+        'Dit houdt in dat voedsel op een lagere temperatuur voor een langere periode wordt geroosterd, ' ||
+        'wat ideaal is voor zeer grote of taaie stukken vlees die tijd nodig hebben' ||
+        ' om mals te worden. Deze methode zorgt voor een zeer gelijkmatige ' ||
+        'garing en is perfect voor brisket of varkensschouder.', '/img/lowandslowroasting.jpg', 7),
+
+       ('Conventioneel roosteren', 'Soms begin je met het voedsel op een hogere temperatuur om een mooie korst ' ||
+                                   'te krijgen en verlaag je dan de temperatuur om het garen te voltooien. ' ||
+                                   'Deze techniek is geweldig voor vlees zoals rosbief of een hele kalkoen.',
+        '/img/conventioneelroosten.jpg', 7),
+
+       ('Roosteren met bedruipen',
+        'Bij deze techniek bedruip je het roosterende voedsel regelmatig met zijn eigen sappen of met een marinade. ' ||
+        'Dit helpt om het voedsel vochtig te houden en voegt extra smaak toe ' ||
+        'tijdens het kookproces. Het is vooral nuttig voor droger vlees zoals kalkoen.', '/img/bedruipen.jpg', 7);
+
+
+
+INSERT INTO BASIC(IMAGE, ACTION, DESCRIPTION)
+VALUES ('/img/marineren.jpg', 'Marineren', 'hoe moet je marineren?');
+
+INSERT INTO TECHNIQUE(NAME, TECHNIQUE_DESCRIPTION, IMAGE, BASIC_ID)
+VALUES ('Zuur-gebaseerd marineren', 'Deze marinades bevatten ingrediënten zoals azijn, citroensap, ' ||
+                                    'of wijn die helpen om de eiwitten in het voedsel af te breken, ' ||
+                                    'wat resulteert in malser vlees. Het is belangrijk niet te lang te marineren, ' ||
+                                    'vooral bij zachter vlees of vis, omdat het zuur het voedsel kan "koken" ' ||
+                                    'of te papperig kan maken.', '/img/zuurmarineren.jpg', 8),
+
+
+       ('Yoghurt of zuivelgebaseerd marineren',
+        'Deze marinades gebruiken de milde zuren in yoghurt of andere zuivelproducten' ||
+        ' om het vlees zacht te maken zonder de structuur te beschadigen. ' ||
+        'Zuivel werkt ook als een geweldige drager voor smaakstoffen en helpt bij het bruinen van het voedsel tijdens het koken.',
+        '/img/zuivel.jpg', 8),
+
+       ('Droog marineren', 'Droge marinades, ook bekend als rubs, ' ||
+                           'bestaan uit droge kruiden en specerijen die rechtstreeks op het ' ||
+                           'voedsel worden gewreven. Dit helpt om een rijke korst te vormen ' ||
+                           'tijdens het koken, vooral bij grillen of roosteren.', '/img/droog.jpg', 8),
+
+       ('Emzyn gebaseerd marineren', 'Sommige marinades bevatten enzymen die natuurlijk voorkomen in ' ||
+                                     'bepaalde vruchten zoals ananas, kiwi en papaja. Deze enzymen helpen de eiwitstructuren in het vlees af te breken, ' ||
+                                     'waardoor het malser wordt. Net als bij zuur-gebaseerde marinades is het belangrijk om voorzichtig te zijn met de ' ||
+                                     'markeertijd om te voorkomen dat het voedsel te zacht wordt.', '/img/emzyn.jpg',
+        8),
+
+       ('Zoete Marinades', 'Marinades die ingrediënten met suiker bevatten, zoals honing, ahornsiroop, of melasse, ' ||
+                           'kunnen helpen om een gecarameliseerde glazuur te vormen op het oppervlak van het voedsel wanneer het wordt gekookt. ' ||
+                           'Deze zijn uitstekend voor het grillen, omdat de suiker helpt om mooie grillmarkeringen en een diepe, rijke smaak te ontwikkelen.',
+        '/img/zoet.jpg', 8);
 
 
 INSERT INTO DISH (NAME, DIET_PREFERENCES, PREPARATION_TIME, OCCASION, IMG_FILE_NAME, VIDEO_URL, CONCEPT_DISH, chef_id)
-VALUES
-    ('Caprese Salad', 'vegetarian', '00:10:00', 'lunch', '/img/caprese_salad.jpg', 'https://www.youtube.com/embed/gOcfUgd4ekA?si=kPYmeQBlOVF9dT6g', false, 1),
-    ('Beef Stroganoff', 'non-vegetarian', '01:00:00', 'dinner', '/img/beef_stroganoff.jpg', 'https://www.youtube.com/embed/RtFJmmLLuZk?si=EI1y2aIQqIpYErvq', false, 1),
-    ('Avocado Toast', 'vegan', '00:05:00', 'breakfast', '/img/avocado_toast.jpg', 'https://www.youtube.com/embed/li-pPc6KNho?si=T_nrAuLE3USbRZOp', false, 1);
+VALUES ('Caprese Salad', 'vegetarian', '00:10:00', 'lunch', '/img/caprese_salad.jpg',
+        'https://www.youtube.com/embed/gOcfUgd4ekA?si=kPYmeQBlOVF9dT6g', false, 1),
+       ('Beef Stroganoff', 'non-vegetarian', '01:00:00', 'dinner', '/img/beef_stroganoff.jpg',
+        'https://www.youtube.com/embed/RtFJmmLLuZk?si=EI1y2aIQqIpYErvq', false, 1),
+       ('Avocado Toast', 'vegan', '00:05:00', 'breakfast', '/img/avocado_toast.jpg',
+        'https://www.youtube.com/embed/li-pPc6KNho?si=T_nrAuLE3USbRZOp', false, 1);
 
 
 INSERT INTO INGREDIENT (NAME, QUANTITY, UNIT, DISH_ID)
-VALUES
-    ('Tomatoes', 200, 'gr', 21),
-    ('Mozzarella', 150, 'gr', 21),
-    ('Basil', 20, 'gr', 21),
-    ('Olive Oil', 30, 'ml', 21),
-    ('Beef', 500, 'gr', 22),
-    ('Mushrooms', 200, 'gr', 22),
-    ('Onion', 100, 'gr', 22),
-    ('Sour Cream', 150, 'ml', 22),
-    ('Bread', 2, 'slices', 23),
-    ('Avocado', 1, 'whole', 23),
-    ('Lemon Juice', 10, 'ml', 23);
+VALUES ('Tomatoes', 200, 'gr', 21),
+       ('Mozzarella', 150, 'gr', 21),
+       ('Basil', 20, 'gr', 21),
+       ('Olive Oil', 30, 'ml', 21),
+       ('Beef', 500, 'gr', 22),
+       ('Mushrooms', 200, 'gr', 22),
+       ('Onion', 100, 'gr', 22),
+       ('Sour Cream', 150, 'ml', 22),
+       ('Bread', 2, 'slices', 23),
+       ('Avocado', 1, 'whole', 23),
+       ('Lemon Juice', 10, 'ml', 23);
 
 
 INSERT INTO NUTRITION (FIBER, SALT, SUGAR, SATURATED_FAT, FAT, CARBS, PROTEINS, DISH_ID)
-VALUES
-    ('2 g', '300 mg', '3 g', '5 g', '10 g', '20 g', '12 g', 21),
-    ('1 g', '500 mg', '2 g', '10 g', '25 g', '15 g', '35 g', 22),
-    ('4 g', '150 mg', '1 g', '2 g', '15 g', '30 g', '5 g', 23);
-
-
+VALUES ('2 g', '300 mg', '3 g', '5 g', '10 g', '20 g', '12 g', 21),
+       ('1 g', '500 mg', '2 g', '10 g', '25 g', '15 g', '35 g', 22),
+       ('4 g', '150 mg', '1 g', '2 g', '15 g', '30 g', '5 g', 23);
 
 
 
 INSERT INTO STEP (DESCRIPTION, DISH_ID)
-VALUES
-
-    ('Snijd de tomaten en mozzarella in plakjes en leg ze op een bord met basilicumblaadjes. Besprenkel met olijfolie en breng op smaak met zout en peper.', 21),
-    ('Voeg een scheutje balsamicoazijn toe voor extra smaak.', 21),
-    ('Garneer met pijnboompitten en serveer direct.', 21),
-
-
-    ('Bak het gehakt en de uien in een pan tot het bruin is.', 22),
-    ('Voeg de champignons toe en bak ze mee tot ze zacht zijn.', 22),
-    ('Voeg de zure room toe en roer goed door. Laat het geheel even sudderen.', 22),
-    ('Serveer de stroganoff over noedels of rijst.', 22),
+VALUES ('Snijd de tomaten en mozzarella in plakjes en leg ze op een bord met basilicumblaadjes. Besprenkel met olijfolie en breng op smaak met zout en peper.',
+        21),
+       ('Voeg een scheutje balsamicoazijn toe voor extra smaak.', 21),
+       ('Garneer met pijnboompitten en serveer direct.', 21),
 
 
-    ('Toast het brood lichtbruin.', 23),
-    ('Prak de avocado met citroensap en breng op smaak met zout en peper.', 23),
-    ('Smeer de geprakte avocado op het geroosterde brood.', 23),
-    ('Voeg optionele toppings toe zoals cherrytomaten of radijsjes.', 23);
+       ('Bak het gehakt en de uien in een pan tot het bruin is.', 22),
+       ('Voeg de champignons toe en bak ze mee tot ze zacht zijn.', 22),
+       ('Voeg de zure room toe en roer goed door. Laat het geheel even sudderen.', 22),
+       ('Serveer de stroganoff over noedels of rijst.', 22),
 
+
+       ('Toast het brood lichtbruin.', 23),
+       ('Prak de avocado met citroensap en breng op smaak met zout en peper.', 23),
+       ('Smeer de geprakte avocado op het geroosterde brood.', 23),
+       ('Voeg optionele toppings toe zoals cherrytomaten of radijsjes.', 23);
 
 
 
-INSERT INTO DISH_BEVERAGES (DISHES_ID, BEVERAGES_ID)
-VALUES (21, 1),
-       (21, 2),
-       (21, 3),
-       (22, 8),
-       (22, 11),
-       (22, 1),
-       (23, 2),
-       (23, 3),
-       (23, 11),
-       (23, 1);
+INSERT INTO FAVORITE_DISHES  (CHEF_ID, DISH_ID)
+VALUES (1, 21),
+       (1, 22),
+       (2, 1),
+       (2, 2),
+       (3, 5),
+       (3, 6);
+
+

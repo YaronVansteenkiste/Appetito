@@ -190,6 +190,7 @@ public class DishModifyController {
             dishDto.setPreparationTime(dish.getPreparationTime());
             dishDto.setOccasion(dish.getOccasion());
             dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
+            dishDto.setVideoUrl(dish.getVideoUrl());
 
             List<String> customDietPreferences = dishRepository.findDistinctCustomDietPreferences();
             dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
@@ -228,6 +229,7 @@ public class DishModifyController {
                 dish.setPreparationTime(dishDto.getPreparationTime());
                 dish.setOccasion(dishDto.getOccasion());
                 dish.setCustomDietPreferences(dishDto.getCustomDietPreferences());
+                dish.setVideoUrl(dishDto.getVideoUrl());
 
                 if (image != null && !image.isEmpty()) {
                     dish.setImgFileName(uploadImage(image));
@@ -365,6 +367,7 @@ public String showCreateDish(Model model, @PathVariable(value = "id", required =
             dishDto.setNumberOfPeople(dish.getNumberOfPeople());
             dishDto.setCustomDietPreferences(dish.getCustomDietPreferences());
             dishDto.setImgFileName(dish.getImgFileName());
+            dishDto.setVideoUrl(dish.getVideoUrl());
 
             model.addAttribute("dishDto", dishDto);
             model.addAttribute("dish", dish);
@@ -416,6 +419,7 @@ public String showCreateDish(Model model, @PathVariable(value = "id", required =
         dish.setOccasion(dishDto.getOccasion());
         dish.setPreparationTime(dishDto.getPreparationTime());
         dish.setNumberOfPeople(dishDto.getNumberOfPeople());
+        dish.setVideoUrl(dishDto.getVideoUrl());
         dish.setChef(chefRepository.findByUsername(principal.getName()));
 
         if (dishDto.getImage() != null && !dishDto.getImage().isEmpty()) {

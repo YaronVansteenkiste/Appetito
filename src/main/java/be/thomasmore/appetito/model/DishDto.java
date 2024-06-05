@@ -30,6 +30,7 @@ public class DishDto {
     private MultipartFile image;
 
     private Integer numberOfPeople;
+    private String VideoUrl;
 
     private String imgFileName;
 
@@ -102,6 +103,14 @@ public class DishDto {
 
     public void setCustomDietPreferences(String customDietPreferences) {
         this.customDietPreferences = customDietPreferences;
+    }
+
+    public String getVideoUrl() {
+        return VideoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        VideoUrl = videoUrl;
     }
 }
 

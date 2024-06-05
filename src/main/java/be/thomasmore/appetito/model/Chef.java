@@ -38,7 +38,7 @@ public class Chef {
     public Chef() {
     }
 
-    // Getters and Setters
+
 
     public Integer getId() {
         return id;
