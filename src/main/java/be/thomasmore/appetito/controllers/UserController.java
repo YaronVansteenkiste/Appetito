@@ -80,6 +80,7 @@ public class UserController {
         List<Dish> favoriteDishes = chefRepository.getFavoriteDishesByChefId(chef.getId());
         model.addAttribute("chef", chef);
         model.addAttribute("allDishes", allDishes);
+        model.addAttribute("size", allDishes.size());
         model.addAttribute("favoriteDishes", favoriteDishes);
         model.addAttribute("ConceptDishesCount", ConceptDishesCount);
 
