@@ -21,25 +21,28 @@
     <a href="/" class="text-decoration-none">Home</a> >
     <a>Recepten</a> >
 </h6>
-<div class="row justify-content-center">
-    <div class="col-12 col-md-8">
-        <form id="search" action="/dishes/search" method="get">
-            <div class="d-flex">
-                <input type="text" id="keyword" name="keyword" class="form-control me-1"
-                       placeholder="Wat staat er op het menu vandaag?"
-                       aria-label="Search">
-                <input type="submit" class="btn btn-outline-primary" value="zoeken">
-                <a sec:authorize="isAuthenticated()" class="ms-2 btn btn-success w-25" th:href="@{|/modify/adddish|}">Nieuw
-                    Recept</a>
-            </div>
-            <div id="keywordButtons" class="mt-3 g-5"></div>
-
-        </form>
-
-    </div>
-</div>
-
 <div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <form id="search" action="/dishes/search" method="get">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <input type="text" id="keyword" name="keyword" class="form-control ms-2 ms-md-0"
+                               placeholder="Wat staat er op het menu vandaag?"
+                               aria-label="Search">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex">
+                            <input type="submit" class="btn btn-outline-primary ms-2 me-2 mb-md-0" value="zoeken">
+                            <a sec:authorize="isAuthenticated()" class="btn btn-success" th:href="@{|/modify/adddish|}">Nieuw Recept</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="keywordButtons" class="mt-3 g-5"></div>
+            </form>
+
+        </div>
+    </div>
     <div class="row mx-auto">
         <div th:class="${filterEnabled} ? 'col-md-6 order-md-1' : 'col-12'">
             <div class="dishes">
