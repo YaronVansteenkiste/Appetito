@@ -26,21 +26,21 @@
         <p th:text="${error}"></p>
     </div>
     <div sec:authorize="isAuthenticated()" class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <h2>Maak een nieuw menu aan:</h2>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <form action="/menu/list" method="post">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Menu naam</label>
+                    <label for="name" class="form-label">Naam voor menu</label>
                     <input type="text" class="form-control" id="name" name="name">
                 </div>
                 <div class="mb-3">
-                    <label for="numberOfPeople" class="form-label">Number of People</label>
+                    <label for="numberOfPeople" class="form-label">Aantal personen</label>
                     <input type="number" class="form-control" id="numberOfPeople" name="numberOfPeople">
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
+                    <label for="description" class="form-label">Omschrijving</label>
                     <textarea class="form-control" id="description" name="description"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Maak menu</button>
@@ -75,7 +75,7 @@
                             <div class="card-body">
                                 <h5 th:text="${menu.getName()}" class="card-title"></h5>
                                 <p th:text="${menu.getDescription()}" class="card-text"></p>
-                                <div th:if="${menu.getActive()==false}" class="badge bg-danger">Inactieve menu <i
+                                <div th:if="${!menu.getActive()}" class="badge bg-danger">Inactieve menu <i
                                         class="fas fa-times"></i></div>
                             </div>
                             <div class="card-footer">
@@ -84,8 +84,13 @@
                                             th:text="${menu.getChef().getName()}"></span></p>
                                     <p class="card-text">Gemaakt voor: <span
                                             th:text="|${menu.getNumberOfPeople()} personen|">personen</span></p>
-                                    <a class="btn btn-primary" th:href="@{|/menu/details/${menu.getId()}|}"
+                                    <div class="d-flex justify-content-between">
+                                        <p class="card-text">Samengesteld voor: <span
+                                                th:text="${#lists.size(menu.getMenuDay())}"></span> dagen</p>
+                                    </div>
+                                    <a class="btn btn-primary mt-2" th:href="@{|/menu/details/${menu.getId()}|}"
                                        role="button">Ontdek</a>
+
                                 </div>
                             </div>
                         </div>

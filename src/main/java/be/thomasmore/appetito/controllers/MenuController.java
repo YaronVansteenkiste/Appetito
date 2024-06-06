@@ -309,6 +309,18 @@ public String listMenus(Model model, Principal principal) {
         return "menu/details";
     }
 
+    @PostMapping("/restore/{id}")
+public String restoreMenu(@PathVariable("id") Integer id) {
+    Optional<Menu> menuFromDb = menuRepository.getMenuById(id);
+    if (!menuFromDb.isPresent()) {
+        return "redirect:/menu/list";
+    }
+    Menu menu = menuFromDb.get();
+    menu.setActive(true);
+    menuRepository.save(menu);
+    return "redirect:/menu/details/" + id;
+}
+
     @GetMapping("/select/{id}")
 public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal) {
 
