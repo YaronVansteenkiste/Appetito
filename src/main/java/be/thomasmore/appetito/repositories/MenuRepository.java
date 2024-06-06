@@ -13,4 +13,6 @@ public interface MenuRepository extends CrudRepository<Menu, Integer> {
     Iterable<Menu> findAllByActiveTrue();
 
     Optional<Menu> getMenuById(Integer id);
+
+    Iterable<Menu> findAllByActiveTrueAndChef(Chef chef);
 }

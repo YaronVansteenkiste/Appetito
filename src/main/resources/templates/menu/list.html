@@ -31,20 +31,20 @@
         </div>
         <div class="col-6">
             <form action="/menu/list" method="post">
-    <div class="mb-3">
-        <label for="name" class="form-label">Menu naam</label>
-        <input type="text" class="form-control" id="name" name="name">
-    </div>
-    <div class="mb-3">
-        <label for="numberOfPeople" class="form-label">Number of People</label>
-        <input type="number" class="form-control" id="numberOfPeople" name="numberOfPeople">
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" name="description"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Maak menu</button>
-</form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Menu naam</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="numberOfPeople" class="form-label">Number of People</label>
+                    <input type="number" class="form-control" id="numberOfPeople" name="numberOfPeople">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Maak menu</button>
+            </form>
         </div>
     </div>
     <div class="row mt-3">
@@ -54,22 +54,36 @@
                     <div class="col-12 col-md-4 g-2" th:each="menu : ${menus}">
                         <div class="card h-100">
                             <div class="row h-100">
-                                <div class="row mx-auto mt-2" th:each="day, stat : ${menu.getMenuDay()}" th:if="${stat.count <= 1}">
+                                <div class="row mx-auto mt-2" th:each="day, stat : ${menu.getMenuDay()}"
+                                     th:if="${stat.count <= 1}">
+                                    <div th:if="${#lists.size(day.getDishes()) == 0}">
+                                        <img class="h-100 mx-auto img-thumbnail object-fit-cover"
+                                             src="/img/Empty_plate.png"></img>
+                                    </div>
                                     <div th:each="dish, stat : ${day.getDishes()}" th:if="${stat.count <= 4}"
                                          th:class="${#lists.size(day.getDishes()) == 1} ? 'col-12' : ((${#lists.size(day.getDishes()) == 3} and ${stat.count == 3}) ? 'col-12' : 'col-6')">
-                                        <img class="h-100 mx-auto img-thumbnail object-fit-cover" th:src="${dish.getImgFileName()}"></img>
+                                        <img class="h-100 mx-auto img-thumbnail object-fit-cover"
+                                             th:src="${(dish.getImgFileName() != null && !dish.getImgFileName().isEmpty() && #lists.size(day.getDishes()) != 0) ? dish.getImgFileName() : '/img/Empty_plate.png'}">
+                                        </img>
                                     </div>
+                                </div>
+                                <div class="row mx-auto mt-2 asdfdawf" th:if="${#lists.size(menu.getMenuDay()) == 0}">
+                                    <img class="h-100 mx-auto img-thumbnail object-fit-cover"
+                                         src="/img/Empty_plate.png"></img>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <h5 th:text="${menu.getName()}" class="card-title"></h5>
                                 <p th:text="${menu.getDescription()}" class="card-text"></p>
+                                <div th:if="${menu.getActive()==false}" class="badge bg-danger">Inactieve menu <i
+                                        class="fas fa-times"></i></div>
                             </div>
                             <div class="card-footer">
                                 <div class="d-grid">
                                     <p class="card-text">Samengesteld door: <span
                                             th:text="${menu.getChef().getName()}"></span></p>
-                                    <p class="card-text">Gemaakt voor: <span th:text="|${menu.getNumberOfPeople()} personen|">personen</span></p>
+                                    <p class="card-text">Gemaakt voor: <span
+                                            th:text="|${menu.getNumberOfPeople()} personen|">personen</span></p>
                                     <a class="btn btn-primary" th:href="@{|/menu/details/${menu.getId()}|}"
                                        role="button">Ontdek</a>
                                 </div>
