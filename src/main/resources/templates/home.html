@@ -1,3 +1,4 @@
+
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -66,7 +67,7 @@
             <img th:src="@{/img/best-meal.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
             <h3>Inspirerende Menusuggesties</h3>
             <p>Ontdek aanbevolen menu's</p>
-            <a href="/x-dagenmenu">Kom meer te weten</a>
+            <a href="/menu/list">Kom meer te weten</a>
         </article>
 
         <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
@@ -81,7 +82,8 @@
                  alt="Meal Creation">
             <h3>Publiceer uw eigen unieke recepten</h3>
             <p>Deel de wereld wat je hebt gemaakt!</p>
-            <a href="/user/login">Aanmelden</a>
+            <a sec:authorize="${isAuthenticated()}" href="/modify/adddish">Stel jouw recept samen!</a>
+            <a sec:authorize="${!isAuthenticated()}" href="/user/login">Aanmelden</a>
         </article>
 
     </div>
@@ -137,12 +139,43 @@
             </div>
         </div>
     </div>
+    <div th:if="${!allDishes.isEmpty()}">
+        <h2 class="text-center mt-5">Mijn maaltijden!</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mx-5 mt-5">
+            <div class="col" th:each="dish : ${allDishes}" >
+                <div class="card" style="height: 400px;">
+                    <img th:src="@{${dish.getImgFileName()}}" class="card-img-top"
+                         alt="dish Image" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 th:text="${dish.name}" class="card-title"></h5>
+                        <div class="d-inline rating-box" th:attr="data-rating=${dish.getAverageRating()}">
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                            <span class="far fa-star"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-grid">
+                            <a class="btn btn-primary" th:href="@{|/dishdetails/${dish.id}|}"
+                               role="button">Ontdek</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 
 
 <footer th:insert="~{fragments/footer :: footer}"></footer>
 
-<script th:src="@{/scripts/rating.js}"></script>
+<script th:src="@{/scripts/rating-buttons.js}"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
