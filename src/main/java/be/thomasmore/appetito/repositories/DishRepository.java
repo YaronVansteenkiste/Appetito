@@ -78,7 +78,7 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
                                   Pageable pageable);
 
 
-    @Query("SELECT d FROM Dish d LEFT JOIN d.ingredients i WHERE d.name LIKE %:keyword% OR i.name LIKE %:keyword%")
+@Query("SELECT d FROM Dish d LEFT JOIN d.ingredients i WHERE LOWER(d.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(i.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
 Iterable<Dish> findByNameOrIngredients(@Param("keyword") String keyword);
 
     @Query("SELECT d FROM Dish d ORDER BY d.id ASC")
