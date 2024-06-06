@@ -17,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,9 +25,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-@RequestMapping ("/modify")
+@RequestMapping("/modify")
 @Controller
 public class TechniqueModifyController {
 
@@ -66,20 +64,20 @@ public class TechniqueModifyController {
     }
 
     @PostMapping({"/addbasicaction", "/addbasicaction/{id}"})
-    public String addBasic(@ModelAttribute Basic basic, @PathVariable(required = false) Integer id,
-                           @RequestParam(required = false) String action, @RequestParam(required = false) String description,
-                           @RequestParam(required = false) List <MultipartFile> images) throws IOException {
-        basic.setAction(action);
-        basic.setDescription(description);
-        if (basic.getImage() != null && !basic.getImage().isEmpty()) {
-            basic.setImgFileName(uploadImage(basic.getImage()));
-        }
-        if (id != null) {
-            basic.setId(id);
-        }
-        basicRepository.save(basic);
-        return "redirect:/modify/addtechnique/" + basic.getId();
+public String addBasic(@ModelAttribute Basic basic, @PathVariable(required = false) Integer id,
+                       @RequestParam(required = false) String action, @RequestParam(required = false) String description,
+                       @RequestParam(required = false) List<MultipartFile> images) throws IOException {
+    basic.setAction(action);
+    basic.setDescription(description);
+    if (!basic.getImage().isEmpty()) {
+        basic.setImgFileName(uploadImage(basic.getImage()));
     }
+    if (id != null) {
+        basic.setId(id);
+    }
+    basicRepository.save(basic);
+    return "redirect:/modify/addtechnique/" + basic.getId();
+}
 
 
     @GetMapping("/addtechnique/{basicActionId}")
@@ -89,24 +87,18 @@ public class TechniqueModifyController {
         model.addAttribute("technique", technique);
         TechniqueListWrapper wrapper = new TechniqueListWrapper();
         wrapper.setTechniques(new ArrayList<>());
-        technique.setImage(uploadImage(technique.getImageFile()));
+        technique.setImgFileName(uploadImage(technique.getImageFile()));
         model.addAttribute("techniqueListWrapper", wrapper);
         model.addAttribute("basicActionId", basicActionId);
         return "modify/addtechnique";
     }
 
 
-
-
-
-
-
-
     @PostMapping("/addtechnique/{id}")
     @Transactional
     public String addTechnique(@PathVariable("id") Integer id,
-                           @ModelAttribute("techniqueListWrapper") TechniqueListWrapper wrapper,Principal principal,
-                           Model model) throws IOException {
+                               @ModelAttribute("techniqueListWrapper") TechniqueListWrapper wrapper, Principal principal,
+                               Model model) throws IOException {
         List<Technique> currentTechniques = wrapper.getTechniques();
 
         if (currentTechniques == null || currentTechniques.isEmpty()) {
@@ -120,12 +112,12 @@ public class TechniqueModifyController {
         for (Technique technique : currentTechniques) {
             MultipartFile imageFile = technique.getImageFile();
 
-            if ( id == null) {
+            if (id == null) {
                 Technique newTechnique = new Technique();
                 newTechnique.setBasic(basicRepository.findById(id).get());
                 newTechnique.setTechniqueDescription(technique.getTechniqueDescription());
                 if (imageFile != null && !imageFile.isEmpty()) {
-                    newTechnique.setImage(uploadImage(imageFile));
+                    newTechnique.setImgFileName(uploadImage(imageFile));
                 }
                 techniqueRepository.save(newTechnique);
             } else {
@@ -135,7 +127,7 @@ public class TechniqueModifyController {
                     existingTechnique.setBasic(basicRepository.findById(id).get());
                     existingTechnique.setTechniqueDescription(technique.getTechniqueDescription());
                     if (imageFile != null && !imageFile.isEmpty()) {
-                        existingTechnique.setImage(uploadImage(imageFile));
+                        existingTechnique.setImgFileName(uploadImage(imageFile));
                     }
                     techniqueRepository.save(existingTechnique);
                 }
@@ -187,17 +179,13 @@ public class TechniqueModifyController {
         }
 
         try {
-             Optional<Basic> optionalBasic = basicRepository.findById(id);
+            Optional<Basic> optionalBasic = basicRepository.findById(id);
 
             if (optionalBasic.isPresent()) {
                 Basic basicFromDB = optionalBasic.get();
                 basicFromDB.setAction(basic.getAction());
                 basicFromDB.setDescription(basic.getDescription());
-
-
-                if (image != null && !image.isEmpty()) {
-                    basic.setImgFileName(uploadImage(image));
-                }
+                basicFromDB.setImgFileName(uploadImage(image));
                 basicRepository.save(basicFromDB);
 
                 return "redirect:/modify/edittechnique/" + id;
@@ -209,6 +197,7 @@ public class TechniqueModifyController {
     }
 
     private String uploadImage(MultipartFile multipartFile) throws IOException {
+    if (multipartFile != null && !multipartFile.isEmpty()) {
         final String filename = multipartFile.getOriginalFilename();
         final File fileToUpload = new File(filename);
         FileOutputStream fos = new FileOutputStream(fileToUpload);
@@ -217,5 +206,7 @@ public class TechniqueModifyController {
         fileToUpload.delete();
         return urlInFirebase;
     }
-    }
+    return null;
+}
+}
 

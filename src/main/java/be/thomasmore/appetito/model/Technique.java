@@ -21,7 +21,7 @@ public class Technique {
     @NotNull
     private String name;
 
-    private String image;
+    private String imgFileName;
 
     @ManyToOne
     private Basic basic;
@@ -57,12 +57,16 @@ public class Technique {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public String getImgFileName() {
+        return imgFileName;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
     }
 
     public Basic getBasic() {

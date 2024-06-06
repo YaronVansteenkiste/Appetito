@@ -761,10 +761,10 @@ VALUES (5, 3),
        (1, 19),
        (3, 20);
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION,IMG_FILE_NAME)
-VALUES ('/img/snijden.jpg','Snijden','hoe moet je snijden?','snijden.jpg');
+INSERT INTO BASIC(ACTION,DESCRIPTION,IMG_FILE_NAME)
+VALUES ('Snijden','hoe moet je snijden?','/img/snijden.jpg');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','/img/julienne.jpg',1),
     ('Brunoise (Blokvormig)','Een brunoise is een dobbelsteensnede, meestal 3 mm x 3 mm. Deze techniek wordt vaak gebruikt voor soepen, sauzen, of als een fijne garnituur.','/img/brunoise.jpg',1),
     ('Chiffonade (Fijne reepjes)','Deze snijtechniek is ideaal voor bladgroenten en kruiden. ' ||
@@ -774,10 +774,10 @@ VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in 
     ('Mincen (fijnhakken','Dit is het fijnhakken van ingrediënten tot ze zeer klein zijn, vaak gebruikt voor kruiden, knoflook of uien waar je wilt dat de smaak goed verdeeld wordt door het gerecht zonder grote stukjes.','/img/mincen.jpg',1);
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/bakken.jpg','Bakken','hoe moet je bakken?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief ' ||
                    'hoge temperatuur met een kleine hoeveelheid vet (olie of boter).' ||
                    ' Het doel is om de ingrediënten bruin en knapperig te krijgen aan de ' ||
@@ -796,10 +796,10 @@ VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief
                    'Ingrediënten worden snel en continu bewogen, vergelijkbaar met roerbakken ' ||
                    'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.','/img/stirfrying.jpg',2);
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/koken.jpg','Koken','hoe moet je koken?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
                   'Je brengt een pot met water (of een andere vloeistof) ' ||
                   'aan de kook en voegt voedsel toe, zoals pasta, granen, of groenten. ' ||
@@ -818,10 +818,10 @@ VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
                 'en de meeste voedingsstoffen in het voedsel behouden blijven. ' ||
                 'Het is ideaal voor groenten, vis en zelfs sommige desserts.','/img/steaming.jpg',3);
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/stomen.jpg','Stomen','hoe moet je stomen?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voedsel in een stoommandje ' ||
                               'boven kokend water in een pot of wok. De deksel wordt op de pot ' ||
                               'geplaatst om de stoom binnen te houden. Dit is ideaal voor groenten, ' ||
@@ -843,10 +843,10 @@ VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voeds
 
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/blancheren.jpg','Blancheren','hoe moet je blancheren?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water snel aan de kook, ' ||
                     'voegt zout toe en dompelt dan de voedselitems kort onder in het ' ||
                     'kokende water. De tijd varieert afhankelijk van het soort voedsel, ' ||
@@ -871,10 +871,10 @@ VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water s
 
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.','/img/grillen2.jpg',6),
     ('Indirect grillen','Bij indirect grillen wordt het voedsel niet direct boven de warmtebron geplaatst, maar aan de zijkant van de grill. Dit is ideaal voor het langzaam garen van grotere stukken vlees, gevogelte, of vis, waarbij de warmte gelijkmatig wordt verdeeld en het voedsel langzaam gaart zonder te verbranden.','/img/indirectgrillen.jpg',6),
     ('Grillen met rook','Grillen met rook voegt een extra smaakdimensie toe aan het voedsel door het te roken met houtsnippers of houtskool. Dit is ideaal voor het geven van een rokerige smaak aan vlees, vis, of groenten. Het voedsel wordt langzaam gegaard en krijgt een heerlijke rokerige smaak.','/img/rook.jpg',6),
@@ -889,10 +889,10 @@ VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks bove
 
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/roosteren.jpg','Roosteren','hoe moet je roosteren?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel in een voorverwarmde oven ' ||
 'geplaatst, vaak op een rooster boven een bakplaat om luchtstroom rondom het voedsel ' ||
 'mogelijk te maken. Dit is ideaal voor het gelijkmatig garen van grote stukken vlees, ' ||
@@ -918,10 +918,10 @@ VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel i
 
 
 
-INSERT INTO BASIC(IMAGE,ACTION,DESCRIPTION)
+INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
 VALUES ('/img/marineren.jpg','Marineren','hoe moet je marineren?');
 
-INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMAGE,BASIC_ID)
+INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals azijn, citroensap, ' ||
           'of wijn die helpen om de eiwitten in het voedsel af te breken, ' ||
           'wat resulteert in malser vlees. Het is belangrijk niet te lang te marineren, ' ||

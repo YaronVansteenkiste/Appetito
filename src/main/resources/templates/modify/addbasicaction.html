@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
         <h2 class="text-center mb-5">Nieuwe Basishandeling</h2>
-        <form method="post" th:action="@{/modify/addbasicaction}" th:object="${basic}">
+        <form method="post" th:action="@{/modify/addbasicaction}" enctype="multipart/form-data" th:object="${basic}">
 
 
             <div class="row mb-3">
