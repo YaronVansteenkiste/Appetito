@@ -39,6 +39,7 @@
                             <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].name}" placeholder="Name"/>
                             <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].techniqueDescription}" placeholder="Technique Description"/>
                             <img class="techniqueImagePreview img-fluid w-25" th:src="${technique.getImgFileName()}"/>
+                            <input type="file" class="form-control" th:field="*{techniques[__${stat.index}__].imageFile}" accept="image/*"/>
                         </td>
                         <td>
                             <button type="button" class="btn btn-outline-danger"
