@@ -17,32 +17,31 @@
 
 <div class="container mt-5">
     <h2 class="text-center">Registreren</h2>
-    <form th:action="@{|/user/register|}" method="post">
-        <div class="mb-3">
-            <label for="username" class="form-label">Gebruikersnaam</label>
-            <input type="text" class="form-control" id="username" name="username">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" name="email">
-        </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Voornaam</label>
-            <input type="text" class="form-control" id="name" name="name">
-        </div>
-        <div class="mb-3">
-            <label for="surname" class="form-label
-            ">Achternaam</label>
-            <input type="text" class="form-control" id="surname" name="surname">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <div class="mb-3">
-            <input type="submit" value="Register" class="btn btn-primary">
-        </div>
-    </form>
+  <form th:action="@{|/user/register|}" method="post">
+    <div class="mb-3">
+        <label for="username" class="form-label">Gebruikersnaam</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="text" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Voornaam</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="surname" class="form-label">Achternaam</label>
+        <input type="text" class="form-control" id="surname" name="surname" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Wachtwoord</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Register" class="btn btn-primary">
+    </div>
+</form>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}">Footer</div>
