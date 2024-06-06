@@ -150,8 +150,8 @@ public class DishesController {
                 minPreparationTime = Time.valueOf(minPreparationTimeStr);
             }
         }
-        if (maxPreparationTimeStr != null) {
-            if (!maxPreparationTimeStr.isEmpty()) {
+        if (maxPreparationTimeStr != null && !maxPreparationTimeStr.isEmpty()) {
+            if (maxPreparationTimeStr.matches("\\d{2}:\\d{2}:\\d{2}")) {
                 maxPreparationTime = Time.valueOf(maxPreparationTimeStr);
             }
         }
