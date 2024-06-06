@@ -73,4 +73,12 @@ public class Review {
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
+
+    public Chef getChef() {
+        return chef;
+    }
+
+    public void setChef(Chef chef) {
+        this.chef = chef;
+    }
 }

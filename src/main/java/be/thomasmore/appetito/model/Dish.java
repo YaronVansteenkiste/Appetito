@@ -253,13 +253,13 @@ public class Dish {
     }
 
     @ManyToMany(mappedBy = "dishes")
-    private Collection<Review> reviews;
+    private List<Review> reviews;
 
-    public Collection<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Collection<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 }

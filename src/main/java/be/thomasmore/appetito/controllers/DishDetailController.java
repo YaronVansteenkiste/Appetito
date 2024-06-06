@@ -23,6 +23,8 @@ public class DishDetailController<ToggleRequest> {
 
     @Autowired
     private DishRepository dishRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @Autowired
     private ChefRepository chefRepository;
@@ -169,6 +171,36 @@ public class DishDetailController<ToggleRequest> {
         }
         Review review = new Review();
         model.addAttribute("review", review);
+        model.addAttribute("count",reviewRepository.count());
+        return "dishdetail";
+    }
+    @GetMapping("/deletecomment/{dishId}/{reviewId}")
+    public String deleteComment(@PathVariable int dishId, @PathVariable int reviewId) {
+        Optional<Dish> dishOptional = dishRepository.findById(dishId);
+        if (dishOptional.isPresent()) {
+            Dish dish = dishOptional.get();
+            dish.getReviews().removeIf(review -> review.getId() == reviewId);
+            dishRepository.save(dish);
+        }
+        return "redirect:/dishdetails/" + dishId;
+    }
+    @PostMapping("/dishdetails/{id}")
+    public String dishDetails(Model model, @PathVariable(required = false) Integer id, Principal principal,
+                              @ModelAttribute("reviews") Review formReviews) {
+
+        Optional<Dish> dishOptional = dishRepository.findById(id);
+        Dish dish = dishOptional.get();
+
+        Review review = new Review();
+        review.setName(formReviews.getName().trim());
+        review.setReview(formReviews.getReview().trim());
+        review.setDate(new Date());
+        reviewRepository.save(review);
+
+        dish.getReviews().add(review);
+        dishRepository.save(dish);
+
+
         return "dishdetail";
     }
 

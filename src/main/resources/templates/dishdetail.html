@@ -264,6 +264,57 @@
         </div>
     </div>
 </div>
+<div class="card text-white bg-secondary my-5 py-4 text-center">
+    <div class="card-body">
+        <p class="text-white m-0">
+            Add a comment here below
+        </p>
+    </div>
+</div>
+
+<!-- Comment submission form -->
+<div class="container">
+    <form method="post" th:action="@{/dishdetails/{id}/addcomment(id=${dish.id})}">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="review">Comment</label>
+            <textarea class="form-control" id="review" name="review" th:field="*{review}" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="reviews" th:text="|Reviews (${count})|"></div>
+    <div th:each="review: ${dish.reviews}">
+        <div class="card mx-auto rounded border p-6 m-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                        <p th:text="${review.date}" class="text-secondary text-center"></p>
+                    </div>
+                    <div class="col-md-10">
+                        <p>
+                            <a class="float-left"><p th:text="${review.name}"></p></a>
+                        </p>
+                        <div class="clearfix"></div>
+                        <p th:text="${review.review}"></p>
+                        <div class="col">
+                            <a th:href="@{/deletecomment/{dishId}/{reviewId}(dishId=${dish.id}, reviewId=${review.id})}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete')">Verwijder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="text-center">
