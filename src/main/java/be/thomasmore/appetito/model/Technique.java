@@ -1,33 +1,43 @@
 package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Entity
 public class Technique {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Length(max = 1000)
+    @NotNull
     private String techniqueDescription;
 
+    @NotNull
     private String name;
 
-    private String image;
+    private String imgFileName;
 
     @ManyToOne
     private Basic basic;
 
+    @Transient
+    private MultipartFile imageFile;
+
+
     public Technique() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,12 +57,16 @@ public class Technique {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public String getImgFileName() {
+        return imgFileName;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImgFileName(String imgFileName) {
+        this.imgFileName = imgFileName;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
     }
 
     public Basic getBasic() {
@@ -61,5 +75,10 @@ public class Technique {
 
     public void setBasic(Basic basic) {
         this.basic = basic;
+    }
+
+
+    public MultipartFile getImageFile() {
+        return imageFile;
     }
 }
