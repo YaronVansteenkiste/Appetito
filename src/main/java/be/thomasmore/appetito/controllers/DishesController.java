@@ -71,27 +71,27 @@ public class DishesController {
         } else {
             diets = dishRepository.findAll();
         }
-            int pageSize = 10;
-            Pageable pageable = PageRequest.of(page, pageSize);
-            Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
-            boolean filterEnabled = false;
-            long totalDishes = dishesPage.getTotalElements();
-            int totalPages = dishesPage.getTotalPages();
-            List<Dish> dishes = dishesPage.getContent();
-            model.addAttribute("dishesPage", dishesPage.getContent());
-            model.addAttribute("currentPage", page);
-            model.addAttribute("count", totalDishes);
-            model.addAttribute("filterEnabled", filterEnabled);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("hasPrevious", dishesPage.hasPrevious());
-            model.addAttribute("hasNext", dishesPage.hasNext());
-            model.addAttribute("alldishes", dishes);
-            model.addAttribute("allTheDishes", allTheDishes);
-            model.addAttribute("isAdmin", isAdmin);
-            model.addAttribute("diets", diets);
-            return "dishes";
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Dish> dishesPage = dishRepository.findByActive(true, pageable);
+        boolean filterEnabled = false;
+        long totalDishes = dishesPage.getTotalElements();
+        int totalPages = dishesPage.getTotalPages();
+        List<Dish> dishes = dishesPage.getContent();
+        model.addAttribute("dishesPage", dishesPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("count", totalDishes);
+        model.addAttribute("filterEnabled", filterEnabled);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("hasPrevious", dishesPage.hasPrevious());
+        model.addAttribute("hasNext", dishesPage.hasNext());
+        model.addAttribute("alldishes", dishes);
+        model.addAttribute("allTheDishes", allTheDishes);
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("diets", diets);
+        return "dishes";
 
-        }
+    }
 
 
     @GetMapping("/dishes/search")
@@ -145,12 +145,11 @@ public class DishesController {
         Time minPreparationTime = null;
         Time maxPreparationTime = null;
 
-        if (minPreparationTimeStr != null) {
-            if (!minPreparationTimeStr.isEmpty()) {
+        if (minPreparationTimeStr != null && !minPreparationTimeStr.isEmpty()) {
+            if (minPreparationTimeStr.matches("\\d{2}:\\d{2}:\\d{2}")) {
                 minPreparationTime = Time.valueOf(minPreparationTimeStr);
             }
         }
-
         if (maxPreparationTimeStr != null) {
             if (!maxPreparationTimeStr.isEmpty()) {
                 maxPreparationTime = Time.valueOf(maxPreparationTimeStr);
