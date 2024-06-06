@@ -24,13 +24,12 @@
     <a href="/basic" class="text-decoration-none"></a> Basishandelingen >
   <a>Nieuwe handeling</a></h6>
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
         <h2 class="text-center mb-5">Nieuwe Basishandeling</h2>
         <form method="post" th:action="@{/modify/addbasicaction}" enctype="multipart/form-data" th:object="${basic}">
-
-
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Naam van Handeling</label>
                 <div class="col-sm-8">
