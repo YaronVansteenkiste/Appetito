@@ -772,7 +772,7 @@ VALUES (5, 3),
        (3, 20);
 
 INSERT INTO BASIC(ACTION,DESCRIPTION,IMG_FILE_NAME)
-VALUES ('Snijden','hoe moet je snijden?','/img/snijden.jpg');
+VALUES ('Snijden','Beste technieken bij het snijden','/img/snijden.jpg');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in dunne, lange reepjes te snijden, ongeveer de grootte van luciferhoutjes. Het is ideaal voor salades, roerbakgerechten en garnituren.','/img/julienne.jpg',1),
@@ -785,7 +785,7 @@ VALUES ('Julienne (Luciferhoutjes','Deze techniek wordt gebruikt om groenten in 
 
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/bakken.jpg','Bakken','hoe moet je bakken?');
+VALUES ('/img/bakken.jpg','Bakken','Beste technieken bij het bakken');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief ' ||
@@ -807,7 +807,7 @@ VALUES ('Sauteren','Sauteren houdt in dat je ingrediënten snel bakt op relatief
                    'maar vaak met nog hogere snelheid en hitte voor een zeer snelle bereiding.','/img/stirfrying.jpg',2);
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/koken.jpg','Koken','hoe moet je koken?');
+VALUES ('/img/koken.jpg','Koken','Beste technieken bij het koken');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
@@ -829,7 +829,7 @@ VALUES ('Boiling','Dit is waarschijnlijk de meest basale vorm van koken. ' ||
                 'Het is ideaal voor groenten, vis en zelfs sommige desserts.','/img/steaming.jpg',3);
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/stomen.jpg','Stomen','hoe moet je stomen?');
+VALUES ('/img/stomen.jpg','Stomen','Beste technieken bij het stomen');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voedsel in een stoommandje ' ||
@@ -854,7 +854,7 @@ VALUES ('Traditioneel stomen','Bij deze basisvorm van stomen plaats je het voeds
 
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/blancheren.jpg','Blancheren','hoe moet je blancheren?');
+VALUES ('/img/blancheren.jpg','Blancheren','Beste technieken bij het blancheren');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water snel aan de kook, ' ||
@@ -882,7 +882,7 @@ VALUES ('Standaard Blancheren','Bij deze techniek breng je een grote pot water s
 
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/grillen.jpg','Grillen','hoe moet je grillen?');
+VALUES ('/img/grillen.jpg','Grillen','Beste technieken bij het grillen');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks boven de warmtebron geplaatst. Dit is ideaal voor het snel koken van dunne stukken vlees, groenten, en andere voedingsmiddelen die snel gaar worden. De hoge temperatuur zorgt voor een mooie grillstreep en een heerlijke korst.','/img/grillen2.jpg',6),
@@ -900,7 +900,7 @@ VALUES ('Direct grillen','Bij direct grillen wordt het voedsel rechtstreeks bove
 
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/roosteren.jpg','Roosteren','hoe moet je roosteren?');
+VALUES ('/img/roosteren.jpg','Roosteren','Beste technieken bij het roosteren');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel in een voorverwarmde oven ' ||
@@ -929,7 +929,7 @@ VALUES ('Traditioneel roosteren','Bij traditioneel roosteren wordt het voedsel i
 
 
 INSERT INTO BASIC(IMG_FILE_NAME,ACTION,DESCRIPTION)
-VALUES ('/img/marineren.jpg','Marineren','hoe moet je marineren?');
+VALUES ('/img/marineren.jpg','Marineren','beste technieken bij het marineren');
 
 INSERT INTO TECHNIQUE(NAME,TECHNIQUE_DESCRIPTION,IMG_FILE_NAME,BASIC_ID)
 VALUES('Zuur-gebaseerd marineren','Deze marinades bevatten ingrediënten zoals azijn, citroensap, ' ||

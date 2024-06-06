@@ -175,7 +175,7 @@ public class DishDetailController<ToggleRequest> {
         Dish dish = dishRepository.findById(id).orElseThrow(() -> new IllegalStateException("Dish not found"));
         dish.setActive(active);
         dishRepository.save(dish);
-        return "redirect:/dishdetails/" + id;
+        return "redirect:/dishes";
     }
 
 

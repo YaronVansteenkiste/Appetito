@@ -26,6 +26,21 @@
 
 <div class="container">
   <div class="row">
+    <div class="col">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link" th:text="|Toevoegen basishandelingen|"></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" th:href="@{|/modify/addtechnique/${basic.id}|}"  th:text="|Toevoegen technieken|"></a>
+        </li>
+      </ul>
+      <div class="progress mt-3">
+        <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-8 mx-auto rounded border p-4 m-4">
       <div class="alert alert-danger" th:if="${#fields.hasErrors('techniqueListWrapper')}">
         <p th:each="error : ${#fields.errors('techniqueListWrapper')}" th:text="${error}"></p>

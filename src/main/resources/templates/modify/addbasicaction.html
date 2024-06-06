@@ -26,11 +26,24 @@
 
 <div class="container">
     <div class="row">
+        <div class="col">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{|/modify/addbasicaction/${basic.id}|}" th:text="|Toevoegen basishandelingen|"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:text="|Toevoegen technieken|"></a>
+                </li>
+            </ul>
+            <div class="progress mt-3">
+                <div class="progress-bar" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
         <h2 class="text-center mb-5">Nieuwe Basishandeling</h2>
         <form method="post" th:action="@{/modify/addbasicaction}" enctype="multipart/form-data" th:object="${basic}">
-
-
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Naam van Handeling</label>
                 <div class="col-sm-8">

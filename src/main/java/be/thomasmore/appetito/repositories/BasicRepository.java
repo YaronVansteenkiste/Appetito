@@ -14,9 +14,8 @@ import java.util.Optional;
 public interface BasicRepository extends CrudRepository<Basic, Integer> {
 
 
-    @Query("SELECT b FROM Basic b LEFT JOIN b.techniques t WHERE b.action LIKE %:keyword% OR t.name LIKE %:keyword%")
-    Iterable<Basic> findByActionOrTechniques(@Param("keyword") String keyword);
-
+  @Query("SELECT b FROM Basic b LEFT JOIN b.techniques t WHERE LOWER(b.action) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(t.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+Iterable<Basic> findByActionOrTechniques(@Param("keyword") String keyword);
     Page<Basic> findAll(Pageable pageable);
 
 
