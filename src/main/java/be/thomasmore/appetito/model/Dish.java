@@ -251,4 +251,15 @@ public class Dish {
     public void setStep(Collection<Step> step) {
         this.step = step;
     }
+
+    @ManyToMany(mappedBy = "dishes")
+    private Collection<Review> reviews;
+
+    public Collection<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Collection<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

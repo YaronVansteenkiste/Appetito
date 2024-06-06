@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import be.thomasmore.appetito.model.Beverage;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
 
-import javax.swing.text.html.Option;
+
 import java.security.Principal;
 import java.util.*;
 
@@ -167,6 +167,8 @@ public class DishDetailController<ToggleRequest> {
             String username = authentication.getName();
 
         }
+        Review review = new Review();
+        model.addAttribute("review", review);
         return "dishdetail";
     }
 
@@ -221,6 +223,8 @@ public String addIngredientsToGrocery(@PathVariable(required = true) Integer id,
         grocery.setIngredients(newIngredients);
         groceryRepository.save(grocery);
     }
+
+
     return "redirect:/groceries/";
 }
 

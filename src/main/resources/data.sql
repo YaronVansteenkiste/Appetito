@@ -988,8 +988,6 @@ VALUES ('2 g', '300 mg', '3 g', '5 g', '10 g', '20 g', '12 g', 21),
 
 
 
-
-
 INSERT INTO STEP (DESCRIPTION, DISH_ID)
 VALUES ('Snijd de tomaten en mozzarella in plakjes en leg ze op een bord met basilicumblaadjes. Besprenkel met olijfolie en breng op smaak met zout en peper.',
         21),

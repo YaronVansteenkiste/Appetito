@@ -1,7 +1,7 @@
 package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.Basic;
-import be.thomasmore.appetito.model.Dish;
+
 import be.thomasmore.appetito.model.Technique;
 import be.thomasmore.appetito.repositories.BasicRepository;
 import be.thomasmore.appetito.repositories.TechniqueRepository;

@@ -1,7 +1,7 @@
 package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.Basic;
-import be.thomasmore.appetito.model.Dish;
+
 import be.thomasmore.appetito.repositories.BasicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

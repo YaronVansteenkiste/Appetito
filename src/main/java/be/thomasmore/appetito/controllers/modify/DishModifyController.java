@@ -6,10 +6,10 @@ import be.thomasmore.appetito.repositories.*;
 import be.thomasmore.appetito.services.GoogleService;
 
 
-import jakarta.servlet.http.HttpSession;
+
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import jdk.jfr.Category;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.util.StringUtils;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.Time;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 
 @RequestMapping("/modify")
