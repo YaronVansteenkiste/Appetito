@@ -35,11 +35,9 @@
           <table class="table">
             <tr th:id="|technique${technique.id}|" th:each="technique, stat : *{techniques}">
               <td>
-                td>
                 <input type="hidden" th:field="*{techniques[__${stat.index}__].id}"/>
                 <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].techniqueDescription}" placeholder="Technique Description"/>
                 <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].name}" placeholder="Name"/>
-                <input type="file" class="techniqueImageInput form-control" th:field="*{techniques[__${stat.index}__].imgFileName}"/>
                 <img class="techniqueImagePreview img-fluid w-25" th:src="${technique.getImgFileName()}"/>
               </td>
               <td>

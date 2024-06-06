@@ -117,7 +117,7 @@ public class TechniqueModifyController {
             String userName = principal.getName();
             Chef chef = chefRepository.findByUsername(userName);
             model.addAttribute("chef", chef);
-            model.addAttribute("error", "Er moet minimaal één stap worden toegevoegd.");
+            model.addAttribute("error", "Er moet minimaal één techniek worden toegevoegd.");
             return "modify/addtechnique";
         }
 
@@ -178,6 +178,74 @@ public class TechniqueModifyController {
         } else {
             return "redirect:/basic";
         }
+    }
+
+    @GetMapping("/edittechnique/{basicActionId}")
+    public String editTechnique(@PathVariable("basicActionId") Integer basicActionId, Principal principal, Model model, RedirectAttributes redirectAttributes) throws IOException {
+        Optional<Basic> optionalBasic = basicRepository.findById(basicActionId);
+        if (optionalBasic.isPresent()) {
+            Basic basic = optionalBasic.get();
+            Iterable<Technique> techniques = techniqueRepository.findByBasicId(basicActionId);
+            TechniqueListWrapper wrapper = new TechniqueListWrapper();
+            wrapper.setTechniques((List<Technique>) techniques);
+
+            model.addAttribute("basic", basic);
+            model.addAttribute("techniqueListWrapper", wrapper);
+            if (principal != null && principal.getName() != null){
+                String username = principal.getName();
+                Chef chef = chefRepository.findByUsername(username);
+                model.addAttribute("chef", chef);
+
+            }
+            return "modify/edittechnique";
+        } else {
+            return "redirect:/basic/";
+        }
+    }
+
+    @PostMapping("/edittechnique/{basicActionId}")
+    @Transactional
+    public String editTechnique(@PathVariable("basicActionId") Integer basicActionId,
+                               @ModelAttribute("techniqueListWrapper") TechniqueListWrapper wrapper, Principal principal,
+                               Model model) throws IOException {
+        List<Technique> currentTechniques = wrapper.getTechniques();
+        Optional<Basic> optionalBasic = basicRepository.findById(basicActionId);
+        model.addAttribute("basic", optionalBasic.get());
+        if (currentTechniques == null || currentTechniques.isEmpty()) {
+            String userName = principal.getName();
+            Chef chef = chefRepository.findByUsername(userName);
+            model.addAttribute("chef", chef);
+            model.addAttribute("error", "Er moet minimaal één techniek worden toegevoegd.");
+            return "modify/edittechnique";
+        }
+
+        for (Technique technique : currentTechniques) {
+            MultipartFile imageFile = technique.getImageFile();
+            if (technique.getId() == null) {
+                Technique newTechnique = new Technique();
+
+                Optional<Basic> basicOptional = basicRepository.findById(basicActionId);
+                newTechnique.setName(technique.getName());
+                newTechnique.setBasic(basicOptional.get());
+                newTechnique.setTechniqueDescription(technique.getTechniqueDescription());
+                if (imageFile != null && !imageFile.isEmpty()) {
+                    newTechnique.setImgFileName(uploadImage(imageFile));
+                }
+                techniqueRepository.save(newTechnique);
+            } else {
+                Optional<Technique> optionalTechnique = techniqueRepository.findById(technique.getId());
+                if (optionalTechnique.isPresent()) {
+                    Technique existingTechnique = optionalTechnique.get();
+                    existingTechnique.setBasic(basicRepository.findById(basicActionId).get());
+                    existingTechnique.setTechniqueDescription(technique.getTechniqueDescription());
+                    if (imageFile != null && !imageFile.isEmpty()) {
+                        existingTechnique.setImgFileName(uploadImage(imageFile));
+                    }
+                    techniqueRepository.save(existingTechnique);
+                }
+            }
+        }
+        return "redirect:/basic";
     }
 
     @PostMapping("/editbasicaction/{id}")
