@@ -12,10 +12,16 @@ function addTechnique() {
     hiddenInput.name = "techniques[" + table.rows.length + "].id";
     descriptionCell.appendChild(hiddenInput);
 
+    const nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.className = "form-control";
+    nameInput.name = "techniques[" + table.rows.length + "].name";
+    descriptionCell.appendChild(nameInput);
+
     const descriptionInput = document.createElement("input");
     descriptionInput.type = "text";
     descriptionInput.className = "form-control";
-    descriptionInput.name = "techniques[" + table.rows.length + "].description";
+    descriptionInput.name = "techniques[" + table.rows.length + "].techniqueDescription";
     descriptionCell.appendChild(descriptionInput);
 
     const imageInput = document.createElement("input");
@@ -53,7 +59,6 @@ function addTechnique() {
         }
     });
 }
-
 
 function deleteTechnique(id) {
     const rowEl = document.getElementById('technique'+id);

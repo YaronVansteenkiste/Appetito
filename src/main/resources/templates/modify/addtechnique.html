@@ -27,19 +27,20 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 mx-auto rounded border p-4 m-4">
+      <div class="alert alert-danger" th:if="${#fields.hasErrors('techniqueListWrapper')}">
+        <p th:each="error : ${#fields.errors('techniqueListWrapper')}" th:text="${error}"></p>
+      </div>
       <h2 class="text-center mb-5">Nieuwe Technieken</h2>
-      <form method="post" th:action="@{/modify/addtechnique}" th:object="${technique}">
-
-        <form th:action="@{|/modify/addtechnique/${technique.getId()}|}" th:object="${techniqueListWrapper}" method="post"
-              enctype="multipart/form-data">
+        <form method="post" th:action="@{|/modify/addtechnique/${basic.getId()}|}" th:object="${techniqueListWrapper}" enctype="multipart/form-data">
           <table class="table">
             <tr th:id="|technique${technique.id}|" th:each="technique, stat : *{techniques}">
               <td>
+                td>
                 <input type="hidden" th:field="*{techniques[__${stat.index}__].id}"/>
-                <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].techniqueDescription}"/>
-                <input type="file" class="techniqueImageInput form-control"
-                       th:field="*{techniques[__${stat.index}__].image}"/>
-                <img class="techniqueImagePreview img-fluid w-25" th:src="${technique.getImage()}"/>
+                <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].techniqueDescription}" placeholder="Technique Description"/>
+                <input type="text" class="form-control" th:field="*{techniques[__${stat.index}__].name}" placeholder="Name"/>
+                <input type="file" class="techniqueImageInput form-control" th:field="*{techniques[__${stat.index}__].imgFileName}"/>
+                <img class="techniqueImagePreview img-fluid w-25" th:src="${technique.getImgFileName()}"/>
               </td>
               <td>
                 <button type="button" class="btn btn-outline-danger"
@@ -49,7 +50,7 @@
             </tr>
           </table>
           <button type="button" class="btn btn-primary" onclick="addTechnique()">Add Technique</button>
-          <a th:href="@{|/modify/addbasicaction/${technique.id}|}" class="btn btn-outline-primary">Vorige</a>
+          <a th:href="@{|/modify/addbasicaction/${basic.getId()}|}" class="btn btn-outline-primary">Vorige</a>
           <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
         <form th:if="${technique != null}" th:action="@{/modify/saveAsConcept/{techniqueId}(techniqueId=${technique.id})}" method="post">

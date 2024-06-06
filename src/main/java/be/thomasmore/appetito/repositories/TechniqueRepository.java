@@ -12,9 +12,8 @@ import java.util.Optional;
 public interface TechniqueRepository extends CrudRepository<Technique,Integer> {
 
 
-    @Query("select t from Technique t where t.basic.id = ?1")
-    Iterable<Technique> findByTechniqueId(Integer techniqueId);
 
     @Query("select t from Technique t where t.basic.id = ?1")
-    Iterable<Technique> findAllByTechniqueId(Integer techniqueId);
+    Iterable<Technique> findByBasicId(Integer basicId);
+
 }

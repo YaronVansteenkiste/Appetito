@@ -12,7 +12,7 @@ public class Technique {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Length(max = 1000)
     @NotNull
@@ -33,11 +33,11 @@ public class Technique {
     public Technique() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -77,8 +77,6 @@ public class Technique {
         this.basic = basic;
     }
 
-    public void setBasicActionId(Integer basicActionId) {
-    }
 
     public MultipartFile getImageFile() {
         return imageFile;
