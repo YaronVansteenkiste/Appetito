@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -230,12 +231,25 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
         return "redirect:/menu/list";
     }
 
-    @GetMapping("/list")
-    public String listMenus(Model model, Principal principal) {
-        Iterable<Menu> menus = menuRepository.findAllByActiveTrue();
-        model.addAttribute("menus", menus);
-        return "menu/list";
+@GetMapping("/list")
+public String listMenus(Model model, Principal principal) {
+    boolean isAdmin = false;
+    if (principal != null) {
+        UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        isAdmin = authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
     }
+
+    Iterable<Menu> menus;
+    if (isAdmin) {
+        menus = menuRepository.findAll();
+    } else {
+        menus = menuRepository.findAllByActiveTrue();
+    }
+
+    model.addAttribute("menus", menus);
+    return "menu/list";
+}
 
 
     @PostMapping("/list")
@@ -260,7 +274,11 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
 
     @GetMapping("/details/{id}")
     public String getMenuDetails(@PathVariable("id") Integer id, Model model, Authentication authentication, Principal principal) {
-        Chef chef = chefRepository.findByUsername(principal.getName());
+       String username = "anoniem";
+       if (principal != null) {
+           username = principal.getName();
+       }
+        Chef chef = chefRepository.findByUsername(username);
         Optional<Menu> menu = menuRepository.findById(id);
         List<MenuDay> menuDays = menuDayRepository.findByMenu(menu);
 
@@ -291,24 +309,36 @@ public String addMenuIngredientsToGrocery(@PathVariable Integer menuId, Model mo
         return "menu/details";
     }
 
-    @GetMapping("/select/{id}")
-    public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal) {
-
-        Chef chef = chefRepository.findByUsername(principal.getName());
-        Dish dish = dishRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + id));
-        Iterable<Menu> menusOfChef = menuRepository.findByChef(chef);
-
-        if (chef == null || dish == null) {
-            return "redirect:/login";
-        }
-
-        model.addAttribute("dishId", id);
-        model.addAttribute("menus", menusOfChef);
-        model.addAttribute("dish", dish);
-
-        return "menu/select";
+    @PostMapping("/restore/{id}")
+public String restoreMenu(@PathVariable("id") Integer id) {
+    Optional<Menu> menuFromDb = menuRepository.getMenuById(id);
+    if (!menuFromDb.isPresent()) {
+        return "redirect:/menu/list";
     }
+    Menu menu = menuFromDb.get();
+    menu.setActive(true);
+    menuRepository.save(menu);
+    return "redirect:/menu/details/" + id;
+}
+
+    @GetMapping("/select/{id}")
+public String selectMenu(@PathVariable(required = false) Integer id, Model model, Principal principal) {
+
+    Chef chef = chefRepository.findByUsername(principal.getName());
+    Dish dish = dishRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid dish Id:" + id));
+    Iterable<Menu> activeMenusOfChef = menuRepository.findAllByActiveTrueAndChef(chef);
+
+    if (chef == null || dish == null) {
+        return "redirect:/login";
+    }
+
+    model.addAttribute("dishId", id);
+    model.addAttribute("menus", activeMenusOfChef);
+    model.addAttribute("dish", dish);
+
+    return "menu/select";
+}
 
   @PostMapping("/select/{menuId}/addDish/{dishId}")
 public String selectMenu(@PathVariable("menuId") Integer menuId, @PathVariable("dishId") Integer dishId) {

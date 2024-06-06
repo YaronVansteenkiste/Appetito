@@ -37,8 +37,8 @@
             <input type="text" id="keyword" name="keyword" class="form-control mb-2 mb-md-0"
                    placeholder="Welke handeling zoek je?"
                    aria-label="Search">
-            <button type="submit" class="btn btn-outline-primary">Zoeken</button>
-            <a sec:authorize="isAuthenticated()" class="ms-2 btn btn-success w-25" th:href="@{|/modify/addbasicaction|}">Nieuwe Handelingen</a>
+            <button type="submit" class="btn btn-outline-primary mt-2">Zoeken</button>
+            <a sec:authorize="isAuthenticated()" class="ms-2 btn btn-success w-25 mt-2" th:href="@{|/modify/addbasicaction|}">Nieuwe Handelingen</a>
         </div>
         <div id="keywordButtons" class="mt-3 g-5"></div>
     </form>

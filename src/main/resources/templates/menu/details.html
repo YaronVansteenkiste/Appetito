@@ -33,10 +33,18 @@
             </div>
             <div class="card-header">
                 <div class="d-flex justify-content-end">
-                <form th:action="@{|/menu/delete/${menu.getId()}|}" method="post">
-                    <button th:if="${isEditable}" type="submit" class="bi bi-trash3-fill btn btn-danger"> Menu Verwijderen</button>
-                </form>
-                <a th:if="${isEditable}" th:href="@{|/menu/edit/${menu.getId()}|}" class="btn btn-primary ms-2">Menu aanpassen</a>
+                    <form th:if="${menu.getActive()}" th:action="@{|/menu/delete/${menu.getId()}|}" method="post">
+                        <button th:if="${isEditable}" type="submit" class="bi bi-trash3-fill btn btn-danger">Menu
+                            Verwijderen
+                        </button>
+                    </form>
+                    <form th:unless="${menu.getActive()}" th:action="@{|/menu/restore/${menu.getId()}|}" method="post">
+                        <button th:if="${isEditable}" type="submit" class="bi bi-trash3-fill btn btn-success">Menu
+                            Herstellen
+                        </button>
+                    </form>
+                    <a th:if="${isEditable}" th:href="@{|/menu/edit/${menu.getId()}|}" class="btn btn-primary ms-2">Menu
+                        aanpassen</a>
                 </div>
                 <h1 class="card-title text-center" th:text="${menu.getName()}"></h1>
                 <h5 class="card-title text-center" th:text="|Gemaakt voor ${menu.getNumberOfPeople()} personen|"></h5>
@@ -46,7 +54,8 @@
                 <div class="card my-1">
                     <div class="card-header">
                         <h5 class="card-title d-inline-block" th:text="|Dag ${menuDay.getDayNumber()}|"></h5>
-                        <form th:if="${isEditable}" th:action="@{|/menu/${menu.getId()}/removeDay/${menuDay.getId()}|}" method="post">
+                        <form th:if="${isEditable}" th:action="@{|/menu/${menu.getId()}/removeDay/${menuDay.getId()}|}"
+                              method="post">
                             <button type="submit" class="bi bi-trash3-fill btn btn-danger"> Dag Verwijderen</button>
                         </form>
                     </div>
@@ -63,7 +72,9 @@
                                         th:text="${dish.getName()}"></h5>
                                     <form th:action="@{|/menu/${menu.getId()}/selectDay/${menuDay.getId()}/removeDish/${dish.getId()}|}"
                                           method="post">
-                                        <button th:if="${isEditable}" type="submit" class="bi bi-trash3-fill btn btn-danger"> Maaltijd Verwijderen</button>
+                                        <button th:if="${isEditable}" type="submit"
+                                                class="bi bi-trash3-fill btn btn-danger"> Maaltijd Verwijderen
+                                        </button>
                                     </form>
                                 </div>
                                 <div class="card-footer">
@@ -80,8 +91,8 @@
             <div class="card-header">
                 <h5 class="card-title">Voeg een dag toe</h5>
             </div>
-            <div  class="card-body">
-                <form  th:action="@{|/menu/${menu.getId()}/addDay|}" method="post">
+            <div class="card-body">
+                <form th:action="@{|/menu/${menu.getId()}/addDay|}" method="post">
                     <button type="submit" class="btn btn-primary">Voeg dag toe</button>
                 </form>
             </div>
