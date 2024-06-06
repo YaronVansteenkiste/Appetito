@@ -51,7 +51,7 @@
         <div class="card col-4" th:each="basic : ${basics}">
             <div  style="height: 400px;">
                 <a th:href="@{/basicdetails/{id}(id=${basic.id})}">
-                <img th:src="@{${basic.getImgFileName()}}" class="card-img-top"
+                <img th:src="${basic.getImgFileName() != null} ? ${basic.getImgFileName()} : '/img/Empty_plate.png'" class="card-img-top"
                      alt="Image" style="height: 200px; object-fit: cover;">
                 </a>
                 <div class="card-body">
