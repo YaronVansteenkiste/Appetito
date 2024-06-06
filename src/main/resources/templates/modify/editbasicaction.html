@@ -53,6 +53,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Afbeelding van handeling</label>
                     <div class="col-sm-8">
+                        <img th:src="${basic.getImgFileName()}" alt="Image" width="100" height="100"/>
                         <input type="file" class="form-control" th:field="${basic.image}">
                         <p th:if="${#fields.hasErrors('image')}" th:errorclass="text-danger"
                            th:errors="${basic.image}"></p>

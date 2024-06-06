@@ -237,6 +237,7 @@ public class TechniqueModifyController {
                 if (optionalTechnique.isPresent()) {
                     Technique existingTechnique = optionalTechnique.get();
                     existingTechnique.setBasic(basicRepository.findById(basicActionId).get());
+                    existingTechnique.setName(technique.getName());
                     existingTechnique.setTechniqueDescription(technique.getTechniqueDescription());
                     if (imageFile != null && !imageFile.isEmpty()) {
                         existingTechnique.setImgFileName(uploadImage(imageFile));
@@ -249,7 +250,7 @@ public class TechniqueModifyController {
     }
 
     @PostMapping("/editbasicaction/{id}")
-    public String dishEditPost(@Valid @ModelAttribute Basic basic, BindingResult result,
+    public String basicActionPost(@Valid @ModelAttribute Basic basic, BindingResult result,
                                @RequestParam(required = false) MultipartFile image,
                                @PathVariable int id, Model model) {
 
@@ -267,7 +268,9 @@ public class TechniqueModifyController {
                 Basic basicFromDB = optionalBasic.get();
                 basicFromDB.setAction(basic.getAction());
                 basicFromDB.setDescription(basic.getDescription());
-                basicFromDB.setImgFileName(uploadImage(image));
+                if (image != null && !image.isEmpty()) {
+                    basicFromDB.setImgFileName(uploadImage(image));
+                }
                 basicRepository.save(basicFromDB);
 
                 return "redirect:/modify/edittechnique/" + id;
