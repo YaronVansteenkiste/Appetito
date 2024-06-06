@@ -138,14 +138,4 @@ public class Chef {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "chef")
-    private Collection<Review> review;
-
-    public Collection<Review> getReview() {
-        return review;
-    }
-
-    public void setReview(Collection<Review> review) {
-        this.review = review;
-    }
 }

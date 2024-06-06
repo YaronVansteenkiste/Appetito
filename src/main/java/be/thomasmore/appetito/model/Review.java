@@ -13,17 +13,20 @@ public class Review {
     private Integer id;
 
     private String review;
-    @Timestamp
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
     private Date date;
 
     private String name;
-
+    @ManyToOne
+    @JoinColumn(name = "dish_id")
+    private Dish dish;
     @ManyToOne
     @JoinColumn(name = "chef_id")
     private Chef chef;
 
-    @ManyToMany
-    private List<Dish> dishes;
+
+
 
     public Review() {
     }
@@ -61,18 +64,7 @@ public class Review {
         this.name = name;
     }
 
-    public List<Dish> getDishes() {
-        return dishes;
-    }
 
-    public void setGames(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
-
-
-    public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
-    }
 
     public Chef getChef() {
         return chef;
@@ -80,5 +72,14 @@ public class Review {
 
     public void setChef(Chef chef) {
         this.chef = chef;
+    }
+
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
     }
 }

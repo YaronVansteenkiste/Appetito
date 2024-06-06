@@ -16,6 +16,7 @@ import be.thomasmore.appetito.repositories.DishRepository;
 
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -171,37 +172,38 @@ public class DishDetailController<ToggleRequest> {
         }
         Review review = new Review();
         model.addAttribute("review", review);
-        model.addAttribute("count",reviewRepository.count());
+        model.addAttribute("count", dishFromDB.get().getReviews().size());
         return "dishdetail";
     }
-    @GetMapping("/deletecomment/{dishId}/{reviewId}")
-    public String deleteComment(@PathVariable int dishId, @PathVariable int reviewId) {
-        Optional<Dish> dishOptional = dishRepository.findById(dishId);
+    @GetMapping("/{id}")
+    public String dishDetail(Model model, @PathVariable Integer id) {
+        Optional<Dish> dishOptional = dishRepository.findById(id);
         if (dishOptional.isPresent()) {
             Dish dish = dishOptional.get();
-            dish.getReviews().removeIf(review -> review.getId() == reviewId);
-            dishRepository.save(dish);
+            model.addAttribute("dish", dish);
+            model.addAttribute("review", new Review());
+            model.addAttribute("count", dish.getReviews().size());
+            return "dishdetail";
+        } else {
+            return "error"; // or redirect to an appropriate error page
         }
-        return "redirect:/dishdetails/" + dishId;
     }
-    @PostMapping("/dishdetails/{id}")
-    public String dishDetails(Model model, @PathVariable(required = false) Integer id, Principal principal,
-                              @ModelAttribute("reviews") Review formReviews) {
 
+    @PostMapping("/{id}/addcomment")
+    public String addComment(@PathVariable Integer id, @ModelAttribute("review") Review formReview) {
         Optional<Dish> dishOptional = dishRepository.findById(id);
-        Dish dish = dishOptional.get();
+        if (dishOptional.isPresent()) {
+            Dish dish = dishOptional.get();
 
-        Review review = new Review();
-        review.setName(formReviews.getName().trim());
-        review.setReview(formReviews.getReview().trim());
-        review.setDate(new Date());
-        reviewRepository.save(review);
+            formReview.setDate(new Date());
+            formReview.setDish(dish);
 
-        dish.getReviews().add(review);
-        dishRepository.save(dish);
+            reviewRepository.save(formReview);
 
-
-        return "dishdetail";
+            return "redirect:/dishdetails/" + id;
+        } else {
+            return "error";
+        }
     }
 
     @PostMapping("/toggle/dish/{id}")
@@ -214,7 +216,7 @@ public class DishDetailController<ToggleRequest> {
 
 
     @PostMapping("/dishdetails/addingredients/{id}")
-public String addIngredientsToGrocery(@PathVariable(required = true) Integer id, @RequestParam Integer persons, Principal principal) {
+  public String addIngredientsToGrocery(@PathVariable(required = true) Integer id, @RequestParam Integer persons, Principal principal) {
     if (principal == null) {
         return "redirect:/user/login";
     }

@@ -42,6 +42,8 @@ public class Dish {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "concept_chef_id")
     private Chef conceptChef;
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
 
 
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -252,8 +254,6 @@ public class Dish {
         this.step = step;
     }
 
-    @ManyToMany(mappedBy = "dishes")
-    private List<Review> reviews;
 
     public List<Review> getReviews() {
         return reviews;
