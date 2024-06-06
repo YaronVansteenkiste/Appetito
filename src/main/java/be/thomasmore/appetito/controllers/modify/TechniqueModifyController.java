@@ -61,7 +61,7 @@ public class TechniqueModifyController {
         Basic basic = (id != null) ? basicRepository.findById(id).orElse(new Basic()) : new Basic();
         model.addAttribute("basic", basic);
         model.addAttribute("id", id);
-        return "/modify/addbasicaction";
+        return "modify/addbasicaction";
     }
 
     @PostMapping({"/addbasicaction", "/addbasicaction/{id}"})
