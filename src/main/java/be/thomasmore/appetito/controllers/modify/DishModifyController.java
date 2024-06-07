@@ -677,8 +677,16 @@ public String showCreateDish(Model model, @PathVariable(value = "id", required =
     @PostMapping("/addsteps/{id}")
     @Transactional
     public String addSteps(@PathVariable("id") Integer id,
-                           @ModelAttribute("stepListWrapper") StepListWrapper wrapper,Principal principal,
-                           Model model) throws IOException {
+                           @ModelAttribute("stepListWrapper") StepListWrapper wrapper,
+                           BindingResult result, Principal principal, Model model) throws IOException {
+        if (result.hasErrors()) {
+            String userName = principal.getName();
+            Chef chef = chefRepository.findByUsername(userName);
+            model.addAttribute("chef", chef);
+            model.addAttribute("error", "All fields must be filled in.");
+            return "modify/addsteps";
+        }
+
         List<Step> currentSteps = wrapper.getSteps();
 
         if (currentSteps == null || currentSteps.isEmpty()) {

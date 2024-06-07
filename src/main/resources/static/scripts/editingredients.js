@@ -1,3 +1,17 @@
+function validateForm() {
+    const ingredients = document.getElementsByClassName('ingredient-row');
+    for (let i = 0; i < ingredients.length; i++) {
+        const name = ingredients[i].querySelector('input[type="text"]');
+        const quantity = ingredients[i].querySelector('input[type="number"]');
+        const unit = ingredients[i].querySelector('input[type="text"]');
+        if (name.value == '' || quantity.value == '' || unit.value == '') {
+            quantity.value = '0.0';
+            return false;
+        }
+    }
+    return true;
+}
+
 function addIngredient() {
     const container = document.querySelector('.container-fluid');
     const index = container.children.length;
@@ -54,3 +68,5 @@ function deleteIngredientDb(button, ingredientId) {
             console.error('There has been a problem with your fetch operation:', error);
         });
 }
+
+

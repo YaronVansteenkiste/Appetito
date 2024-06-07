@@ -50,7 +50,7 @@
         </form>
 
         <form method="post" th:action="@{/modify/addingredients/{id}(id=${dish.id})}"
-              enctype="multipart/form-data" th:object="${ingredientListWrapper}">
+              enctype="multipart/form-data" th:object="${ingredientListWrapper}" onsubmit="return validateForm();">
             <label class="col-form-label" for="numberOfPeople">Aantal personen:</label>
             <input class="form-control" type="number" id="numberOfPeople" name="numberOfPeople" min="1"
                    th:value="${dish.numberOfPeople}"/>

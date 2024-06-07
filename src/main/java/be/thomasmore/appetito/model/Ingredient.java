@@ -1,6 +1,7 @@
 package be.thomasmore.appetito.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -17,8 +18,11 @@ public class Ingredient {
 
 
 
+    @NotNull
     private String name;
 
+
+    @NotNull
     private Double quantity;
     private String imgFileName;
     private String unit;
