@@ -34,7 +34,8 @@
                     <div class="col-12 col-md-4">
                         <div class="d-flex">
                             <input type="submit" class="btn btn-outline-primary ms-2 me-2 mb-md-0" value="zoeken">
-                            <a sec:authorize="isAuthenticated()" class="btn btn-success" th:href="@{|/modify/adddish|}">Nieuw Recept</a>
+                            <a sec:authorize="isAuthenticated()" class="btn btn-success" th:href="@{|/modify/adddish|}">Nieuw
+                                Recept</a>
                         </div>
                     </div>
                 </div>
@@ -52,8 +53,9 @@
                         <div th:each="dish : ${alldishes}" th:if="${dish.isActive()}" class="col">
                             <div class="card" style="height: 400px;">
                                 <a th:href="@{|/dishdetails/${dish.id}|}">
-                                <img th:src="${dish.getImgFileName() != null} ? ${dish.getImgFileName()} : '/img/Empty_plate.png'" class="card-img-top"
-                                     alt="dish Image" style="height: 200px; object-fit: cover;">
+                                    <img th:src="${dish.getImgFileName() != null} ? ${dish.getImgFileName()} : '/img/Empty_plate.png'"
+                                         class="card-img-top"
+                                         alt="dish Image" style="height: 200px; object-fit: cover;">
                                 </a>
                                 <div class="card-body">
                                     <h5 th:text="${dish.name}" class="card-title"></h5>
@@ -124,13 +126,15 @@
                            id="dietPreferencesKeto">
                     <label class="form-check-label" for="dietPreferencesKeto"> Keto</label>
                 </div>
-                <div class="form-group mt-2">
-                    <label for="customDietPreferences">Aangepaste categorie</label>
-                    <input type="text" class="form-control" id="customDietPreferences" name="customDietPreferences"
-                           th:value="${customDietPreferences}" list="customDietPreferencesList">
-                    <datalist id="customDietPreferencesList">
-                        <option th:each="customPref : ${customDietPreferencesList}" th:value="${customPref}"></option>
-                    </datalist>
+                <div class="form-check">
+                    <label for="customDietPreferences" class="form-check-label">Aangepaste categorie</label>
+                    <div class="d-inline-flex">
+                        <input type="text" class="form-control" id="customDietPreferences" name="customDietPreferences"
+                               th:value="${customDietPreferences}" list="customDietPreferencesList">
+                        <datalist id="customDietPreferencesList">
+                            <option th:each="customPref : ${customDietPreferencesList}" th:value="${customPref}"></option>
+                        </datalist>
+                    </div>
                 </div>
 
 
