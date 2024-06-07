@@ -30,7 +30,7 @@
 
 <h2 class="text-center mt-5" th:text="'Handige technieken tijdens het ' +${basic.action} "></h2>
 
-<a class="btn btn-primary mt-3" th:href="@{|/modify/editbasicaction/${basic.id}|}">Handeling bewerken</a>
+<a class="btn btn-primary mt-3" sec:authorize="hasAuthority('ADMIN')" th:href="@{|/modify/editbasicaction/${basic.id}|}">Handeling bewerken</a>
 
   <div th:if="${techniques != null}" class="col-md-8">
     <div class="row">
