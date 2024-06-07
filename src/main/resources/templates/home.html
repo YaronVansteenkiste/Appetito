@@ -65,7 +65,7 @@
         <article
                 class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
             <a href="/menu/list">
-            <img th:src="@{/img/best-meal.png}" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Best meal">
+            <img th:src="@{/img/best-meal.png}" class="img-fluid" style="max-height: 150px;" alt="Best meal">
             </a>
             <h3>Inspirerende Menusuggesties</h3>
             <p>Ontdek aanbevolen menu's</p>
@@ -74,7 +74,7 @@
 
         <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
             <a href="/dishes">
-            <img th:src="@{/img/meal-list.png}" href="/dishes" class="img-fluid h-50 w-75" style="max-height: 150px;" alt="Meal list">
+            <img th:src="@{/img/meal-list.png}" href="/dishes" class="img-fluid" style="max-height: 150px;" alt="Meal list">
             </a>
             <h3>Ontdek een verscheidenheid aan maaltijdopties</h3>
             <p>Ontdek nieuwe smaken en culinaire ervaringen</p>
@@ -83,11 +83,11 @@
 
         <article class="col-md-4 col-lg-4 text-center d-flex flex-column align-items-center">
             <a sec:authorize="${isAuthenticated()}" href="/modify/adddish">
-            <img th:src="@{/img/meal-creation.png}" class="img-fluid h-50 w-75" style="max-height: 150px;"
+            <img th:src="@{/img/meal-creation.png}" class="img-fluid" style="max-height: 150px;"
                  alt="Meal Creation">
             </a>
             <a sec:authorize="${!isAuthenticated()}" href="/user/login">
-            <img th:src="@{/img/meal-creation.png}" class="img-fluid h-50 w-75" style="max-height: 150px;"
+            <img th:src="@{/img/meal-creation.png}" class="img-fluid" style="max-height: 150px;"
                  alt="Meal Creation">
             </a>
             <h3>Publiceer uw eigen unieke recepten</h3>

@@ -314,7 +314,7 @@
     </div>
 
     <div th:if="${filterEnabled}">
-        <div class="pagination">
+        <div class="pagination mt-2">
             <a th:if="${hasPrevious}"
                th:href="@{/dishes/filter(page=${currentPage - 1}, dietPreferencesStr=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
     maxPreparationTimeStr=${maxPreparationTime}, occasionStr=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
@@ -322,7 +322,7 @@
     minSaturatedFat=${minSaturatedFat},maxSaturatedFat=${maxSaturatedFat},minFat=${minFat},maxFat=${maxFat},
     minProteins=${minProteins},maxProteins=${maxProteins},ratingStr=${ratings}, customDietPreferences=${customDietPreferences})}"
                class="btn btn-primary">← Prev</a>
-            <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info"></span>
+            <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}" class="page-info me-2"></span>
             <a th:if="${hasNext}"
                th:href="@{/dishes/filter(page=${currentPage + 1}, dietPreferencesStr=${dietPreferences}, minPreparationTimeStr=${minPreparationTime},
     maxPreparationTimeStr=${maxPreparationTime}, occasionStr=${occasion},minCarbs=${minCarbs},maxCarbs=${maxCarbs},
