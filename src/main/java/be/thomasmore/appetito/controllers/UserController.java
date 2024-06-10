@@ -3,8 +3,10 @@ package be.thomasmore.appetito.controllers;
 
 import be.thomasmore.appetito.model.Chef;
 import be.thomasmore.appetito.model.Dish;
+import be.thomasmore.appetito.model.Grocery;
 import be.thomasmore.appetito.repositories.ChefRepository;
 import be.thomasmore.appetito.repositories.DishRepository;
+import be.thomasmore.appetito.repositories.GroceryRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -35,7 +37,8 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
+    @Autowired
+    private GroceryRepository groceryRepository;
 
     @Autowired
     private JdbcUserDetailsManager jdbcUserDetailsManager;
@@ -119,6 +122,9 @@ public class UserController {
         chef.setSurname(surname);
         chefRepository.save(chef);
 
+        Grocery grocery = new Grocery();
+        grocery.setChef(chef);
+        groceryRepository.save(grocery);
         request.login(username, password);
 
         return "redirect:/";
