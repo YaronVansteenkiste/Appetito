@@ -38,30 +38,24 @@ public class GroceriesController {
         if (principal == null) {
             return "redirect:/user/login";
         }
-
         Chef chef = chefRepository.findByUsername(principal.getName());
+        logger.info("Logged in chef: " + chef.getUsername());
+        Integer chefId = chef.getId();
 
-        if (chef == null) {
-
-            return "redirect:/error";
+        Optional<Grocery> groceryFromDB = groceryRepository.findById(chefId);
+        if (groceryFromDB.isPresent()) {
+            Grocery grocery = groceryFromDB.get();
+            logger.info("Fetched grocery: " + grocery.getId());
+            model.addAttribute("grocery", grocery);
+        } else {
+            Grocery newGrocery = new Grocery();
+            newGrocery.setChef(chef);
+            Grocery savedGrocery = groceryRepository.save(newGrocery);
+            model.addAttribute("grocery", savedGrocery);
         }
 
-        logger.info("Logged in chef: " + chef.getUsername());
-
-
-        Grocery grocery = groceryRepository.findByChef(chef)
-                .orElseGet(() -> {
-                    Grocery newGrocery = new Grocery();
-                    newGrocery.setChef(chef);
-                    return groceryRepository.save(newGrocery);
-                });
-
-
-
-        model.addAttribute("grocery", grocery);
         return "groceries";
     }
-
 
     @DeleteMapping("/groceries/deleteIngredient/{id}")
     public ResponseEntity<?> deleteIngredient(@PathVariable Integer id, Principal principal) {
