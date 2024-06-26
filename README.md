@@ -6,6 +6,8 @@
 
 Welcome to Appetito, your go-to application for culinary adventures! Whether you're in search of new recipes, need help finding ingredients, or want to share your own culinary creations, Appetito has got you covered. Plus, with the Errandslist feature, managing your grocery shopping has never been easier!
 
+<a href="https://appetito-bkw6uylqyq-ew.a.run.app" target="_blank">App deployed on Google Cloud!</a>
+
 ## Features
 
 - **Recipe Discovery**: Explore a vast collection of recipes from various cuisines and discover new flavors to tantalize your taste buds.
